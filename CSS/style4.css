@@ -1,0 +1,289 @@
+/* --- Reset e Estrutura Geral --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+.background-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Cabeçalho --- */
+.cabeçalho {
+    background-color: #7296be;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logotipo img {
+    height: 40px;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.dropdown-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* --- Conteúdo Principal --- */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.titulo-pagina-externo {
+    align-self: flex-end;
+    margin-right: 5%;
+    color: #7296be;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Container que envolve os cards e a tabela */
+.card-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- Seção de Saldo e Botão Inserir --- */
+.header-carteira-top {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.card-valor {
+    background: white;
+    border: 3px solid #1a3a5a;
+    border-radius: 20px;
+    padding: 15px 40px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-valor strong {
+    color: #5b7da1;
+}
+
+.btn-inserir-credito {
+    background-color: #3a5e3e;
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s;
+    border: 3px solid #2e4b31;
+}
+
+.btn-inserir-credito:hover {
+    background-color: #2e4b31;
+}
+
+/* --- Histórico de Valores (Tabela) --- */
+.histórico-valores {
+    background-color: white;
+    border: 4px solid #1a3a5a; /* Borda grossa característica do projeto */
+    border-radius: 35px;
+    min-height: 450px;
+    padding: 30px;
+}
+
+.tabela-header {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1.5fr; /* Distribuição das colunas */
+    text-align: center;
+    font-weight: bold;
+    color: #5475a3;
+    font-size: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+/* --- MODAIS --- */
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none; /* Escondido por padrão */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-wrapper:target {
+    display: flex;
+}
+
+.modal-box {
+    background: white;
+    padding: 40px;
+    border-radius: 40px;
+    border: 6px solid #0b1622;
+    max-width: 550px;
+    width: 95%;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.modal-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+.grid-predefinidos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.opt-valor {
+    background: #d9d9d9;
+    border: 3px solid #b0b0b0;
+    padding: 18px;
+    border-radius: 18px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.campo-personalizado p {
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.campo-personalizado input {
+    width: 100%;
+    background: #d9d9d9;
+    border: 3px solid #b0b0b0;
+    padding: 15px;
+    border-radius: 18px;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.btn-proximo, .btn-finalizar {
+    background-color: #436d4d;
+    color: white;
+    padding: 12px 50px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-retornar {
+    background-color: #703030;
+    color: white;
+    padding: 12px 50px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.valor-confirmado {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 15px;
+    background: #d9d9d9;
+    border-radius: 15px;
+    border: 3px solid #b0b0b0;
+    font-weight: bold;
+    font-size: 1rem;
+    appearance: none;
+    text-align: center;
+}
+
+/* --- Rodapé --- */
+.rodapé {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
+    color: #666;
+}

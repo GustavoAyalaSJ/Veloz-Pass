@@ -1,0 +1,449 @@
+/* --- Reset e Estrutura --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* --- Layout Geral --- */
+.background-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+}
+
+/* --- Cabeçalho --- */
+.cabeçalho {
+    background-color: #3b5f80;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    color: white;
+    font-weight: 600;
+    flex-shrink: 0;
+    z-index: 10;
+    position: relative;
+}
+
+.logotipo img {
+    height: 50px;
+    width: auto;
+}
+
+.termos {
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.termos:hover {
+    color: #c0e1f8;
+}
+
+/* --- Área Central com Fundo --- */
+.main-content {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    max-width: 1600px;
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+
+.left {
+    position: relative;
+    z-index: 2;
+    width: 450px;
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+}
+
+
+.right {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url('FundoRightNEW.png');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+
+
+/* --- Card Central --- */
+.containerLeft {
+    background-color: #24344d;
+    color: white;
+    width: 100%;
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    border: 1.5spx solid rgba(12, 15, 27, 0.1);
+}
+
+.sobre-left h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 0.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.sobre-left h2 {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.sobre-left p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+.destacar {
+    color: #a1cdff;
+}
+
+.ButtonBottomText {
+    background-color: #3e6b48;
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(62, 107, 72, 0.4);
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.ButtonBottomText:hover {
+    transform: translateY(-3px);
+    background-color: #4a7e56;
+    box-shadow: 0 6px 20px rgba(62, 107, 72, 0.6);
+}
+
+/* Modais (Cadastro, Login e Termos) */
+.hidden {
+    display: none !important;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 450px;
+    max-height: 90vh;
+    padding: 2rem;
+    border-radius: 8px;
+    position: relative;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-content label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #444;
+    display: block;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.modal-content input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.modal-content a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    align-self: flex-end;
+    margin-top: -5px;
+}
+
+.modal-content a:hover {
+    text-decoration: underline;
+}
+
+.modal-content p {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modal-content form div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.modal-content button:not(.close-btn) {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.botao-estilizado {
+    display: block; 
+    width: 100%;
+    background-color: #007bff;
+    color: rgb(250, 250, 250) !important;
+    text-decoration: none !important;  
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.botao-estilizado:hover {
+    background-color: #0056b3;
+    text-decoration: none !important;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    transform: translateY(-2px);
+    color: rgb(250, 250, 250);
+}
+
+#btnGoToCadastro,
+#btnBackToLogin {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+#btnGoToCadastro:hover,
+#btnBackToLogin:hover {
+    background-color: #e2e6ea;
+}
+
+.destacarLogin {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- Rodapé --- */
+.rodapé {
+    background-color: #485f78;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    width: 100%;
+    font-size: 0.85rem;
+    z-index: 10;
+}
+
+.destacarAPP {
+    color: #aaddff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.destacarAPP:hover {
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 1600px) {
+    .logotipo img {
+        height: 55px;
+        margin-right: 50px;
+        margin-top: 5px;
+        width: auto;
+    }
+
+    .containerLeft {
+        margin-left: 25px;
+        padding-bottom: 30px;
+        margin-top: 10px;
+    }
+
+    .sobre-left h2 {
+        padding-top: 15px;
+    }
+
+    .main-content {
+        padding: 2.5rem 1rem;
+    }
+
+    .termos {
+        font-size: 0.9rem;
+        right: 20px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .main-content {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .containerLeft {
+        max-width: 420px;
+        padding: 2.3rem 1.5rem;
+        margin: 0 auto;
+    }
+
+    .left {
+        width: 100%;
+        max-width: 450px;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .right {
+        display: block;
+        width: 100%;
+        min-height: 350px;
+        background-position: center;
+    }
+}
+
+@media (max-width: 950px) {
+    .main-content {
+        padding: 2rem 1rem;
+        background-position: top;
+    }
+
+    .containerLeft {
+        padding: 2.5rem 1.5rem;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .sobre-left h1 {
+        font-size: 2rem;
+    }
+
+    .sobre-left p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        padding: 2rem 1rem;
+    }
+
+    .containerLeft {
+        text-align: center;
+        align-items: center;
+        margin-left: 0;
+        max-width: 380px;
+    }
+
+    .sobre-left p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .cabeçalho {
+        height: 70px;
+        padding: 0 1.5rem;
+    }
+
+    .logotipo img {
+        height: 40px;
+    }
+
+    .containerLeft {
+        max-width: 330px;
+        padding: 2rem 1.2rem;
+    }
+
+    .sobre-left h1 {
+        font-size: 1.8rem;
+    }
+}

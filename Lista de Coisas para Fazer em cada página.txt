@@ -1,0 +1,34 @@
+Em todas as páginas:
+- Adicionar o modo escuro para funcionar em todas as páginas e modais (exceto a introdução);
+
+index.html (Introdução):
+- Melhorar as informações do modal de informações;
+- Ajustar o espaço entre Termos para o icone de Usuário;
+- Fazer o texto de download da versão de APP funcionar;
+- Criar um modal para esquecer senha?
+- Criar um modal para Termos de Uso e Políticas de Privacidade.
+
+index2.html (Página Inicial):
+- Ajustar a posição do termos e privacidade;
+- Tirar o valor Placeholder para o real preço da passagem.
+- Colocar o JS para atualizar o valor disponível em tempo real e colocar as últimas recargas realizadas em uma lista de três linhas que vão atualizando assim que novas são realizadas.
+
+index3.html (Histórico Geral)
+- Estilizar com CSS e fazer um JS que pegue as informações de recarga e inserção de valor na carteira.
+
+index4.html (Carteira Digital)
+- Colocar o JS para colocar o valor de inserção de crédito na tabela;
+- Atualizar o modal para colocar uma seção de inserir as informações bancárias para realizar a recarga, juntamente com a logo do banco que está realizando a recarga;
+- Ajustar o espaço entre Termos e Política do Icone de Usuário.
+
+index5.html (Recarga)
+- Estilizar com CSS;
+(outras informações em breve).
+
+index6.html (Visualizar lista - Processos)
+- Estilizar com CSS;
+(outras informações em breve).
+
+index7.html (Página de download da versão de aplicativo)
+- Fazer o design da página no Canva;
+(outras informações em breve).

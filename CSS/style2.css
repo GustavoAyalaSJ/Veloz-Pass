@@ -1,0 +1,339 @@
+/* --- Reset e Estrutura --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+/* --- Layout Geral --- */
+.background-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Cabeçalho --- */
+.cabeçalho {
+    background-color: #7296be;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logotipo img {
+    height: 40px;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.termos {
+    font-size: 0.9rem;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.dropdown-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* --- Conteúdo Principal --- */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.welcome-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: black;
+}
+
+/* --- Card principal com informações --- */
+.card-container {
+    background-color: #dbdbdb;
+    border: 3px solid #7296be;
+    border-radius: 40px;
+    width: 100%;
+    max-width: 900px;
+    padding: 40px 40px 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.carteira-container,
+.recarga-container,
+.recarga-process,
+.information-paybus {
+    background-color: #ffffff;
+    border-radius: 25px;
+    border: 3px solid #7296be;
+    padding: 20px;
+    margin-top: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carteira-container {
+    grid-column: 1;
+}
+
+.carteira-valor {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.btn-carteira {
+    background-color: #3a5e3e;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-process {
+    background-color: #5475a3;
+    color: #ffffff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    width: 70%;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-carteira:hover {
+    background-color: #5d9764;
+    cursor: pointer;
+}
+
+.btn-process:hover {
+    background-color: #435e82;
+    cursor: pointer;
+}
+
+.recarga-container {
+    text-decoration: none;
+    transition: transform 0.2s;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5b7da1;
+    cursor: pointer;
+}
+
+.recarga-container:hover {
+    transform: scale(1.02);
+    background-color: #f9f9f9;
+}
+
+.information-paybus {
+    grid-column: 1;
+    height: 120px;
+    position: relative;
+}
+
+.info-title {
+    position: absolute;
+    top: -26px;
+    left: 70px;
+    padding-bottom: 7px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.recarga-process {
+    grid-column: 2;
+    height: 200px;
+    position: relative;
+    justify-content: flex-end;
+}
+
+.process-title {
+    position: absolute;
+    top: -26px;
+    font-weight: bold;
+}
+
+.btn-process {
+    background-color: #5475a3;
+    color: #ffffff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    width: 70%;
+    cursor: pointer;
+}
+
+/* --- Rodapé --- */
+.rodapé {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* --- Responsividade --- */
+@media (min-width: 1600px) {
+    .card-container {
+        max-width: 1200px;
+        padding: 60px;
+        gap: 40px;
+    }
+
+    .welcome-text {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .card-container {
+        max-width: 900px;
+        padding: 30px;
+    }
+
+    .welcome-text {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 950px) {
+    .card-container {
+        max-width: 800px;
+        gap: 15px;
+    }
+
+    .cabeçalho {
+        padding: 15px 25px;
+    }
+}
+
+@media (max-width: 900px) {
+    .card-container {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        border-radius: 30px;
+    }
+
+    .information-paybus,
+    .recarga-process {
+        grid-column: auto;
+        height: auto;
+        min-height: 150px;
+        margin-top: 20px;
+    }
+
+    .welcome-text {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .carteira-container,
+    .recarga-container {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .cabeçalho {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px 15px;
+    }
+
+    .termos {
+        display: none;
+    }
+
+    .welcome-text {
+        font-size: 1.5rem;
+    }
+
+    .card-container {
+        border-radius: 20px;
+        padding: 15px;
+    }
+
+    .carteira-container::after,
+    .recarga-process::after {
+        width: 100%;
+        padding: 15px;
+    }
+}

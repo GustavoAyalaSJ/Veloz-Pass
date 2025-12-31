@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veloz Pass</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="icon" type="image/png" href="Assets/Favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+</head>
+
+<body>
+    <div class="background-container">
+        <header class="cabeçalho">
+            <div class="logotipo">
+                <img src="Assets/LogoWeb.png" alt="VelozLogo">
+            </div>
+            <div class="termos" id="btnOpenTermosHeader">
+                Termos e Políticas
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="left">
+                <div class="containerLeft">
+                    <section class="sobre-left">
+                        <h1>Acabe com as filas para <span class="destacar">recarregar</span> seu cartão</h1>
+                        <h2>Use nosso site e app para recarregar com eficiência, a onde estiver.</h2>
+                        <p>
+                            O <strong>Veloz Pass</strong> é um site que elimina a dor de cabeça das recargas
+                            presenciais.
+                            Com tecnologia segura e uma interface simples, você recarrega seu cartão de transporte sem
+                            enfrentar filas, com confirmação imediata e suporte humano quando precisar.
+                        </p>
+                    </section>
+                    <button class="ButtonBottomText" id="btnOpenLoginMain">LOGAR</button>
+                </div>
+            </div>
+            <div class="right">
+                <!-- Container para o fundo de imagens -->
+            </div>
+        </main>
+
+        <footer class="rodapé">
+            <p>Veloz Pass © 2025 - Todos os direitos reservados | <span class="destacarAPP" href="#">Clique aqui para
+                    acessar o download do APP</span></p>
+        </footer>
+
+        <div id="rootModal" class="hidden">
+            <div class="modal-overlay">
+                <div class="modal-content" id="modalContentContainer">
+                    <button id="btnCloseModal" class="close-btn">X</button>
+                    <h2>Login</h2>
+                    <form id="formLogin">
+                        <label>E-mail ou nome completo:</label>
+                        <input type="text" placeholder="Digite aqui!" required autocomplete="off"/>
+
+                        <label>Senha:</label>
+                        <input type="password" placeholder="Digite aqui!" required autocomplete="off"/>
+
+                        <a href="#">Esqueceu a senha?</a>
+
+                        <a href="index2.html" class="botao-estilizado">Entrar</a>
+                        <button type="button" id="btnGoToCadastro">Criar conta</button>
+
+                        <p>Ao conectar-se com este site, você estará concordando com nossos <span
+                                class="destacarLogin">Termos de Uso</span> e <span class="destacarLogin">Políticas de
+                                Privacidade</span>.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="src/script1.js"></script>
+</body>
+
+</html>
