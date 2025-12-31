@@ -3,7 +3,7 @@ Em todas as páginas:
 
 index.html (Introdução):
 - Melhorar as informações do modal de informações;
-- Ajustar o espaço entre Termos para o icone de Usuário;
+- Ajustar o espaço entre Termos para o ícone de Usuário;
 - Fazer o texto de download da versão de APP funcionar;
 - Criar um modal para esquecer senha?
 - Criar um modal para Termos de Uso e Políticas de Privacidade.
@@ -19,7 +19,7 @@ index3.html (Histórico Geral)
 index4.html (Carteira Digital)
 - Colocar o JS para colocar o valor de inserção de crédito na tabela;
 - Atualizar o modal para colocar uma seção de inserir as informações bancárias para realizar a recarga, juntamente com a logo do banco que está realizando a recarga;
-- Ajustar o espaço entre Termos e Política do Icone de Usuário.
+- Ajustar o espaço entre Termos e Política do ícone de Usuário.
 
 index5.html (Recarga)
 - Estilizar com CSS;
