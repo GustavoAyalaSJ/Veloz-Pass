@@ -16,24 +16,26 @@
             <div class="logotipo">
                 <img src="Assets/LogoWeb.png" alt="VelozLogo">
             </div>
-            <div class="termos">
-                Termos e Privacidade
-            </div>
-            <div class="user-actions">
-                <div class="dropdown-container">
-                    <button id="profile-button" class="icon-button" aria-label="Perfil">
-                        <i class="bi bi-person-circle"></i>
-                    </button>
-                    <div class="dropdown-content" id="profile-dropdown">
-                        <a href="index3.html" class="histórico-link">
-                            <i class="bi bi-clock-history"></i> Histórico Geral
-                        </a>
-                        <a href="index4.html" class="carteira-link">
-                            <i class="bi bi-credit-card"></i> Carteira Digital
-                        </a>
-                        <a href="index.html" class="exit-link">
-                            <i class="bi bi-box-arrow-left"></i>Sair
-                        </a>
+            <div class="header-actions">
+                <div class="termos">
+                    Termos e Políticas
+                </div>
+                <div class="user-actions">
+                    <div class="dropdown-container">
+                        <button id="profile-button" class="icon-button" aria-label="Perfil">
+                            <i class="bi bi-person-circle"></i>
+                        </button>
+                        <div class="dropdown-content" id="profile-dropdown">
+                            <a href="index3.html" class="histórico-link">
+                                <i class="bi bi-clock-history"></i> Histórico Geral
+                            </a>
+                            <a href="index4.html" class="carteira-link">
+                                <i class="bi bi-credit-card"></i> Carteira Digital
+                            </a>
+                            <a href="index.html" class="exit-link">
+                                <i class="bi bi-box-arrow-left"></i>Sair
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,22 +43,34 @@
 
         <main class="main-content">
             <div class="welcome-text">Seja bem-vindo, usuário!</div>
+            <!-- O JS da primeira página vai alterar o boa vindas ao usuário logado. -->
             <div class="card-container">
-                    <div class="carteira-container">
-                        <p class="carteira-valor">Valor Disponível: R$ --.--</p>
-                        <a href="index4.html" class="btn-carteira">Ir para Carteira Digital</a>
+                <div class="carteira-container">
+                    <p class="carteira-valor">Crédito Disponível: <span class="destacarQuantidade">R$ 0.00</span></p>
+                    <a href="index4.html" class="btn-carteira">Ir para Carteira Digital</a>
+                </div>
+                <a href="index5.html" class="recarga-container">
+                    <span class="recarga-text">Realizar Recarga</span>
+                </a>
+                <div class="information-paybus">
+                    <span class="info-title">Informação sobre valor da passagem</span>
+                    <p class="info-content">Valor da passagem:<strong><span class="destacarValor"> R$
+                                6,50</span></strong></p>
+                    <div class="fonte-info">
+                        <p>Fontes:</p>
+                        <a href="https://www.joinville.sc.gov.br/noticias/transporte-coletivo-e-coleta-de-lixo-terao-reajuste-abaixo-da-inflacao-em-2026/"
+                            class="destacarFonte" target="_blank" rel="noopener noreferrer">
+                            Prefeitura de Joinville
+                        </a>
                     </div>
-                    <a href="index5.html" class="recarga-container">
-                        <span class="recarga-text">Realizar Recarga</span>
-                    </a>
-                    <div class="information-paybus">
-                        <span class="info-title">Informação sobre valor da passagem</span>
-                        <p class="info-content">PLACEHOLDER.</p>
-                    </div>
-                    <div class="recarga-process">
-                        <span class="process-title">Últimas recargas</span>
-                        <a href="index6.html" class="btn-process">Visualizar lista completa</a>
-                    </div>
+                </div>
+                <div class="recarga-process">
+                    <span class="process-title">Últimas recargas</span>
+                    <ul class="recarga-lista" id="recarga-lista">
+                        <!-- Gerar a Lista através de informações do index5.html-->
+                    </ul>
+                    <a href="index6.html" class="btn-process">Visualizar lista completa</a>
+                </div>
             </div>
         </main>
 

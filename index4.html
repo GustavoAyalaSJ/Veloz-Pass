@@ -18,9 +18,6 @@
                     <img src="Assets/LogoWeb.png" alt="VelozPassLogo">
                 </div>
             </a>
-            <div class="termos">
-                Termos e Políticas
-            </div>
             <div class="user-actions">
                 <div class="dropdown-container">
                     <button id="profile-button" class="icon-button" aria-label="Perfil">
@@ -42,7 +39,7 @@
             <div class="card-container">
                 <div class="header-carteira-top">
                     <div class="card-valor">
-                        <span>Valor Disponível: <strong>R$ --.--</strong></span>
+                        <span>Crédito Disponível: <strong>R$ 0.00</strong></span>
                     </div>
                     <a href="#modal-escolha-valor" class="btn-inserir-credito">Inserir crédito</a>
                 </div>
@@ -95,6 +92,59 @@
                             <option>Boleto</option>
                             <option>Cartão Internacional</option>
                         </select>
+                    </div>
+                                        <div class="info-bancaria" id="infoBancaria" style="display:none;">
+                        <div class="banco-logo">
+                            <img id="logoBank" src="" alt="Logo do Banco" style="height: 40px; margin: 10px 0;">
+                        </div>
+                        <div class="dados-bancarios">
+                            <label>Agência:</label>
+                            <input type="text" placeholder="Digite a agência" id="agencia">
+                            <label>Conta:</label>
+                            <input type="text" placeholder="Digite a conta" id="conta">
+                            <label>CPF/CNPJ:</label>
+                            <input type="text" placeholder="Digite o CPF/CNPJ" id="cpf">
+                        </div>
+                    </div>
+                    <div class="info-pix" id="infoPix" style="display:none;">
+                        <div class="qr-code-container">
+                            <div class="qr-code-placeholder">QR Code</div>
+                        </div>
+                        <div class="chave-pix">
+                            <label>Chave PIX:</label>
+                            <input type="text" id="chavePix" readonly placeholder="Chave aleatória">
+                            <button class="btn-copiar" id="btnCopiarChave">Copiar Chave</button>
+                        </div>
+                    </div>
+                    <div class="info-boleto" id="infoBoleto" style="display:none;">
+                        <div class="boleto-container">
+                            <div class="boleto-header">
+                                <span class="banco-boleto">Banco Santander</span>
+                                <span class="codigo-banco">033-7</span>
+                            </div>
+                            <div class="boleto-campo">
+                                <label>Banco:</label>
+                                <input type="text" value="Santander" readonly>
+                            </div>
+                            <div class="boleto-campo">
+                                <label>Agência / Conta:</label>
+                                <input type="text" id="agenciaBoletoCampo" placeholder="0000 / 0000000" readonly>
+                            </div>
+                            <div class="boleto-campo">
+                                <label>Nosso Número:</label>
+                                <input type="text" id="nossoNumero" readonly placeholder="Nosso número">
+                            </div>
+                            <div class="boleto-campo">
+                                <label>Linha Digitável:</label>
+                                <input type="text" id="linhaDigitavel" readonly placeholder="Linha digitável" style="font-size: 0.85rem;">
+                            </div>
+                            <div class="boleto-codigo-barras">
+                                <label>Código de Barras:</label>
+                                <svg id="codigoBarrasSvg"></svg>
+                                <input type="text" id="codigoBarrasNumero" readonly  style="font-size: 0.85rem; margin-top: 10px;">
+                            </div>
+                            <button class="btn-imprimir-boleto" id="btnImprimirBoleto">Imprimir Boleto</button>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn-finalizar">Finalizar</button>

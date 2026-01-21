@@ -123,6 +123,7 @@ body {
     font-size: 1.4rem;
     font-weight: bold;
     color: #333;
+    text-align: center;
 }
 
 .card-valor strong {
@@ -163,6 +164,44 @@ body {
     font-size: 1rem;
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 15px;
+}
+
+.tabela-corpo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.tabela-linha {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1.5fr;
+    text-align: center;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    border-left: 4px solid #5475a3;
+    transition: background-color 0.3s ease;
+}
+
+.tabela-linha:hover {
+    background-color: #f0f4f8;
+}
+
+.btn-imprimir {
+    background-color: #5475a3;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-imprimir:hover {
+    background-color: #436d4d;
 }
 
 /* --- MODAIS --- */
@@ -217,6 +256,17 @@ body {
     font-size: 1.3rem;
     color: #555;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.opt-valor:hover {
+    border-color: #00d4ff;
+}
+
+.opt-valor.ativo {
+    border: 3px solid #00d4ff;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+    background: #f0faff;
 }
 
 .campo-personalizado p {
@@ -230,6 +280,26 @@ body {
     width: 100%;
     background: #d9d9d9;
     border: 3px solid #b0b0b0;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.campo-personalizado input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+    background: #f0faff;
+}
+
+.campo-personalizado input.ativo {
+    border: 3px solid #00d4ff;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+    background: #f0faff;
     padding: 15px;
     border-radius: 18px;
     font-size: 1.3rem;
@@ -265,7 +335,8 @@ body {
 
 .valor-confirmado {
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin: 30px 0 15px 0;
+    text-align: center;
 }
 
 .select-container select {
@@ -278,6 +349,240 @@ body {
     font-size: 1rem;
     appearance: none;
     text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.info-bancaria {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    border: 2px solid #ddd;
+}
+
+.banco-logo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.banco-logo img {
+    height: 50px;
+    border-radius: 8px;
+}
+
+.dados-bancarios {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dados-bancarios label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.dados-bancarios input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #b0b0b0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #ffffff;
+}
+
+.dados-bancarios input:focus {
+    outline: none;
+    border-color: #436d4d;
+    background-color: #f0f8f4;
+}
+
+.info-pix {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.qr-code-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.qr-code-placeholder {
+    width: 200px;
+    height: 200px;
+    background-color: #ffffff;
+    border: 3px solid #333;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.chave-pix {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chave-pix label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.chave-pix input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #b0b0b0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background-color: #ffffff;
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+}
+
+.chave-pix input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    background-color: #f0faff;
+}
+
+.btn-copiar {
+    background-color: #ffffff;
+    color: #333;
+    border: 2px solid #b0b0b0;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-copiar:hover {
+    background-color: #ffffff;
+    border-color: #b0b0b0;
+}
+
+.info-boleto {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    border: 2px solid #ddd;
+}
+
+.boleto-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.boleto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+    margin-bottom: 10px;
+}
+
+.banco-boleto {
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.codigo-banco {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.boleto-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.boleto-campo label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.85rem;
+}
+
+.boleto-campo input {
+    padding: 8px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    background-color: #ffffff;
+    color: #333;
+    font-family: 'Courier New', monospace;
+}
+
+.boleto-codigo-barras {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #999;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.boleto-codigo-barras label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.85rem;
+}
+
+#codigoBarrasSvg {
+    width: 100%;
+    height: auto;
+    margin: 15px 0;
+}
+
+.barras-placeholder {
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    letter-spacing: 2px;
+}
+
+.btn-imprimir-boleto {
+    background-color: #ffffff;
+    color: #333;
+    border: 2px solid #b0b0b0;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-imprimir-boleto:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
 }
 
 /* --- Rodapé --- */

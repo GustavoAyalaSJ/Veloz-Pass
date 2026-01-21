@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico - Veloz Pass</title>
     <link rel="icon" type="image/png" href="Assets/Favicon.png">
+    <link rel="stylesheet" href="CSS/style3.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 </head>
 <body>
     <div class="background-container">
         <header class="cabeçalho">
-            <div class="logotipo">
-                <img src="Assets/LogoWeb.png" alt="VelozLogo">
-            </div>
-            <div class="termos">
-                Termos e Políticas
-            </div>
+            <a href="index2.html" class="logo-link">
+                <div class="logotipo">
+                    <img src="Assets/LogoWeb.png" alt="VelozPassLogo">
+                </div>
+            </a>
             <div class="user-actions">
                 <div class="dropdown-container">
                     <button id="profile-button" class="icon-button" aria-label="Perfil">
@@ -32,12 +32,24 @@
         </header>
 
         <main class="main-content">
+            <h1 class="historicoSite">Histórico Geral</h1>
             <div class="card-container">
-                <div class="information-RecargaouCarteira">
-                    <!-- Container informando sobre o histórico de Recarga com saldo negativo em cor vermelha e colocar créditos na carteira
-                    digital com saldo positivo em cor verde -->
+                <div class="histórico-valores">
+                    <div class="tabela-header">
+                        <span>PROTOCOLO</span>
+                        <span>TIPO</span> <!-- Tipo: Recarga ou Colocar Saldo -->
+                        <span>REALIZADO POR</span> <!-- Realizado por: Se foi por Cartão, Pix, Boleto, etc. -->
+                        <span>VALOR</span>
+                        <span>IMPRIMIR PROTOCOLO</span>
+                    </div>
+                    <div class="tabela-corpoInfo">
+                        <!-- Container onde terá as informações de:
+                         - Recarga: Informando os valores que foram avaliados corretamente para recarga do cartão.
+                         - Carteira Digital: Colocar com um fundo vermelho translúcido (caso o saldo tenha sido recusado), e verde translúcido (caso confirmado). -->
+                    </div>
                 </div>
             </div>
         </main>
+        <script src="src/script3.js"></script>
 </body>
 </html>

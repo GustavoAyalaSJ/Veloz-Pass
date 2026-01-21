@@ -1,4 +1,4 @@
-/* --- Reset e Estrutura --- */
+/* Estrutura Geral */
 * {
     margin: 0;
     padding: 0;
@@ -11,14 +11,14 @@ body {
     color: #333;
 }
 
-/* --- Layout Geral --- */
+/* Layout Geral */
 .background-container {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* --- Cabeçalho --- */
+/* Cabeçalho */
 .cabeçalho {
     background-color: #7296be;
     padding: 15px 50px;
@@ -36,13 +36,32 @@ body {
     text-decoration: none;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
 .user-actions {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
+.user-actions:hover {
+    color: rgb(238, 238, 238);
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
 .termos {
+    font-size: 0.9rem;
+}
+
+.termos:hover {
+    color: rgb(238, 238, 238);
+    cursor: pointer;
+    transition: all 0.4s ease;
     font-size: 0.9rem;
 }
 
@@ -90,7 +109,7 @@ body {
     cursor: pointer;
 }
 
-/* --- Conteúdo Principal --- */
+/* Conteúdo Principal */
 .main-content {
     flex: 1;
     display: flex;
@@ -106,7 +125,7 @@ body {
     color: black;
 }
 
-/* --- Card principal com informações --- */
+/* Card principal do Dashboard */
 .card-container {
     background-color: #dbdbdb;
     border: 3px solid #7296be;
@@ -117,6 +136,10 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+}
+
+.destacarValor{
+    color: #566e89;
 }
 
 .carteira-container,
@@ -195,19 +218,39 @@ body {
     background-color: #f9f9f9;
 }
 
-.information-paybus {
-    grid-column: 1;
-    height: 120px;
-    position: relative;
+.information-paybus,
+.recarga-process {
+    margin-top: 20px;
 }
 
-.info-title {
-    position: absolute;
-    top: -26px;
-    left: 70px;
-    padding-bottom: 7px;
-    font-size: 0.9rem;
-    font-weight: bold;
+.information-paybus {
+    grid-column: 1;
+    height: auto;
+    min-height: 100px; 
+    top: 8px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.fonte-info {
+    margin-top: 15px;
+    font-size: 0.75rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    justify-content: center;
+}
+
+.destacarFonte {
+    color: #566e89;
+    text-decoration: none;
+}
+
+.destacarFonte:hover {
+    color: #5e7a9a;
+    text-decoration: none;
 }
 
 .recarga-process {
@@ -217,10 +260,23 @@ body {
     justify-content: flex-end;
 }
 
+.info-title {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+}
+
 .process-title {
     position: absolute;
-    top: -26px;
+    top: -32px;
+    left: 50%;
+    transform: translateX(-50%);
     font-weight: bold;
+    text-align: center;
 }
 
 .btn-process {
@@ -234,15 +290,15 @@ body {
     cursor: pointer;
 }
 
-/* --- Rodapé --- */
+/* Rodapé */
 .rodapé {
     text-align: center;
     padding: 20px;
     font-size: 0.8rem;
-    color: #666;
+    color: #111e38;
 }
 
-/* --- Responsividade --- */
+/* Media Queries */
 @media (min-width: 1600px) {
     .card-container {
         max-width: 1200px;

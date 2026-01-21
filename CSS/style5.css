@@ -1,0 +1,185 @@
+/* Estrutura Geral */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+/* Layout Geral */
+.background-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho */
+.cabeçalho {
+    background-color: #7296be;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logotipo img {
+    height: 40px;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.dropdown-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    padding: 40px;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.titulo-pagina-externo {
+    align-self: flex-end;
+    text-align: right;
+    margin-right: 4%;
+    color: #7296be;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Grid do Formulário */
+.form-information {
+    display: grid;
+    grid-template-columns: 300px 1fr 1fr;
+    column-gap: 30px;
+    row-gap: 0;
+    align-items: start;
+}
+
+.form-information h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+/* Imagem do Cartão e Inputs Esquerdos */
+.buscard-image {
+    margin-bottom: 40px;
+}
+
+.buscard-image img {
+    width: 180px;
+    height: auto;
+    border: 2px solid #1a3a5a;
+    border-radius: 15px;
+}
+
+.confirm-card h4,
+.select-container h4,
+.valor-display h4 {
+    font-size: 0.9rem;
+    color: #1a3a5a;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+/* Estilização dos Inputs e Selects */
+input[type="text"],
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 20px;
+    border: 2px solid #b0b0b0;
+    background-color: #c4c4c4;
+    color: #333;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+select{
+    cursor: pointer;
+}
+
+/* Container de Pagamento */
+.payment-information {
+    grid-column: 2 / 4;
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    min-height: 350px;
+    border: 2.5px solid #a3a3a3;
+    padding: 20px;
+    margin-top: -60px;
+}
+
+/* Ajustes de Alinhamento das colunas de seleção */
+.select-container, 
+.valor-display {
+    margin-bottom: 0;
+}
+
+.select-container select, 
+.valor-display input {
+    margin-bottom: 0;
+}

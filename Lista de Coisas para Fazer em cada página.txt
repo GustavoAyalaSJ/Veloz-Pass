@@ -1,34 +1,42 @@
-Em todas as páginas:
-- Adicionar o modo escuro para funcionar em todas as páginas e modais (exceto a introdução);
+Função para todas as páginas:
+- Ter um botão que muda para modo escuro ou claro e salvar está informação para todas as páginas;
+- Após o cadastro na primeira página, os dados do usuário ficarão salvos em um banco de dados (está parte não é necessário para agora!);
 
-index.html (Introdução):
-- Melhorar as informações do modal de informações;
-- Ajustar o espaço entre Termos para o ícone de Usuário;
-- Fazer o texto de download da versão de APP funcionar;
-- Criar um modal para esquecer senha?
-- Criar um modal para Termos de Uso e Políticas de Privacidade.
+index.html (banco de dados):
+- Tornar as informações credenciais salvas em um banco de dados para que o usuário não tenha que cadastrar várias vezes;
+- Ter uma forma do usuário não criar contas com mesmo número e e-mail (para evitar perfis clonados);
 
-index2.html (Página Inicial):
-- Ajustar a posição do termos e privacidade;
-- Tirar o valor Placeholder para o real preço da passagem.
-- Colocar o JS para atualizar o valor disponível em tempo real e colocar as últimas recargas realizadas em uma lista de três linhas que vão atualizando assim que novas são realizadas.
+index.html (HTML, CSS e Java Script):
+- Criar no header link uma opção de suporte; Neste modal de suporte deve haver:
+> Nome do Usuário;
+> Email ou Telefone;
+> Botão de Escolha para determinar qual é o problema;
+> Um campo para escrever o problema.
+No final, um botão escrito "Enviar" ao clicar parecerá uma mensagem escrita "Sua mensagem foi enviada e será avaliada pelo nosso time."
 
-index3.html (Histórico Geral)
-- Estilizar com CSS e fazer um JS que pegue as informações de recarga e inserção de valor na carteira.
+index2.html (banco de dados):
+- Fazer que as informações das últimas recargas realizadas sejam visualizadas dentro do quadrado "últimas recargas" em uma lista de três linhas (sem scroll - barra lateral para ver outras);
+- Pegar o valor da carteira digital e demonstrar no "Valor Disponível" onde será atualizado somando e diminuindo conforme o usuário coloca valor ou tira (durante a recarga do cartão, caso tenha);
+- Mudar "Seja bem vindo, usuário!" para o nome do usuário cadastrado (pelo menos, o nome e sobrenome);
 
-index4.html (Carteira Digital)
-- Colocar o JS para colocar o valor de inserção de crédito na tabela;
-- Atualizar o modal para colocar uma seção de inserir as informações bancárias para realizar a recarga, juntamente com a logo do banco que está realizando a recarga;
-- Ajustar o espaço entre Termos e Política do ícone de Usuário.
+index2.html (HTML, CSS e Java Script):
+- Criar um modal para acessar os "Termos e Políticas" do site.
 
-index5.html (Recarga)
-- Estilizar com CSS;
-(outras informações em breve).
+index3.html (banco de dados):
+- Pegar todas as informações do site e colocar em uma lista abaixo dentro da tabela de histórico geral (O comentário no HTML explica melhor).
 
-index6.html (Visualizar lista - Processos)
-- Estilizar com CSS;
-(outras informações em breve).
 
-index7.html (Página de download da versão de aplicativo)
-- Fazer o design da página no Canva;
-(outras informações em breve).
+index4.html (CSS e Java Script):
+- Mostrar o processo realizado na lista abaixo.
+
+index4.html (banco de dados):
+- Tornar estes dados salvos para histórico geral.
+
+index5.html (HTML, CSS e Java Script):
+- Melhorar o layout da página e dar funcionalidade.
+
+index5.html (banco de dados):
+- Tornar os dados de recarga salva e reparti-los entre "Últimas Recargas" e "Histórico Geral". 
+
+index6.html e index7.html:
+- Fazer o design do site;
