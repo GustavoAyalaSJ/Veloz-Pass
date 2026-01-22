@@ -1,42 +1,33 @@
 Função para todas as páginas:
-- Ter um botão que muda para modo escuro ou claro e salvar está informação para todas as páginas;
-- Após o cadastro na primeira página, os dados do usuário ficarão salvos em um banco de dados (está parte não é necessário para agora!);
+- Fazer que o botão escuro mude todas as páginas em conjunto e deixe salvo em todas elas;
+- O cadastro do usuário ficará salvo através de um banco de dados, para todas as páginas em que acessar no Veloz Pass (está parte não é necessário para agora!);
 
 index.html (banco de dados):
 - Tornar as informações credenciais salvas em um banco de dados para que o usuário não tenha que cadastrar várias vezes;
 - Ter uma forma do usuário não criar contas com mesmo número e e-mail (para evitar perfis clonados);
 
-index.html (HTML, CSS e Java Script):
-- Criar no header link uma opção de suporte; Neste modal de suporte deve haver:
-> Nome do Usuário;
-> Email ou Telefone;
-> Botão de Escolha para determinar qual é o problema;
-> Um campo para escrever o problema.
-No final, um botão escrito "Enviar" ao clicar parecerá uma mensagem escrita "Sua mensagem foi enviada e será avaliada pelo nosso time."
-
 index2.html (banco de dados):
-- Fazer que as informações das últimas recargas realizadas sejam visualizadas dentro do quadrado "últimas recargas" em uma lista de três linhas (sem scroll - barra lateral para ver outras);
-- Pegar o valor da carteira digital e demonstrar no "Valor Disponível" onde será atualizado somando e diminuindo conforme o usuário coloca valor ou tira (durante a recarga do cartão, caso tenha);
-- Mudar "Seja bem vindo, usuário!" para o nome do usuário cadastrado (pelo menos, o nome e sobrenome);
+- As informações das últimas recargas realizadas sejam visualizadas dentro do quadrado "últimas recargas" em uma lista de três linhas (sem barra lateral);
+- Pegar o valor da carteira digital e demonstrar no "Valor Disponível", onde será atualizado conforme o usuário coloca valor ou retira;
+- Mudar "Seja bem vindo, usuário!" para o "Seja bem vindo, 'nome do usuário cadastrado'" (pelo menos, o nome e sobrenome);
 
-index2.html (HTML, CSS e Java Script):
+index2.html (CSS e Java Script):
 - Criar um modal para acessar os "Termos e Políticas" do site.
 
-index3.html (banco de dados):
+index3.html (HTML, CSS, Java Script e Banco de Dados):
 - Pegar todas as informações do site e colocar em uma lista abaixo dentro da tabela de histórico geral (O comentário no HTML explica melhor).
 
+index4.html (CSS, Java Script e Banco de Dados):
+- Mostrar o protocolo do processo na lista abaixo e puxar este dado para a tabela de histórico geral.
 
-index4.html (CSS e Java Script):
-- Mostrar o processo realizado na lista abaixo.
+index5.html (HTML e CSS):
+- Melhorar o layout da página.
 
-index4.html (banco de dados):
-- Tornar estes dados salvos para histórico geral.
+index5.html (Java Script e Banco de Dados):
+- Mostrar o protocolo do processo na lista abaixo puxar este dado para a tabela de últimas recargas e histórico geral.
 
-index5.html (HTML, CSS e Java Script):
-- Melhorar o layout da página e dar funcionalidade.
+index6.html e index7.html (ainda em processo):
+- Elaborar o design do site.
 
-index5.html (banco de dados):
-- Tornar os dados de recarga salva e reparti-los entre "Últimas Recargas" e "Histórico Geral". 
 
-index6.html e index7.html:
-- Fazer o design do site;
+
