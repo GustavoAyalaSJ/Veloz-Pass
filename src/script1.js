@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalContentContainer = document.getElementById('modalContentContainer');
     const btnOpenLoginMain = document.getElementById('btnOpenLoginMain');
     const btnOpenTermosHeader = document.getElementById('btnOpenTermosHeader');
+    const btnOpenSuporteHeader = document.getElementById('btnOpenSuporteHeader');
 
     const loginTemplate = modalContentContainer.innerHTML;
 
@@ -64,6 +65,31 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `;
 
+    const suporteTemplate = `
+    <button id="btnCloseModal" class="close-btn">X</button>
+    <h2>Suporte</h2>
+    <form id="formSuporte">
+        <label>Selecione um problema:</label>
+        <select required>
+            <option value="">Selecione</option>
+            <option>Estou tendo problema para entrar no site.</option>
+            <option>Perdi o acesso a minha conta no site.</option>
+            <option>O site considerou minhas informações como "inválidas".</option>
+        </select>
+        
+        <label>Email:</label>
+        <input type="email" placeholder="Seu email" required/>
+        
+        <label>Número de Telefone:</label>
+        <input type="text" placeholder="(xx) xxxxx-xxxx" maxlength="11" required/>
+        
+        <label>Detalhes do problema:</label>
+        <textarea rows="4" maxlength="500" placeholder="Descreva aqui o problema..."></textarea>
+        
+        <button type="submit" class="botao-estilizado">Enviar</button>
+    </form>
+`;
+
     const esqueceuSenhaTemplate = `
         <button id="btnCloseModal" class="close-btn">X</button>
         <h2>Recuperar Senha</h2>
@@ -95,6 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
             modalContentContainer.innerHTML = cadastroTemplate;
         } else if (viewName === 'termos') {
             modalContentContainer.innerHTML = termosTemplate;
+        } else if (viewName === 'suporte') {
+            modalContentContainer.innerHTML = suporteTemplate;
         } else if (viewName === 'esqueceuSenha') {
             modalContentContainer.innerHTML = esqueceuSenhaTemplate;
         }
@@ -176,6 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnOpenTermosHeader.addEventListener('click', () => {
         renderView('termos');
+        openModal();
+    });
+
+    btnOpenSuporteHeader.addEventListener('click', () => {
+        renderView('suporte');
         openModal();
     });
 

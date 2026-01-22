@@ -43,6 +43,12 @@ body {
     gap: 20px;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
 .dropdown-container {
     position: relative;
 }
@@ -85,6 +91,21 @@ body {
     color: white;
     font-size: 2rem;
     cursor: pointer;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .cabeçalho {
+    background-color: #1f2a36;
+    color: #ffffff;
+}
+
+.dark-mode .containerLeft {
+    background-color: #1e293b;
+    color: #f1f1f1;
 }
 
 /* Conteúdo Principal */
@@ -182,4 +203,29 @@ select{
 .select-container select, 
 .valor-display input {
     margin-bottom: 0;
+}
+
+/* Media Queries */
+@media (max-width: 1600px) {
+
+}
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 900px) {
+
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 600px) {
+
+}
+
+@media (max-height: 700px) {
+
 }

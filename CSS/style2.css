@@ -109,6 +109,57 @@ body {
     cursor: pointer;
 }
 
+/* Modo escuro */
+.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .cabeçalho {
+    background-color: #1f2a36;
+    color: #ffffff;
+}
+
+.dark-mode .welcome-text{
+    color: rgb(166, 197, 251);
+}
+
+.dark-mode .carteira-container, 
+.dark-mode .recarga-container{
+    background-color: rgba(9, 9, 9, 0.518);
+    border: 3px solid rgb(139, 172, 209);
+}
+
+.dark-mode .recarga-container:hover{
+    transform: scale(1.02);
+    background-color: #1f1f1f;
+    color: rgb(162, 207, 255);
+}
+
+.dark-mode .recarga-process,
+.dark-mode .information-paybus {
+    background-color: rgba(9, 9, 9, 0.518);
+    border: 3px solid rgb(139, 172, 209);
+}
+
+.dark-mode .destacarQuantidade,
+.dark-mode .destacarValor,
+.dark-mode .destacarFonte{
+    color: rgb(72, 142, 216);
+}
+
+.dark-mode .rodapé {
+    background-color: #121212;
+    color: #e4e4e4;
+}
+
+.dark-mode .card-container {
+    background-color: #11161d;
+    border: 3px solid rgb(139, 172, 209);
+    border-radius: 40px;
+}
+
+
 /* Conteúdo Principal */
 .main-content {
     flex: 1;
@@ -136,6 +187,10 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+}
+
+.destacarQuantidade{
+    color:#566e89; 
 }
 
 .destacarValor{

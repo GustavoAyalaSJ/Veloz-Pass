@@ -37,6 +37,12 @@ body {
     text-decoration: none;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
 .user-actions {
     display: flex;
     align-items: center;
@@ -93,6 +99,25 @@ body {
     cursor: pointer;
 }
 
+.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .cabeçalho {
+    background-color: #1f2a36;
+    color: #ffffff;
+}
+
+.dark-mode .card-container {
+    background-color: rgba(9, 9, 9, 0.518);
+    border: 3px solid rgb(146, 189, 239);
+}
+
+.dark-mode .card-container span{
+    color: rgb(84, 146, 187);
+}
+
 /* Conteúdo Principal */
 .main-content {
     flex: 1;
@@ -132,7 +157,7 @@ body {
 .tabela-header span {
     flex: 1;
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     font-weight: 800;
     color: #2c3e50;
     word-wrap: break-word;
@@ -142,4 +167,29 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+/* Media Queries */
+@media (max-width: 1600px) {
+
+}
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 900px) {
+
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 600px) {
+
+}
+
+@media (max-height: 700px) {
+
 }

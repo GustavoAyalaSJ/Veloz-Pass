@@ -10,6 +10,7 @@ html,
 body {
     height: 100%;
     width: 100%;
+    background-color: #f4f7f6;
     overflow-x: hidden;
 }
 
@@ -37,6 +38,12 @@ body {
     position: relative;
 }
 
+.link-headers {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
 .logotipo img {
     height: 50px;
     width: auto;
@@ -52,12 +59,22 @@ body {
     color: #c0e1f8;
 }
 
+.suporte {
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.suporte:hover {
+    color: #c0e1f8;
+}
+
 /* Conteúdo Principal */
 .main-content {
     position: relative;
     flex: 1;
     width: 100%;
-    max-width: 1600px;
+    max-width: none;
     min-height: calc(100vh - 140px);
     display: flex;
     align-items: center;
@@ -208,6 +225,36 @@ body {
 .modal-terms-content strong {
     color: #ffffff;
     font-size: 1rem;
+}
+
+/* Estilos Universais para elementos para o Suporte Modal */
+.modal-content select,
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.modal-content textarea {
+    resize: none;
+}
+
+.modal-content select:focus,
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: #00d4ff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+#formSuporte label {
+    margin-top: 5px;
 }
 
 .close-btn {
@@ -365,6 +412,10 @@ body {
         margin-right: 50px;
         margin-top: 5px;
         width: auto;
+    }
+
+    .modal-content{
+        overflow-y: auto;
     }
 
     .containerLeft {
