@@ -119,6 +119,30 @@ body {
     color: rgb(150, 206, 255);
 }
 
+.dark-mode .modal-box .campo-personalizado input:focus{
+    background-color: rgba(9, 9, 9, 0.518);
+    border: 3px solid rgb(139, 172, 209);
+    color: rgb(150, 206, 255);
+}
+
+.dark-mode .modal-box .campo-personalizado input:ativo{
+    background-color: rgba(9, 9, 9, 0.518);
+    border: 3px solid rgb(139, 172, 209);
+    color: rgb(189, 224, 255);
+}
+
+
+.dark-mode .modal-box select{
+    background-color: rgba(9, 9, 9, 0.518);
+    border: 3px solid rgb(139, 172, 209); 
+    color: rgb(150, 206, 255);
+}
+
+.dark-mode .modal-box option{
+    background-color: white;
+    color: rgb(0, 0, 0);
+}
+
 .dark-mode strong,
 .dark-mode .modal-box h3 {
     color: rgb(150, 206, 255);
@@ -332,6 +356,23 @@ body {
     text-align: center;
 }
 
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: 3px solid #375477;
+    background-color: #dbdbdb;
+    color: #333;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+select{
+    cursor: pointer;
+}
+
+
 .campo-personalizado input:focus {
     outline: none;
     border-color: #00d4ff;
@@ -353,7 +394,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .btn-proximo, .btn-finalizar {
@@ -367,13 +408,25 @@ body {
     cursor: pointer;
 }
 
-.btn-retornar {
+.btn-proximo:hover, .btn-finalizar:hover{
+    background-color: #68af79;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-retornar, .btn-cancelar {
     background-color: #703030;
     color: white;
     padding: 12px 50px;
     border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
+}
+
+.btn-cancelar:hover{
+    background-color: #974444;
+    color: white;
+    transition: all 0.3s ease;
 }
 
 /* Media Queries */
