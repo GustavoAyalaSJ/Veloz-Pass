@@ -59,11 +59,14 @@
                     <button id="btnCloseModal" class="close-btn">X</button>
                     <h2>Login</h2>
                     <form id="formLogin">
-                        <label>E-mail ou nome completo:</label>
-                        <input type="text" placeholder="Digite aqui!" required autocomplete="off" />
+                        <label>E-mail:</label>
+                        <input type="text" placeholder="Digite o seu email." required autocomplete="off" />
 
-                        <label>Senha:</label>
-                        <input type="password" placeholder="Digite aqui!" required autocomplete="off" />
+                        <div class="password-input-container">
+                            <label>Senha:</label>
+                            <input type="password" id="password" placeholder="Digite a sua senha." required autocomplete="off">
+                            <i class="bi bi-eye-fill" id="togglePassword" onclick="MostrarSenha()"></i>
+                        </div>
 
                         <a href="#" id="btnEsqueceuSenha">Esqueceu a senha?</a>
 

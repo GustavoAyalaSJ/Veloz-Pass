@@ -257,6 +257,30 @@ body {
     margin-top: 5px;
 }
 
+.password-input-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-container input {
+    padding-right: 45px;
+}
+
+.password-input-container i {
+    position: absolute;
+    top: 70%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.password-input-container i:hover {
+    color: #007bff;
+}
+
+
 .close-btn {
     position: absolute;
     top: 15px;

@@ -33,6 +33,6 @@ changeButton.addEventListener("click", () => {
         changeButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
     } else {
         localStorage.setItem("theme", "light");
-        changeButton.innerHTML = '<i class="bi bi-moon"></i>';
+        changeButton.innerHTML = '<i class="bi bi-brightness-high-fill"></i>';
     }
 });
