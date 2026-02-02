@@ -20,9 +20,6 @@ index3.html (HTML, CSS, Java Script e Banco de Dados):
 index4.html (CSS, Java Script e Banco de Dados):
 - Mostrar o protocolo do processo na lista abaixo e puxar este dado para a tabela de histórico geral.
 
-index5.html (HTML e CSS):
-- Melhorar o layout da página.
-
 index5.html (Java Script e Banco de Dados):
 - Mostrar o protocolo do processo na lista abaixo puxar este dado para a tabela de últimas recargas e histórico geral.
 

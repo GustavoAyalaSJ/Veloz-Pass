@@ -42,26 +42,16 @@
 
         <main class="main-content">
             <h1 class="titulo-pagina-externo">RECARGA</h1>
-            <div class="container">
-                <div class="buscard-image">
-                    <img src="#" alt="JoinvilleCard">
-                </div>
-                <form class="form-information">
-                    <aside>
-                        <div class="confirm-card">
-                            <h4>Digite o Nº do Cartão de Passagem</h4>
-                            <input type="text" placeholder="Digite aqui.">
-                            <h4>Confirme o Nº do Cartão de Passagem</h4>
-                            <input type="text" placeholder="Digite aqui.">
-                        </div>
-                    </aside>
-                    <div class="select-container">
-                        <h4>Escolha uma forma de pagamento</h4>
+
+            <div class="container-recarga">
+                <div class="top-recarga">
+                    <div class="top-group">
+                        <h4>Formas de pagamento</h4>
                         <select>
                             <option>Selecione</option>
                             <!-- Opção de valor da carteira digital com duas possibilidades:
-                            1. Se o usuário selecionar ela primeiro e depois valor, caso o valor seja insuficiente, mostre um alert dizendo "Valor Insuficiente, mostrando o valor disponivel no alert"
-                        2. Se o usuário selecionar um valor primeiro se for insuficiente, está opção ficará desabilitada até colocar o valor suficiente. -->
+                    1. Se o usuário selecionar ela primeiro e depois valor, caso o valor seja insuficiente, mostre um alert dizendo "Valor Insuficiente, mostrando o valor disponivel no alert"
+                    2. Se o usuário selecionar um valor primeiro se for insuficiente, está opção ficará desabilitada até colocar o valor suficiente. -->
                             <option>Cartão de Crédito</option>
                             <option>Cartão de Débito</option>
                             <option>PIX</option>
@@ -69,17 +59,49 @@
                             <option>Cartão Internacional</option>
                         </select>
                     </div>
-                    <div class="valor-display">
-                        <h4>Coloque um valor</h4>
-                        <input type="text" placeholder="R$ --.--">
+
+                    <div class="top-group valor">
+                        <h4>Valor</h4>
+                        <input type="text" placeholder="R$ 0,00">
                     </div>
-                    <div class="payment-information">
-                        <!-- Um container onde o usuário irá colocar informações do cartão de passagem, colocar um valor predefinido ou definido para a recarga, porém
+                </div>
+
+                <div class="card-recarga">
+                    <section class="passo passo-1">
+                        <h3>Passo 1</h3>
+
+                        <div class="buscard-image">
+                            <img src="#" alt="JoinvilleCard">
+                        </div>
+
+                        <div class="confirm-card">
+                            <h4>Informe o Nº do seu Cartão de Transporte</h4>
+                            <input type="text" placeholder="00.00.00000000-00">
+
+                            <h4>Confirme o Nº do seu Cartão de Transporte</h4>
+                            <input type="text" placeholder="00.00.00000000-00">
+                        </div>
+                    </section>
+
+                    <div class="divider"></div>
+
+                    <section class="passo passo-2">
+                        <h3>Passo 2</h3>
+
+                        <div class="payment-information">
+                            <!-- Um container onde o usuário irá colocar informações do cartão de passagem, colocar um valor predefinido ou definido para a recarga, porém
                     as informações do "form" serão diferentes conforme o método selecionado. -->
-                    </div>
-                </form>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Botão -->
+                <div class="action-area">
+                    <button class="btn-prosseguir">PROSSEGUIR</button>
+                </div>
             </div>
         </main>
+
     </div>
     <script src="src/script5.js"></script>
 </body>
