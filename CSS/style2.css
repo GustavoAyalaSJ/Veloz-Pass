@@ -120,17 +120,17 @@ body {
     color: #ffffff;
 }
 
-.dark-mode .welcome-text{
+.dark-mode .welcome-text {
     color: rgb(166, 197, 251);
 }
 
-.dark-mode .carteira-container, 
-.dark-mode .recarga-container{
+.dark-mode .carteira-container,
+.dark-mode .recarga-container {
     background-color: rgba(9, 9, 9, 0.518);
     border: 3px solid rgb(139, 172, 209);
 }
 
-.dark-mode .recarga-container:hover{
+.dark-mode .recarga-container:hover {
     transform: scale(1.02);
     background-color: #1f1f1f;
     color: rgb(162, 207, 255);
@@ -144,11 +144,11 @@ body {
 
 .dark-mode .destacarQuantidade,
 .dark-mode .destacarValor,
-.dark-mode .destacarFonte{
+.dark-mode .destacarFonte {
     color: rgb(72, 142, 216);
 }
 
-.dark-mode p{
+.dark-mode p {
     color: white;
 }
 
@@ -193,11 +193,11 @@ body {
     gap: 20px;
 }
 
-.destacarQuantidade{
-    color:#566e89; 
+.destacarQuantidade {
+    color: #566e89;
 }
 
-.destacarValor{
+.destacarValor {
     color: #566e89;
 }
 
@@ -238,7 +238,7 @@ body {
     display: inline-block;
 }
 
-.btn-carteira:hover{
+.btn-carteira:hover {
     background-color: #4e8254;
     color: #ffffff;
     transition: all 0.3s ease;
@@ -259,7 +259,7 @@ body {
     align-items: center;
 }
 
-.btn-process:hover{
+.btn-process:hover {
     background-color: #425c82;
     color: #ffffff;
     transition: all 0.3s ease;
@@ -297,7 +297,7 @@ body {
 .information-paybus {
     grid-column: 1;
     height: auto;
-    min-height: 100px; 
+    min-height: 100px;
     top: 8px;
     position: relative;
     padding-bottom: 10px;
@@ -370,7 +370,7 @@ body {
 }
 
 /* Media Queries */
-@media (min-width: 1600px) {
+@media (max-width: 1600px) {
     .card-container {
         max-width: 1200px;
         padding: 60px;
@@ -390,17 +390,6 @@ body {
 
     .welcome-text {
         font-size: 2.2rem;
-    }
-}
-
-@media (max-width: 950px) {
-    .card-container {
-        max-width: 800px;
-        gap: 15px;
-    }
-
-    .cabeçalho {
-        padding: 15px 25px;
     }
 }
 
@@ -464,3 +453,5 @@ body {
         padding: 15px;
     }
 }
+
+@media (max-height: 700px) {}

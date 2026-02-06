@@ -22,7 +22,7 @@ body {
     background-color: #f4f7f6;
 }
 
-/*  Cabeçalho  */
+/* Cabeçalho */
 .cabeçalho {
     background-color: #3b5f80;
     width: 100%;
@@ -45,7 +45,7 @@ body {
 }
 
 .logotipo img {
-    height: 50px;
+    height: 45px;
     width: auto;
 }
 
@@ -86,6 +86,8 @@ body {
     z-index: 2;
     width: 450px;
     margin-left: 5%;
+    padding-bottom: 10px;
+    padding-top: 10px;
     display: flex;
     align-items: center;
 }
@@ -100,20 +102,19 @@ body {
     background-repeat: no-repeat;
 }
 
-
 /* Card Lateral */
 .containerLeft {
     background-color: #24344d;
     color: white;
     width: 100%;
-    padding: 3rem 2rem;
+    padding: 2rem 1.1rem;
     border-radius: 15px;
     margin: 0;
     display: flex;
     flex-direction: column;
     text-align: left;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-    border: 1.5spx solid rgba(12, 15, 27, 0.1);
+    border: 12px solid rgba(27, 36, 58, 0.79);
 }
 
 .sobre-left h1 {
@@ -164,7 +165,7 @@ body {
     box-shadow: 0 6px 20px rgba(62, 107, 72, 0.6);
 }
 
-/* Modais (Cadastro, Login e Termos) */
+/* Modais */
 .hidden {
     display: none !important;
 }
@@ -199,103 +200,12 @@ body {
 
 .modal-content h2 {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     color: #ffffff;
     font-size: 1.6rem;
     border-bottom: 2px solid #00d4ff;
     padding-bottom: 15px;
     font-weight: 700;
-}
-
-.modal-terms-content {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    max-height: calc(85vh - 150px);
-    padding-right: 10px;
-}
-
-.modal-terms-content p {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: #ffffff;
-    margin: 0;
-}
-
-.modal-terms-content strong {
-    color: #ffffff;
-    font-size: 1rem;
-}
-
-/* Estilos Universais para elementos para o Suporte Modal */
-.modal-content select,
-.modal-content input,
-.modal-content textarea {
-    width: 100%;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 1px solid transparent;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    box-sizing: border-box;
-}
-
-.modal-content textarea {
-    resize: none;
-}
-
-.modal-content select:focus,
-.modal-content input:focus,
-.modal-content textarea:focus {
-    border-color: #00d4ff;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
-}
-
-#formSuporte label {
-    margin-top: 5px;
-}
-
-.password-input-container {
-    position: relative;
-    width: 100%;
-}
-
-.password-input-container input {
-    padding-right: 45px;
-}
-
-.password-input-container i {
-    position: absolute;
-    top: 70%;
-    right: 12px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #555;
-    font-size: 1.2rem;
-}
-
-.password-input-container i:hover {
-    color: #007bff;
-}
-
-
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    opacity: 0.8;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #dbdbdb;
-    cursor: pointer;
-}
-
-.close-btn:hover {
-    opacity: 1;
 }
 
 .modal-content form {
@@ -340,7 +250,7 @@ body {
 
 .modal-content p {
     font-size: 0.85rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.77);
     line-height: 1.5;
     text-align: center;
     margin-top: 10px;
@@ -353,22 +263,104 @@ body {
     margin-top: 10px;
 }
 
-.modal-content button:not(.close-btn) {
+.password-input-container {
+    position: relative;
     width: 100%;
-    padding: 12px;
+}
+
+.password-input-container input {
+    padding-right: 45px;
+}
+
+.password-input-container i {
+    position: absolute;
+    top: 70%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.password-input-container i:hover {
+    color: #007bff;
+}
+
+.modal-terms-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: calc(85vh - 150px);
+    padding-right: 10px;
+}
+
+.modal-terms-content p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #ffffff;
+    margin: 0;
+}
+
+.modal-terms-content strong {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+/* Estilos Universais para elementos para o Modal Suporte */
+.modal-content select,
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid transparent;
     border-radius: 4px;
     font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.modal-content textarea {
+    resize: none;
+}
+
+.modal-content select:focus,
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: #00d4ff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+#formSuporte label {
+    margin-top: 5px;
+}
+
+/* Estilo de Botões do Modal de Cadastro */
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
     border: none;
+    opacity: 0.8;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #dbdbdb;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    opacity: 1;
 }
 
 .botao-estilizado {
-    display: block; 
+    display: block;
     width: 100%;
     background-color: #007bff;
     color: rgb(250, 250, 250) !important;
-    text-decoration: none !important;  
+    text-decoration: none !important;
     text-align: center;
     font-size: 1rem;
     font-weight: bold;
@@ -386,6 +378,16 @@ body {
     box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
     transform: translateY(-2px);
     color: rgb(250, 250, 250);
+}
+
+.modal-content button:not(.close-btn) {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
 }
 
 #btnGoToCadastro,
@@ -430,126 +432,317 @@ body {
 }
 
 /* Media Queries */
-@media (max-width: 1600px) {
-    .logotipo img {
-        height: 55px;
-        margin-right: 50px;
-        margin-top: 5px;
-        width: auto;
+/*@media (max-width: 1600px) {
+    .background-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: #92b7e9;
     }
 
-    .modal-content{
-        overflow-y: auto;
+    .cabeçalho {
+        background-color: #3b5f80;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 5%;
+        color: white;
+        font-weight: 600;
+        flex-shrink: 0;
+        z-index: 10;
+        position: relative;
     }
 
-    .containerLeft {
-        margin-left: 25px;
-        padding-bottom: 30px;
-        margin-top: 10px;
-    }
+    .logotipo img {}
 
-    .sobre-left h2 {
-        padding-top: 15px;
-    }
+    .link-headers {}
 
     .main-content {
-        padding: 2.5rem 1rem;
+        flex: 1;
+        padding: 2rem 1rem;
+        align-items: center;
     }
 
-    .termos {
-        font-size: 0.9rem;
-        right: 20px;
-    }
-}
+    .left {}
+
+    .right {}
+
+    .containerLeft {}
+
+    .sobre-left h1 {}
+
+    .sobre-left p {}
+
+    .modal-content {}
+
+    .rodapé {}
+}*/
+
+/* ^ OLHAR DEPOIS!!!!! ^ */
 
 @media (max-width: 1200px) {
+    .background-container {
+        background-color: #92b7e9;
+    }
+
+    .logotipo img {
+        height: 45px;
+    }
+
     .main-content {
-        flex-direction: column;
         min-height: auto;
-    }
-
-    .containerLeft {
-        max-width: 420px;
-        padding: 2.3rem 1.5rem;
-        margin: 0 auto;
-    }
-
-    .left {
-        width: 100%;
-        max-width: 450px;
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .right {
-        display: block;
-        width: 100%;
-        min-height: 350px;
-        background-position: center;
-    }
-}
-
-@media (max-width: 950px) {
-    .main-content {
         padding: 2rem 1rem;
-        background-position: top;
+        align-items: flex-start;
     }
 
     .containerLeft {
-        padding: 2.5rem 1.5rem;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    .sobre-left h1 {
-        font-size: 2rem;
+        padding-bottom: 30px;
+        padding-top: 25px;
+        border: 12px solid rgba(27, 36, 58, 0.79);
     }
 
     .sobre-left p {
-        font-size: 1rem;
+        text-align: center;
+    }
+
+    .modal-content {
+        overflow-y: auto;
+    }
+
+    .modal-terms-content p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.776);
+    }
+
+    .modal-terms-content strong {
+        font-size: 0.9rem;
+        color: rgba(162, 185, 222, 0.709);
     }
 }
 
 @media (max-width: 900px) {
+    .background-container {
+        background-color: #92b7e9;
+    }
+
+    .cabeçalho {
+        height: 80px;
+        padding: 0 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4;
+    }
+
+    .logotipo img {
+        height: 45px;
+    }
+
     .main-content {
+        min-height: auto;
         padding: 2rem 1rem;
+        align-items: flex-start;
+    }
+
+    .link-headers {
+        gap: 15px;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        margin-right: 2px;
+    }
+
+    .right {
+        background-position: 60% center;
     }
 
     .containerLeft {
-        text-align: center;
-        align-items: center;
-        margin-left: 0;
-        max-width: 380px;
+        padding: 1.7rem;
+        border-radius: 15px;
+    }
+
+    .sobre-left h1 {
+        font-size: 2.1rem;
     }
 
     .sobre-left p {
-        font-size: 1rem;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .modal-content {
+        overflow-y: auto;
+    }
+
+    .modal-terms-content {
+        overflow-y: auto;
+    }
+
+    .rodapé {
+        padding: 1.4rem;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    .background-container {
+        min-height: 100vh;
+        background-color: #92b7e9;
+    }
+
     .cabeçalho {
-        height: 70px;
-        padding: 0 1.5rem;
+        height: 80px;
+        padding: 0 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4;
     }
 
     .logotipo img {
         height: 40px;
     }
 
+    .main-content {
+        min-height: auto;
+        padding: 2rem 1rem;
+        align-items: flex-start;
+    }
+
+    .left {
+        width: 65%;
+        margin-left: 4px;
+    }
+
+    .right {
+        background-position: 55% center;
+        background-position: center 40%;
+    }
+
     .containerLeft {
-        max-width: 330px;
-        padding: 2rem 1.2rem;
+        padding: 2rem;
+        border-radius: 20px;
+    }
+
+    .sobre-left p {
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .modal-content {
+        overflow-y: hidden;
+    }
+
+    .modal-content.scrollable {
+        overflow-y: auto;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 0.5rem;
+        height: 20px;
+    }
+
+    .destacarLogin:hover {
+        color: #c0e1f8;
+        transition: 0.2s ease;
+    }
+
+    .rodapé {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .background-container {
+        min-height: 100vh;
+        background-color: #92b7e9;
+    }
+
+    .cabeçalho {
+        height: 64px;
+        padding: 0 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+    }
+
+    .logotipo img {
+        height: 36px;
+    }
+
+    .link-headers {
+        margin-left: 60px;
+        gap: 15px;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+    }
+
+    .main-content {
+        min-height: auto;
+        padding: 2rem 1rem;
+        align-items: flex-start;
+    }
+
+    .left {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .right {
+        display: none;
+    }
+
+    .containerLeft {
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
     }
 
     .sobre-left h1 {
         font-size: 1.8rem;
     }
-}
 
-@media (max-height: 700px) {
+    .sobre-left p {
+        font-size: 1rem;
+    }
+
     .modal-content {
+        padding: 1.5rem 1rem;
         max-height: 90vh;
+        overflow-y: hidden;
+    }
+
+    .modal-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .modal-content.scrollable {
         overflow-y: auto;
     }
+
+    .modal-terms-content {
+        min-height: 0;
+        max-height: calc(90vh - 140px);
+        overflow-y: auto;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 0.5rem;
+        height: 20px;
+    }
+
+    .destacarLogin:hover {
+        color: #c0e1f8;
+        transition: 0.2s ease;
+    }
+
+    .rodapé {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
 }
+
+@media (max-height: 700px) {}

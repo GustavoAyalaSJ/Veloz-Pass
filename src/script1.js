@@ -115,20 +115,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderView(viewName) {
+        modalContentContainer.classList.remove('scrollable');
+
         if (viewName === 'login') {
             modalContentContainer.innerHTML = loginTemplate;
-        } else if (viewName === 'cadastro') {
+            modalContentContainer.classList.add('scrollable');
+        }
+        else if (viewName === 'cadastro') {
             modalContentContainer.innerHTML = cadastroTemplate;
-        } else if (viewName === 'termos') {
+            modalContentContainer.classList.add('scrollable');
+        }
+        else if (viewName === 'termos') {
             modalContentContainer.innerHTML = termosTemplate;
-        } else if (viewName === 'suporte') {
+        }
+        else if (viewName === 'suporte') {
             modalContentContainer.innerHTML = suporteTemplate;
-        } else if (viewName === 'esqueceuSenha') {
+            modalContentContainer.classList.add('scrollable');
+        }
+        else if (viewName === 'esqueceuSenha') {
             modalContentContainer.innerHTML = esqueceuSenhaTemplate;
         }
 
         setupDynamicEvents();
     }
+
 
     function setupDynamicEvents() {
         const btnClose = document.getElementById('btnCloseModal');
