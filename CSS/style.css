@@ -432,56 +432,6 @@ body {
 }
 
 /* Media Queries */
-/*@media (max-width: 1600px) {
-    .background-container {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        background-color: #92b7e9;
-    }
-
-    .cabeçalho {
-        background-color: #3b5f80;
-        width: 100%;
-        height: 80px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 5%;
-        color: white;
-        font-weight: 600;
-        flex-shrink: 0;
-        z-index: 10;
-        position: relative;
-    }
-
-    .logotipo img {}
-
-    .link-headers {}
-
-    .main-content {
-        flex: 1;
-        padding: 2rem 1rem;
-        align-items: center;
-    }
-
-    .left {}
-
-    .right {}
-
-    .containerLeft {}
-
-    .sobre-left h1 {}
-
-    .sobre-left p {}
-
-    .modal-content {}
-
-    .rodapé {}
-}*/
-
-/* ^ OLHAR DEPOIS!!!!! ^ */
-
 @media (max-width: 1200px) {
     .background-container {
         background-color: #92b7e9;

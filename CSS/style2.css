@@ -1,4 +1,4 @@
-/* Estrutura Geral */
+/* Layout Geral */
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ body {
     color: #333;
 }
 
-/* Layout Geral */
+/* Background */
 .background-container {
     min-height: 100vh;
     display: flex;
@@ -21,7 +21,7 @@ body {
 /* Cabeçalho */
 .cabeçalho {
     background-color: #7296be;
-    padding: 15px 50px;
+    padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,17 +29,32 @@ body {
 }
 
 .logotipo img {
-    height: 40px;
-}
-
-.logo-link {
-    text-decoration: none;
+    height: 38px;
 }
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.9rem;
+    cursor: pointer;
+}
+
+.termos {
+    font-size: 0.9rem;
+}
+
+.termos:hover {
+    color: rgb(238, 238, 238);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-size: 0.9rem;
 }
 
 .user-actions {
@@ -52,17 +67,6 @@ body {
     color: rgb(238, 238, 238);
     cursor: pointer;
     transition: all 0.4s ease;
-}
-
-.termos {
-    font-size: 0.9rem;
-}
-
-.termos:hover {
-    color: rgb(238, 238, 238);
-    cursor: pointer;
-    transition: all 0.4s ease;
-    font-size: 0.9rem;
 }
 
 .dropdown-container {
@@ -109,6 +113,20 @@ body {
     cursor: pointer;
 }
 
+/* Conteúdo Principal */
+.main-content {
+    flex: 1;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-text {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+}
+
 /* Modo escuro */
 .dark-mode {
     background-color: #121212;
@@ -124,8 +142,8 @@ body {
     color: rgb(166, 197, 251);
 }
 
-.dark-mode .carteira-container,
-.dark-mode .recarga-container {
+.dark-mode .carteira,
+.dark-mode .recarga {
     background-color: rgba(9, 9, 9, 0.518);
     border: 3px solid rgb(139, 172, 209);
 }
@@ -136,15 +154,23 @@ body {
     color: rgb(162, 207, 255);
 }
 
-.dark-mode .recarga-process,
-.dark-mode .information-paybus {
+.dark-mode .historico,
+.dark-mode .info {
     background-color: rgba(9, 9, 9, 0.518);
     border: 3px solid rgb(139, 172, 209);
 }
 
+.dark-mode .fonte-info a {
+    cursor: pointer;
+}
+
+.dark-mode .fonte-info:hover a {
+    color: rgb(72, 142, 216);
+    transition: 0.3s rgb(72, 142, 216) ease;
+}
+
 .dark-mode .destacarQuantidade,
-.dark-mode .destacarValor,
-.dark-mode .destacarFonte {
+.dark-mode .destacarValor {
     color: rgb(72, 142, 216);
 }
 
@@ -163,294 +189,137 @@ body {
     border-radius: 40px;
 }
 
-
-/* Conteúdo Principal */
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
-}
-
-.welcome-text {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 30px;
-    color: black;
-}
-
-/* Card principal do Dashboard */
+/* Dashboard */
 .card-container {
-    background-color: #dbdbdb;
-    border: 3px solid #7296be;
-    border-radius: 40px;
     width: 100%;
     max-width: 900px;
-    padding: 40px 40px 25px;
+    background: #dbdbdb;
+    border: 3px solid #7296be;
+    border-radius: 35px;
+    padding: 35px;
+
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
-.destacarQuantidade {
-    color: #566e89;
-}
-
-.destacarValor {
-    color: #566e89;
-}
-
-.carteira-container,
-.recarga-container,
-.recarga-process,
-.information-paybus {
-    background-color: #ffffff;
-    border-radius: 25px;
+.card {
+    background: white;
     border: 3px solid #7296be;
+    border-radius: 25px;
     padding: 20px;
-    margin-top: 7px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 12px;
+    text-align: center;
 }
 
-.carteira-container {
-    grid-column: 1;
+.card-title {
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 .carteira-valor {
-    font-weight: bold;
     font-size: 1.2rem;
-    margin-bottom: 15px;
+    font-weight: bold;
 }
 
-.btn-carteira {
-    background-color: #3a5e3e;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-decoration: none;
-    display: inline-block;
+.destacarQuantidade,
+.destacarValor {
+    color: rgb(68, 114, 189);
 }
 
-.btn-carteira:hover {
-    background-color: #4e8254;
-    color: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.btn-process {
-    background-color: #5475a3;
-    color: #ffffff;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    width: 70%;
-    cursor: pointer;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btn-process:hover {
-    background-color: #425c82;
-    color: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.btn-carteira:hover {
-    background-color: #5d9764;
-    cursor: pointer;
-}
-
-.btn-process:hover {
-    background-color: #435e82;
-    cursor: pointer;
-}
-
-.recarga-container {
-    text-decoration: none;
-    transition: transform 0.2s;
-    font-size: 1.5rem;
+.recarga {
+    font-size: 1.4rem;
     font-weight: bold;
     color: #5b7da1;
-    cursor: pointer;
+    text-decoration: none;
+    justify-content: center;
+    transition: transform .2s;
 }
 
-.recarga-container:hover {
-    transform: scale(1.02);
-    background-color: #f9f9f9;
-}
-
-.information-paybus,
-.recarga-process {
-    margin-top: 20px;
-}
-
-.information-paybus {
-    grid-column: 1;
-    height: auto;
-    min-height: 100px;
-    top: 8px;
-    position: relative;
-    padding-bottom: 10px;
+.recarga:hover {
+    transform: scale(1.03);
 }
 
 .fonte-info {
-    margin-top: 15px;
     font-size: 0.75rem;
-    color: #666;
     display: flex;
-    align-items: center;
     gap: 6px;
-    width: 100%;
-    justify-content: center;
 }
 
-.destacarFonte {
+.fonte-info a {
+    text-decoration: none;
     color: #566e89;
-    text-decoration: none;
 }
 
-.destacarFonte:hover {
-    color: #5e7a9a;
-    text-decoration: none;
-}
-
-.recarga-process {
-    grid-column: 2;
-    height: 200px;
-    position: relative;
-    justify-content: flex-end;
-}
-
-.info-title {
-    position: absolute;
-    top: -45px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.process-title {
-    position: absolute;
-    top: -32px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: bold;
-    text-align: center;
-}
-
+.btn-carteira,
 .btn-process {
-    background-color: #5475a3;
-    color: #ffffff;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    width: 70%;
-    cursor: pointer;
+    background: #5475a3;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: .85rem;
 }
 
 /* Rodapé */
 .rodapé {
-    text-align: center;
     padding: 20px;
-    font-size: 0.8rem;
-    color: #111e38;
+    text-align: center;
+    font-size: .8rem;
 }
 
 /* Media Queries */
-@media (max-width: 1600px) {
-    .card-container {
-        max-width: 1200px;
-        padding: 60px;
-        gap: 40px;
-    }
+@media (max-width: 1600px) {}
 
-    .welcome-text {
-        font-size: 3.5rem;
-    }
-}
+@media (max-width: 1200px) {}
 
-@media (max-width: 1200px) {
-    .card-container {
-        max-width: 900px;
-        padding: 30px;
-    }
+@media (max-width: 900px) {}
 
-    .welcome-text {
-        font-size: 2.2rem;
+@media (max-width: 768px) and (orientation: portrait) {
+    .cabeçalho {
+        padding: 15px 20px;
     }
 }
 
-@media (max-width: 900px) {
-    .card-container {
-        grid-template-columns: 1fr;
-        max-width: 600px;
-        border-radius: 30px;
+@media (max-width: 768px) {}
+
+@media (max-width: 600px) and (orientation: portrait) {
+    .logotipo{
+        height: 40px;
     }
 
-    .information-paybus,
-    .recarga-process {
-        grid-column: auto;
-        height: auto;
-        min-height: 150px;
-        margin-top: 20px;
+    .header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-actions .termos {
+        margin-left: 40px;
     }
 
     .welcome-text {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         text-align: center;
     }
-}
 
-@media (max-width: 768px) {
     .card-container {
-        width: 95%;
+        grid-template-columns: 1fr;
         padding: 20px;
-    }
-
-    .carteira-container,
-    .recarga-container {
-        padding: 15px;
-        font-size: 1.1rem;
     }
 }
 
 @media (max-width: 600px) {
-    .cabeçalho {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 10px 15px;
+    .header-actions {
+        display: flex;
+        align-items: center;
     }
 
-    .termos {
-        display: none;
-    }
-
-    .welcome-text {
-        font-size: 1.5rem;
-    }
-
-    .card-container {
-        border-radius: 20px;
-        padding: 15px;
-    }
-
-    .carteira-container::after,
-    .recarga-process::after {
-        width: 100%;
-        padding: 15px;
+    .rodapé{
+        margin-left: 10px;
     }
 }
 

@@ -5,24 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início - Veloz Pass</title>
+
     <link rel="icon" type="image/png" href="Assets/Favicon.png">
     <link rel="stylesheet" href="css/style2.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
     <div class="background-container">
+
         <header class="cabeçalho">
             <div class="logotipo">
-                <img src="Assets/NewLogoWeb.png" alt="VelozLogo">
+                <img src="Assets/NewLogoWeb.png" alt="Veloz Pass">
             </div>
+
             <div class="header-actions">
-                <div class="termos">
-                    Termos e Políticas
-                </div>
-                <button id="change-button" class="icon-button" aria-label="escuro">
+                <span class="termos">Termos e Políticas</span>
+
+                <button id="change-button" class="icon-button">
                     <i class="bi bi-brightness-high-fill"></i>
                 </button>
+
                 <div class="user-actions">
                     <div class="dropdown-container">
                         <button id="profile-button" class="icon-button" aria-label="Perfil">
@@ -43,45 +47,63 @@
                 </div>
             </div>
         </header>
+        
 
         <main class="main-content">
-            <div class="welcome-text">Seja bem-vindo, usuário!</div>
-            <!-- O JS da primeira página vai alterar o boa vindas ao usuário logado. -->
-            <div class="card-container">
-                <div class="carteira-container">
-                    <p class="carteira-valor">Crédito Disponível: <span class="destacarQuantidade">R$ 0.00</span></p>
+            <h1 class="welcome-text">Seja bem-vindo, usuário!</h1>
+
+            <section class="card-container">
+
+                <article class="card carteira">
+                    <p class="carteira-valor">
+                        Crédito disponível:
+                        <span class="destacarQuantidade">R$ 0,00</span>
+                    </p>
                     <a href="index4.html" class="btn-carteira">Ir para Carteira Digital</a>
-                </div>
-                <a href="index5.html" class="recarga-container">
-                    <span class="recarga-text">Realizar Recarga</span>
+                </article>
+
+                <a href="index5.html" class="card recarga">
+                    Realizar Recarga
                 </a>
-                <div class="information-paybus">
-                    <span class="info-title">Informação sobre valor da passagem</span>
-                    <p class="info-content">Valor da passagem:<strong><span class="destacarValor"> R$
-                                6,50</span></strong></p>
+
+                <article class="card info">
+                    <h2 class="card-title">Informação da Passagem</h2>
+
+                    <p>
+                        Valor da passagem:
+                        <strong class="destacarValor">R$ 6,50</strong>
+                    </p>
+
                     <div class="fonte-info">
-                        <p>Fontes:</p>
-                        <a href="https://www.joinville.sc.gov.br/noticias/transporte-coletivo-e-coleta-de-lixo-terao-reajuste-abaixo-da-inflacao-em-2026/"
-                            class="destacarFonte" target="_blank" rel="noopener noreferrer">
+                        <span>Fonte:</span>
+                        <a href=https://www.joinville.sc.gov.br/noticias/transporte-coletivo-e-coleta-de-lixo-terao-reajuste-abaixo-da-inflacao-em-2026/
+                            target="_blank" rel="noopener noreferrer">
                             Prefeitura de Joinville
                         </a>
                     </div>
-                </div>
-                <div class="recarga-process">
-                    <span class="process-title">Últimas recargas</span>
-                    <ul class="recarga-lista" id="recarga-lista">
-                        <!-- Gerar a Lista através de informações do index5.html-->
+                </article>
+
+                <article class="card historico">
+                    <h2 class="card-title">Últimas Recargas</h2>
+
+                    <ul class="recarga-lista">
+                        <!-- JS -->
                     </ul>
-                    <a href="index6.html" class="btn-process">Visualizar lista completa</a>
-                </div>
-            </div>
+
+                    <a href="index6.html" class="btn-process">
+                        Ver histórico completo
+                    </a>
+                </article>
+
+            </section>
         </main>
 
         <footer class="rodapé">
-            <p>Veloz Pass © 2025 - Todos os direitos reservados</p>
+            <p>Veloz Pass © 2025 — Todos os direitos reservados</p>
         </footer>
+
     </div>
+
     <script src="src/script2.js"></script>
 </body>
-
 </html>
