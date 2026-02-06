@@ -265,6 +265,20 @@ body {
     font-size: .85rem;
 }
 
+.btn-carteira:hover {
+    cursor: pointer;
+    transition: transform .2s;
+    background-color: rgb(70, 134, 203);
+    transform: scale(1.05);
+}
+
+.btn-process:hover {
+    cursor: pointer;
+    transition: transform .2s;
+    background-color: rgb(70, 134, 203);
+    transform: scale(1.05);
+}
+
 /* Rodapé */
 .rodapé {
     padding: 20px;
@@ -273,22 +287,106 @@ body {
 }
 
 /* Media Queries */
-@media (max-width: 1600px) {}
+@media (max-width: 1200px) {
+@media (max-width: 1200px) {
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; 
+        padding-bottom: 0px; 
+        min-height: auto; 
+    }
 
-@media (max-width: 1200px) {}
+    .card-container {
+        margin-bottom: 20px !important; 
+        padding: 30px; 
+    }
 
-@media (max-width: 900px) {}
+    .rodapé {
+        margin-top: 0 !important;
+        padding: 20px 0;
+    }
+}
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .card-container {
+        grid-template-columns: 1fr;
+        width: 90%;
+        margin-bottom: 10px;
+        padding: 35px;
+    }
+
+    .rodapé {
+        margin-top: 0;
+        padding-top: 10px;
+        padding-bottom: 30px;
+    }
+}
 
 @media (max-width: 768px) and (orientation: portrait) {
-    .cabeçalho {
-        padding: 15px 20px;
+    .background-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 1;
+        padding-top: 40px;
+        padding-bottom: 0;
+    }
+
+    .welcome-text {
+        margin-bottom: 40px;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr;
+        width: 90%;
+        margin-bottom: 10px;
+        padding: 35px;
+    }
+
+    .termos:hover {
+        cursor: pointer;
+        transition: 0.2s ease;
+        color: rgb(228, 240, 255);
+    }
+
+    .recarga:hover {
+        color: rgb(152, 202, 255);
+    }
+
+    .btn-carteira:hover {
+        cursor: pointer;
+        transition: transform .2s;
+        background-color: rgb(70, 134, 203);
+        transform: scale(1.05);
+    }
+
+    .btn-process:hover {
+        cursor: pointer;
+        transition: transform .2s;
+        background-color: rgb(70, 134, 203);
+        transform: scale(1.05);
+    }
+
+    .rodapé {
+        margin-top: 0;
+        padding-top: 10px;
+        padding-bottom: 30px;
     }
 }
 
 @media (max-width: 768px) {}
 
 @media (max-width: 600px) and (orientation: portrait) {
-    .logotipo{
+    .logotipo {
         height: 40px;
     }
 
@@ -318,7 +416,27 @@ body {
         align-items: center;
     }
 
-    .rodapé{
+    .termos:hover {
+        cursor: pointer;
+        transition: 0.2s ease;
+        color: rgb(228, 240, 255);
+    }
+
+    .btn-carteira:hover {
+        cursor: pointer;
+        transition: transform .2s;
+        background-color: rgb(70, 134, 203);
+        transform: scale(1.05);
+    }
+
+    .btn-process:hover {
+        cursor: pointer;
+        transition: transform .2s;
+        background-color: rgb(70, 134, 203);
+        transform: scale(1.05);
+    }
+
+    .rodapé {
         margin-left: 10px;
     }
 }
