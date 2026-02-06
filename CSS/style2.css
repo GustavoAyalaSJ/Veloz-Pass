@@ -288,7 +288,6 @@ body {
 
 /* Media Queries */
 @media (max-width: 1200px) {
-@media (max-width: 1200px) {
     .main-content {
         display: flex;
         flex-direction: column;
@@ -307,7 +306,7 @@ body {
         padding: 20px 0;
     }
 }
-}
+
 
 @media (max-width: 900px) and (orientation: portrait) {
     .card-container {
