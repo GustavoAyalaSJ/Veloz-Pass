@@ -291,14 +291,14 @@ body {
     .main-content {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; 
-        padding-bottom: 0px; 
-        min-height: auto; 
+        justify-content: flex-start;
+        padding-bottom: 0px;
+        min-height: auto;
     }
 
     .card-container {
-        margin-bottom: 20px !important; 
-        padding: 30px; 
+        margin-bottom: 30px !important;
+        padding: 30px;
     }
 
     .rodapé {
@@ -307,19 +307,26 @@ body {
     }
 }
 
-
-@media (max-width: 900px) and (orientation: portrait) {
+@media (max-width: 1024px) {
     .card-container {
-        grid-template-columns: 1fr;
-        width: 90%;
-        margin-bottom: 10px;
-        padding: 35px;
+        grid-template-columns: 1fr; 
+        width: 80%;
+        gap: 15px;
+    }
+    
+    .welcome-text {
+        text-align: center;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        padding-top: 30px;
     }
 
-    .rodapé {
-        margin-top: 0;
-        padding-top: 10px;
-        padding-bottom: 30px;
+    .card-container {
+        padding: 30px;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -382,8 +389,6 @@ body {
     }
 }
 
-@media (max-width: 768px) {}
-
 @media (max-width: 600px) and (orientation: portrait) {
     .logotipo {
         height: 40px;
@@ -392,6 +397,10 @@ body {
     .header-actions {
         display: flex;
         align-items: center;
+    }
+
+    .termos {
+        padding-left: 25px;
     }
 
     .header-actions .termos {
@@ -439,5 +448,3 @@ body {
         margin-left: 10px;
     }
 }
-
-@media (max-height: 700px) {}

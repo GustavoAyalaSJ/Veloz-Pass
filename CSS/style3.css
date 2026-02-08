@@ -13,7 +13,7 @@ body {
 }
 
 /* Layout Geral */
-.background-container{
+.background-container {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -114,7 +114,7 @@ body {
     border: 3px solid rgb(146, 189, 239);
 }
 
-.dark-mode .card-container span{
+.dark-mode .card-container span {
     color: rgb(84, 146, 187);
 }
 
@@ -142,7 +142,7 @@ body {
     width: 100%;
     max-width: 900px;
     padding: 40px 40px 25px;
-    display: block; 
+    display: block;
     margin: 0 auto;
 }
 
@@ -170,26 +170,71 @@ body {
 }
 
 /* Media Queries */
-@media (max-width: 1600px) {
+@media (max-width: 600px) and (orientation: portrait) {
+    .background-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
 
-}
+    .cabeçalho {
+        padding: 15px 50px;
+        display: flex;
+        justify-content: space-between;
+    }
 
-@media (max-width: 1200px) {
+    .logotipo img {
+        height: 35px;
+    }
 
-}
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
 
-@media (max-width: 900px) {
+    .historicoSite {
+        font-size: 30px;
+    }
 
-}
+    .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+    }
 
-@media (max-width: 768px) {
+    .card-container {
+        background-color: #f0f0f0;
+        border: 3px solid #7296be;
+        border-radius: 40px;
+        width: 100%;
+        max-width: 900px;
+        padding: 40px 40px 25px;
+        display: block;
+        margin: 0 auto;
+    }
 
-}
+    .tabela-header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-bottom: 14px;
+    }
 
-@media (max-width: 600px) {
+    .tabela-header span {
+        flex: 1;
+        text-align: center;
+        font-size: 0.5rem;
+        font-weight: 750;
+        color: #2c3e50;
+        word-wrap: break-word;
+    }
 
-}
-
-@media (max-height: 700px) {
-
+    .tabela-corpoInfo {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 }

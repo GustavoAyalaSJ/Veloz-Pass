@@ -473,111 +473,15 @@ body {
     }
 }
 
-@media (max-width: 900px) {
-    .background-container {
-        background-color: #92b7e9;
-    }
+@media (max-width: 1024px){
 
-    .cabeçalho {
-        height: 80px;
-        padding: 0 1rem;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        gap: 4;
-    }
-
-    .logotipo img {
-        height: 45px;
-    }
-
-    .main-content {
-        min-height: auto;
-        padding: 2rem 1rem;
-        align-items: flex-start;
-    }
-
-    .link-headers {
-        gap: 15px;
-        flex-wrap: nowrap;
-        justify-content: flex-end;
-        margin-right: 2px;
-    }
-
-    .right {
-        background-position: 60% center;
-    }
-
-    .containerLeft {
-        padding: 1.7rem;
-        border-radius: 15px;
-    }
-
-    .sobre-left h1 {
-        font-size: 2.1rem;
-    }
-
-    .sobre-left p {
-        font-size: 1.2rem;
-        text-align: center;
-    }
-
-    .modal-content {
-        overflow-y: auto;
-    }
-
-    .modal-terms-content {
-        overflow-y: auto;
-    }
-
-    .rodapé {
-        padding: 1.4rem;
-    }
 }
 
-@media (max-width: 768px) and (orientation: portrait) {
-    .background-container {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .main-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-        padding: 40px 20px;
-        min-height: calc(100vh - 160px);
-        position: relative;
-    }
-
-    .left {
-        width: 90%;
-        max-width: 450px;
-        margin-left: 0;
-        z-index: 2;
-    }
-
-    .right {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        background-position: center;
-    }
-
-    .rodapé {
-        position: relative;
-        z-index: 10;
-        margin-top: auto;
-    }
+@media(max-width: 992px){
+    
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation: landscape) {
     .background-container {
         min-height: 100vh;
         background-color: #92b7e9;
@@ -646,14 +550,89 @@ body {
     }
 }
 
-@media (max-width: 600px) {
+
+@media (max-width: 768px) and (orientation: portrait) {
+    .background-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cabeçalho {
+        height: 62px;
+        padding: 0 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        padding: 40px 20px;
+        min-height: calc(100vh - 160px);
+        position: relative;
+    }
+
+    .left {
+        width: 90%;
+        max-width: 450px;
+        margin-left: 0;
+        z-index: 2;
+    }
+
+    .right {
+        background-image: url("768e1024.png");
+    }
+
+    .modal-content {
+        overflow-y: auto;
+    }
+
+    .modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-content.scrollable {
+        overflow-y: auto;
+    }
+
+    .modal-terms-content {
+        min-height: 0;
+        max-height: calc(90vh - 140px);
+        overflow-y: auto;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 0.5rem;
+        height: 20px;
+    }
+
+    .destacarLogin:hover {
+        color: #c0e1f8;
+        transition: 0.2s ease;
+    }
+
+    .rodapé {
+        position: relative;
+        z-index: 10;
+        margin-top: auto;
+    }
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
     .background-container {
         min-height: 100vh;
         background-color: #92b7e9;
     }
 
     .cabeçalho {
-        height: 64px;
+        height: 62px;
         padding: 0 1rem;
         flex-direction: row;
         justify-content: space-between;
@@ -666,7 +645,7 @@ body {
     }
 
     .link-headers {
-        margin-left: 60px;
+        margin-left: 40px;
         gap: 15px;
         flex-wrap: nowrap;
         justify-content: flex-end;
@@ -684,7 +663,7 @@ body {
     }
 
     .right {
-        display: none;
+        background-image: url("375e667.png");
     }
 
     .containerLeft {
@@ -720,6 +699,10 @@ body {
         overflow-y: auto;
     }
 
+    .sobre-left p{
+        text-align: center;
+    }
+
     .close-btn {
         position: absolute;
         right: 0.5rem;
@@ -732,10 +715,8 @@ body {
     }
 
     .rodapé {
-        font-size: 0.8rem;
-        padding: 1rem;
+        font-size: 0.81rem;
+        padding: 1.4rem;
     }
 
 }
-
-@media (max-height: 700px) {}

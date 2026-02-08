@@ -260,14 +260,22 @@ select {
 
 
 /* Media Queries */
-@media (max-width: 1600px) {}
+@media (max-width: 1200px) {
 
-@media (max-width: 1200px) {}
+}
 
-@media (max-width: 900px) {}
+@media (max-width: 1024px) {
 
-@media (max-width: 768px) {}
+}
 
-@media (max-width: 600px) {}
+@media (max-width: 992px) {
 
-@media (max-height: 700px) {}
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 600px) {
+
+}
