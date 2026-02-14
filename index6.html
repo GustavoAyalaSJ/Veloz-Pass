@@ -7,6 +7,7 @@
     <title>Processos - Veloz Pass</title>
     <link rel="icon" type="image/png" href="Assets/Favicon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="CSS/style6.css">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
         <header class="cabeçalho">
             <a href="index2.html" class="logo-link">
                 <div class="logotipo">
-                    <img src="Assets/LogoWeb.png" alt="AD logo">
+                    <img src="Assets/NewLogoWeb.png" alt="AD logo">
                 </div>
             </a>
             <div class="header-actions">
@@ -40,17 +41,27 @@
         </header>
 
         <main class="main-content">
-            <h1>Processos de Recarga</h1>
+            <h1 class="processoRecarga">Processos de Recarga</h1>
             <div class="card-container">
-                <form class="formtable-information">
-                    <!-- 
+                <div class="histórico-valores">
+                    <div class="tabela-header">
+                        <span>PROTOCOLO</span>
+                        <span>VALOR</span>
+                        <span>REALIZADO POR</span> <!-- Realizado por: Se foi por Cartão, Pix, Boleto, etc. -->
+                        <span>BANCO</span> <!-- UTILIZAR UMA API DE BANCO (NOTA DEPOIS), caso o usuário utiliza alguma forma de pagamento que envolva o banco. -->
+                        <span>SITUAÇÃO</span>
+                    </div>
+                    <div class="tabela-corpoInfo">
+                        <!-- 
                         Um container onde mostrará todos os processos de recarga do cartão em colunas, o ID do procssso, o valor da recarga,
                         preço colocado, forma de pagamento por qual banco e o resultado do processo (aprovado ou recusado)
-                -->
-                </form>
+                        -->
+                    </div>
+                </div>
             </div>
         </main>
     </div>
+    <script src="src/script6.js"></script>
 </body>
 
 </html>

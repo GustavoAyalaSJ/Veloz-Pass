@@ -6,6 +6,9 @@ index.html (banco de dados):
 - Tornar as informações credenciais salvas em um banco de dados para que o usuário não tenha que cadastrar várias vezes;
 - Ter uma forma do usuário não criar contas com mesmo número e e-mail (para evitar perfis clonados);
 
+index.html (CSS e Java Script):
+- Separar os modais de Termos de Uso e Políticas de Privacidade;
+
 index2.html (banco de dados):
 - As informações das últimas recargas realizadas sejam visualizadas dentro do quadrado "últimas recargas" em uma lista de três linhas (sem barra lateral);
 - Pegar o valor da carteira digital e demonstrar no "Valor Disponível", onde será atualizado conforme o usuário coloca valor ou retira;
