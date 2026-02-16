@@ -1,38 +1,58 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const spanNome = document.getElementById('nome-logado');
+    const changeButton = document.getElementById("change-button");
+    const body = document.body;
     const profileButton = document.getElementById('profile-button');
     const profileDropdown = document.getElementById('profile-dropdown');
+    const exitLink = document.querySelector('.exit-link');
 
-    profileButton.addEventListener('click', (event) => {
-        event.stopPropagation();
-
-        profileDropdown.classList.toggle('active');
-    });
-
-    window.addEventListener('click', (event) => {
-        if (profileDropdown.classList.contains('active')) {
-            if (!profileDropdown.contains(event.target)) {
-                profileDropdown.classList.remove('active');
-            }
+    function atualizarNome() {
+        const nomeSalvo = localStorage.getItem('nomeUsuario');
+        
+        if (nomeSalvo && spanNome) {
+            const partes = nomeSalvo.trim().split(/\s+/);
+            const primeiroNome = partes[0];
+            const ultimoNome = partes.length > 1 ? partes[partes.length - 1] : "";
+            
+            spanNome.textContent = `${primeiroNome} ${ultimoNome}`.trim();
         }
-    });
-});
+    }
 
+    atualizarNome();
 
-const changeButton = document.getElementById("change-button");
-const body = document.body;
+    if (exitLink) {
+        exitLink.addEventListener('click', () => {
+            localStorage.removeItem('nomeUsuario');
+        });
+    }
 
-if (localStorage.getItem("theme") === "dark") {
-    body.classList.add("dark-mode");
-}
+    if (changeButton) {
+        const currentTheme = localStorage.getItem("theme");
+        
+        if (currentTheme === "dark") {
+            body.classList.add("dark-mode");
+            changeButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
+        }
 
-changeButton.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
+        changeButton.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            const isDark = body.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+            
+            changeButton.innerHTML = isDark ? 
+                '<i class="bi bi-moon-fill"></i>' : 
+                '<i class="bi bi-brightness-high-fill"></i>';
+        });
+    }
 
-    if (body.classList.contains("dark-mode")) {
-        localStorage.setItem("theme", "dark");
-        changeButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
-    } else {
-        localStorage.setItem("theme", "light");
-        changeButton.innerHTML = '<i class="bi bi-brightness-high-fill"></i>';
+    if (profileButton && profileDropdown) {
+        profileButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => {
+            profileDropdown.classList.remove('active');
+        });
     }
 });
