@@ -2,7 +2,23 @@ const bcrypt = require('bcrypt');
 const db = require('../db');
 
 exports.cadastro = async (req, res) => {
-    const { nome_usuario, cpf, telefone, email, senha } = req.body;
+    console.log(req.body);
+    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha } = req.body;
+
+    if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
+        return res.status(400).json({ message: "Preencha todos os campos" });
+    }
+
+    if (senha !== confirmar_senha) {
+        return res.status(400).json({ message: "As senhas não coincidem" });
+    }
+
+    const cpfLimpo = cpf.replace(/\D/g, '');
+
+    if (cpfLimpo.length !== 11) {
+        return res.status(400).json({ message: "CPF inválido" });
+    }
+
 
     try {
         const senhaHash = await bcrypt.hash(senha, 10);
@@ -15,16 +31,18 @@ exports.cadastro = async (req, res) => {
 
         db.query(sql, [nome_usuario, cpf, telefone, email, senhaHash], (err) => {
             if (err) {
-                return res.status(500).json({ message: "Erro no banco de dados" });
+                if (err.code === 'ER_DUP_ENTRY') {
+                    return res.status(400).json({ message: "Email ou CPF já cadastrado" });
+                }
+                return res.status(500).json({ message: "Erro interno no servidor" });
             }
 
+
             res.status(201).json({
-                message: "Sucesso",
+                message: "Cadastro realizado com sucesso!",
                 nome: nome_usuario
             });
         });
-
-
 
     } catch (error) {
         res.status(500).send('Erro interno');
@@ -33,6 +51,11 @@ exports.cadastro = async (req, res) => {
 
 exports.login = (req, res) => {
     const { email, senha } = req.body;
+
+    if (!email || !senha) {
+        return res.status(400).json({ message: "Informe email e senha" });
+    }
+
 
     const sql = `SELECT * FROM usuario WHERE email = ?`;
 

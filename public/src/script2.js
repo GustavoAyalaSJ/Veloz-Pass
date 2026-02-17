@@ -8,12 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function atualizarNome() {
         const nomeSalvo = localStorage.getItem('nomeUsuario');
-        
+        console.log("Nome salvo:", nomeSalvo);
+
         if (nomeSalvo && spanNome) {
             const partes = nomeSalvo.trim().split(/\s+/);
             const primeiroNome = partes[0];
             const ultimoNome = partes.length > 1 ? partes[partes.length - 1] : "";
-            
+
             spanNome.textContent = `${primeiroNome} ${ultimoNome}`.trim();
         }
     }
@@ -23,12 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (exitLink) {
         exitLink.addEventListener('click', () => {
             localStorage.removeItem('nomeUsuario');
+            window.location.href = 'index.html';
         });
     }
 
     if (changeButton) {
         const currentTheme = localStorage.getItem("theme");
-        
+
         if (currentTheme === "dark") {
             body.classList.add("dark-mode");
             changeButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
@@ -38,9 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
             body.classList.toggle("dark-mode");
             const isDark = body.classList.contains("dark-mode");
             localStorage.setItem("theme", isDark ? "dark" : "light");
-            
-            changeButton.innerHTML = isDark ? 
-                '<i class="bi bi-moon-fill"></i>' : 
+
+            changeButton.innerHTML = isDark ?
+                '<i class="bi bi-moon-fill"></i>' :
                 '<i class="bi bi-brightness-high-fill"></i>';
         });
     }
