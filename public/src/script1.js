@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cpfInput = document.getElementById('inputCPF');
                 const cpfValue = cpfInput.value.trim();
 
-                if (!cpfValue[8] !== '9') {
+                if (cpfValue[8] !== '9') {
                     alert("Disponível apenas para Santa Catarina.");
                     cpfInput.focus();
                     return;
