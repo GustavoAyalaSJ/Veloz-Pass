@@ -1,0 +1,281 @@
+/* Estrutura Geral */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+/* Layout Geral */
+.background-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho */
+.cabeçalho {
+    background-color: #7296be;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logotipo img {
+    height: 40px;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #ffffff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.dropdown-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .cabeçalho {
+    background-color: #1f2a36;
+    color: #ffffff;
+}
+
+.dark-mode .containerLeft {
+    background-color: #1e293b;
+    color: #f1f1f1;
+}
+
+.dark-mode .card-recarga {
+    background-color: #1e293b;
+    border: 3px solid rgb(87, 176, 218)
+}
+
+.dark-mode .divider::before {
+    color: rgb(87, 176, 218)
+}
+
+.dark-mode .top-group select,
+.dark-mode .top-group.valor input {
+    background-color: #1e293b;
+    color:#73d4f2;
+    border: 3px solid rgb(87, 176, 218)
+}
+
+.dark-mode .passo.passo-1 {
+    color: rgb(96, 188, 230)
+}
+
+/* Conteúdo Principal */
+.main-content {
+    padding: 40px;
+    flex-grow: 1;
+}
+
+.container-recarga {
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+.titulo-pagina-externo {
+    align-self: flex-end;
+    text-align: right;
+    margin-right: 4%;
+    color: #7296be;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.top-recarga {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.top-group {
+    flex: 1;
+}
+
+.top-group h4 {
+    margin-bottom: 7px;
+    margin-left: 15px;
+}
+
+.top-group.valor {
+    padding-right: 550px;
+
+}
+
+/* Card principal */
+.card-recarga {
+    display: grid;
+    grid-template-columns: 320px 40px 1fr;
+    background-color: #cfd2d3;
+    border-radius: 20px;
+    border: 3px solid #9e9e9e;
+    padding: 30px;
+}
+
+.passo h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.passo-1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.buscard-image img {
+    width: 200px;
+    border-radius: 18px;
+    border: 4px solid #1a3a5a;
+    margin-bottom: 20px;
+}
+
+.confirm-card {
+    margin-top: 50px;
+}
+
+.confirm-card h4 {
+    margin-bottom: 10px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divider::before {
+    content: "« »";
+    writing-mode: vertical-rl;
+    font-size: 1.4rem;
+    color: #2c2c2c;
+}
+
+.passo-2 {
+    padding-left: 20px;
+}
+
+.payment-information {
+    background-color: #e6e6e6;
+    border-radius: 15px;
+    border: 2.5px solid #a3a3a3;
+    min-height: 350px;
+    padding: 20px;
+}
+
+/* Inputs */
+input[type="text"],
+select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 25px;
+    border: 2px solid #5d5d5d;
+    background-color: #dbdbdb;
+    margin-bottom: 15px;
+}
+
+/* Botão */
+.action-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+.btn-prosseguir {
+    background-color: #4e7f5c;
+    color: #ffffff;
+    border: none;
+    padding: 18px 45px;
+    font-size: 1.1rem;
+    border-radius: 18px;
+    cursor: pointer;
+}
+
+
+/* Media Queries */
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 992px) {
+
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 600px) {
+
+}
