@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const payload = Object.fromEntries(new FormData(formLogin).entries());
 
                 try {
-                    const response = await fetch('http://localhost:3000/login', {
+                    const response = await fetch('/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cpfInput = document.getElementById('inputCPF');
                 const cpfValue = cpfInput.value.trim();
 
-                if (!cpfValue.startsWith('9')) {
+                if (!cpfValue[8] !== '9') {
                     alert("Disponível apenas para Santa Catarina.");
                     cpfInput.focus();
                     return;
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const payload = Object.fromEntries(new FormData(formCadastro).entries());
 
                 try {
-                    const response = await fetch('http://localhost:3000/cadastro', {
+                    const response = await fetch('/cadastro', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
