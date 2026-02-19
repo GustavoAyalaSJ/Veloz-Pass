@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
-const db = require('../db');
+const db = require('../config/db');
 
 exports.cadastro = async (req, res) => {
-    console.log(req.body);
     const { nome_usuario, cpf, telefone, email, senha, confirmar_senha } = req.body;
 
     if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
@@ -19,57 +18,50 @@ exports.cadastro = async (req, res) => {
         return res.status(400).json({ message: "CPF inválido" });
     }
 
-
     try {
         const senhaHash = await bcrypt.hash(senha, 10);
 
-        const sql = `
-            INSERT INTO usuario 
+        await db.query(
+            `INSERT INTO usuario 
             (nome_usuario, cpf, telefone, email, senha)
-            VALUES (?, ?, ?, ?, ?)
-        `;
+            VALUES ($1, $2, $3, $4, $5)`,
+            [nome_usuario, cpfLimpo, telefone, email, senhaHash]
+        );
 
-        db.query(sql, [nome_usuario, cpf, telefone, email, senhaHash], (err) => {
-            if (err) {
-                if (err.code === 'ER_DUP_ENTRY') {
-                    return res.status(400).json({ message: "Email ou CPF já cadastrado" });
-                }
-                return res.status(500).json({ message: "Erro interno no servidor" });
-            }
-
-
-            res.status(201).json({
-                message: "Cadastro realizado com sucesso!",
-                nome: nome_usuario
-            });
+        res.status(201).json({
+            message: "Cadastro realizado com sucesso!",
+            nome: nome_usuario
         });
 
-    } catch (error) {
-        res.status(500).send('Erro interno');
+    } catch (err) {
+
+        if (err.code === '23505') {
+            return res.status(400).json({ message: "Email ou CPF já cadastrado" });
+        }
+
+        console.error(err);
+        res.status(500).json({ message: "Erro interno no servidor" });
     }
 };
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
     if (!email || !senha) {
         return res.status(400).json({ message: "Informe email e senha" });
     }
 
+    try {
+        const result = await db.query(
+            `SELECT * FROM usuario WHERE email = $1`,
+            [email]
+        );
 
-    const sql = `SELECT * FROM usuario WHERE email = ?`;
-
-    db.query(sql, [email], async (err, results) => {
-
-        if (err) {
-            return res.status(500).json({ message: 'Erro interno' });
-        }
-
-        if (results.length === 0) {
+        if (result.rows.length === 0) {
             return res.status(400).json({ message: 'Usuário não encontrado' });
         }
 
-        const usuario = results[0];
+        const usuario = result.rows[0];
 
         const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
@@ -81,5 +73,9 @@ exports.login = (req, res) => {
             message: 'Login realizado com sucesso',
             nome: usuario.nome_usuario
         });
-    });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Erro interno' });
+    }
 };
