@@ -28,11 +28,10 @@
                             <i class="bi bi-person-circle"></i>
                         </button>
                         <div class="dropdown-content" id="profile-dropdown">
+                            <a href="index5.html" class="recarga-link"><i class="bi bi-credit-card-2-back"></i> Recarga</a>
                             <a href="index3.html" class="histórico-link"><i class="bi bi-clock-history"></i> Histórico
                                 Geral
                             </a>
-                            <a href="index4.html" class="carteira-link"><i class="bi bi-credit-card"></i>Carteira
-                                Digital</a>
                             <a href="index.html" class="exit-link"><i class="bi bi-box-arrow-left"></i>Sair</a>
                         </div>
                     </div>
@@ -100,7 +99,7 @@
                             <option value="5">Cartão Internacional</option>
                         </select>
                     </div>
-                                        <div class="info-bancaria" id="infoBancaria" style="display:none;">
+                    <div class="info-bancaria" id="infoBancaria" style="display:none;">
                         <div class="banco-logo">
                             <img id="logoBank" src="" alt="Logo do Banco" style="height: 40px; margin: 10px 0;">
                         </div>
@@ -143,12 +142,14 @@
                             </div>
                             <div class="boleto-campo">
                                 <label>Linha Digitável:</label>
-                                <input type="text" id="linhaDigitavel" readonly placeholder="Linha digitável" style="font-size: 0.85rem;">
+                                <input type="text" id="linhaDigitavel" readonly placeholder="Linha digitável"
+                                    style="font-size: 0.85rem;">
                             </div>
                             <div class="boleto-codigo-barras">
                                 <label>Código de Barras:</label>
                                 <svg id="codigoBarrasSvg"></svg>
-                                <input type="text" id="codigoBarrasNumero" readonly  style="font-size: 0.85rem; margin-top: 10px;">
+                                <input type="text" id="codigoBarrasNumero" readonly
+                                    style="font-size: 0.85rem; margin-top: 10px;">
                             </div>
                             <button class="btn-imprimir-boleto" id="btnImprimirBoleto">Imprimir Boleto</button>
                         </div>
