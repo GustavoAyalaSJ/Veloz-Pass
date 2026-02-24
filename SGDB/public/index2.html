@@ -20,25 +20,18 @@
             <div class="header-actions">
                 <span class="termos">Termos e Políticas</span>
 
-                <button id="change-button" class="icon-button">
-                    <i class="bi bi-brightness-high-fill"></i>
-                </button>
-
                 <div class="user-actions">
-                    <div class="dropdown-container">
-                        <button id="profile-button" class="icon-button" aria-label="Perfil">
-                            <i class="bi bi-person-circle"></i>
-                        </button>
-                        <div class="dropdown-content" id="profile-dropdown">
-                            <a href="index.html" class="exit-link">
-                                <i class="bi bi-box-arrow-left"></i>Sair
-                            </a>
-                        </div>
-                    </div>
+                    <button id="change-button" class="icon-button">
+                        <i class="bi bi-brightness-high-fill"></i>
+                    </button>
+                    <a class="icon-button" onclick="abrirModalLogout(event)">
+                        <i class="bi bi-box-arrow-left"></i>
+                    </a>
                 </div>
             </div>
+
         </header>
-        
+
 
         <main class="main-content">
             <h1 class="welcome-text">Seja bem-vindo, <span id="nome-logado">usuário</span>!</h1>
@@ -76,20 +69,31 @@
 
                 <article class="card historico">
                     <h2 class="card-title">Histórico</h2>
-                    <a href="index3.html" class="btn-process">
+                    <a href="index3.html" class="btn-historico">
                         Ver histórico completo
                     </a>
                 </article>
 
             </section>
+            
+            <!-- Modal -->
+            <div id="logoutModal" class="modal-overlay">
+                <div class="modal-box">
+                    <button id="btnCloseModal" class="close-btn">X</button>
+                    <h3>Deseja sair da sua conta?</h3>
+                    <div class="modal-buttons">
+                        <button class="btn-sim" onclick="confirmarLogout()">Sim</button>
+                        <button class="btn-nao" onclick="fecharModal()">Não</button>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer class="rodapé">
             <p>Veloz Pass © 2025 — Todos os direitos reservados</p>
         </footer>
-
     </div>
-
     <script src="src/script2.js"></script>
 </body>
+
 </html>

@@ -178,6 +178,37 @@ body {
     color: white;
 }
 
+.dark-mode .modal-box{
+  background-color: rgba(0, 0, 0, 0.753);
+  border: 3px solid rgb(139, 172, 209);
+}
+
+.dark-mode .modal-box h3{
+    color: rgb(125, 166, 209);
+}
+
+.dark-mode .btn-sim{
+    background-color: rgba(42, 93, 51, 0.518);
+    border: 1.5px solid rgb(24, 82, 57);
+}
+
+.dark-mode .btn-sim:hover{
+    background-color: rgba(73, 139, 85, 0.518);
+    border: 1.5px solid rgb(24, 82, 57);
+    transition: 0.3s rgba(73, 139, 85, 0.518) ease;
+}
+
+.dark-mode .btn-nao{
+    background-color: rgba(94, 43, 34, 0.744);
+    border: 1.5px solid rgb(58, 14, 14);
+}
+
+.dark-mode .btn-nao:hover{
+   background-color: rgba(161, 73, 58, 0.744);
+   border: 1.5px solid rgb(58, 14, 14); 
+   transition: 0.3s rgba(161, 73, 58, 0.744) ease;
+}
+
 .dark-mode .rodapé {
     background-color: #121212;
     color: #e4e4e4;
@@ -197,7 +228,6 @@ body {
     border: 3px solid #7296be;
     border-radius: 35px;
     padding: 35px;
-
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -256,7 +286,7 @@ body {
 }
 
 .btn-carteira,
-.btn-process {
+.btn-historico {
     background: #5475a3;
     color: white;
     padding: 10px 25px;
@@ -272,11 +302,99 @@ body {
     transform: scale(1.05);
 }
 
-.btn-process:hover {
+.btn-historico:hover {
     cursor: pointer;
     transition: transform .2s;
     background-color: rgb(70, 134, 203);
     transform: scale(1.05);
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-box {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-box h3 {
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-buttons button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.btn-sim {
+    background-color: #317134;
+    border: 1.5px solid rgb(19, 57, 27);
+    color: white;
+}
+
+.btn-sim:hover {
+    background-color: #4fa454;
+    border: 1.5px solid rgb(19, 57, 27);
+    transition: 0.3s #4fa454 ease;
+}
+
+.btn-nao {
+    background-color: #4d1e1e;
+    border: 1.5px solid rgb(58, 14, 14);
+    color: white;
+}
+
+.btn-nao:hover {
+    background-color: #c77f7f;
+    border: 1.5px solid rgb(58, 14, 14);
+    transition: 0.3s #c77f7f ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    opacity: 0.8;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #dbdbdb;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    opacity: 1;
 }
 
 /* Rodapé */

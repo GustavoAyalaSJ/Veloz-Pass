@@ -307,7 +307,7 @@ body {
     font-size: 1rem;
 }
 
-/* Estilos Universais para elementos para o Modal Suporte */
+/* Estilos para o Modal Suporte */
 .modal-content select,
 .modal-content input,
 .modal-content textarea {
@@ -338,7 +338,6 @@ body {
 }
 
 /* Estilo de Botões do Modal de Cadastro */
-
 .close-btn {
     position: absolute;
     top: 15px;
