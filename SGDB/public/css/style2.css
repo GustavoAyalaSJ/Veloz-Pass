@@ -83,6 +83,10 @@ body {
     margin-bottom: 30px;
 }
 
+.destacarUser{
+    color: rgb(40, 61, 97);
+}
+
 /* Modo escuro */
 .dark-mode {
     background-color: #121212;
