@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
-    const btnCloseModal = document.getElementById('btnCloseModal');
 
     function atualizarNome() {
         const nomeSalvo = localStorage.getItem('nomeUsuario');
@@ -37,12 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionStorage.clear();
         window.location.href = 'index.html';
     };
-
-    if (btnCloseModal) {
-        btnCloseModal.addEventListener('click', () => {
-            logoutModal.style.display = "none";
-        });
-    }
 
     if (changeButton) {
         const currentTheme = localStorage.getItem("theme");

@@ -1,5 +1,4 @@
 /* Estrutura Geral */
-
 * {
     margin: 0;
     padding: 0;
@@ -91,7 +90,15 @@ body {
     background-color: #f1f1f1;
 }
 
-.icon-button {
+.first-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.second-button {
     background: none;
     border: none;
     color: white;
@@ -146,7 +153,7 @@ body {
     margin: 0 auto;
 }
 
-/* Configuração do Card */
+/* Configuração da Tabela */
 .tabela-header {
     display: flex;
     justify-content: space-between;

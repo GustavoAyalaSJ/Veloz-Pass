@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const profileButton = document.getElementById('profile-button');
-    const profileDropdown = document.getElementById('profile-dropdown');
+    const listbutton = document.getElementById('list-button');
+    const contentDropdown = document.getElementById('content-dropdown');
 
-    profileButton.addEventListener('click', (event) => {
+    listbutton.addEventListener('click', (event) => {
         event.stopPropagation();
-        
-        profileDropdown.classList.toggle('active');
+
+        contentDropdown.classList.toggle('active');
     });
 
     window.addEventListener('click', (event) => {
-        if (profileDropdown.classList.contains('active')) {
-            if (!profileDropdown.contains(event.target)) {
-                profileDropdown.classList.remove('active');
+        if (contentDropdown.classList.contains('active')) {
+            if (!contentDropdown.contains(event.target)) {
+                contentDropdown.classList.remove('active');
             }
         }
     });
