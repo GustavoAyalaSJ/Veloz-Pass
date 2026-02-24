@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.confirmarLogout = function () {
         localStorage.removeItem('nomeUsuario');
         sessionStorage.clear();
-        window.location.href = 'index.html';
+        window.location.href = '/introduction';
     };
 
     if (changeButton) {
