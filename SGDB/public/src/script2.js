@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const spanNome = document.getElementById('nome-logado');
     const changeButton = document.getElementById("change-button");
     const body = document.body;
-    const profileButton = document.getElementById('profile-button');
-    const profileDropdown = document.getElementById('profile-dropdown');
     const exitLink = document.querySelector('.exit-link');
+    const logoutModal = document.getElementById("logoutModal");
+    const btnCloseModal = document.getElementById('btnCloseModal');
 
     function atualizarNome() {
         const nomeSalvo = localStorage.getItem('nomeUsuario');
@@ -22,9 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarNome();
 
     if (exitLink) {
-        exitLink.addEventListener('click', () => {
-            localStorage.removeItem('nomeUsuario');
-            window.location.href = 'index.html';
+        exitLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            logoutModal.style.display = "flex";
+        });
+    }
+
+    window.fecharModal = function () {
+        logoutModal.style.display = "none";
+    };
+
+    window.confirmarLogout = function () {
+        localStorage.removeItem('nomeUsuario');
+        sessionStorage.clear();
+        window.location.href = 'index.html';
+    };
+
+    if (btnCloseModal) {
+        btnCloseModal.addEventListener('click', () => {
+            modalRoot.classList.add('hidden');
         });
     }
 
@@ -44,17 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
             changeButton.innerHTML = isDark ?
                 '<i class="bi bi-moon-fill"></i>' :
                 '<i class="bi bi-brightness-high-fill"></i>';
-        });
-    }
-
-    if (profileButton && profileDropdown) {
-        profileButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            profileDropdown.classList.toggle('active');
-        });
-
-        document.addEventListener('click', () => {
-            profileDropdown.classList.remove('active');
         });
     }
 });
