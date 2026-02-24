@@ -8,20 +8,21 @@ index.html (banco de dados):
 index.html (CSS e Java Script):
 - Separar os modais de Termos de Uso e Políticas de Privacidade;
 
-index2.html (banco de dados):
-- Pegar o valor da carteira digital e demonstrar no "Valor Disponível", onde será atualizado conforme o usuário coloca valor ou retira;
-
 index2.html (CSS e Java Script):
-- Criar um modal para acessar os "Termos e Políticas" do site.
+- Criar um modal para acessar os "Termos e Políticas" do site;
+- Demonstrar o valor disponível na carteira, conforme o usuário coloca valor ou retira.
+
+index2.html (banco de dados):
+- Salvar o valor no banco de dados em tempo real.
 
 index3.html (HTML, CSS, Java Script e Banco de Dados):
 - Pegar todas as informações do site e colocar em uma lista abaixo dentro da tabela de histórico geral (O comentário no HTML explica melhor).
 
 index4.html (CSS, Java Script e Banco de Dados):
-- Mostrar o protocolo do processo na lista abaixo e puxar este dado para a tabela de histórico geral.
+- Mostrar o protocolo de adicionar valor na Carteira Digital na lista abaixo e compartilhar com histórico geral.
 
 index5.html (Java Script e Banco de Dados):
-- Mostrar o protocolo do processo na lista abaixo puxar este dado para a tabela de últimas recargas e histórico geral.
+- Compartilhar o processo finalizado de recarga em formato de protocolo no histórico geral.
 
 index6.html (ainda em processo):
 - Elaborar o design do site e colocar o design do site.

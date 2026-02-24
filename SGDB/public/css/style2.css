@@ -98,7 +98,8 @@ body {
     color: #ffffff;
 }
 
-.dark-mode .welcome-text {
+.dark-mode .welcome-text,
+.dark-mode .destacarUser {
     color: rgb(166, 197, 251);
 }
 
