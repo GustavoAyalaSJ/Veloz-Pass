@@ -85,13 +85,22 @@ body {
     background-color: #f1f1f1;
 }
 
-.icon-button {
+.first-button {
     background: none;
     border: none;
     color: white;
     font-size: 2rem;
     cursor: pointer;
 }
+
+.second-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
 
 .dark-mode {
     background-color: #121212;

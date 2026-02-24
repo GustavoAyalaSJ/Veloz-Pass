@@ -23,7 +23,7 @@ index4.html (CSS, Java Script e Banco de Dados):
 index5.html (Java Script e Banco de Dados):
 - Mostrar o protocolo do processo na lista abaixo puxar este dado para a tabela de últimas recargas e histórico geral.
 
-index6.html e index7.html (ainda em processo):
+index6.html (ainda em processo):
 - Elaborar o design do site e colocar o design do site.
 
 
