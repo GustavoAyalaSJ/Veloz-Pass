@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (response.ok && data.nome) {
                         localStorage.setItem('nomeUsuario', data.nome);
-                        window.location.href = 'index2.html';
+                        window.location.href = "/dashboard";
                     } else {
                         alert(data.message || "Erro ao obter nome.");
                     }
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (response.ok && data.nome) {
                         localStorage.setItem('nomeUsuario', data.nome);
-                        window.location.href = 'index2.html';
+                        window.location.href = "/dashboard";
                     } else {
                         alert(data.message);
                     }
