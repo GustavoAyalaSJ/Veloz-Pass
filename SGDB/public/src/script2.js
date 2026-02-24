@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnCloseModal) {
         btnCloseModal.addEventListener('click', () => {
-            modalRoot.classList.add('hidden');
+            logoutModal.style.display = "none";
         });
     }
 
