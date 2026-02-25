@@ -1,5 +1,4 @@
 /* Estrutura Geral */
-
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +11,7 @@ body {
     color: #333;
 }
 
-/* Layout Geral */
+/* Background */
 .background-container {
     min-height: 100vh;
     display: flex;
@@ -101,7 +100,7 @@ body {
     cursor: pointer;
 }
 
-
+/* Modo Escuro */
 .dark-mode {
     background-color: #121212;
     color: #e0e0e0;
@@ -132,6 +131,18 @@ body {
     color:#73d4f2;
     border: 3px solid rgb(87, 176, 218)
 }
+
+.dark-mode .confirm-card input {
+    background-color: #1e293b;
+    color:#73d4f2;
+    border: 3px solid rgb(87, 176, 218)
+}
+
+.dark-mode .payment-information {
+    background-color: #1e293b;
+    border: 3px solid rgb(87, 176, 218)
+}
+
 
 .dark-mode .passo.passo-1 {
     color: rgb(96, 188, 230)
@@ -239,7 +250,6 @@ body {
     padding: 20px;
 }
 
-/* Inputs */
 input[type="text"],
 select {
     width: 100%;
@@ -250,7 +260,6 @@ select {
     margin-bottom: 15px;
 }
 
-/* Botão */
 .action-area {
     display: flex;
     justify-content: flex-end;
@@ -267,17 +276,12 @@ select {
     cursor: pointer;
 }
 
-
 /* Media Queries */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
 
 }
 
 @media (max-width: 1024px) {
-
-}
-
-@media (max-width: 992px) {
 
 }
 
