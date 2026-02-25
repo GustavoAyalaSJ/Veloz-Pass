@@ -11,7 +11,7 @@ body {
     color: #333;
 }
 
-/* Layout Geral */
+/* Background */
 .background-container {
     min-height: 100vh;
     display: flex;
@@ -54,6 +54,22 @@ body {
     transition: all 0.4s ease;
 }
 
+.first-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.second-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
 .dropdown-container {
     position: relative;
 }
@@ -90,22 +106,7 @@ body {
     background-color: #f1f1f1;
 }
 
-.first-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-.second-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
+/* Modo Escuro */
 .dark-mode {
     background-color: #121212;
     color: #e0e0e0;
@@ -141,7 +142,7 @@ body {
     color: rgb(91, 148, 187);
 }
 
-/* Card principal com informações */
+/* Informações da Tabela */
 .card-container {
     background-color: #f0f0f0;
     border: 3px solid #7296be;
@@ -185,9 +186,12 @@ body {
     }
 
     .cabeçalho {
-        padding: 15px 50px;
+        padding: 15px 20px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .logotipo img {
@@ -197,7 +201,7 @@ body {
     .header-actions {
         display: flex;
         align-items: center;
-        gap: 18px;
+        gap: 15px;
     }
 
     .historicoSite {

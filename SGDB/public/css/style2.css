@@ -56,7 +56,7 @@ body {
 }
 
 .user-actions:hover {
-    color: rgb(238, 238, 238);
+    color: rgb(200, 200, 200);
     cursor: pointer;
     transition: all 0.4s ease;
 }
@@ -83,7 +83,7 @@ body {
     margin-bottom: 30px;
 }
 
-.destacarUser{
+.destacarUser {
     color: rgb(40, 61, 97);
 }
 
@@ -139,35 +139,35 @@ body {
     color: white;
 }
 
-.dark-mode .modal-box{
-  background-color: rgba(0, 0, 0, 0.753);
-  border: 3px solid rgb(139, 172, 209);
+.dark-mode .modal-box {
+    background-color: rgba(0, 0, 0, 0.753);
+    border: 3px solid rgb(139, 172, 209);
 }
 
-.dark-mode .modal-box h3{
+.dark-mode .modal-box h3 {
     color: rgb(125, 166, 209);
 }
 
-.dark-mode .btn-sim{
+.dark-mode .btn-sim {
     background-color: rgba(42, 93, 51, 0.518);
     border: 1.5px solid rgb(24, 82, 57);
 }
 
-.dark-mode .btn-sim:hover{
+.dark-mode .btn-sim:hover {
     background-color: rgba(73, 139, 85, 0.518);
     border: 1.5px solid rgb(24, 82, 57);
     transition: 0.3s rgba(73, 139, 85, 0.518) ease;
 }
 
-.dark-mode .btn-nao{
+.dark-mode .btn-nao {
     background-color: rgba(94, 43, 34, 0.744);
     border: 1.5px solid rgb(58, 14, 14);
 }
 
-.dark-mode .btn-nao:hover{
-   background-color: rgba(161, 73, 58, 0.744);
-   border: 1.5px solid rgb(58, 14, 14); 
-   transition: 0.3s rgba(161, 73, 58, 0.744) ease;
+.dark-mode .btn-nao:hover {
+    background-color: rgba(161, 73, 58, 0.744);
+    border: 1.5px solid rgb(58, 14, 14);
+    transition: 0.3s rgba(161, 73, 58, 0.744) ease;
 }
 
 .dark-mode .rodapé {
@@ -337,8 +337,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* Rodapé */
@@ -370,18 +377,6 @@ body {
 }
 
 @media (max-width: 1024px) {
-    .card-container {
-        grid-template-columns: 1fr; 
-        width: 80%;
-        gap: 15px;
-    }
-    
-    .welcome-text {
-        text-align: center;
-    }
-}
-
-@media (max-width: 992px) {
     .main-content {
         padding-top: 30px;
     }
@@ -389,6 +384,12 @@ body {
     .card-container {
         padding: 30px;
         grid-template-columns: 1fr;
+        width: 80%;
+        gap: 15px;
+    }
+
+    .welcome-text {
+        text-align: center;
     }
 }
 
@@ -447,11 +448,17 @@ body {
     .rodapé {
         margin-top: 0;
         padding-top: 10px;
-        padding-bottom: 30px;
+        padding-bottom: 35px;
     }
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
+
+    .cabeçalho {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
     .logotipo {
         height: 40px;
     }
@@ -463,6 +470,7 @@ body {
 
     .termos {
         padding-left: 25px;
+        text-align: center;
     }
 
     .header-actions .termos {
@@ -480,7 +488,7 @@ body {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 600px) and (orientation: landscape) {
     .header-actions {
         display: flex;
         align-items: center;

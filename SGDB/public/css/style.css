@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Layout Geral */
+/* Background */
 .background-container {
     display: flex;
     flex-direction: column;
@@ -102,7 +102,7 @@ body {
     background-repeat: no-repeat;
 }
 
-/* Card Lateral */
+/* Card Logar */
 .containerLeft {
     background-color: #24344d;
     color: white;
@@ -307,7 +307,6 @@ body {
     font-size: 1rem;
 }
 
-/* Estilos para o Modal Suporte */
 .modal-content select,
 .modal-content input,
 .modal-content textarea {
@@ -337,7 +336,6 @@ body {
     margin-top: 5px;
 }
 
-/* Estilo de Botões do Modal de Cadastro */
 .close-btn {
     position: absolute;
     top: 15px;
@@ -415,7 +413,6 @@ body {
     cursor: pointer;
 }
 
-
 /* Rodapé */
 .rodapé {
     background-color: #485f78;
@@ -440,7 +437,7 @@ body {
 }
 
 /* Media Queries */
-@media (max-width: 1200px) {
+@media (max-width: 1440px) {
     .background-container {
         background-color: #92b7e9;
     }
@@ -453,6 +450,7 @@ body {
         min-height: auto;
         padding: 2rem 1rem;
         align-items: flex-start;
+        display: flex;
     }
 
     .containerLeft {
@@ -480,85 +478,13 @@ body {
     }
 }
 
-@media (max-width: 1024px){
-
-}
-
-@media(max-width: 992px){
-    
-}
-
-@media (max-width: 768px) and (orientation: landscape) {
-    .background-container {
-        min-height: 100vh;
-        background-color: #92b7e9;
-    }
-
-    .cabeçalho {
-        height: 80px;
-        padding: 0 1rem;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        gap: 4;
-    }
-
-    .logotipo img {
-        height: 40px;
-    }
-
-    .main-content {
-        min-height: auto;
-        padding: 2rem 1rem;
-        align-items: flex-start;
-    }
-
+@media (max-width: 1024px) {
     .left {
-        width: 65%;
-        margin-left: 4px;
-    }
-
-    .right {
-        background-position: 55% center;
-        background-position: center 40%;
-    }
-
-    .containerLeft {
-        padding: 2rem;
-        border-radius: 20px;
-    }
-
-    .sobre-left p {
-        text-align: center;
-        font-size: 1.1rem;
-    }
-
-    .modal-content {
-        overflow-y: hidden;
-    }
-
-    .modal-content.scrollable {
-        overflow-y: auto;
-    }
-
-    .close-btn {
-        position: absolute;
-        right: 0.5rem;
-        height: 20px;
-    }
-
-    .destacarLogin:hover {
-        color: #c0e1f8;
-        transition: 0.2s ease;
-    }
-
-    .rodapé {
-        padding: 1rem;
+        width: 45%;
     }
 }
 
-
-@media (max-width: 768px) and (orientation: portrait) {
+@media (max-width: 768px) {
     .background-container {
         min-height: 100vh;
         display: flex;
@@ -568,20 +494,17 @@ body {
     .cabeçalho {
         height: 62px;
         padding: 0 1rem;
-        flex-direction: row;
+        display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 0;
     }
 
     .main-content {
-        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         flex: 1;
         padding: 40px 20px;
-        min-height: calc(100vh - 160px);
         position: relative;
     }
 
@@ -593,31 +516,12 @@ body {
     }
 
     .right {
-        background-image: url("768e1024.png");
-    }
-
-    .modal-content {
-        overflow-y: auto;
-    }
-
-    .modal-content h2 {
-        font-size: 1.5rem;
-    }
-
-    .modal-content.scrollable {
-        overflow-y: auto;
+        background-image: url("768x1024.png");
     }
 
     .modal-terms-content {
-        min-height: 0;
         max-height: calc(90vh - 140px);
         overflow-y: auto;
-    }
-
-    .close-btn {
-        position: absolute;
-        right: 0.5rem;
-        height: 20px;
     }
 
     .destacarLogin:hover {
@@ -632,45 +536,18 @@ body {
     }
 }
 
-@media (max-width: 600px) and (orientation: portrait) {
-    .background-container {
-        min-height: 100vh;
-        background-color: #92b7e9;
-    }
-
-    .cabeçalho {
-        height: 62px;
-        padding: 0 1rem;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0;
-    }
-
+@media (max-width: 600px) {
     .logotipo img {
         height: 36px;
     }
 
     .link-headers {
-        margin-left: 40px;
-        gap: 15px;
-        flex-wrap: nowrap;
-        justify-content: flex-end;
-    }
-
-    .main-content {
-        min-height: auto;
-        padding: 2rem 1rem;
-        align-items: flex-start;
-    }
-
-    .left {
-        width: 100%;
-        margin-left: 0;
+        margin-left: 20px;
+        gap: 10px;
     }
 
     .right {
-        background-image: url("375e667.png");
+        background-image: url("375x667.png");
     }
 
     .containerLeft {
@@ -682,48 +559,12 @@ body {
         font-size: 1.8rem;
     }
 
-    .sobre-left p {
-        font-size: 1rem;
-    }
-
-    .modal-content {
-        padding: 1.5rem 1rem;
-        max-height: 90vh;
-        overflow-y: hidden;
-    }
-
     .modal-content h2 {
         font-size: 1.1rem;
-    }
-
-    .modal-content.scrollable {
-        overflow-y: auto;
-    }
-
-    .modal-terms-content {
-        min-height: 0;
-        max-height: calc(90vh - 140px);
-        overflow-y: auto;
-    }
-
-    .sobre-left p{
-        text-align: center;
-    }
-
-    .close-btn {
-        position: absolute;
-        right: 0.5rem;
-        height: 20px;
-    }
-
-    .destacarLogin:hover {
-        color: #c0e1f8;
-        transition: 0.2s ease;
     }
 
     .rodapé {
         font-size: 0.81rem;
         padding: 1.4rem;
     }
-
 }
