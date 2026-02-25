@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <form id="formLogin">
             <label>E-mail:</label>
             <input type="email" name="email" placeholder="Digite o email aqui." required />
+            <a href="#" id="btnEsqueceuEmail">Esqueceu o email?</a>
 
             <div class="password-input-container">
                 <label>Senha:</label>
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Crie sua conta</h2>
         <form id="formCadastro">
             <label>Nome Completo:</label>
-            <input type="text" name="nome_usuario" placeholder="Coloque seu nome completo." required>
+            <input type="text" name="nome_usuario"  placeholder="Coloque seu nome completo." required>
 
             <label>CPF:</label>
             <input type="text" name="cpf" id="inputCPF" placeholder="Coloque seu CPF aqui." maxlength="11" required>
@@ -112,6 +113,18 @@ document.addEventListener('DOMContentLoaded', () => {
         </form>
     `;
 
+    const esqueceuEmailTemplate = `
+        <button id="btnCloseModal" class="close-btn">X</button>
+        <h2>Recuperar Conta</h2>
+        <form id="formEsqueceuEmail">
+            <label>Informe o CPF cadastrado:</label>
+            <input type="text" id="inputCPF" "maxlength="11" required>
+
+            <button type="submit">Enviar SMS</button>
+            <button type="button" id="btnBackToLogin">Voltar ao Login</button>
+        </form>
+    `;
+
     function renderView(viewName) {
         modalContentContainer.classList.remove('scrollable');
 
@@ -126,8 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
             modalContentContainer.classList.add('scrollable');
         } else if (viewName === 'esqueceuSenha') {
             modalContentContainer.innerHTML = esqueceuSenhaTemplate;
+        } else if (viewName === 'esqueceuEmail') {
+            modalContentContainer.innerHTML = esqueceuEmailTemplate;
         }
-
         setupDynamicEvents();
     }
 
@@ -157,6 +171,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderView('esqueceuSenha');
             });
         }
+
+        const btnEsqueceuEmail = document.getElementById('btnEsqueceuEmail');
+        if (btnEsqueceuEmail) {
+            btnEsqueceuEmail.addEventListener('click', (e) => {
+                e.preventDefault();
+                renderView('equeceuEmail');
+            });
+        }
+
 
         const togglePassword = document.getElementById('togglePassword');
         if (togglePassword) {
@@ -253,6 +276,15 @@ document.addEventListener('DOMContentLoaded', () => {
             formEsqueceuSenha.addEventListener('submit', (e) => {
                 e.preventDefault();
                 alert("Link de recuperação enviado.");
+                modalRoot.classList.add('hidden');
+            });
+        }
+
+        const formEsqueceuEmail = document.getElementById('formEsqueceuEmail');
+        if (formEsqueceuEmail) {
+            formEsqueceuEmail.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert("Mensagem de SMS enviada.");
                 modalRoot.classList.add('hidden');
             });
         }
