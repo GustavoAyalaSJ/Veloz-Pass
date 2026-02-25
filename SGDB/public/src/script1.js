@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <input type="text" name="cpf" id="inputCPF" placeholder="Coloque seu CPF aqui." maxlength="11" required>
 
             <label>Telefone:</label>
-            <input type="text" name="telefone" placeholder="Coloque o telefone aqui." maxlength="11" required>
+            <input type="text" name="telefone" id="inputTelefone" placeholder="Coloque o telefone aqui." maxlength="11" required>
 
             <label>E-mail:</label>
             <input type="email" name="email" placeholder="Digite o email aqui." required>
@@ -212,6 +212,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cpfValue[8] !== '9') {
                     alert("Disponível apenas para Santa Catarina.");
                     cpfInput.focus();
+                    return;
+                }
+
+                const telefoneInput = document.getElementById('inputTelefone');
+                const telefoneValue = telefoneInput.value.trim();
+
+                if (!telefoneValue.startsWith('47')) {
+                    alert("Disponível apenas para o DDD da região onde está situado Joinville.");
+                    telefoneInput.focus();
                     return;
                 }
 
