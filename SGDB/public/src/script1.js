@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btnEsqueceuEmail) {
             btnEsqueceuEmail.addEventListener('click', (e) => {
                 e.preventDefault();
-                renderView('equeceuEmail');
+                renderView('esqueceuEmail');
             });
         }
 
