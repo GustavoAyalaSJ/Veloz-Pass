@@ -260,7 +260,7 @@ body {
 .modal-content form div {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1px;
     margin-top: 10px;
 }
 
