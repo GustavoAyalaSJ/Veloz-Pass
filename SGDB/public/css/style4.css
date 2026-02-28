@@ -8,7 +8,6 @@
 
 body {
     background-color: #f0f4f8;
-    color: #333;
 }
 
 /* Background */
@@ -100,6 +99,10 @@ body {
 .dark-mode {
     background-color: #121212;
     color: #e0e0e0;
+}
+
+.dark-mode .body{
+    background-color: #070707;
 }
 
 .dark-mode .cabeçalho {
