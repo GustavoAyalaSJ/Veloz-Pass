@@ -35,7 +35,6 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index6.html'));
 });
 
-
 app.use('/', authRoutes);
 
 const PORT = process.env.PORT || 3000;
