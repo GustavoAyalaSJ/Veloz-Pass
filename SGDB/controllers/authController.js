@@ -24,7 +24,7 @@ exports.cadastro = async (req, res) => {
 
         const resultUsuario = await db.query(
             `INSERT INTO usuario (nome_usuario, cpf, telefone, email, senha)
-             VALUES ($1, $2, $3, $4, $5) RETURNING id`,
+             VALUES ($1, $2, $3, $4, $5) RETURNING id_usuario`,
             [nome_usuario, cpfLimpo, telefone, email, senhaHash]
         );
 
@@ -61,7 +61,7 @@ exports.login = async (req, res) => {
     }
 
     try {
-        const result = await db.query(`SELECT id, nome_usuario, senha FROM usuario WHERE email = $1`, [email]);
+        const result = await db.query(`SELECT id_usuario, nome_usuario, senha FROM usuario WHERE email = $1`, [email]);
 
         if (result.rows.length === 0) {
             return res.status(400).json({ message: 'Usuário não encontrado' });
