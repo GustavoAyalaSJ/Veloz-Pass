@@ -44,13 +44,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.historico && data.historico.length > 0) {
                 data.historico.forEach(mov => {
                     const linha = document.createElement('tr');
+
+                    const situacao = (mov.situacao || 'Pendente').toLowerCase();
+                    let classeStatus = '';
+
+                    if (situacao === 'concluído' || situacao === 'concluido') classeStatus = 'status-verde';
+                    else if (situacao === 'pendente') classeStatus = 'status-amarelo';
+                    else classeStatus = 'status-vermelho';
+
                     linha.innerHTML = `
-                    <td>${mov.n_protocolo || '---'}</td>
-                    <td>${(mov.tipo || 'Recarga').toUpperCase()}</td> 
-                    <td>${mov.nome_bandeira || '---'}</td>
-                    <td>R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
-                    <td><button class="btn-print"><i class="bi bi-printer"></i></button></td>
-`;
+                     <td><span class="protocolo-badge ${classeStatus}">${mov.n_protocolo || '---'}</span></td>
+                     <td>${(mov.tipo || 'Recarga').toUpperCase()}</td>
+                     <td>${mov.nome_bandeira || '---'}</td>
+                     <td>R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
+                     <td>
+                     <button class="btn-print" onclick="imprimirRecibo('${mov.n_protocolo}')">
+                       <i class="bi bi-printer"></i> Imprimir
+                     </button>
+                     </td>
+                    `;
                     corpoTabela.appendChild(linha);
                 });
             } else {
