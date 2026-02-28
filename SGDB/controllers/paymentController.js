@@ -22,7 +22,7 @@ exports.getWalletData = async (req, res) => {
             LEFT JOIN bandeira b 
                 ON m.id_bandeira = b.id_bandeira 
             WHERE m.id_carteira = $1
-            ORDER BY m.id_movimentacao DESC
+            ORDER BY m.id_move DESC
         `, [idCarteira]);
 
         res.json({
