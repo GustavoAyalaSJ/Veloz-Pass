@@ -61,27 +61,30 @@ exports.login = async (req, res) => {
     }
 
     try {
-        const result = await db.query(`SELECT * FROM usuario WHERE email = $1`, [email]);
+        const result = await db.query(`SELECT id, nome_usuario, senha FROM usuario WHERE email = $1`, [email]);
 
         if (result.rows.length === 0) {
             return res.status(400).json({ message: 'Usuário não encontrado' });
         }
 
         const usuario = result.rows[0];
+        
+        console.log(`Tentativa de login: ${email} | ID encontrado: ${usuario.id}`);
+
         const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
         if (!senhaValida) {
             return res.status(401).json({ message: 'Senha incorreta' });
         }
 
-        res.json({
+        return res.json({
             message: 'Login realizado com sucesso',
             nome: usuario.nome_usuario,
             id: usuario.id
         });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Erro interno' });
+        console.error("Erro interno no login:", err);
+        res.status(500).json({ message: 'Erro interno no servidor' });
     }
 };
