@@ -1,7 +1,7 @@
 const pool = require('../config/db');
 
 exports.getWalletData = async (req, res) => {
-    const idUsuario = req.params.id || req.params.idUsuario;
+    const idUsuario = req.params.idUsuario || req.params.id;
 
     try {
         const carteiraRes = await pool.query(
@@ -22,7 +22,7 @@ exports.getWalletData = async (req, res) => {
             LEFT JOIN Bandeira_Banco b 
                 ON m.id_bandeira = b.id_bandeira 
             WHERE m.id_carteira = $1
-            ORDER BY m.data_movimentacao DESC
+            ORDER BY m.id_movimentacao DESC
         `, [idCarteira]);
 
         res.json({
@@ -31,8 +31,8 @@ exports.getWalletData = async (req, res) => {
         });
 
     } catch (err) {
-        console.error("Erro no getWalletData:", err);
-        res.status(500).json({ error: err.message });
+        console.error("Erro no getWalletData:", err.message);
+        res.status(500).json({ error: "Erro ao buscar dados", detalhe: err.message });
     }
 };
 
