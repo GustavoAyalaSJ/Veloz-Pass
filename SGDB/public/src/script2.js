@@ -37,22 +37,4 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/introduction';
     };
 
-    if (changeButton) {
-        const currentTheme = localStorage.getItem("theme");
-
-        if (currentTheme === "dark") {
-            body.classList.add("dark-mode");
-            changeButton.innerHTML = '<i class="bi bi-moon-fill"></i>';
-        }
-
-        changeButton.addEventListener("click", () => {
-            body.classList.toggle("dark-mode");
-            const isDark = body.classList.contains("dark-mode");
-            localStorage.setItem("theme", isDark ? "dark" : "light");
-
-            changeButton.innerHTML = isDark ?
-                '<i class="bi bi-moon-fill"></i>' :
-                '<i class="bi bi-brightness-high-fill"></i>';
-        });
-    }
 });
