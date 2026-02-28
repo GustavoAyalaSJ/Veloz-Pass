@@ -29,7 +29,8 @@
                         </button>
                         <div class="dropdown-content" id="content-dropdown">
                             <a href="/recarga" class="recarga-link"><i class="bi bi-credit-card-2-back"></i> Recarga</a>
-                            <a href="/historico_geral" class="histórico-link"><i class="bi bi-clock-history"></i> Histórico
+                            <a href="/historico_geral" class="histórico-link"><i class="bi bi-clock-history"></i>
+                                Histórico
                                 Geral
                             </a>
                             <a href="/introduction" class="exit-link"><i class="bi bi-box-arrow-left"></i>Sair</a>
@@ -43,128 +44,85 @@
             <h1 class="titulo-pagina-externo">CARTEIRA DIGITAL</h1>
 
             <div class="card-container">
+
                 <div class="header-carteira-top">
                     <div class="card-valor">
-                        <span>Crédito Disponível: <strong>R$ 0.00</strong></span>
+                        Crédito Disponível:
+                        <strong id="saldo-usuario">R$ 0,00</strong>
                     </div>
-                    <a href="#modal-escolha-valor" class="btn-inserir-credito">Inserir crédito</a>
+
+                    <button id="btn-inserir-credito" class="btn-inserir-credito">
+                        Inserir crédito
+                    </button>
+                </div>
+            </div>
+            <div class="historico-valores">
+                <table class="tabela-movimentacoes">
+                    <thead>
+                        <tr>
+                            <th>PROTOCOLO</th>
+                            <th>MÉTODO</th>
+                            <th>BANDEIRA</th>
+                            <th>VALOR</th>
+                            <th>SITUAÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela">
+                        <!-- JS irá inserir as linhas aqui -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-overlay" id="modal-valor">
+
+                <div class="modal-box">
+                    <h3>Escolha o valor para inserir</h3>
+
+                    <div class="grid-predefinidos">
+                        <button class="valor-opcao" data-valor="10">R$ 10,00</button>
+                        <button class="valor-opcao" data-valor="25">R$ 25,00</button>
+                        <button class="valor-opcao" data-valor="50">R$ 50,00</button>
+                        <button class="valor-opcao" data-valor="70">R$ 70,00</button>
+                    </div>
+
+                    <input type="number" id="valor-personalizado" placeholder="Valor personalizado">
+
+                    <div class="modal-footer">
+                        <button id="btn-proximo">Próximo</button>
+                        <button class="btn-fechar-modal">Cancelar</button>
+                    </div>
                 </div>
 
-                <div class="histórico-valores">
-                    <div class="tabela-header">
-                        <span>PROTOCOLO</span>
-                        <span>REALIZADO POR</span>
-                        <span>BANCO</span>
-                        <span>VALOR</span>
-                        <span>IMPRIMIR PROTOCOLO</span>
+            </div>
+
+            <div class="modal-overlay" id="modal-pagamento">
+
+                <div class="modal-box">
+
+                    <h3>Confirmar Pagamento</h3>
+
+                    <p>Valor selecionado: <strong id="valor-confirmado">R$ 0,00</strong></p>
+
+                    <select id="metodo-pagamento">
+                        <option value="">Selecione</option>
+                        <option value="credito">Cartão de Crédito</option>
+                        <option value="debito">Cartão de Débito</option>
+                        <option value="pix">PIX</option>
+                        <option value="boleto">Boleto</option>
+                    </select>
+                    
+
+                    <div class="modal-footer">
+                        <button id="btn-finalizar">Finalizar</button>
+                        <button class="btn-fechar-modal">Cancelar</button>
                     </div>
-                    <div class="tabela-corpo">
-                    </div>
+
                 </div>
+
             </div>
         </main>
-
-        <div class="crédito-modal">
-
-            <div id="modal-escolha-valor" class="modal-wrapper">
-                <div class="modal-box">
-                    <h3>Escolha um dos valores para inserir na sua carteira digital do Veloz Pass</h3>
-                    <div class="grid-predefinidos">
-                        <button class="opt-valor">R$ 10,00</button>
-                        <button class="opt-valor">R$ 25,00</button>
-                        <button class="opt-valor">R$ 50,00</button>
-                        <button class="opt-valor">R$ 70,00</button>
-                    </div>
-                    <div class="campo-personalizado">
-                        <p>Caso não esteja conformado com os valores predefinidos, coloque um valor personalizado.</p>
-                        <input type="text" placeholder="R$ --.--">
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#modal-pagamento" class="btn-proximo">Próximo</a>
-                        <a href="#" class="btn-retornar">Retornar</a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="modal-pagamento" class="modal-wrapper">
-                <div class="modal-box">
-                    <h2 class="valor-confirmado">Valor inserido: R$ --.--</h2>
-                    <div class="select-container">
-                        <select>
-                            <option value="" disabled selected>Selecione um Método de Pagamento</option>
-                            <option value="1">Cartão de Crédito</option>
-                            <option value="2">Cartão de Débito</option>
-                            <option value="3">PIX</option>
-                            <option value="4">Boleto</option>
-                            <option value="5">Cartão Internacional</option>
-                        </select>
-                    </div>
-                    <div class="info-bancaria" id="infoBancaria" style="display:none;">
-                        <div class="banco-logo">
-                            <img id="logoBank" src="" alt="Logo do Banco" style="height: 40px; margin: 10px 0;">
-                        </div>
-                        <div class="dados-bancarios">
-                            <label>Agência:</label>
-                            <input type="text" placeholder="Digite a agência" id="agencia">
-                            <label>Conta:</label>
-                            <input type="text" placeholder="Digite a conta" id="conta">
-                            <label>CPF/CNPJ:</label>
-                            <input type="text" placeholder="Digite o CPF/CNPJ" id="cpf">
-                        </div>
-                    </div>
-                    <div class="info-pix" id="infoPix" style="display:none;">
-                        <div class="qr-code-container">
-                            <div class="qr-code-placeholder">QR Code</div>
-                        </div>
-                        <div class="chave-pix">
-                            <label>Chave PIX:</label>
-                            <input type="text" id="chavePix" readonly placeholder="Chave aleatória">
-                            <button class="btn-copiar" id="btnCopiarChave">Copiar Chave</button>
-                        </div>
-                    </div>
-                    <div class="info-boleto" id="infoBoleto" style="display:none;">
-                        <div class="boleto-container">
-                            <div class="boleto-header">
-                                <span class="banco-boleto">Banco Santander</span>
-                                <span class="codigo-banco">033-7</span>
-                            </div>
-                            <div class="boleto-campo">
-                                <label>Banco:</label>
-                                <input type="text" value="Santander" readonly>
-                            </div>
-                            <div class="boleto-campo">
-                                <label>Agência / Conta:</label>
-                                <input type="text" id="agenciaBoletoCampo" placeholder="0000 / 0000000" readonly>
-                            </div>
-                            <div class="boleto-campo">
-                                <label>Nosso Número:</label>
-                                <input type="text" id="nossoNumero" readonly placeholder="Nosso número">
-                            </div>
-                            <div class="boleto-campo">
-                                <label>Linha Digitável:</label>
-                                <input type="text" id="linhaDigitavel" readonly placeholder="Linha digitável"
-                                    style="font-size: 0.85rem;">
-                            </div>
-                            <div class="boleto-codigo-barras">
-                                <label>Código de Barras:</label>
-                                <svg id="codigoBarrasSvg"></svg>
-                                <input type="text" id="codigoBarrasNumero" readonly
-                                    style="font-size: 0.85rem; margin-top: 10px;">
-                            </div>
-                            <button class="btn-imprimir-boleto" id="btnImprimirBoleto">Imprimir Boleto</button>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn-finalizar">Finalizar</button>
-                        <a href="/carteira_digital" class="btn-cancelar">Cancelar</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
     <script src="src/script4.js"></script>
     <script src="src/theme.js"></script>
 </body>
-
 </html>
