@@ -1,17 +1,22 @@
 const pool = require('../config/db'); // Sua conexão com Postgres
 
 exports.getWalletData = async (req, res) => {
-    const { idUsuario } = req.params;
+    const idUsuario = req.params.id || req.params.idUsuario; 
+
     try {
         const wallet = await pool.query('SELECT * FROM Carteira WHERE id_usuario = $1', [idUsuario]);
+        if (wallet.rows.length === 0) {
+            return res.json({ saldo: 0, historico: [] });
+        }
+
         const history = await pool.query(`
             SELECT m.*, b.nome_bandeira 
             FROM Movimentacao m 
             LEFT JOIN Bandeira_Banco b ON m.id_bandeira = b.id_bandeira 
-            WHERE m.id_carteira = $1 ORDER BY m.data_realizada DESC`, [wallet.rows[0].id_carteira]);
-
+            WHERE m.id_usuario = $1 ORDER BY m.data_movimentacao DESC`, [idUsuario]); 
         res.json({ saldo: wallet.rows[0].saldo_atual, historico: history.rows });
     } catch (err) {
+        console.error("Erro no getWalletData:", err);
         res.status(500).json({ error: err.message });
     }
 };
