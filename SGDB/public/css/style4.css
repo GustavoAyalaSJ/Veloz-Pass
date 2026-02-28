@@ -200,6 +200,41 @@ body {
     padding: 15px;
 }
 
+.protocolo-badge {
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    font-size: 0.85rem;
+}
+
+.status-verde {
+    background-color: #28a745; 
+}
+
+.status-amarelo {
+    background-color: #ffc10793;
+    color: #000;
+}
+
+.status-vermelho {
+    background-color: #dc354689;
+}
+
+.btn-print {
+    background: #375477;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-print:hover {
+    background: #4a6d96;
+}
+
 /* Modal */
 
 .modal-wrapper {
