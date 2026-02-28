@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const idLogado = localStorage.getItem('userId');
 
-    if (!idLogado) {
+    console.log("ID detectado na Carteira:", idLogado);
+
+    if (!idLogado || idLogado === "undefined") {
+        console.error("Usuário sem ID. Redirecionando...");
         window.location.href = "/introduction";
         return;
     }
