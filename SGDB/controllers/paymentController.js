@@ -19,7 +19,7 @@ exports.getWalletData = async (req, res) => {
         const history = await pool.query(`
             SELECT m.*, b.nome_bandeira 
             FROM Movimentacao m 
-            LEFT JOIN Bandeira_Banco b 
+            LEFT JOIN bandeira b 
                 ON m.id_bandeira = b.id_bandeira 
             WHERE m.id_carteira = $1
             ORDER BY m.id_movimentacao DESC
