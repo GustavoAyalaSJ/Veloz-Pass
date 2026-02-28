@@ -19,16 +19,29 @@ exports.getWalletData = async (req, res) => {
 exports.processCredit = async (req, res) => {
     const { idUsuario, valor, metodo, numCartao } = req.body;
 
+    if (!idUsuario) {
+        return res.status(401).json({ error: "Usuário não autenticado." });
+    }
+
     try {
         await pool.query('BEGIN');
 
         let idBandeira = null;
-        if (metodo === 'credito' || metodo === 'debito') {
-            idBandeira = parseInt(numCartao.slice(-1));
-            if (idBandeira > 5 || idBandeira === 0) idBandeira = 1;
+        const metodosComCartao = ['crédito', 'débito', 'internacional'];
+        
+        if (metodosComCartao.includes(metodo)) {
+            idBandeira = (metodo === 'internacional') ? 6 : parseInt(numCartao.slice(-1));
         }
 
-        const carteiraRes = await pool.query('SELECT id_carteira FROM Carteira WHERE id_usuario = $1', [idUsuario]);
+        const carteiraRes = await pool.query(
+            'SELECT id_carteira FROM Carteira WHERE id_usuario = $1', 
+            [idUsuario]
+        );
+
+        if (carteiraRes.rows.length === 0) {
+            throw new Error("Carteira não encontrada para este usuário.");
+        }
+
         const idCarteira = carteiraRes.rows[0].id_carteira;
 
         const protocolo = 'VP' + Math.floor(Date.now() / 1000);
@@ -37,7 +50,10 @@ exports.processCredit = async (req, res) => {
             [idCarteira, protocolo, metodo, valor, idBandeira, 'Concluído']
         );
 
-        await pool.query('UPDATE Carteira SET saldo_atual = saldo_atual + $1 WHERE id_carteira = $2', [valor, idCarteira]);
+        await pool.query(
+            'UPDATE Carteira SET saldo_atual = saldo_atual + $1 WHERE id_carteira = $2', 
+            [valor, idCarteira]
+        );
 
         await pool.query('COMMIT');
         res.status(200).json({ success: true, protocolo });

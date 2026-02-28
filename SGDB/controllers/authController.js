@@ -13,7 +13,6 @@ exports.cadastro = async (req, res) => {
     }
 
     const cpfLimpo = cpf.replace(/\D/g, '');
-
     if (cpfLimpo.length !== 11) {
         return res.status(400).json({ message: "CPF inválido" });
     }
@@ -21,24 +20,34 @@ exports.cadastro = async (req, res) => {
     try {
         const senhaHash = await bcrypt.hash(senha, 10);
 
-        await db.query(
-            `INSERT INTO usuario 
-            (nome_usuario, cpf, telefone, email, senha)
-            VALUES ($1, $2, $3, $4, $5)`,
+        await db.query('BEGIN');
+
+        const resultUsuario = await db.query(
+            `INSERT INTO usuario (nome_usuario, cpf, telefone, email, senha)
+             VALUES ($1, $2, $3, $4, $5) RETURNING id`,
             [nome_usuario, cpfLimpo, telefone, email, senhaHash]
         );
 
+        const userId = resultUsuario.rows[0].id;
+
+        await db.query(
+            `INSERT INTO Carteira (id_usuario, saldo_atual) VALUES ($1, 0.00)`,
+            [userId]
+        );
+
+        await db.query('COMMIT');
+
         res.status(201).json({
             message: "Cadastro realizado com sucesso!",
-            nome: nome_usuario
+            nome: nome_usuario,
+            id: userId
         });
 
     } catch (err) {
-
+        await db.query('ROLLBACK');
         if (err.code === '23505') {
             return res.status(400).json({ message: "Email ou CPF já cadastrado" });
         }
-
         console.error(err);
         res.status(500).json({ message: "Erro interno no servidor" });
     }
@@ -52,17 +61,13 @@ exports.login = async (req, res) => {
     }
 
     try {
-        const result = await db.query(
-            `SELECT * FROM usuario WHERE email = $1`,
-            [email]
-        );
+        const result = await db.query(`SELECT * FROM usuario WHERE email = $1`, [email]);
 
         if (result.rows.length === 0) {
             return res.status(400).json({ message: 'Usuário não encontrado' });
         }
 
         const usuario = result.rows[0];
-
         const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
         if (!senhaValida) {
@@ -71,7 +76,8 @@ exports.login = async (req, res) => {
 
         res.json({
             message: 'Login realizado com sucesso',
-            nome: usuario.nome_usuario
+            nome: usuario.nome_usuario,
+            id: usuario.id
         });
 
     } catch (err) {
