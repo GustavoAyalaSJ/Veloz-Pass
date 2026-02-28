@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteira Digital - Veloz Pass</title>
-    <link rel="icon" type="image/png" href="Assets/Favicon.png">
     <link rel="stylesheet" href="css/style4.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-
 <body>
     <div class="background-container">
         <header class="cabeçalho">
             <a href="/dashboard" class="logo-link">
                 <div class="logotipo">
-                    <img src="Assets/NewLogoWeb.png" alt="VelozPassLogo">
+                    <img src="Assets/NewLogoWeb.png" alt="Logo">
                 </div>
             </a>
             <div class="header-actions">
-                <button id="change-button" class="first-button" aria-label="escuro">
+                <button id="change-button" class="first-button">
                     <i class="bi bi-brightness-high-fill"></i>
                 </button>
-                <div class="user-actions">
-                    <div class="dropdown-container">
-                        <button id="list-button" class="second-button" aria-label="Lista">
-                            <i class="bi bi-list"></i>
-                        </button>
-                        <div class="dropdown-content" id="content-dropdown">
-                            <a href="/recarga" class="recarga-link"><i class="bi bi-credit-card-2-back"></i> Recarga</a>
-                            <a href="/historico_geral" class="histórico-link"><i class="bi bi-clock-history"></i>
-                                Histórico
-                                Geral
-                            </a>
-                            <a href="/introduction" class="exit-link"><i class="bi bi-box-arrow-left"></i>Sair</a>
-                        </div>
+                <div class="dropdown-container">
+                    <button id="list-button" class="second-button">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div class="dropdown-content" id="content-dropdown">
+                        <a href="/recarga"><i class="bi bi-credit-card"></i> Recarga</a>
+                        <a href="/historico"><i class="bi bi-clock"></i> Histórico</a>
+                        <a href="/sair"><i class="bi bi-box-arrow-left"></i> Sair</a>
                     </div>
                 </div>
             </div>
@@ -44,81 +36,63 @@
             <h1 class="titulo-pagina-externo">CARTEIRA DIGITAL</h1>
 
             <div class="card-container">
-
                 <div class="header-carteira-top">
                     <div class="card-valor">
-                        Crédito Disponível:
-                        <strong id="saldo-usuario">R$ 0,00</strong>
+                        Valor Disponível: <strong id="saldo-usuario">R$ --.--</strong>
                     </div>
+                    <button id="btn-inserir-credito" class="btn-inserir-credito">Inserir crédito</button>
+                </div>
 
-                    <button id="btn-inserir-credito" class="btn-inserir-credito">
-                        Inserir crédito
-                    </button>
+                <div class="histórico-valores">
+                    <table class="tabela-movimentacoes">
+                        <thead>
+                            <tr class="tabela-header">
+                                <th>PROTOCOLO</th>
+                                <th>REALIZADO POR</th>
+                                <th>BANCO</th>
+                                <th>VALOR</th>
+                                <th>IMPRIMIR PROTOCOLO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela" class="tabela-corpo">
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="historico-valores">
-                <table class="tabela-movimentacoes">
-                    <thead>
-                        <tr>
-                            <th>PROTOCOLO</th>
-                            <th>MÉTODO</th>
-                            <th>BANDEIRA</th>
-                            <th>VALOR</th>
-                            <th>SITUAÇÃO</th>
-                        </tr>
-                    </thead>
-                    <tbody id="corpo-tabela">
-                        <!-- JS irá inserir as linhas aqui -->
-                    </tbody>
-                </table>
-            </div>
 
-            <div class="modal-overlay" id="modal-valor">
-
+            <div class="modal-wrapper" id="modal-valor">
                 <div class="modal-box">
-                    <h3>Escolha o valor para inserir</h3>
-
+                    <h3>Escolha um dos valores para inserir na sua carteira digital do Veloz Pass</h3>
                     <div class="grid-predefinidos">
-                        <button class="valor-opcao" data-valor="10">R$ 10,00</button>
-                        <button class="valor-opcao" data-valor="25">R$ 25,00</button>
-                        <button class="valor-opcao" data-valor="50">R$ 50,00</button>
-                        <button class="valor-opcao" data-valor="70">R$ 70,00</button>
+                        <button class="opt-valor" data-valor="10.00">R$ 10,00</button>
+                        <button class="opt-valor" data-valor="25.00">R$ 25,00</button>
+                        <button class="opt-valor" data-valor="50.00">R$ 50,00</button>
+                        <button class="opt-valor" data-valor="70.00">R$ 70,00</button>
                     </div>
-
-                    <input type="number" id="valor-personalizado" placeholder="Valor personalizado">
-
+                    <div class="campo-personalizado">
+                        <p>Caso não esteja conformado com os valores predefinidos, coloque um valor personalizado.</p>
+                        <input type="number" id="valor-personalizado" placeholder="R$ --.--">
+                    </div>
                     <div class="modal-footer">
-                        <button id="btn-proximo">Próximo</button>
-                        <button class="btn-fechar-modal">Cancelar</button>
+                        <button id="btn-proximo" class="btn-proximo">Próximo</button>
+                        <button class="btn-cancelar">Retornar</button>
                     </div>
                 </div>
-
             </div>
 
-            <div class="modal-overlay" id="modal-pagamento">
-
+            <div class="modal-wrapper" id="modal-pagamento">
                 <div class="modal-box">
-
-                    <h3>Confirmar Pagamento</h3>
-
-                    <p>Valor selecionado: <strong id="valor-confirmado">R$ 0,00</strong></p>
-
+                    <h3>Valor inserido: <span id="valor-confirmado">R$ 0,00</span></h3>
                     <select id="metodo-pagamento">
-                        <option value="">Selecione</option>
-                        <option value="credito">Cartão de Crédito</option>
-                        <option value="debito">Cartão de Débito</option>
+                        <option value="">Selecione Método de Pagamento</option>
                         <option value="pix">PIX</option>
-                        <option value="boleto">Boleto</option>
+                        <option value="credito">Cartão de Crédito</option>
                     </select>
-                    
-
                     <div class="modal-footer">
-                        <button id="btn-finalizar">Finalizar</button>
-                        <button class="btn-fechar-modal">Cancelar</button>
+                        <button id="btn-finalizar" class="btn-finalizar">Finalizar</button>
+                        <button class="btn-cancelar">Cancelar</button>
                     </div>
-
                 </div>
-
             </div>
         </main>
     </div>
