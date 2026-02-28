@@ -210,6 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         body: JSON.stringify(payload)
                     });
 
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({ message: "Erro interno no servidor" }));
+                        alert("Erro: " + errorData.message);
+                        return;
+                    }
                     const data = await response.json();
 
                     if (response.ok) {
@@ -232,8 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert(data.message || "Erro ao realizar login.");
                     }
                 } catch (error) {
-                    console.error("Erro na comunicação com o servidor:", error);
-                    alert("Não foi possível conectar ao servidor.");
+                    console.error("Erro na requisição:", error);
+                    alert("Servidor offline ou erro de conexão.");
                 }
             });
         }
@@ -273,7 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await response.json();
 
                     if (response.ok && data.id) {
-                        // Grava os dados
                         localStorage.setItem('nomeUsuario', data.nome);
                         localStorage.setItem('userId', data.id.toString());
 
