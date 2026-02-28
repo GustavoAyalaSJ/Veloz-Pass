@@ -211,12 +211,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const data = await response.json();
 
-                    if (response.ok && data.nome) {
+                    if (response.ok) {
+                        console.log("Resposta do servidor:", data);
+
                         localStorage.setItem('nomeUsuario', data.nome);
-                        localStorage.setItem('userId', data.id);
+
+                        if (data.id) {
+                            localStorage.setItem('userId', data.id);
+                        } else {
+                            console.error("ID não encontrado na resposta do servidor!");
+                        }
+
                         window.location.href = "/dashboard";
-                    } else {
-                        alert(data.message || "Erro ao obter nome.");
                     }
 
                 } catch {
@@ -259,12 +265,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const data = await response.json();
 
-                    if (response.ok && data.nome) {
+                    if (response.ok) {
+                        console.log("Resposta do servidor:", data);
+
                         localStorage.setItem('nomeUsuario', data.nome);
-                        localStorage.setItem('userId', data.id);
+
+                        if (data.id) {
+                            localStorage.setItem('userId', data.id);
+                        } else {
+                            console.error("ID não encontrado na resposta do servidor!");
+                        }
+
                         window.location.href = "/dashboard";
-                    } else {
-                        alert(data.message);
                     }
 
                 } catch {
