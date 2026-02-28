@@ -48,20 +48,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     const situacao = (mov.situacao || 'Pendente').toLowerCase();
                     let classeStatus = '';
 
-                    if (situacao === 'concluído' || situacao === 'concluido') classeStatus = 'status-verde';
-                    else if (situacao === 'pendente') classeStatus = 'status-amarelo';
-                    else classeStatus = 'status-vermelho';
+                    if (situacao === 'concluído' || situacao === 'concluido' || situacao === 'validado') {
+                        classeStatus = 'status-verde';
+                    } else if (situacao === 'pendente' || situacao === 'em revisão') {
+                        classeStatus = 'status-amarelo';
+                    } else {
+                        classeStatus = 'status-vermelho';
+                    }
+
+                    linha.className = classeStatus;
 
                     linha.innerHTML = `
-                     <td><span class="protocolo-badge ${classeStatus}">${mov.n_protocolo || '---'}</span></td>
-                     <td>${(mov.tipo || 'Recarga').toUpperCase()}</td>
-                     <td>${mov.nome_bandeira || '---'}</td>
-                     <td>R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
-                     <td>
-                     <button class="btn-print" onclick="imprimirRecibo('${mov.n_protocolo}')">
-                       <i class="bi bi-printer"></i> Imprimir
-                     </button>
-                     </td>
+                    <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
+                    <td style="font-weight: bold;">${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                    <td>${mov.nome_bandeira || 'VISA'}</td>
+                    <td style="font-weight: bold;">R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
+                    <td>
+                    <button class="btn-print" onclick="window.print()">
+                     <i class="bi bi-printer"></i> IMPRIMIR
+                    </button>
+                    </td>
                     `;
                     corpoTabela.appendChild(linha);
                 });

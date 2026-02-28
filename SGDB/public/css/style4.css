@@ -192,47 +192,74 @@ body {
 
 .tabela-movimentacoes {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    margin-top: -15px;         
 }
 
 .tabela-header th {
     color: #5475a3;
-    padding: 15px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.protocolo-badge {
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    color: white;
-    font-size: 0.85rem;
+.tabela-corpo tr {
+    transition: transform 0.2s;
+}
+
+.tabela-corpo tr:hover {
+    transform: scale(1.01); 
+}
+
+.tabela-corpo td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: transparent;
+}
+
+.tabela-corpo td:first-child {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.tabela-corpo td:last-child {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
 }
 
 .status-verde {
-    background-color: #28a745; 
+    background-color: #a5c3af !important;
+    color: #1e3a2a;
 }
 
 .status-amarelo {
-    background-color: #ffc10793;
-    color: #000;
+    background-color: #c9bc9c !important;
+    color: #4a3f21;
 }
 
 .status-vermelho {
-    background-color: #dc354689;
+    background-color: #a38d8d !important;
+    color: #451a1a;
+}
+
+.protocolo-texto {
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 1.1rem;
 }
 
 .btn-print {
     background: #375477;
     color: white;
     border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-print:hover {
-    background: #4a6d96;
+    font-weight: bold;
 }
 
 /* Modal */
