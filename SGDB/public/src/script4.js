@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`/api/payments/wallet-data/${idLogado}`);
             if (!response.ok) throw new Error("Falha na resposta do servidor");
-            
+
             const data = await response.json();
 
-            saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
 
             corpoTabela.innerHTML = '';
             data.historico.forEach(mov => {
@@ -105,17 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!selecionado) return alert("Selecione ou digite um valor");
             valorParaInserir = parseFloat(selecionado.dataset.valor);
         }
-        
-        valorConfirmadoTxt.innerText = `R$ ${valorParaInserir.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+
+        valorConfirmadoTxt.innerText = `R$ ${valorParaInserir.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
         modalValor.style.display = 'none';
         modalPagamento.style.display = 'flex';
     });
 
     btnFinalizar.addEventListener('click', async () => {
+        const idLogado = localStorage.getItem('userId');
         const metodo = selectPagamento.value;
         const numCartao = document.getElementById('num-cartao').value;
 
-        if (!metodo) return alert("Selecione um método de pagamento.");
+        if (!idLogado || idLogado === "undefined") {
+            return alert("Erro: Usuário não identificado. Tente fazer login novamente.");
+        }
 
         const dados = {
             idUsuario: idLogado,

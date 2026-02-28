@@ -9,7 +9,7 @@ exports.getWalletData = async (req, res) => {
             FROM Movimentacao m 
             LEFT JOIN Bandeira_Banco b ON m.id_bandeira = b.id_bandeira 
             WHERE m.id_carteira = $1 ORDER BY m.data_realizada DESC`, [wallet.rows[0].id_carteira]);
-        
+
         res.json({ saldo: wallet.rows[0].saldo_atual, historico: history.rows });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -17,6 +17,8 @@ exports.getWalletData = async (req, res) => {
 };
 
 exports.processCredit = async (req, res) => {
+    console.log("Dados recebidos no BackEnd:", req.body);
+
     const { idUsuario, valor, metodo, numCartao } = req.body;
 
     if (!idUsuario) {
@@ -28,13 +30,18 @@ exports.processCredit = async (req, res) => {
 
         let idBandeira = null;
         const metodosComCartao = ['crédito', 'débito', 'internacional'];
-        
+
         if (metodosComCartao.includes(metodo)) {
-            idBandeira = (metodo === 'internacional') ? 6 : parseInt(numCartao.slice(-1));
+            const ultimoDigito = numCartao.charAt(numCartao.length - 1);
+            idBandeira = parseInt(ultimoDigito);
+
+            if (isNaN(idBandeira) || idBandeira === 0 || idBandeira > 6) {
+                idBandeira = 1;
+            }
         }
 
         const carteiraRes = await pool.query(
-            'SELECT id_carteira FROM Carteira WHERE id_usuario = $1', 
+            'SELECT id_carteira FROM Carteira WHERE id_usuario = $1',
             [idUsuario]
         );
 
@@ -51,7 +58,7 @@ exports.processCredit = async (req, res) => {
         );
 
         await pool.query(
-            'UPDATE Carteira SET saldo_atual = saldo_atual + $1 WHERE id_carteira = $2', 
+            'UPDATE Carteira SET saldo_atual = saldo_atual + $1 WHERE id_carteira = $2',
             [valor, idCarteira]
         );
 
