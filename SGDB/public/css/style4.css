@@ -227,6 +227,18 @@ body {
     background: #e8f5e9;
 }
 
+.opt-valor:hover {
+    border-color: #00d4ff;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.opt-valor.ativo {
+    background: #e0f7fa;
+    border-color: #00d4ff;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+}
+
 .campo-personalizado input {
     width: 100%;
     padding: 10px;
