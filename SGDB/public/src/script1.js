@@ -211,18 +211,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const data = await response.json();
 
-                    if (response.ok) {
-                        console.log("Resposta do servidor:", data);
-
+                    if (response.ok && data.id) {
                         localStorage.setItem('nomeUsuario', data.nome);
+                        localStorage.setItem('userId', data.id.toString()); // Força virar string
 
-                        if (data.id) {
-                            localStorage.setItem('userId', data.id);
-                        } else {
-                            console.error("ID não encontrado na resposta do servidor!");
-                        }
+                        console.log("ID Salvo com sucesso:", localStorage.getItem('userId'));
 
-                        window.location.href = "/dashboard";
+                        setTimeout(() => {
+                            window.location.href = "/dashboard";
+                        }, 100);
                     }
 
                 } catch {
@@ -265,18 +262,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const data = await response.json();
 
-                    if (response.ok) {
-                        console.log("Resposta do servidor:", data);
-
+                    if (response.ok && data.id) {
+                        // Grava os dados
                         localStorage.setItem('nomeUsuario', data.nome);
+                        localStorage.setItem('userId', data.id.toString());
 
-                        if (data.id) {
-                            localStorage.setItem('userId', data.id);
-                        } else {
-                            console.error("ID não encontrado na resposta do servidor!");
-                        }
+                        console.log("ID Salvo com sucesso:", localStorage.getItem('userId'));
 
-                        window.location.href = "/dashboard";
+                        setTimeout(() => {
+                            window.location.href = "/dashboard";
+                        }, 100);
                     }
 
                 } catch {
