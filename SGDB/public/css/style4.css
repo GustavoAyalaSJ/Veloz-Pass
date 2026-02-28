@@ -186,6 +186,7 @@ body {
     border: 3px solid #1a3a5a;
     border-radius: 25px;
     min-height: 400px;
+    overflow-y: auto;
     padding: 20px;
     background: white;
 }
@@ -195,6 +196,13 @@ body {
     border-collapse: separate;
     border-spacing: 0 15px;
     margin-top: -15px;         
+}
+
+.tabela-movimentacoes thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
 }
 
 .tabela-header th {
