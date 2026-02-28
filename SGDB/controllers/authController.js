@@ -80,7 +80,7 @@ exports.login = async (req, res) => {
         return res.json({
             message: 'Login realizado com sucesso',
             nome: usuario.nome_usuario,
-            id: usuario.id
+            id: usuario.id_usuario
         });
 
     } catch (err) {
