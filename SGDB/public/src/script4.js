@@ -45,12 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 data.historico.forEach(mov => {
                     const linha = document.createElement('tr');
                     linha.innerHTML = `
-                    <td>${mov.id_movimentacao || mov.n_protocolo || '---'}</td>
-                    <td>${(mov.tipo_movimentacao || mov.tipo || 'Recarga').toUpperCase()}</td>
+                    <td>${mov.n_protocolo || '---'}</td>
+                    <td>${(mov.tipo || 'Recarga').toUpperCase()}</td> 
                     <td>${mov.nome_bandeira || '---'}</td>
-                    <td>R$ ${parseFloat(mov.valor_movimentacao || mov.valor).toFixed(2).replace('.', ',')}</td>
+                    <td>R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
                     <td><button class="btn-print"><i class="bi bi-printer"></i></button></td>
-                `;
+`;
                     corpoTabela.appendChild(linha);
                 });
             } else {
