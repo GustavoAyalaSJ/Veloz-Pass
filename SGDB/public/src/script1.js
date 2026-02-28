@@ -200,7 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
             formLogin.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                const payload = Object.fromEntries(new FormData(formLogin).entries());
+                const formData = new FormData(formLogin);
+                const payload = Object.fromEntries(formData.entries());
 
                 try {
                     const response = await fetch('/login', {
@@ -211,19 +212,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const data = await response.json();
 
-                    if (response.ok && data.id) {
-                        localStorage.setItem('nomeUsuario', data.nome);
-                        localStorage.setItem('userId', data.id.toString()); // Força virar string
+                    if (response.ok) {
+                        if (!data.id) {
+                            console.error("Erro: O servidor não enviou o ID do usuário!", data);
+                            alert("Erro técnico: ID de usuário não recebido.");
+                            return;
+                        }
 
-                        console.log("ID Salvo com sucesso:", localStorage.getItem('userId'));
+                        localStorage.clear();
+                        localStorage.setItem('nomeUsuario', data.nome);
+                        localStorage.setItem('userId', data.id.toString());
+
+                        console.log("Login realizado. ID salvo:", data.id);
 
                         setTimeout(() => {
                             window.location.href = "/dashboard";
                         }, 100);
+                    } else {
+                        alert(data.message || "Erro ao realizar login.");
                     }
-
-                } catch {
-                    alert("Erro ao conectar com o servidor.");
+                } catch (error) {
+                    console.error("Erro na comunicação com o servidor:", error);
+                    alert("Não foi possível conectar ao servidor.");
                 }
             });
         }
