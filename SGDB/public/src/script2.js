@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const spanNome = document.getElementById('nome-logado');
-    const changeButton = document.getElementById("change-button");
-    const body = document.body;
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
 
