@@ -289,23 +289,28 @@ body {
 }
 
 .checkbox {
-    display: flex;
+    display: flex !important;
+    flex-direction: row !important; 
     align-items: flex-start;
-    gap: 8px;
-    font-size: 14px;
-    line-height: 1.4;
-    margin-top: 10px;
+    gap: 10px;
+    margin-top: 15px;
+    text-align: left;
 }
 
 .checkbox input[type="checkbox"] {
-    margin-top: 3px;
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0; 
+    margin: 0;
     cursor: pointer;
-    width: 16px;
-    height: 16px;
 }
 
 .checkbox label {
+    display: inline !important;
+    margin: 0px 5px 0px 0px;
+    text-align: center;
     cursor: pointer;
+    line-height: 1.4;
     color: #dbdbdb;
 }
 
@@ -317,7 +322,7 @@ body {
 }
 
 .destacarTermos:hover{
-    color: #4e7aa9;
+    color: #89a4c1;
     cursor: pointer;
     text-decoration: none;
 }
