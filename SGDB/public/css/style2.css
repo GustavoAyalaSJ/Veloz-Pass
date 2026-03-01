@@ -92,6 +92,11 @@ body {
     color: #e0e0e0;
 }
 
+.dark-mode body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
 .dark-mode .cabeçalho {
     background-color: #1f2a36;
     color: #ffffff;
@@ -99,6 +104,12 @@ body {
 
 .dark-mode .welcome-text {
     color: rgb(166, 197, 251);
+}
+
+.dark-mode .card-container {
+    background-color: #11161d;
+    border: 3px solid rgb(139, 172, 209);
+    border-radius: 40px;
 }
 
 .dark-mode .card.carteira{
@@ -116,7 +127,7 @@ body {
 }
 
 .dark-mode .btn-carteira:hover,
-.dark-mode .btn-process:hover {
+.dark-mode .btn-historico:hover {
     background-color: #688dbd;
     box-shadow: 0px 4px 12px rgba(0, 212, 255, 0.2);
     border: 1px solid #8ba8d1;
@@ -183,17 +194,6 @@ body {
     transition: 0.3s rgba(161, 73, 58, 0.744) ease;
 }
 
-.dark-mode .rodapé {
-    background-color: #121212;
-    color: #e4e4e4;
-}
-
-.dark-mode .card-container {
-    background-color: #11161d;
-    border: 3px solid rgb(139, 172, 209);
-    border-radius: 40px;
-}
-
 /* Dashboard */
 .card-container {
     width: 100%;
@@ -212,7 +212,6 @@ body {
     border: 3px solid #7296be;
     border-radius: 25px;
     padding: 20px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -265,7 +264,7 @@ body {
 }
 
 .btn-carteira, 
-.btn-process {
+.btn-historico {
     display: inline-block;
     background: #5475a3;
     color: white;
@@ -277,7 +276,7 @@ body {
 }
 
 .btn-carteira:hover, 
-.btn-process:hover {
+.btn-historico:hover {
     background-color: #4686cb;
     transform: translateY(-3px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -452,7 +451,7 @@ body {
         transform: scale(1.05);
     }
 
-    .btn-process:hover {
+    .btn-historico:hover {
         cursor: pointer;
         transition: transform .2s;
         background-color: rgb(70, 134, 203);
@@ -467,7 +466,6 @@ body {
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
-
     .cabeçalho {
         padding-left: 20px;
         padding-right: 20px;
@@ -521,7 +519,7 @@ body {
         transform: scale(1.05);
     }
 
-    .btn-process:hover {
+    .btn-historico:hover {
         cursor: pointer;
         transition: transform .2s;
         background-color: rgb(70, 134, 203);
