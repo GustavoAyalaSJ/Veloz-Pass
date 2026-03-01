@@ -23,8 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     </i>
                 </div>
             </div>
-
             <a href="#" id="btnEsqueceuSenha">Esqueceu a senha?</a>
+
+            <div class="checkbox">
+               <input type="checkbox" id="checkbox" name="checar" required />
+                  <label for="checkbox">Ao conectar-se com este site, você estará concordando com nossos <span class="destacarTermos">Termos de Uso</span> e <span class="destacarTermos">Políticas de Privacidade</span>.</label>
+            </div>
+
             <button type="submit" class="botao-estilizado">Entrar</button>
             <button type="button" id="btnGoToCadastro">Criar conta</button>
         </form>
@@ -38,10 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <input type="text" name="nome_usuario"  placeholder="Coloque seu nome completo." required>
 
             <label>CPF:</label>
-            <input type="text" name="cpf" id="inputCPF" placeholder="Coloque seu CPF aqui." maxlength="11" required>
+            <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00." maxlength="11" required>
 
             <label>Telefone:</label>
-            <input type="text" name="telefone" id="inputTelefone" placeholder="Coloque o telefone aqui." maxlength="11" required>
+            <input type="text" name="telefone" id="inputTelefone" placeholder="(xx) xxxxx-xxxx." maxlength="11" required>
 
             <label>E-mail:</label>
             <input type="email" name="email" placeholder="Digite o email aqui." required>
@@ -61,10 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Termos de Uso e Políticas de Privacidade</h2>
         <div class="modal-terms-content">
             <div><strong>1. Uso do Site</strong>
-                <p>Veloz Pass é um serviço de recarga de cartão de transporte online para Joinville e Região. Ao utilizar o site, você concorda em usar o serviço apenas para fins legítimos. Você não pode reproduzir, duplicar ou copiar dados pessoais neste site, o cadastro é único para um usuário.</p>
+                <p>Veloz Pass é um serviço online e prototipado de recarga para cartão de transporte disponível para Joinville. Ao utilizar o site, você concorda em usar o serviço apenas para fins legítimos. Você não pode reproduzir e copiar dados pessoais neste site, o cadastro é único por usuário.</p>
             </div>
             <div><strong>2. Privacidade e Proteção de Dados</strong>
-                <p>Coletamos informações pessoais como nome, CPF, telefone e e-mail para processar suas solicitações de recarga. Para sua segurança, os dados bancários não são salvos no site, apenas o nome do banco que foi efetuado a recarga. Nunca compartilhe dados sigilosos com terceiros sem consentimento.</p>
+                <p>Coletamos informações pessoais como nome, CPF, telefone e e-mail para processar suas solicitações de recarga. Para sua segurança, os dados bancários não são salvos no site, apenas a bandeira do cartão que foi efetuado a recarga. Nunca compartilhe dados sigilosos com terceiros sem consentimento.</p>
             </div>
             <div><strong>3. Serviços de Recarga</strong>
                 <p>O Veloz Pass oferece recargas rápidas e seguras de cartões de transporte. As transações são processadas e analisadas em tempo real, mas, em caso de atrasos ou outros problemas, nosso suporte estará disponível para ajudá-lo.</p>
@@ -81,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <form id="formSuporte">
             <label>Selecione um problema:</label>
             <select required>
-                <option value="">Selecione</option>
+                <option value="" disabled selected>Selecione</option>
                 <option>Não consigo acessar minha conta.</option>
                 <option>Meus dados de cadastro foram considerados inválidos.</option>
                 <option>Erro na validação das informações do cartão.</option>
@@ -89,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </select>
 
             <label>Email:</label>
-            <input type="email" placeholder="Seu email" required/>
+            <input type="email" placeholder="Seu email cadastro aqui." required/>
 
             <label>Número de Telefone:</label>
             <input type="text" placeholder="(xx) xxxxx-xxxx" maxlength="11" required/>
@@ -105,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <button id="btnCloseModal" class="close-btn">X</button>
         <h2>Recuperar Senha</h2>
         <form id="formEsqueceuSenha">
-            <label>E-mail cadastrado:</label>
+            <label>Informe o E-mail cadastrado:</label>
             <input type="email" required>
 
             <button type="submit">Enviar Link</button>

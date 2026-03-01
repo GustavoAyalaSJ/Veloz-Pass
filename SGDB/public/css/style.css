@@ -246,7 +246,8 @@ body {
 }
 
 .modal-content a:hover {
-    text-decoration: underline;
+    color: #639edd;
+    text-decoration: none;
 }
 
 .modal-content p {
@@ -285,6 +286,40 @@ body {
 
 .password-input-container i:hover {
     color: #007bff;
+}
+
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.checkbox input[type="checkbox"] {
+    margin-top: 3px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.checkbox label {
+    cursor: pointer;
+    color: #dbdbdb;
+}
+
+.destacarTermos{
+    color: #0056b3;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.destacarTermos:hover{
+    color: #4e7aa9;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .modal-terms-content {
