@@ -42,9 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.historico && data.historico.length > 0) {
                 data.historico.forEach(mov => {
                     const linha = document.createElement('tr');
-                    const situacao = (mov.situacao || 'Pendente').toLowerCase();
-                    let classeStatus = (situacao === 'concluido' || situacao === 'validado') ? 'status-verde' : 
-                                       (situacao === 'pendente') ? 'status-amarelo' : 'status-vermelho';
+                    const situacao = (mov.situacao || 'pendente').toLowerCase().trim();
+                    let classeStatus = '';
+
+                    if (situacao === 'concluído' || situacao === 'concluido' || situacao === 'validado' || situacao === 'sucesso') {
+                        classeStatus = 'status-verde';
+                    } else if (situacao === 'em revisão' || situacao === 'pendente' || situacao === 'processando') {
+                        classeStatus = 'status-amarelo';
+                    } else {
+                        classeStatus = 'status-vermelho';
+                    }
 
                     linha.className = classeStatus;
                     linha.innerHTML = `
