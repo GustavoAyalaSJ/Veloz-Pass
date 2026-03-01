@@ -6,6 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenTermosHeader = document.getElementById('btnOpenTermosHeader');
     const btnOpenSuporteHeader = document.getElementById('btnOpenSuporteHeader');
 
+    const termsOverlay = document.createElement('div');
+    termsOverlay.id = 'termsOverlay';
+    termsOverlay.className = 'modal-overlay hidden';
+    termsOverlay.style.zIndex = "3000";
+
+    const termsBox = document.createElement('div');
+    termsBox.className = 'modal-content';
+
+    termsOverlay.appendChild(termsBox);
+    document.body.appendChild(termsOverlay);
+
     const loginTemplate = `
         <button id="btnCloseModal" class="close-btn">X</button>
         <h2>Login</h2>
@@ -27,7 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div class="checkbox">
                <input type="checkbox" id="checkbox" name="checar" required />
-                  <label for="checkbox">Ao conectar-se com este site, você estará concordando com nossos <span class="destacarTermos">Termos de Uso</span> e <span class="destacarTermos">Políticas de Privacidade</span>.</label>
+               <label for="checkbox">
+                  Ao conectar-se com o site, você estará concordando com nossos 
+                  <span class="destacarTermos abrir-termos">Termos de Uso</span> e 
+                  <span class="destacarTermos abrir-termos">Políticas de Privacidade</span>.
+               </label>
             </div>
 
             <button type="submit" class="botao-estilizado">Entrar</button>
@@ -112,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <form id="formEsqueceuSenha">
             <label>Informe o E-mail cadastrado:</label>
             <input type="email" required>
-
             <button type="submit">Enviar Link</button>
             <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
@@ -124,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <form id="formEsqueceuEmail">
             <label>Informe o CPF cadastrado:</label>
             <input type="text" id="inputCPF" "maxlength="11" required>
-
             <button type="submit">Enviar SMS</button>
             <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
@@ -148,6 +161,18 @@ document.addEventListener('DOMContentLoaded', () => {
             modalContentContainer.innerHTML = esqueceuEmailTemplate;
         }
         setupDynamicEvents();
+    }
+
+    function openTermsOverlay() {
+        termsBox.innerHTML = termosTemplate;
+        termsOverlay.classList.remove('hidden');
+
+        const btnClose = termsBox.querySelector('#btnCloseTerms');
+        if (btnClose) {
+            btnClose.addEventListener('click', () => {
+                termsOverlay.classList.add('hidden');
+            });
+        }
     }
 
     function setupDynamicEvents() {
@@ -185,6 +210,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        const termosLinks = document.querySelectorAll('.abrir-termos');
+        termosLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                openTermsOverlay();
+            });
+        });
 
         const togglePassword = document.getElementById('togglePassword');
         if (togglePassword) {
