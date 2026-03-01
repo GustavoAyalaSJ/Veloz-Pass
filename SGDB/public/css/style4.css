@@ -1,5 +1,4 @@
 /* Estrutura Geral */
-
 * {
     margin: 0;
     padding: 0;
@@ -72,7 +71,8 @@ body {
     background-color: #f1f1f1;
 }
 
-.first-button, .second-button {
+.first-button,
+.second-button {
     background: none;
     border: none;
     color: white;
@@ -86,7 +86,7 @@ body {
     color: #e0e0e0;
 }
 
-.dark-mode body{
+.dark-mode body {
     background-color: #070707;
 }
 
@@ -109,11 +109,22 @@ body {
     border: 3px solid rgb(139, 172, 209);
 }
 
+.dark-mode .btn-inserir-credito:hover {
+    background-color: #608966;
+    border: 1px solid rgb(44, 68, 44);
+    transition: 0.4s ease;
+}
+
+.dark-mode .tabela-movimentacoes thead th {
+    border-bottom: 2px solid #a1d0ff;
+}
+
 .dark-mode .modal-box,
 .dark-mode .opt-valor,
 .dark-mode .modal-box input {
     background-color: rgba(9, 9, 9, 0.518);
     border: 3px solid rgb(139, 172, 209);
+    transition: all 0.4s ease;
     color: rgb(150, 206, 255);
 }
 
@@ -150,7 +161,6 @@ body {
 }
 
 /* Conteúdo Principal */
-
 .main-content {
     padding: 40px;
     display: flex;
@@ -178,6 +188,7 @@ body {
 
 .btn-inserir-credito {
     background-color: #3a5e3e;
+    border: 1px solid rgb(44, 68, 44);
     color: white;
     border: none;
     padding: 15px 30px;
@@ -194,19 +205,19 @@ body {
     padding: 20px;
     background: white;
     position: relative;
+    display: block;
 }
 
 .tabela-movimentacoes {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 15px;
-    margin-top: -15px;         
+    margin-top: 0px;
 }
 
 .tabela-movimentacoes thead th {
-    position: sticky;
-    top: 0;
-    background-color: white;
+    position: relative;
+    background-color: transparent;
     z-index: 2;
     color: #5475a3;
     padding: 15px 20px;
@@ -222,7 +233,7 @@ body {
 }
 
 .tabela-corpo tr:hover {
-    transform: scale(1.01); 
+    transform: scale(1.01);
 }
 
 .tabela-corpo td {
@@ -274,14 +285,13 @@ body {
 }
 
 /* Modal */
-
 .modal-wrapper {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: none;
     justify-content: center;
     align-items: center;
@@ -347,7 +357,8 @@ body {
     margin-top: 20px;
 }
 
-.btn-proximo, .btn-finalizar {
+.btn-proximo,
+.btn-finalizar {
     background: #436d4d;
     color: white;
     border: none;
@@ -405,14 +416,9 @@ select {
         width: 90%;
         text-align: center;
         margin-right: 0;
+        border: 4px solid rgb(44, 68, 44);
         padding: 20px 0;
         font-size: 1rem;
-    }
-
-    .btn-inserir-credito:hover {
-        background-color: #608966;
-        border: 4px solid rgb(44, 68, 44);
-        transition: 0.4s ease;
     }
 
     .tabela-header {
