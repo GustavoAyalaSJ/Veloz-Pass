@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     const idLogado = localStorage.getItem('userId');
 
     if (!idLogado || idLogado === "undefined") {
@@ -22,76 +23,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let valorParaInserir = 0;
 
-    inputPersonalizado.style.appearance = 'textfield';
-    inputPersonalizado.style.mozAppearance = 'textfield';
-
     async function carregarDadosIniciais() {
-        try {
-            const response = await fetch(`/api/payments/wallet-data/${idLogado}`);
-            if (!response.ok) throw new Error("Falha na resposta");
 
-            const data = await response.json();
+        const data = await obterDadosCarteira(idLogado);
 
-            if (saldoDisplay) {
-                const saldoNumerico = parseFloat(data.saldo) || 0;
-                saldoDisplay.innerText = `R$ ${saldoNumerico.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-            }
+        if (!data) return;
 
-            corpoTabela.innerHTML = '';
+        if (saldoDisplay) {
+            const saldoNumerico = parseFloat(data.saldo) || 0;
+            saldoDisplay.innerText =
+                `R$ ${saldoNumerico.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+        }
 
-            if (data.historico && data.historico.length > 0) {
-                data.historico.forEach(mov => {
-                    const linha = document.createElement('tr');
-                    const situacao = (mov.situacao || 'pendente').toLowerCase().trim();
-                    let classeStatus = '';
+        corpoTabela.innerHTML = '';
 
-                    if (situacao === 'concluído' || situacao === 'concluido' || situacao === 'validado' || situacao === 'sucesso') {
-                        classeStatus = 'status-verde';
-                    } else if (situacao === 'em revisão' || situacao === 'pendente' || situacao === 'processando') {
-                        classeStatus = 'status-amarelo';
-                    } else {
-                        classeStatus = 'status-vermelho';
-                    }
+        if (data.historico && data.historico.length > 0) {
 
-                    linha.className = classeStatus;
-                    linha.innerHTML = `
-                        <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
-                        <td style="font-weight: bold;">${(mov.tipo || 'Crédito').toUpperCase()}</td>
-                        <td>${mov.nome_bandeira || 'VISA'}</td>
-                        <td style="font-weight: bold;">R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
-                        <td>
-                            <button class="btn-print">
-                                <i class="bi bi-printer"></i> IMPRIMIR
-                            </button>
-                        </td>
-                    `;
-                    corpoTabela.appendChild(linha);
-                });
-            } else {
-                corpoTabela.innerHTML = '<tr><td colspan="5" style="text-align:center;">Nenhuma movimentação encontrada.</td></tr>';
-            }
-        } catch (err) {
-            console.error("Erro ao carregar dados:", err);
+            data.historico.forEach(mov => {
+
+                const linha = document.createElement('tr');
+
+                const situacao = (mov.situacao || 'pendente').toLowerCase().trim();
+                let classeStatus = '';
+
+                if (
+                    situacao === 'concluído' ||
+                    situacao === 'concluido' ||
+                    situacao === 'validado' ||
+                    situacao === 'sucesso'
+                ) {
+                    classeStatus = 'status-verde';
+                } else if (
+                    situacao === 'em revisão' ||
+                    situacao === 'pendente' ||
+                    situacao === 'processando'
+                ) {
+                    classeStatus = 'status-amarelo';
+                } else {
+                    classeStatus = 'status-vermelho';
+                }
+
+                linha.className = classeStatus;
+
+                linha.innerHTML = `
+                    <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
+                    <td style="font-weight: bold;">${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                    <td>${mov.nome_bandeira || 'VISA'}</td>
+                    <td style="font-weight: bold;">
+                        R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}
+                    </td>
+                    <td>
+                        <button class="btn-print">
+                            <i class="bi bi-printer"></i> IMPRIMIR
+                        </button>
+                    </td>
+                `;
+
+                corpoTabela.appendChild(linha);
+            });
+
+        } else {
+
+            corpoTabela.innerHTML =
+                '<tr><td colspan="5" style="text-align:center;">Nenhuma movimentação encontrada.</td></tr>';
+
         }
     }
 
     optValores.forEach(opt => {
+
         opt.addEventListener('click', () => {
+
             if (opt.classList.contains('ativo')) {
+
                 opt.classList.remove('ativo');
                 valorParaInserir = 0;
+
             } else {
+
                 optValores.forEach(o => o.classList.remove('ativo'));
+
                 opt.classList.add('ativo');
                 inputPersonalizado.value = '';
+
                 valorParaInserir = parseFloat(opt.dataset.valor);
             }
         });
     });
 
     inputPersonalizado.addEventListener('input', () => {
+
         if (inputPersonalizado.value !== "") {
+
             optValores.forEach(o => o.classList.remove('ativo'));
+
             valorParaInserir = parseFloat(inputPersonalizado.value);
         }
     });
@@ -99,16 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
     btnInserir.addEventListener('click', () => modalValor.style.display = 'flex');
 
     document.querySelectorAll('.btn-cancelar').forEach(btn => {
+
         btn.addEventListener('click', () => {
+
             modalValor.style.display = 'none';
             modalPagamento.style.display = 'none';
+
             optValores.forEach(o => o.classList.remove('ativo'));
+
             inputPersonalizado.value = '';
+
             valorParaInserir = 0;
         });
     });
 
     btnProximo.addEventListener('click', () => {
+
         if (inputPersonalizado.value !== "") {
             valorParaInserir = parseFloat(inputPersonalizado.value);
         }
@@ -117,29 +148,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return alert("Por favor, selecione ou digite um valor válido.");
         }
 
-        valorConfirmadoTxt.innerText = `R$ ${valorParaInserir.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+        valorConfirmadoTxt.innerText =
+            `R$ ${valorParaInserir.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
         modalValor.style.display = 'none';
         modalPagamento.style.display = 'flex';
     });
 
-    const containerCartao = document.createElement('div');
-    containerCartao.id = 'container-cartao';
-    containerCartao.style.display = 'none';
-    containerCartao.innerHTML = `
-        <p style="font-size: 0.8rem; margin-top:10px; font-weight:bold;">Informações do Cartão:</p>
-        <input type="text" id="num-cartao" placeholder="Número do Cartão (16 dígitos)" maxlength="16"
-        style="width: 100%; padding: 12px; margin-top: 5px; border-radius: 15px; border: 3px solid #375477; background:#dbdbdb;">
-    `;
-    selectPagamento.parentNode.insertBefore(containerCartao, selectPagamento.nextSibling);
-
-    selectPagamento.addEventListener('change', () => {
-        const metodosComCartao = ['débito', 'crédito', 'internacional'];
-        containerCartao.style.display = metodosComCartao.includes(selectPagamento.value) ? 'block' : 'none';
-    });
-
     btnFinalizar.addEventListener('click', async () => {
+
         const metodo = selectPagamento.value;
-        if (!metodo) return alert("Selecione um método de pagamento.");
+
+        if (!metodo) {
+            return alert("Selecione um método de pagamento.");
+        }
 
         const dados = {
             idUsuario: idLogado,
@@ -149,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
+
             const response = await fetch('/api/payments/add-credit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -156,14 +179,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
+
                 alert("Crédito inserido com sucesso!");
+
                 modalPagamento.style.display = 'none';
+
                 carregarDadosIniciais();
+
             } else {
+
                 const erro = await response.json();
+
                 alert("Erro: " + erro.error);
             }
+
         } catch (err) {
+
             alert("Erro ao conectar com o servidor.");
         }
     });
@@ -174,8 +205,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.onclick = (e) => {
-        if (!e.target.closest('.dropdown-container')) contentDropdown.classList.remove('active');
+        if (!e.target.closest('.dropdown-container')) {
+            contentDropdown.classList.remove('active');
+        }
     };
 
     carregarDadosIniciais();
+
 });
