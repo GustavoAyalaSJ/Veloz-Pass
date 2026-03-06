@@ -60,7 +60,6 @@ exports.processCredit = async (req, res) => {
             }
         }
 
-        // 1️⃣ Buscar carteira
         const carteiraRes = await pool.query(
             'SELECT id_carteira FROM Carteira WHERE id_usuario = $1',
             [idUsuario]

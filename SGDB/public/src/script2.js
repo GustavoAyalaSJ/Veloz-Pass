@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     const spanNome = document.getElementById('nome-logado');
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
+    const saldoDashboard = document.getElementById("saldo-dashboard");
 
     function atualizarNome() {
         const nomeSalvo = localStorage.getItem('nomeUsuario');
-        console.log("Nome salvo:", nomeSalvo);
 
         if (nomeSalvo && spanNome) {
             const partes = nomeSalvo.trim().split(/\s+/);
@@ -16,7 +17,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function carregarSaldoDashboard() {
+        const idUsuario = localStorage.getItem('userId');
+
+        if (!idUsuario) return;
+
+        const dadosCarteira = await obterDadosCarteira(idUsuario);
+
+        if (!dadosCarteira) return;
+
+        const saldo = parseFloat(dadosCarteira.saldo) || 0;
+
+        if (saldoDashboard) {
+            saldoDashboard.textContent =
+                `R$ ${saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+        }
+    }
+
     atualizarNome();
+    carregarSaldoDashboard();
 
     if (exitLink) {
         exitLink.addEventListener('click', (event) => {
