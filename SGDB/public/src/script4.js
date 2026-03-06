@@ -23,6 +23,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let valorParaInserir = 0;
 
+    const containerCartao = document.createElement('div');
+    containerCartao.id = 'container-cartao';
+    containerCartao.style.display = 'none';
+
+    containerCartao.innerHTML = `
+        <p style="font-size:0.8rem; margin-top:10px; font-weight:bold;">
+            Informações do Cartão:
+        </p>
+
+        <input 
+            type="text" 
+            id="num-cartao" 
+            placeholder="Número do Cartão (16 dígitos)" 
+            maxlength="16"
+            style="width:100%; padding:12px; margin-top:5px; border-radius:15px; border:3px solid #375477; background:#dbdbdb;"
+        >
+    `;
+
+    selectPagamento.parentNode.insertBefore(containerCartao, selectPagamento.nextSibling);
+
+    selectPagamento.addEventListener('change', () => {
+
+        const metodosComCartao = [
+            'débito',
+            'crédito',
+            'internacional'
+        ];
+
+        if (metodosComCartao.includes(selectPagamento.value)) {
+            containerCartao.style.display = 'block';
+        } else {
+            containerCartao.style.display = 'none';
+        }
+
+    });
+
     async function carregarDadosIniciais() {
 
         const data = await obterDadosCarteira(idLogado);
@@ -31,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (saldoDisplay) {
             const saldoNumerico = parseFloat(data.saldo) || 0;
+
             saldoDisplay.innerText =
                 `R$ ${saldoNumerico.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
         }
@@ -67,9 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 linha.innerHTML = `
                     <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
-                    <td style="font-weight: bold;">${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                    <td style="font-weight:bold;">${(mov.tipo || 'Crédito').toUpperCase()}</td>
                     <td>${mov.nome_bandeira || 'VISA'}</td>
-                    <td style="font-weight: bold;">
+                    <td style="font-weight:bold;">
                         R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}
                     </td>
                     <td>
@@ -86,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             corpoTabela.innerHTML =
                 '<tr><td colspan="5" style="text-align:center;">Nenhuma movimentação encontrada.</td></tr>';
-
         }
     }
 
@@ -163,11 +199,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return alert("Selecione um método de pagamento.");
         }
 
+        const metodosComCartao = ['débito','crédito','internacional'];
+
+        const numCartao = document.getElementById('num-cartao')?.value || "";
+
+        if (metodosComCartao.includes(metodo)) {
+
+            if (numCartao.length < 16) {
+                return alert("Digite um número de cartão válido (16 dígitos).");
+            }
+        }
+
         const dados = {
             idUsuario: idLogado,
             valor: valorParaInserir,
             metodo: metodo,
-            numCartao: document.getElementById('num-cartao')?.value || "0000000000000000"
+            numCartao: numCartao || "0000000000000000"
         };
 
         try {
