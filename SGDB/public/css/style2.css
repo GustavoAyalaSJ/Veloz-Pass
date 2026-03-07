@@ -164,12 +164,26 @@ body {
     color: white;
 }
 
-.dark-mode .modal-box {
+.dark-mode .modal-box,
+.dark-mode .politicas-box {
     background-color: rgba(0, 0, 0, 0.753);
     border: 3px solid rgb(139, 172, 209);
+    color: #e0e0e0;
+}
+
+.dark-mode .politicas-box h2{
+    color: rgb(125, 166, 209);
 }
 
 .dark-mode .modal-box h3 {
+    color: rgb(125, 166, 209);
+}
+
+.dark-mode .close-btn {
+    color: #ffffff;
+}
+
+.dark-mode .close-btn:hover {
     color: rgb(125, 166, 209);
 }
 
@@ -387,7 +401,6 @@ body {
     gap: 15px;
     font-size: 0.9rem;
     line-height: 1.4;
-
 }
 
 .hidden {
@@ -400,7 +413,9 @@ body {
     top: 10px;
     background: none;
     border: none;
+    opacity: 0.8;
     font-size: 1.4rem;
+    font-weight: bold;
     cursor: pointer;
 }
 
