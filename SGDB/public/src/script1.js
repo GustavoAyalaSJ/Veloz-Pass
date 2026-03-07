@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     const termosTemplate = `
-        <button id="btnCloseModal" class="close-btn">X</button>
+        <button id="btnCloseTerms" class="close-btn">X</button>
         <h2>Termos de Uso e Políticas de Privacidade</h2>
         <div class="modal-terms-content">
             <div><strong>1. Uso do Site</strong>
@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         termsOverlay.classList.remove('hidden');
 
         const btnClose = termsBox.querySelector('#btnCloseTerms');
+
         if (btnClose) {
             btnClose.addEventListener('click', () => {
                 termsOverlay.classList.add('hidden');
