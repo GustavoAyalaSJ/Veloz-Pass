@@ -39,9 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="checkbox">
                <input type="checkbox" id="checkbox" name="checar" required />
                <label for="checkbox">
-                  Ao conectar-se com o site, você estará concordando com nossos 
-                  <span class="destacarTermos abrir-termos">Termos de Uso</span> e 
-                  <span class="destacarTermos abrir-termos">Políticas de Privacidade</span>.
+                  Ao conectar-se com o site, você estará concordando com nossos termos de <span class="destacarTermos abrir-termos">Políticas de Privacidade</span>.
                </label>
             </div>
 
@@ -78,19 +76,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const termosTemplate = `
         <button id="btnCloseTerms" class="close-btn">X</button>
-        <h2>Termos de Uso e Políticas de Privacidade</h2>
+        <h2>Termos de Privacidade</h2>
         <div class="modal-terms-content">
-            <div><strong>1. Uso do Site</strong>
-                <p>Veloz Pass é um serviço online e prototipado de recarga para cartão de transporte disponível para Joinville. Ao utilizar o site, você concorda em usar o serviço apenas para fins legítimos. Você não pode reproduzir e copiar dados pessoais neste site, o cadastro é único por usuário.</p>
+            <div><strong>1. Coleta de Informações: </strong>
+                <p>Para a utilização do serviço, coletamos algumas informações pessoais como nome, CPF, telefone e e-mail. Esses dados são necessários para identificar o usuário e permitir o processamento correto das recargas realizadas na plataforma.</p>
             </div>
-            <div><strong>2. Privacidade e Proteção de Dados</strong>
-                <p>Coletamos informações pessoais como nome, CPF, telefone e e-mail para processar suas solicitações de recarga. Para sua segurança, os dados bancários não são salvos no site, apenas a bandeira do cartão que foi efetuado a recarga. Nunca compartilhe dados sigilosos com terceiros sem consentimento.</p>
+            <div><strong>2. Proteção de Dados: </strong>
+                <p>O Veloz Pass adota medidas de segurança para proteger os dados dos usuários. Informações bancárias completas não são armazenadas no sistema, sendo registrada apenas a bandeira do cartão utilizado na transação. Recomendamos que os usuários nunca compartilhem dados sensíveis com terceiros.</p>
             </div>
-            <div><strong>3. Serviços de Recarga</strong>
-                <p>O Veloz Pass oferece recargas rápidas e seguras de cartões de transporte. As transações são processadas e analisadas em tempo real, mas, em caso de atrasos ou outros problemas, nosso suporte estará disponível para ajudá-lo.</p>
+            <div><strong>3. Finalidade das Informações: </strong>
+                <p>As informações coletadas são utilizadas exclusivamente para permitir o funcionamento do serviço de recarga, identificar a conta do usuário e garantir o suporte quando necessário. Esses dados ajudam apenas na execução correta das transações dentro da plataforma..</p>
             </div>
-            <div><strong>4. Responsabilidade</strong>
-                <p>O Veloz Pass se responsabiliza em entregar uma solução rápida para usuários de transporte, porém, não responsabilizamos por falhas de conexão de internet, erros do usuário, como inserção de dados solicitações de transações incorretas. Ao cadastrar, você aceita todos os riscos associados ao uso deste serviço.</p>
+            <div><strong>4. Direitos do Usuário: </strong>
+                <p>O usuário pode solicitar a atualização, correção ou exclusão de seus dados pessoais a qualquer momento por meio do suporte da plataforma. Nos comprometemos a respeitar as normas de proteção de dados aplicáveis e garantir transparência no tratamento das informações fornecidas..</p>
             </div>
         </div>
     `;
