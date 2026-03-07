@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(termsOverlay);
 
     const loginTemplate = `
-        <button id="btnCloseModal" class="close-btn">X</button>
+        <button class="close-btn">X</button>
         <h2>Login</h2>
         <form id="formLogin">
             <label>E-mail:</label>
@@ -29,9 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label>Senha:</label>
                 <div style="position: relative;">
                     <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" required>
-                    <i id="togglePassword" class="bi bi-eye-fill"
-                       style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;">
-                    </i>
+                    <i id="togglePassword" class="bi bi-eye-fill" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;"></i>
                 </div>
             </div>
             <a href="#" id="btnEsqueceuSenha">Esqueceu a senha?</a>
@@ -49,11 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     const cadastroTemplate = `
-        <button id="btnCloseModal" class="close-btn">X</button>
+        <button class="close-btn">X</button>
         <h2>Crie sua conta</h2>
         <form id="formCadastro">
             <label>Nome Completo:</label>
-            <input type="text" name="nome_usuario"  placeholder="Coloque seu nome completo." required>
+            <input type="text" name="nome_usuario" placeholder="Coloque seu nome completo." required>
 
             <label>CPF:</label>
             <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00." maxlength="11" required>
@@ -75,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     const termosTemplate = `
-        <button id="btnCloseTerms" class="close-btn">X</button>
+        <button class="close-btn">X</button>
         <h2>Termos de Privacidade</h2>
         <div class="modal-terms-content">
             <div><strong>1. Coleta de Informações: </strong>
@@ -85,16 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>O Veloz Pass adota medidas de segurança para proteger os dados dos usuários. Informações bancárias completas não são armazenadas no sistema, sendo registrada apenas a bandeira do cartão utilizado na transação. Recomendamos que os usuários nunca compartilhem dados sensíveis com terceiros.</p>
             </div>
             <div><strong>3. Finalidade das Informações: </strong>
-                <p>As informações coletadas são utilizadas exclusivamente para permitir o funcionamento do serviço de recarga, identificar a conta do usuário e garantir o suporte quando necessário. Esses dados ajudam apenas na execução correta das transações dentro da plataforma..</p>
+                <p>As informações coletadas são utilizadas exclusivamente para permitir o funcionamento do serviço de recarga, identificar a conta do usuário e garantir o suporte quando necessário.</p>
             </div>
             <div><strong>4. Direitos do Usuário: </strong>
-                <p>O usuário pode solicitar a atualização, correção ou exclusão de seus dados pessoais a qualquer momento por meio do suporte da plataforma. Nos comprometemos a respeitar as normas de proteção de dados aplicáveis e garantir transparência no tratamento das informações fornecidas..</p>
+                <p>O usuário pode solicitar a atualização, correção ou exclusão de seus dados pessoais a qualquer momento por meio do suporte da plataforma.</p>
             </div>
         </div>
     `;
 
     const suporteTemplate = `
-        <button id="btnCloseModal" class="close-btn">X</button>
+        <button class="close-btn">X</button>
         <h2>Suporte</h2>
         <form id="formSuporte">
             <label>Selecione um problema:</label>
@@ -120,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     const esqueceuSenhaTemplate = `
-        <button id="btnCloseModal" class="close-btn">X</button>
+        <button class="close-btn">X</button>
         <h2>Recuperar Senha</h2>
         <form id="formEsqueceuSenha">
             <label>Informe o E-mail cadastrado:</label>
@@ -131,11 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     const esqueceuEmailTemplate = `
-        <button id="btnCloseModal" class="close-btn">X</button>
+        <button class="close-btn">X</button>
         <h2>Recuperar Conta</h2>
         <form id="formEsqueceuEmail">
             <label>Informe o CPF cadastrado:</label>
-            <input type="text" id="inputCPF" "maxlength="11" required>
+            <input type="text" id="inputCPF" maxlength="11" required>
             <button type="submit">Enviar SMS</button>
             <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
@@ -144,64 +142,47 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderView(viewName) {
         modalContentContainer.classList.remove('scrollable');
 
-        if (viewName === 'login') {
-            modalContentContainer.innerHTML = loginTemplate;
-        } else if (viewName === 'cadastro') {
-            modalContentContainer.innerHTML = cadastroTemplate;
-        } else if (viewName === 'termos') {
-            modalContentContainer.innerHTML = termosTemplate;
-        } else if (viewName === 'suporte') {
+        if (viewName === 'login') modalContentContainer.innerHTML = loginTemplate;
+        else if (viewName === 'cadastro') modalContentContainer.innerHTML = cadastroTemplate;
+        else if (viewName === 'termos') modalContentContainer.innerHTML = termosTemplate;
+        else if (viewName === 'suporte') {
             modalContentContainer.innerHTML = suporteTemplate;
             modalContentContainer.classList.add('scrollable');
-        } else if (viewName === 'esqueceuSenha') {
-            modalContentContainer.innerHTML = esqueceuSenhaTemplate;
-        } else if (viewName === 'esqueceuEmail') {
-            modalContentContainer.innerHTML = esqueceuEmailTemplate;
         }
+        else if (viewName === 'esqueceuSenha') modalContentContainer.innerHTML = esqueceuSenhaTemplate;
+        else if (viewName === 'esqueceuEmail') modalContentContainer.innerHTML = esqueceuEmailTemplate;
+
         setupDynamicEvents();
     }
 
     function openTermsOverlay() {
         termsBox.innerHTML = termosTemplate;
         termsOverlay.classList.remove('hidden');
-
-        const btnCloseTerms = document.getElementById('btnCloseTerms');
-        if (btnCloseTerms) {
-            btnCloseTerms.addEventListener('click', () => {
-
-                if (!termsOverlay.classList.contains('hidden')) {
-                    termsOverlay.classList.add('hidden');
-                }
-                else {
-                    modalRoot.classList.add('hidden');
-                }
-
-            });
-        }
+        setupDynamicEvents();
     }
 
     function setupDynamicEvents() {
 
-        const btnCloseTerms = document.getElementById('btnCloseTerms');
-        if (btnCloseTerms) {
-            btnCloseTerms.addEventListener('click', () => {
-                modalRoot.classList.add('hidden');
+        const closeButtons = document.querySelectorAll('.close-btn');
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!termsOverlay.classList.contains('hidden') && btn.closest('#termsOverlay')) {
+                    termsOverlay.classList.add('hidden');
+                } else {
+                    modalRoot.classList.add('hidden');
+                }
             });
-        }
+        });
 
         const btnGoToCadastro = document.getElementById('btnGoToCadastro');
-        if (btnGoToCadastro) {
-            btnGoToCadastro.addEventListener('click', () => renderView('cadastro'));
-        }
+        if (btnGoToCadastro) btnGoToCadastro.addEventListener('click', () => renderView('cadastro'));
 
         const btnBackToLogin = document.getElementById('btnBackToLogin');
-        if (btnBackToLogin) {
-            btnBackToLogin.addEventListener('click', () => renderView('login'));
-        }
+        if (btnBackToLogin) btnBackToLogin.addEventListener('click', () => renderView('login'));
 
         const btnEsqueceuSenha = document.getElementById('btnEsqueceuSenha');
         if (btnEsqueceuSenha) {
-            btnEsqueceuSenha.addEventListener('click', (e) => {
+            btnEsqueceuSenha.addEventListener('click', e => {
                 e.preventDefault();
                 renderView('esqueceuSenha');
             });
@@ -209,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const btnEsqueceuEmail = document.getElementById('btnEsqueceuEmail');
         if (btnEsqueceuEmail) {
-            btnEsqueceuEmail.addEventListener('click', (e) => {
+            btnEsqueceuEmail.addEventListener('click', e => {
                 e.preventDefault();
                 renderView('esqueceuEmail');
             });
@@ -217,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const termosLinks = document.querySelectorAll('.abrir-termos');
         termosLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+            link.addEventListener('click', e => {
                 e.preventDefault();
                 openTermsOverlay();
             });
@@ -239,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formLogin = document.getElementById('formLogin');
         if (formLogin) {
-            formLogin.addEventListener('submit', async (e) => {
+            formLogin.addEventListener('submit', async e => {
                 e.preventDefault();
 
                 const formData = new FormData(formLogin);
@@ -257,29 +238,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert("Erro: " + errorData.message);
                         return;
                     }
+
                     const data = await response.json();
 
-                    if (response.ok) {
-                        if (!data.id) {
-                            console.error("Erro: O servidor não enviou o ID do usuário!", data);
-                            alert("Erro técnico: ID de usuário não recebido.");
-                            return;
-                        }
-
-                        localStorage.clear();
-                        localStorage.setItem('nomeUsuario', data.nome);
-                        localStorage.setItem('userId', data.id.toString());
-
-                        console.log("Login realizado. ID salvo:", data.id);
-
-                        setTimeout(() => {
-                            window.location.href = "/dashboard";
-                        }, 100);
-                    } else {
-                        alert(data.message || "Erro ao realizar login.");
+                    if (!data.id) {
+                        alert("Erro técnico: ID de usuário não recebido.");
+                        return;
                     }
-                } catch (error) {
-                    console.error("Erro na requisição:", error);
+
+                    localStorage.clear();
+                    localStorage.setItem('nomeUsuario', data.nome);
+                    localStorage.setItem('userId', data.id.toString());
+
+                    setTimeout(() => {
+                        window.location.href = "/dashboard";
+                    }, 100);
+
+                } catch {
                     alert("Servidor offline ou erro de conexão.");
                 }
             });
@@ -287,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formCadastro = document.getElementById('formCadastro');
         if (formCadastro) {
-            formCadastro.addEventListener('submit', async (e) => {
+            formCadastro.addEventListener('submit', async e => {
                 e.preventDefault();
 
                 const cpfInput = document.getElementById('inputCPF');
@@ -323,8 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         localStorage.setItem('nomeUsuario', data.nome);
                         localStorage.setItem('userId', data.id.toString());
 
-                        console.log("ID Salvo com sucesso:", localStorage.getItem('userId'));
-
                         setTimeout(() => {
                             window.location.href = "/dashboard";
                         }, 100);
@@ -338,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formEsqueceuSenha = document.getElementById('formEsqueceuSenha');
         if (formEsqueceuSenha) {
-            formEsqueceuSenha.addEventListener('submit', (e) => {
+            formEsqueceuSenha.addEventListener('submit', e => {
                 e.preventDefault();
                 alert("Link de recuperação enviado.");
                 modalRoot.classList.add('hidden');
@@ -347,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formEsqueceuEmail = document.getElementById('formEsqueceuEmail');
         if (formEsqueceuEmail) {
-            formEsqueceuEmail.addEventListener('submit', (e) => {
+            formEsqueceuEmail.addEventListener('submit', e => {
                 e.preventDefault();
                 alert("Mensagem de SMS enviada.");
                 modalRoot.classList.add('hidden');
