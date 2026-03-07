@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
     const saldoDashboard = document.getElementById("saldo-dashboard");
+    const btnOpenPoliticasHeader = document.getElementById('btnOpenPoliticasHeader');
+
 
     function atualizarNome() {
         const nomeSalvo = localStorage.getItem('nomeUsuario');
@@ -18,12 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function carregarSaldoDashboard() {
-        const idUsuario = localStorage.getItem('userId');
 
+        const idUsuario = localStorage.getItem('userId');
         if (!idUsuario) return;
 
         const dadosCarteira = await obterDadosCarteira(idUsuario);
-
         if (!dadosCarteira) return;
 
         const saldo = parseFloat(dadosCarteira.saldo) || 0;
@@ -37,6 +38,64 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarNome();
     carregarSaldoDashboard();
 
+    const politicasOverlay = document.createElement('div');
+    politicasOverlay.className = "politicas-overlay hidden";
+
+    const politicasBox = document.createElement('div');
+    politicasBox.className = "politicas-box";
+
+    politicasBox.innerHTML = `
+        <button id="btnClosePoliticas" class="close-btn">X</button>
+
+        <h2>Termos de Política</h2>
+
+        <div class="politicas-content">
+
+            <div>
+                <strong>1. Sobre o Serviço:</strong>
+                <p>O Veloz Pass é um sistema online desenvolvido para facilitar a realização de recarga sem cartões de transporte utilizados na cidade de Joinville. O serviço tem como objetivo oferecer praticidade e rapidez aos usuários, sem cobrança de taxas adicionais pelo uso do site. </p>
+            </div>
+
+            <div>
+                <strong>2. Uso da Conta:</strong>
+                <p>Cada usuário deve possuir apenas uma conta vinculada aos seus dados pessoais. Não é permitido criar contas duplicadas utilizando o mesmo CPF ou telefone. Em caso de perda de acesso à conta, o usuário deve entrar em contato com o suporte para realizar o processo de recuperação. </p>
+            </div>
+
+            <div>
+                <strong>3. Sistema de Recarga:</strong>
+                <p>O sistema de recarga funciona de forma direta e não armazena dados bancários dos usuários. As informações utilizadas para pagamento são processadas apenas no momento da transação. O Veloz Pass não incentiva o compartilhamento de dados pessoais ou financeiros entre usuários ou terceiros.
+                </p>
+            </div>
+
+            <div>
+                <strong>4. Responsabilidade:</strong>
+                <p>O Veloz Pass se compromete a fornecer um sistema funcional e acessível. Entretanto, não nos responsabilizamos por falhas decorrentes de problemas de conexão com a internet, erros de preenchimento de dados por parte do usuário ou solicitações de transações realizadas incorretamente. Ao utilizar o serviço, o usuário reconhece e aceita essas condições.
+                </p>
+            </div>
+
+        </div>
+    `;
+
+    politicasOverlay.appendChild(politicasBox);
+    document.body.appendChild(politicasOverlay);
+
+    if (btnOpenPoliticasHeader) {
+        btnOpenPoliticasHeader.addEventListener('click', () => {
+            politicasOverlay.classList.remove('hidden');
+        });
+    }
+
+    politicasOverlay.addEventListener('click', (event) => {
+
+        if (
+            event.target.id === "btnClosePoliticas" ||
+            event.target === politicasOverlay
+        ) {
+            politicasOverlay.classList.add('hidden');
+        }
+
+    });
+
     if (exitLink) {
         exitLink.addEventListener('click', (event) => {
             event.preventDefault();
@@ -49,8 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.confirmarLogout = function () {
+
         localStorage.removeItem('nomeUsuario');
         sessionStorage.clear();
+
         window.location.href = '/introduction';
     };
 
