@@ -280,18 +280,97 @@ select {
 }
 
 /* Media Queries */
-@media (max-width: 1400px) {
-
-}
-
-@media (max-width: 1024px) {
-
-}
-
 @media (max-width: 768px) {
+    .titulo-pagina-externo {
+        height: 20px;
+        padding-bottom: 60px;
+        padding-left: 4px;
+        font-size: 1.8rem;
+    }
 
+    .top-recarga {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .top-group h4 {
+        padding-bottom: 5px;
+    }
+
+    .top-group.valor {
+        padding-right: 0;
+    }
+
+    .card-recarga {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .divider {
+        height: 40px;
+    }
+
+    .divider::before {
+        content: "« »";
+        writing-mode: horizontal-tb;
+        font-size: 1.8rem;
+    }
+
+    .passo-2 {
+        padding-left: 0;
+    }
+
+    .buscard-image {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 600px) {
+    .cabeçalho {
+        padding: 15px 20px;
+    }
 
+    .logotipo img {
+        height: 30px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .titulo-pagina-externo {
+        font-size: 1.5rem;
+        margin-top: 10px;
+        padding-bottom: 10px;
+        text-align: right;
+    }
+
+    .divider {
+        height: 10px;
+    }
+
+    .divider::before {
+        content: "« »";
+        writing-mode: horizontal-tb;
+        font-size: 1.8rem;
+    }
+
+    .btn-prosseguir {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .payment-information {
+        min-height: auto;
+    }
+
+    .confirm-card {
+        margin-top: 20px;
+    }
+
+    .passo h3 {
+        text-align: center;
+    }
 }
