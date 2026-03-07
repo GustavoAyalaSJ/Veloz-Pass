@@ -182,9 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupDynamicEvents() {
 
-        const btnCloseModal = document.getElementById('btnCloseModal');
-        if (btnCloseModal) {
-            btnCloseModal.addEventListener('click', () => {
+        const btnCloseTerms = document.getElementById('btnCloseTerms');
+        if (btnCloseTerms) {
+            btnCloseTerms.addEventListener('click', () => {
                 modalRoot.classList.add('hidden');
             });
         }
