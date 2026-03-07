@@ -171,8 +171,13 @@ body {
     color: #e0e0e0;
 }
 
-.dark-mode .politicas-box h2{
-    color: rgb(125, 166, 209);
+.dark-mode .politicas-box h2,
+.dark-mode .politicas-box strong{
+    color: rgb(136, 184, 235);
+}
+
+.dark-mode .politicas-box p{
+    color: rgb(227, 227, 227);
 }
 
 .dark-mode .modal-box h3 {
@@ -181,10 +186,11 @@ body {
 
 .dark-mode .close-btn {
     color: #ffffff;
+    transition: all 0.3s ease;
 }
 
 .dark-mode .close-btn:hover {
-    color: rgb(125, 166, 209);
+    color: rgb(124, 165, 209);
 }
 
 .dark-mode .btn-sim {
@@ -395,10 +401,18 @@ body {
 
 }
 
+.politicas-content strong{
+    margin-top: 20px;
+}
+
+.politicas-content p{
+    margin-top: 10px;
+}
+
 .politicas-content {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     font-size: 0.9rem;
     line-height: 1.4;
 }
