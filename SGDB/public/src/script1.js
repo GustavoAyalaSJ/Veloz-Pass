@@ -165,11 +165,17 @@ document.addEventListener('DOMContentLoaded', () => {
         termsBox.innerHTML = termosTemplate;
         termsOverlay.classList.remove('hidden');
 
-        const btnClose = termsBox.querySelector('#btnCloseTerms');
+        const btnCloseTerms = document.getElementById('btnCloseTerms');
+        if (btnCloseTerms) {
+            btnCloseTerms.addEventListener('click', () => {
 
-        if (btnClose) {
-            btnClose.addEventListener('click', () => {
-                termsOverlay.classList.add('hidden');
+                if (!termsOverlay.classList.contains('hidden')) {
+                    termsOverlay.classList.add('hidden');
+                }
+                else {
+                    modalRoot.classList.add('hidden');
+                }
+
             });
         }
     }
