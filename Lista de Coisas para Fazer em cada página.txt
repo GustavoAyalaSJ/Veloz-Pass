@@ -12,7 +12,7 @@ index4.html (CSS, Java Script e Banco de Dados):
 
 index5.html (Java Script e Banco de Dados):
 - Tornar a página funcional;
-- Compartilhar o procsso de Recarga em formato de protocolo no histórico geral.
+- Compartilhar o processo de Recarga em formato de protocolo no histórico geral.
 
 index6.html (ainda em processo):
 - Elaborar o design do site e criar o design para está página.
