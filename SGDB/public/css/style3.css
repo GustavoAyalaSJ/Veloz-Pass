@@ -323,14 +323,14 @@ body {
     color: #34495e;
 }
 
-.col-protocolo {
-    font-weight: 450;
-    color: #375477;
+.tabela-linha-item span.col-protocolo {
+    font-weight: 500;
+    color: #375477 !important;
 }
 
-.col-valor {
+.tabela-linha-item span.col-valor {
     font-weight: 800;
-    color: #27ae60;
+    color: #27ae60 !important;
 }
 
 .btn-imprimir {
