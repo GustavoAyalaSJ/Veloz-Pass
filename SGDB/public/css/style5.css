@@ -101,13 +101,8 @@ body {
     border-bottom: 4px solid #2f3e53;
 }
 
-.dark-mode .header-link {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #a9cdff;
-}
-
 .dark-mode .header-link:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(99, 131, 173, 0.379);
     color: #ffffff;
 }
 
@@ -117,25 +112,20 @@ body {
     cursor: pointer;
 }
 
-.dark-mode .containerLeft {
-    background-color: #1e293b;
-    color: #f1f1f1;
-}
-
 .dark-mode .card-recarga {
     background-color: #1e293b;
-    border: 3px solid rgb(87, 176, 218)
+    border: 3px solid #6782ad;
 }
 
 .dark-mode .divider::before {
-    color: rgb(87, 176, 218)
+    color: rgb(87, 176, 218);
 }
 
 .dark-mode .top-group select,
 .dark-mode .top-group.valor input {
     background-color: #1e293b;
     color:#73d4f2;
-    border: 3px solid rgb(87, 176, 218)
+    border: 3px solid #6782ad;
 }
 
 .dark-mode .select-icon {
@@ -145,12 +135,12 @@ body {
 .dark-mode .confirm-card input {
     background-color: #1e293b;
     color:#73d4f2;
-    border: 3px solid rgb(87, 176, 218)
+    border: 3px solid #6782ad;
 }
 
 .dark-mode .payment-information {
     background-color: #1e293b;
-    border: 3px solid rgb(87, 176, 218)
+    border: 3px solid #6782ad;
 }
 
 
@@ -494,6 +484,10 @@ select {
 
     .main-content {
         padding: 20px;
+    }
+
+    .header-link span {
+        display: none;
     }
 
     .titulo-pagina-externo {
