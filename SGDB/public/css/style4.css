@@ -130,6 +130,17 @@ body {
     color: rgb(150, 206, 255);
 }
 
+.dark-mode #metodo-pagamento {
+    background-color: #1e293b;
+    border-color: #6782ad;
+    color: #e0e0e0;
+}
+
+.dark-mode .select-icon-modal {
+    color: #73d4f2;
+}
+
+
 .dark-mode .modal-box .campo-personalizado input:focus {
     background-color: rgba(9, 9, 9, 0.518);
     border: 3px solid rgb(139, 172, 209);
@@ -357,6 +368,41 @@ body {
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
+}
+
+/* Container do select */
+.select-wrapper-modal {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#metodo-pagamento {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border-radius: 8px;
+    border: 1.5px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.select-icon-modal {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+    color: #666;
+}
+
+.select-wrapper-modal.active .select-icon-modal {
+    transform: translateY(-50%) rotate(180deg);
 }
 
 .btn-proximo,

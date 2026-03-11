@@ -4,6 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
+    const selectElement = document.getElementById('select-pagamento');
+    const wrapper = selectElement.parentElement;
+
+    selectElement.addEventListener('click', () => {
+        wrapper.classList.toggle('active');
+    });
+
+    selectElement.addEventListener('blur', () => {
+        wrapper.classList.remove('active');
+    });
+
+
+    selectElement.addEventListener('change', () => {
+        wrapper.classList.remove('active');
+    });
 
     if (exitLink) {
         exitLink.addEventListener('click', (event) => {

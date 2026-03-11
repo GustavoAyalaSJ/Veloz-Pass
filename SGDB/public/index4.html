@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="css/style4.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+
 <body>
     <div class="background-container">
         <header class="cabeçalho">
@@ -84,14 +86,19 @@
             <div class="modal-wrapper" id="modal-pagamento">
                 <div class="modal-box">
                     <h3>Valor inserido: <span id="valor-confirmado">R$ 0,00</span></h3>
-                    <select id="metodo-pagamento">
-                        <option value="" disabled selected>Selecione Método de Pagamento</option>
-                        <option value="débito">Cartão de Débito</option>
-                        <option value="crédito">Cartão de Crédito</option>
-                        <option value="internacional">Cartão Internacional</option>
-                        <option value="pix">Pix</option>
-                        <option value="boleto">Boleto</option>
-                    </select>
+
+                    <div class="select-wrapper-modal">
+                        <select id="metodo-pagamento">
+                            <option value="" disabled selected>Selecione Método de Pagamento</option>
+                            <option value="débito">Cartão de Débito</option>
+                            <option value="crédito">Cartão de Crédito</option>
+                            <option value="internacional">Cartão Internacional</option>
+                            <option value="pix">Pix</option>
+                            <option value="boleto">Boleto</option>
+                        </select>
+                        <i class="bi bi-chevron-down select-icon-modal"></i>
+                    </div>
+
                     <div class="modal-footer">
                         <button id="btn-finalizar" class="btn-finalizar">Finalizar</button>
                         <button class="btn-cancelar">Cancelar</button>
@@ -104,4 +111,5 @@
     <script src="src/theme.js"></script>
     <script src="src/api.js"></script>
 </body>
+
 </html>

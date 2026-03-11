@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectPagamento = document.getElementById('metodo-pagamento');
     const saldoDisplay = document.getElementById('saldo-usuario');
     const corpoTabela = document.getElementById('corpo-tabela');
+    const selectElement = document.getElementById('select-pagamento');
+    const wrapper = selectElement.parentElement;
 
     let valorParaInserir = 0;
 
@@ -57,6 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
             containerCartao.style.display = 'none';
         }
 
+    });
+
+    selectElement.addEventListener('click', () => {
+        wrapper.classList.toggle('active');
+    });
+
+    selectElement.addEventListener('blur', () => {
+        wrapper.classList.remove('active');
+    });
+
+
+    selectElement.addEventListener('change', () => {
+        wrapper.classList.remove('active');
     });
 
     async function carregarDadosIniciais() {
