@@ -1,18 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const listbutton = document.getElementById('list-button');
-    const contentDropdown = document.getElementById('content-dropdown');
-
-    listbutton.addEventListener('click', (event) => {
-        event.stopPropagation();
-
-        contentDropdown.classList.toggle('active');
-    });
-
-    window.addEventListener('click', (event) => {
-        if (contentDropdown.classList.contains('active')) {
-            if (!contentDropdown.contains(event.target)) {
-                contentDropdown.classList.remove('active');
-            }
-        }
-    });
-});
+/* Comentário JS: JS gerar uma tabela:
+    <!-- Container onde terá as informações de:
+        - Recarga: Informando os valores que foram avaliados corretamente para recarga do cartão.
+        - Carteira Digital: Colocar com um fundo vermelho translúcido (recusado), amarelo translúcido (em revisão) e verde translúcido (confirmado). 
+    Ele vai ser gerado quando o usuário realizar algumas das informações. 
+    --> \
+*/

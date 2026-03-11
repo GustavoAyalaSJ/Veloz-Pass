@@ -192,23 +192,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnFinalizar.addEventListener('click', async () => {
-
         const metodo = selectPagamento.value;
 
         if (!metodo) {
             return alert("Selecione um método de pagamento.");
         }
 
-        const metodosComCartao = ['débito','crédito','internacional'];
-
+        const metodosComCartao = ['débito', 'crédito', 'internacional'];
         const numCartao = document.getElementById('num-cartao')?.value || "";
 
         if (metodosComCartao.includes(metodo)) {
-
             if (numCartao.length < 16) {
                 return alert("Digite um número de cartão válido (16 dígitos).");
             }
         }
+
+        btnFinalizar.disabled = true;
+        const textoOriginal = btnFinalizar.innerText;
+        btnFinalizar.innerText = "Processando...";
+        btnFinalizar.style.opacity = "0.7";
+        btnFinalizar.style.cursor = "not-allowed";
 
         const dados = {
             idUsuario: idLogado,
@@ -218,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-
             const response = await fetch('/api/payments/add-credit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -226,23 +228,24 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-
                 alert("Crédito inserido com sucesso!");
-
                 modalPagamento.style.display = 'none';
 
-                carregarDadosIniciais();
+                selectPagamento.value = "";
+                if (document.getElementById('num-cartao')) document.getElementById('num-cartao').value = "";
 
+                await carregarDadosIniciais();
             } else {
-
                 const erro = await response.json();
-
-                alert("Erro: " + erro.error);
+                alert("Erro: " + (erro.error || "Falha no processamento"));
             }
-
         } catch (err) {
-
             alert("Erro ao conectar com o servidor.");
+        } finally {
+            btnFinalizar.disabled = false;
+            btnFinalizar.innerText = textoOriginal;
+            btnFinalizar.style.opacity = "1";
+            btnFinalizar.style.cursor = "pointer";
         }
     });
 

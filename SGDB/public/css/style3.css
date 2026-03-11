@@ -21,6 +21,7 @@ body {
 .cabeçalho {
     background-color: #7296be;
     padding: 15px 50px;
+    border-bottom: 4px solid #607ba0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,13 +48,7 @@ body {
     gap: 20px;
 }
 
-.user-actions:hover {
-    color: rgb(238, 238, 238);
-    cursor: pointer;
-    transition: all 0.4s ease;
-}
-
-.first-button {
+.icon-button {
     background: none;
     border: none;
     color: white;
@@ -61,48 +56,33 @@ body {
     cursor: pointer;
 }
 
-.second-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
+.icon-button:hover {
+    color: rgb(235, 235, 235);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.dropdown-container {
-    position: relative;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: #ffffff;
-    min-width: 180px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    z-index: 1000;
-    padding: 10px 0;
-}
-
-.dropdown-content.active {
-    display: flex;
-    flex-direction: column;
-}
-
-.dropdown-content a {
-    color: #333;
-    padding: 10px 20px;
+.header-link {
     text-decoration: none;
+    color: white;
     font-size: 0.9rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
+.header-link i {
+    font-size: 1.2rem;
+}
+
+.header-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f0f4f8;
 }
 
 /* Modo Escuro */
@@ -118,6 +98,23 @@ body {
 .dark-mode .cabeçalho {
     background-color: #1f2a36;
     color: #ffffff;
+    border-bottom: 4px solid #2f3e53;
+}
+
+.dark-mode .header-link {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #a9cdff;
+}
+
+.dark-mode .header-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.dark-mode .icon-button:hover{
+    color: rgb(167, 199, 255);
+    transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 .dark-mode .card-container {
@@ -199,6 +196,14 @@ body {
 
     .logotipo img {
         height: 35px;
+    }
+
+    .header-link span {
+        display: none;
+    }
+    .header-link {
+        padding: 8px;
+        background: none;
     }
 
     .header-actions {

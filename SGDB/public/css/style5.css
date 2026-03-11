@@ -21,6 +21,7 @@ body {
 .cabeçalho {
     background-color: #7296be;
     padding: 15px 50px;
+    border-bottom: 4px solid #607ba0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,43 +48,7 @@ body {
     gap: 18px;
 }
 
-.dropdown-container {
-    position: relative;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: #ffffff;
-    min-width: 180px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    z-index: 1000;
-    padding: 10px 0;
-}
-
-.dropdown-content.active {
-    display: flex;
-    flex-direction: column;
-}
-
-.dropdown-content a {
-    color: #333;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.first-button {
+.icon-button {
     background: none;
     border: none;
     color: white;
@@ -91,12 +56,10 @@ body {
     cursor: pointer;
 }
 
-.second-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
+.icon-button:hover {
+    color: rgb(235, 235, 235);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 /* Modo Escuro */
@@ -112,6 +75,13 @@ body {
 .dark-mode .cabeçalho {
     background-color: #1f2a36;
     color: #ffffff;
+    border-bottom: 4px solid #2f3e53;
+}
+
+.dark-mode .icon-button:hover{
+    color: rgb(167, 199, 255);
+    transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 .dark-mode .containerLeft {

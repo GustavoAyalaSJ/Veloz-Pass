@@ -19,20 +19,19 @@
                 </div>
             </a>
             <div class="header-actions">
-                <button id="change-button" class="first-button" aria-label="escuro">
-                    <i class="bi bi-brightness-high-fill"></i>
-                </button>
                 <div class="user-actions">
-                    <div class="dropdown-container">
-                        <button id="list-button" class="second-button" aria-label="Lista">
-                            <i class="bi bi-list"></i>
-                        </button>
-                        <div class="dropdown-content" id="content-dropdown">
-                            <a href="/carteira_digital" class="carteira-link"><i class="bi bi-credit-card"></i>Carteira
-                                Digital</a>
-                            <a href="/introduction" class="exit-link"><i class="bi bi-box-arrow-left"></i>Sair</a>
-                        </div>
-                    </div>
+                    <a href="/carteira_digital" class="header-link">
+                        <i class="bi bi-credit-card"></i>
+                        <span>Carteira Digital</span>
+                    </a>
+
+                    <button id="change-button" class="icon-button">
+                        <i class="bi bi-brightness-high-fill"></i>
+                    </button>
+
+                    <a class="icon-button exit-link" onclick="abrirModalLogout(event)">
+                        <i class="bi bi-box-arrow-left"></i>
+                    </a>
                 </div>
             </div>
         </header>
