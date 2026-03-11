@@ -126,6 +126,47 @@ body {
     color: rgb(84, 146, 187);
 }
 
+.dark-mode .modal-box{
+    background-color: rgba(10, 15, 28, 0.939);
+    border: 2px solid #6782ad;
+    color: #e0e0e0;
+}
+
+.dark-mode .modal-box h3 {
+    color: rgb(125, 166, 209);
+}
+
+.dark-mode .close-btn {
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .close-btn:hover {
+    color: rgb(124, 165, 209);
+}
+
+.dark-mode .btn-sim {
+    background-color: rgba(42, 93, 51, 0.518);
+    border: 1.5px solid rgb(24, 82, 57);
+}
+
+.dark-mode .btn-sim:hover {
+    background-color: rgba(73, 139, 85, 0.518);
+    border: 1.5px solid rgb(24, 82, 57);
+    transition: 0.3s rgba(73, 139, 85, 0.518) ease;
+}
+
+.dark-mode .btn-nao {
+    background-color: rgba(94, 43, 34, 0.744);
+    border: 1.5px solid rgb(58, 14, 14);
+}
+
+.dark-mode .btn-nao:hover {
+    background-color: rgba(161, 73, 58, 0.744);
+    border: 1.5px solid rgb(58, 14, 14);
+    transition: 0.3s rgba(161, 73, 58, 0.744) ease;
+}
+
 /* Conteúdo Principal */
 .main-content {
     flex: 1;
@@ -140,6 +181,73 @@ body {
     font-weight: bold;
     margin-bottom: 30px;
     color: rgb(91, 148, 187);
+}
+
+/* Modal */
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-box {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-box h3 {
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-buttons button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.btn-sim {
+    background-color: #317134;
+    border: 1.5px solid rgb(19, 57, 27);
+    color: white;
+}
+
+.btn-sim:hover {
+    background-color: #4fa454;
+    border: 1.5px solid rgb(19, 57, 27);
+    transition: 0.3s #4fa454 ease;
+}
+
+.btn-nao {
+    background-color: #4d1e1e;
+    border: 1.5px solid rgb(58, 14, 14);
+    color: white;
+}
+
+.btn-nao:hover {
+    background-color: #c77f7f;
+    border: 1.5px solid rgb(58, 14, 14);
+    transition: 0.3s #c77f7f ease;
 }
 
 /* Informações da Tabela */
