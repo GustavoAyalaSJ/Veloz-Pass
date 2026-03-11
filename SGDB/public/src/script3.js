@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             historicoFiltrado.forEach(mov => {
                 const linha = document.createElement('div');
-                linha.className = "linha-historico";
+                linha.className = 'linha-historico';
 
                 const valorFormatado = parseFloat(mov.valor).toLocaleString('pt-BR', { 
                     style: 'currency', 
