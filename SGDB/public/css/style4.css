@@ -19,6 +19,7 @@ body {
 .cabeçalho {
     background-color: #7296be;
     padding: 15px 50px;
+    border-bottom: 4px solid #607ba0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -93,6 +94,7 @@ body {
 .dark-mode .cabeçalho {
     background-color: #1f2a36;
     color: #ffffff;
+    border-bottom: 4px solid #2f3e53;
 }
 
 .dark-mode .titulo-pagina-externo {
