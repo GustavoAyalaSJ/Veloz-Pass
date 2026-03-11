@@ -56,13 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     currency: 'BRL' 
                 });
 
+                const metodoExibicao = (mov.metodo || 'PIX').toUpperCase();
+
                 linha.innerHTML = `
                     <span style="flex:1; text-align:center; font-size:0.85rem;">${mov.n_protocolo || '---'}</span>
                     <span style="flex:1; text-align:center; font-size:0.85rem; font-weight:bold;">CARTEIRA DIGITAL</span>
-                    <span style="flex:1; text-align:center; font-size:0.85rem;">${(mov.metodo || mov.nome_bandeira || 'PIX').toUpperCase()}</span>
+                    <span style="flex:1; text-align:center; font-size:0.85rem;">${metodoExibicao}</span>
                     <span style="flex:1; text-align:center; font-size:0.85rem; font-weight:800; color:#27ae60;">${valorFormatado}</span>
                     <span style="flex:1; text-align:center;">
-                        <button onclick="window.print()" style="background:#375477; color:white; border:none; padding:6px 12px; border-radius:5px; font-size:0.7rem; font-weight:bold; cursor:pointer;">
+                        <button style="background:#375477; color:white; border:none; padding:6px 12px; border-radius:5px; font-size:0.7rem; font-weight:bold; cursor:pointer;">
                             IMPRIMIR
                         </button>
                     </span>
@@ -78,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     carregarHistoricoGeral();
 
-
     if (exitLink) {
         exitLink.addEventListener('click', (event) => {
             event.preventDefault();
@@ -91,10 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.confirmarLogout = function () {
-
         localStorage.removeItem('nomeUsuario');
         sessionStorage.clear();
-
         window.location.href = '/introduction';
     };
 });
