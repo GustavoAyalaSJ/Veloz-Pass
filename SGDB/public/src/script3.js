@@ -44,29 +44,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             historicoFiltrado.forEach(mov => {
                 const linha = document.createElement('div');
-                linha.style.display = 'flex';
-                linha.style.justifyContent = 'space-between';
-                linha.style.width = '100%';
-                linha.style.padding = '15px 0';
-                linha.style.borderBottom = '1px solid #e0e0e0';
-                linha.style.alignItems = 'center';
+                linha.className = "linha-historico";
 
                 const valorFormatado = parseFloat(mov.valor).toLocaleString('pt-BR', { 
                     style: 'currency', 
                     currency: 'BRL' 
                 });
 
-                const metodoExibicao = (mov.metodo || 'PIX').toUpperCase();
+                const metodoExibicao = (mov.metodo || mov.tipo || 'PIX').toUpperCase();
 
                 linha.innerHTML = `
-                    <span style="flex:1; text-align:center; font-size:0.85rem;">${mov.n_protocolo || '---'}</span>
-                    <span style="flex:1; text-align:center; font-size:0.85rem; font-weight:bold;">CARTEIRA DIGITAL</span>
-                    <span style="flex:1; text-align:center; font-size:0.85rem;">${metodoExibicao}</span>
-                    <span style="flex:1; text-align:center; font-size:0.85rem; font-weight:800; color:#27ae60;">${valorFormatado}</span>
-                    <span style="flex:1; text-align:center;">
-                        <button style="background:#375477; color:white; border:none; padding:6px 12px; border-radius:5px; font-size:0.7rem; font-weight:bold; cursor:pointer;">
-                            IMPRIMIR
-                        </button>
+                    <span class="col-protocolo">${mov.n_protocolo || '---'}</span>
+                    <span class="col-origem">CARTEIRA DIGITAL</span>
+                    <span class="col-metodo">${metodoExibicao}</span>
+                    <span class="col-valor">${valorFormatado}</span>
+                    <span class="col-acao">
+                        <button class="btn-imprimir">IMPRIMIR</button>
                     </span>
                 `;
                 
@@ -86,13 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
             logoutModal.style.display = "flex";
         });
     }
-
-    window.fecharModal = function () {
-        logoutModal.style.display = "none";
-    };
-
-    window.confirmarLogout = function () {
-        localStorage.removeItem('nomeUsuario');
+    window.fecharModal = () => logoutModal.style.display = "none";
+    window.confirmarLogout = () => {
+        localStorage.clear();
         sessionStorage.clear();
         window.location.href = '/introduction';
     };
