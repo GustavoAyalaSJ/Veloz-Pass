@@ -2,72 +2,84 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Comentário em breve. */
 
+    const idLogado = localStorage.getItem('userId');
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
     const selectElement = document.getElementById('select-pagamento');
-    const wrapper = selectElement.parentElement;
+    const inputValor = document.querySelector('.top-group.valor input');
+    const wrapper = selectElement ? selectElement.parentElement : null;
 
-    selectElement.addEventListener('click', () => {
-        wrapper.classList.toggle('active');
-    });
+    if (!idLogado || idLogado === "undefined") {
+        window.location.href = "/introduction";
+        return;
+    }
 
-    selectElement.addEventListener('blur', () => {
-        wrapper.classList.remove('active');
-    });
+    if (selectElement && wrapper) {
+        selectElement.addEventListener('click', () => {
+            wrapper.classList.toggle('active');
+        });
 
-    selectElement.addEventListener('change', () => {
-        wrapper.classList.remove('active');
-    });
+        selectElement.addEventListener('blur', () => {
+            setTimeout(() => wrapper.classList.remove('active'), 200);
+        });
 
-    const idLogado = localStorage.getItem('userId');
-    const selectPagamento = document.getElementById('select-pagamento');
+        selectElement.addEventListener('change', () => {
+            wrapper.classList.remove('active');
+        });
+    }
 
-    if (!idLogado || idLogado === "undefined") return;
-
-    async function atualizarSaldoNoSelect() {
+    async function carregarSaldoCarteira() {
         try {
-            if (typeof obterDadosCarteira !== 'function') return;
-            
-            const data = await obterDadosCarteira(idLogado);
-            
-            if (data && data.saldo !== undefined) {
-                const saldoFormatado = parseFloat(data.saldo).toLocaleString('pt-BR', { 
-                    minimumFractionDigits: 2 
-                });
+            const response = await fetch(`/api/payments/wallet-data/${idLogado}`);
+            const data = await response.json();
 
-                if (selectPagamento) {
-                    const options = selectPagamento.options;
-                    for (let i = 0; i < options.length; i++) {
-                        if (options[i].text.includes('Carteira Digital')) {
-                            options[i].text = `Carteira Digital (R$ ${saldoFormatado})`;
-                            break;
-                        }
+            if (data && data.saldo !== undefined) {
+                const saldoNumerico = parseFloat(data.saldo) || 0;
+                const saldoFormatado = saldoNumerico.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+
+                const options = selectElement.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].text.includes('Carteira Digital')) {
+                        options[i].text = `Carteira Digital (R$ ${saldoFormatado})`;
+                        break;
                     }
                 }
             }
-        } catch (error) {
-            console.error("Erro ao carregar saldo para o select:", error);
+        } catch (err) {
+            console.error("Erro ao buscar saldo:", err);
         }
     }
 
-    atualizarSaldoNoSelect();
+    if (inputValor) {
+        inputValor.addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v === "") {
+                e.target.value = "";
+                return;
+            }
+            v = (v / 100).toFixed(2).replace(".", ",");
+            v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+            v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
+            e.target.value = "R$ " + v;
+        });
+    }
+
+    carregarSaldoCarteira();
 
     if (exitLink) {
         exitLink.addEventListener('click', (event) => {
             event.preventDefault();
-            logoutModal.style.display = "flex";
+            if (logoutModal) logoutModal.style.display = "flex";
         });
     }
 
     window.fecharModal = function () {
-        logoutModal.style.display = "none";
+        if (logoutModal) logoutModal.style.display = "none";
     };
 
     window.confirmarLogout = function () {
-
-        localStorage.removeItem('nomeUsuario');
+        localStorage.clear();
         sessionStorage.clear();
-
         window.location.href = '/introduction';
     };
 });
