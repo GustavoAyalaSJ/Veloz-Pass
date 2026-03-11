@@ -285,6 +285,18 @@ body {
     flex-direction: column;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 /* Media Queries */
 @media (max-width: 600px) and (orientation: portrait) {
     .background-container {
@@ -309,6 +321,7 @@ body {
     .header-link span {
         display: none;
     }
+    
     .header-link {
         padding: 8px;
         background: none;

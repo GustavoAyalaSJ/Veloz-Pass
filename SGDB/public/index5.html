@@ -43,17 +43,21 @@
                 <div class="top-recarga">
                     <div class="top-group">
                         <h4>Formas de pagamento</h4>
-                        <select>
-                            <option disabled selected>Selecione</option>
-                            <!-- Opção de valor da carteira digital com duas possibilidades:
-                    1. Se o usuário selecionar ela primeiro e depois valor, caso o valor seja insuficiente, mostre um alert dizendo "Valor Insuficiente, mostrando o valor disponivel no alert"
-                    2. Se o usuário selecionar um valor primeiro se for insuficiente, está opção ficará desabilitada até colocar o valor suficiente. -->
-                            <option>Cartão de Crédito</option>
-                            <option>Cartão de Débito</option>
-                            <option>PIX</option>
-                            <option>Boleto</option>
-                            <option>Cartão Internacional</option>
-                        </select>
+                        <div class="select-wrapper">
+                            <select id="select-pagamento">
+                                <option disabled selected>Selecione</option>
+                                <option>Carteira Digital</option>
+                                <!-- Opção de valor da carteira digital com duas possibilidades:
+                                1. Se o usuário selecionar ela primeiro e depois valor, caso o valor seja insuficiente, mostre um alert dizendo "Valor Insuficiente, mostrando o valor disponivel no alert"
+                                2. Se o usuário selecionar um valor primeiro se for insuficiente, está opção ficará desabilitada até colocar o valor suficiente. -->
+                                <option>Cartão de Crédito</option>
+                                <option>Cartão de Débito</option>
+                                <option>PIX</option>
+                                <option>Boleto</option>
+                                <option>Cartão Internacional</option>
+                            </select>
+                            <i class="bi bi-chevron-down select-icon"></i>
+                        </div>
                     </div>
 
                     <div class="top-group valor">
