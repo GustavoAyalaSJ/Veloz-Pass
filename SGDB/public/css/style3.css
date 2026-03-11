@@ -184,7 +184,6 @@ body {
 }
 
 /* Modal */
-/* Modal */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -324,12 +323,17 @@ body {
     color: #34495e;
 }
 
-.valor-positivo {
+.col-protocolo {
+    font-weight: 450;
+    color: #375477;
+}
+
+.col-valor {
     font-weight: 800;
     color: #27ae60;
 }
 
-.btn-acao-print {
+.btn-imprimir {
     background: #375477;
     color: white;
     border: none;
@@ -341,7 +345,7 @@ body {
     text-transform: uppercase;
 }
 
-.btn-acao-print:hover {
+.btn-imprimir:hover {
     background: #2c3e50;
 }
 
@@ -457,7 +461,7 @@ body {
         padding: 0 2px;
     }
 
-    .btn-acao-print {
+    .btn-imprimir {
         padding: 4px 8px;
         font-size: 0.55rem;
     }
