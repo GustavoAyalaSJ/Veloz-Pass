@@ -97,10 +97,6 @@ body {
     border-bottom: 4px solid #2f3e53;
 }
 
-.dark-mode .titulo-pagina-externo {
-    color: rgb(143, 199, 255);
-}
-
 .dark-mode .card-valor {
     background-color: #000;
     color: rgb(244, 244, 244);
@@ -111,9 +107,14 @@ body {
     border: 3px solid rgb(139, 172, 209);
 }
 
-.dark-mode .btn-inserir-credito:hover {
+.dark-mode .btn-inserir-credito {
     background-color: #608966;
     border: 1px solid rgb(44, 68, 44);
+}
+
+.dark-mode .btn-inserir-credito:hover {
+    background-color: #608966;
+    border: 4px solid rgb(44, 68, 44);
     transition: 0.4s ease;
 }
 
