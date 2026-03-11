@@ -10,14 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    async function obterDadosCarteira(id) {
+        try {
+            const response = await fetch(`/api/payments/wallet-data/${id}`);
+            if (response.ok) return await response.json();
+            return null;
+        } catch (err) {
+            console.error("Erro ao buscar dados:", err);
+            return null;
+        }
+    }
+
     async function carregarHistoricoGeral() {
         try {
-            if (typeof obterDadosCarteira !== 'function') return;
-
             const data = await obterDadosCarteira(idLogado);
             
             if (!data || !data.historico) {
-                corpoTabelaInfo.innerHTML = '<div style="text-align:center; padding:20px;">Nenhum registro encontrado.</div>';
+                corpoTabelaInfo.innerHTML = '<div style="text-align:center; padding:20px; font-size:0.8rem;">Nenhum registro encontrado.</div>';
                 return;
             }
 
@@ -29,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             corpoTabelaInfo.innerHTML = '';
 
             if (historicoFiltrado.length === 0) {
-                corpoTabelaInfo.innerHTML = '<div style="text-align:center; padding:20px;">Sem movimentações confirmadas.</div>';
+                corpoTabelaInfo.innerHTML = '<div style="text-align:center; padding:20px; font-size:0.8rem;">Sem movimentações confirmadas.</div>';
                 return;
             }
 
@@ -53,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span style="flex:1; text-align:center; font-size:0.85rem;">${(mov.metodo || mov.nome_bandeira || 'PIX').toUpperCase()}</span>
                     <span style="flex:1; text-align:center; font-size:0.85rem; font-weight:800; color:#27ae60;">${valorFormatado}</span>
                     <span style="flex:1; text-align:center;">
-                        <button onclick="imprimirProtocolo('${mov.n_protocolo}')" style="background:#375477; color:white; border:none; padding:6px 12px; border-radius:5px; font-size:0.7rem; font-weight:bold; cursor:pointer;">
+                        <button onclick="window.print()" style="background:#375477; color:white; border:none; padding:6px 12px; border-radius:5px; font-size:0.7rem; font-weight:bold; cursor:pointer;">
                             IMPRIMIR
                         </button>
                     </span>
@@ -68,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     carregarHistoricoGeral();
+
 
     if (exitLink) {
         exitLink.addEventListener('click', (event) => {
