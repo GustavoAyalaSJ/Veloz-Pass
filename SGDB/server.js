@@ -65,9 +65,6 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index6.html'));
 });
 
-// Aplicar rate limiting ao login
-app.post('/login', loginLimiter);
-
 // Aplicar rate limiting à API
 app.use('/api/', apiLimiter);
 

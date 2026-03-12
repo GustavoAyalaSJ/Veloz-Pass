@@ -317,16 +317,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await response.json();
 
                     if (response.ok && data.id) {
-                        localStorage.setItem('nomeUsuario', data.nome);
-                        localStorage.setItem('userId', data.id.toString());
+                        auth.setToken(data.token || '', {
+                            id: data.id,
+                            nome: data.nome
+                        });
 
                         setTimeout(() => {
                             window.location.href = "/dashboard";
                         }, 100);
                     }
 
-                } catch {
+                } catch (error) {
                     alert("Erro ao salvar os dados.");
+                    console.error(error);
                 }
             });
         }

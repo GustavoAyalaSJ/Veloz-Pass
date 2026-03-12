@@ -2,14 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Comentário em breve. */
 
-    const idLogado = localStorage.getItem('userId');
+    const userData = auth.getUserData();
+    const idLogado = userData?.id;
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
     const selectElement = document.getElementById('select-pagamento');
     const inputValor = document.querySelector('.top-group.valor input');
     const wrapper = selectElement ? selectElement.parentElement : null;
 
-    if (!idLogado || idLogado === "undefined") {
+    if (!idLogado) {
         window.location.href = "/introduction";
         return;
     }
@@ -78,8 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.confirmarLogout = function () {
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.href = '/introduction';
+        auth.clear();
     };
 });

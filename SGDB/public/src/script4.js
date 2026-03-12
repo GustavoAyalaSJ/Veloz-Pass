@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const idLogado = localStorage.getItem('userId');
+    const userData = auth.getUserData();
+    const idLogado = userData?.id;
 
-    if (!idLogado || idLogado === "undefined") {
+    if (!idLogado) {
         window.location.href = "/introduction";
         return;
     }
