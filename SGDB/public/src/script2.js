@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function atualizarNome() {
-        const nomeSalvo = localStorage.getItem('nomeUsuario');
+        const userData = auth.getUserData();
 
-        if (nomeSalvo && spanNome) {
-            const partes = nomeSalvo.trim().split(/\s+/);
+        if (userData && spanNome) {
+            const partes = userData.nome.trim().split(/\s+/);
             const primeiroNome = partes[0];
             const ultimoNome = partes.length > 1 ? partes[partes.length - 1] : "";
 
@@ -20,8 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function carregarSaldoDashboard() {
-
-        const idUsuario = localStorage.getItem('userId');
+        const userData = auth.getUserData();
+        const idUsuario = userData?.id;
+        
         if (!idUsuario) return;
 
         const dadosCarteira = await obterDadosCarteira(idUsuario);
@@ -108,11 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.confirmarLogout = function () {
-
-        localStorage.removeItem('nomeUsuario');
-        sessionStorage.clear();
-
-        window.location.href = '/introduction';
+        auth.clear();
     };
 
 });

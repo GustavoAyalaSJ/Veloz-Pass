@@ -2,10 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
-    const idLogado = localStorage.getItem('userId');
+    const userData = auth.getUserData();
+    const idLogado = userData?.id;
     const corpoTabelaInfo = document.querySelector('.tabela-corpoInfo');
 
-    if (!idLogado || idLogado === "undefined") {
+    if (!idLogado) {
         window.location.href = "/introduction";
         return;
     }
@@ -81,8 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.fecharModal = () => logoutModal.style.display = "none";
     window.confirmarLogout = () => {
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.href = '/introduction';
+        auth.clear();
     };
 });
