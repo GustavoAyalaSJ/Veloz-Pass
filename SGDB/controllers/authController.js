@@ -33,11 +33,11 @@ exports.cadastro = async (req, res) => {
 
         const resultUsuario = await db.query(
             `INSERT INTO usuario (nome_usuario, cpf, telefone, email, senha)
-             VALUES ($1, $2, $3, $4, $5) RETURNING id`,
+             VALUES ($1, $2, $3, $4, $5) RETURNING id_usuario`,
             [nome_usuario, cpfLimpo, telefone, email, senhaHash]
         );
 
-        const userId = resultUsuario.rows[0].id;
+        const userId = resultUsuario.rows[0].id_usuario;
 
         await db.query(
             `INSERT INTO carteira (id_usuario, saldo_atual) VALUES ($1, 0.00)`,
@@ -86,7 +86,7 @@ exports.login = async (req, res) => {
 
         const token = jwt.sign(
             { 
-                id: usuario.id, 
+                id: usuario.id_usuario, 
                 email: email,
                 nome: usuario.nome_usuario
             },
@@ -98,7 +98,7 @@ exports.login = async (req, res) => {
             message: 'Login realizado com sucesso',
             token,
             nome: usuario.nome_usuario,
-            id: usuario.id
+            id: usuario.id_usuario
         });
 
     } catch (err) {
