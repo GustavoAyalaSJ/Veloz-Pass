@@ -1,10 +1,10 @@
 const pool = require('../config/db');
 
 exports.getWalletData = async (req, res) => {
-    const idCarteira = req.params.idUsuario;
+    const idUsuario = parseInt(req.params.idUsuario);
     const idUsuarioAutenticado = req.userId; // Do JWT
     
-    if (parseInt(idCarteira) !== idUsuarioAutenticado) {
+    if (idUsuario !== idUsuarioAutenticado) {
         return res.status(403).json({ 
             error: "Acesso negado. Você só pode acessar seus próprios dados." 
         });
@@ -13,15 +13,17 @@ exports.getWalletData = async (req, res) => {
     try {
         const carteiraRes = await pool.query(
             'SELECT id_carteira, saldo_atual FROM carteira WHERE id_usuario = $1',
-            [idCarteira]
+            [idUsuario]
         );
 
         if (carteiraRes.rows.length === 0) {
+            console.log(`Carteira não encontrada para id_usuario: ${idUsuario}`);
             return res.json({ saldo: 0, historico: [] });
         }
 
-        const idCarteira = carteiraRes.rows[0].id_carteira;
+        const id_carteira = carteiraRes.rows[0].id_carteira;
         const saldoAtual = carteiraRes.rows[0].saldo_atual;
+        console.log(`Carteira encontrada: id=${id_carteira}, saldo=${saldoAtual}`);
 
         const history = await pool.query(`
             SELECT m.*, b.nome_bandeira 
@@ -30,7 +32,7 @@ exports.getWalletData = async (req, res) => {
             WHERE m.id_carteira = $1
             ORDER BY m.id_move DESC
             LIMIT 50
-        `, [idCarteira]);
+        `, [id_carteira]);
 
         res.json({
             saldo: parseFloat(saldoAtual),
@@ -38,8 +40,10 @@ exports.getWalletData = async (req, res) => {
         });
 
     } catch (err) {
+        console.error("Erro ao buscar dados da carteira:", err.message);
         res.status(500).json({ 
-            error: "Erro ao buscar dados da carteira" 
+            error: "Erro ao buscar dados da carteira",
+            details: err.message
         });
     }
 };

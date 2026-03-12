@@ -23,16 +23,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const userData = auth.getUserData();
         const idUsuario = userData?.id;
         
-        if (!idUsuario) return;
+        console.log('Iniciando carregarSaldoDashboard:', { userData, idUsuario });
+        
+        if (!idUsuario) {
+            console.warn('ID do usuário não encontrado');
+            return;
+        }
 
         const dadosCarteira = await obterDadosCarteira(idUsuario);
-        if (!dadosCarteira) return;
+        console.log('Dados da carteira recebidos em script2:', dadosCarteira);
+        
+        if (!dadosCarteira) {
+            console.warn('Dados da carteira vazios');
+            return;
+        }
 
         const saldo = parseFloat(dadosCarteira.saldo) || 0;
+        console.log('Saldo formatado:', saldo);
 
         if (saldoDashboard) {
             saldoDashboard.textContent =
                 `R$ ${saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            console.log('Saldo atualizado no DOM');
         }
     }
 
