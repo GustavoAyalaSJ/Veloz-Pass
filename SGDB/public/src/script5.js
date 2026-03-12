@@ -31,7 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function carregarSaldoCarteira() {
         try {
-            const response = await fetch(`/api/payments/wallet-data/${idLogado}`);
+            const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
+            if (!response || !response.ok) {
+                console.error("Erro ao buscar saldo");
+                return;
+            }
+            
             const data = await response.json();
 
             if (data && data.saldo !== undefined) {

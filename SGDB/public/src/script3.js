@@ -11,17 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    async function obterDadosCarteira(id) {
-        try {
-            const response = await fetch(`/api/payments/wallet-data/${id}`);
-            if (response.ok) return await response.json();
-            return null;
-        } catch (err) {
-            console.error("Erro ao buscar dados:", err);
-            return null;
-        }
-    }
-
     async function carregarHistoricoGeral() {
         try {
             const data = await obterDadosCarteira(idLogado);

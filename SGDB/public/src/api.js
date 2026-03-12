@@ -1,8 +1,8 @@
 async function obterDadosCarteira(idUsuario) {
     try {
-        const response = await fetch(`/api/payments/wallet-data/${idUsuario}`);
+        const response = await auth.request(`/api/payments/wallet-data/${idUsuario}`);
 
-        if (!response.ok) {
+        if (!response || !response.ok) {
             throw new Error("Erro ao buscar dados da carteira");
         }
 
