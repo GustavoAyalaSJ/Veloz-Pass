@@ -104,12 +104,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    window.fecharModal = function () {
-        logoutModal.style.display = "none";
-    };
+    const btnSimLogout = document.getElementById('btn-sim-logout');
+    const btnNaoLogout = document.getElementById('btn-nao-logout');
 
-    window.confirmarLogout = function () {
-        auth.clear();
-    };
+    if (btnSimLogout) {
+        btnSimLogout.addEventListener('click', () => {
+            auth.clear();
+        });
+    }
+
+    if (btnNaoLogout) {
+        btnNaoLogout.addEventListener('click', () => {
+            logoutModal.style.display = "none";
+        });
+    }
 
 });

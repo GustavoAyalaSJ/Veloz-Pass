@@ -80,8 +80,19 @@ document.addEventListener('DOMContentLoaded', () => {
             logoutModal.style.display = "flex";
         });
     }
-    window.fecharModal = () => logoutModal.style.display = "none";
-    window.confirmarLogout = () => {
-        auth.clear();
-    };
+
+    const btnSimLogout = document.getElementById('btn-sim-logout');
+    const btnNaoLogout = document.getElementById('btn-nao-logout');
+
+    if (btnSimLogout) {
+        btnSimLogout.addEventListener('click', () => {
+            auth.clear();
+        });
+    }
+
+    if (btnNaoLogout) {
+        btnNaoLogout.addEventListener('click', () => {
+            logoutModal.style.display = "none";
+        });
+    }
 });
