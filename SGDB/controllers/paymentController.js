@@ -1,12 +1,19 @@
 const pool = require('../config/db');
 
 exports.getWalletData = async (req, res) => {
-    const idUsuario = req.params.idUsuario || req.params.id;
+    const idCarteira = req.params.idUsuario;
+    const idUsuarioAutenticado = req.userId; // Do JWT
+    
+    if (parseInt(idCarteira) !== idUsuarioAutenticado) {
+        return res.status(403).json({ 
+            error: "Acesso negado. Você só pode acessar seus próprios dados." 
+        });
+    }
 
     try {
         const carteiraRes = await pool.query(
-            'SELECT id_carteira, saldo_atual FROM Carteira WHERE id_usuario = $1',
-            [idUsuario]
+            'SELECT id_carteira, saldo_atual FROM carteira WHERE id_usuario = $1',
+            [idCarteira]
         );
 
         if (carteiraRes.rows.length === 0) {
@@ -18,71 +25,73 @@ exports.getWalletData = async (req, res) => {
 
         const history = await pool.query(`
             SELECT m.*, b.nome_bandeira 
-            FROM Movimentacao m 
-            LEFT JOIN bandeira b 
-                ON m.id_bandeira = b.id_bandeira 
+            FROM movimentacao m 
+            LEFT JOIN bandeira b ON m.id_bandeira = b.id_bandeira 
             WHERE m.id_carteira = $1
             ORDER BY m.id_move DESC
+            LIMIT 50
         `, [idCarteira]);
 
         res.json({
-            saldo: saldoAtual,
+            saldo: parseFloat(saldoAtual),
             historico: history.rows
         });
 
     } catch (err) {
-        console.error("Erro no getWalletData:", err.message);
-        res.status(500).json({ error: "Erro ao buscar dados", detalhe: err.message });
+        res.status(500).json({ 
+            error: "Erro ao buscar dados da carteira" 
+        });
     }
 };
 
 exports.processCredit = async (req, res) => {
-    console.log("Dados recebidos no BackEnd:", req.body);
+    const { valor, metodo, numCartao } = req.body;
+    const idUsuarioAutenticado = req.userId;
 
-    const { idUsuario, valor, metodo, numCartao } = req.body;
+    if (!idUsuarioAutenticado) {
+        return res.status(401).json({ error: "Usuário não autenticado" });
+    }
 
-    if (!idUsuario) {
-        return res.status(401).json({ error: "Usuário não autenticado." });
+    if (!valor || typeof valor !== 'number' || valor <= 0 || valor > 10000) {
+        return res.status(400).json({ 
+            error: "Valor inválido. Deve ser entre 0.01 e 10000" 
+        });
+    }
+
+    const metodosValidos = ['crédito', 'débito', 'internacional', 'pix'];
+    if (!metodosValidos.includes(metodo)) {
+        return res.status(400).json({ error: "Método de pagamento inválido" });
+    }
+
+    if (metodo !== 'pix' && !validarCartao(numCartao)) {
+        return res.status(400).json({ error: "Número de cartão inválido" });
     }
 
     try {
         await pool.query('BEGIN');
 
-        let idBandeira = null;
-        const metodosComCartao = ['crédito', 'débito', 'internacional'];
-
-        if (metodosComCartao.includes(metodo)) {
-            const ultimoDigito = numCartao.charAt(numCartao.length - 1);
-            idBandeira = parseInt(ultimoDigito);
-
-            if (isNaN(idBandeira) || idBandeira === 0 || idBandeira > 6) {
-                idBandeira = 1;
-            }
-        }
-
         const carteiraRes = await pool.query(
-            'SELECT id_carteira FROM Carteira WHERE id_usuario = $1',
-            [idUsuario]
+            'SELECT id_carteira FROM carteira WHERE id_usuario = $1',
+            [idUsuarioAutenticado]
         );
 
         if (carteiraRes.rows.length === 0) {
-            throw new Error("Carteira não encontrada para este usuário.");
+            throw new Error("Carteira não encontrada");
         }
 
         const idCarteira = carteiraRes.rows[0].id_carteira;
 
-
-        const protocolo = 'VP' + Date.now();
+        const protocolo = 'VP' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
 
         await pool.query(
-            `INSERT INTO Movimentacao 
+            `INSERT INTO movimentacao 
             (id_carteira, n_protocolo, tipo, valor, id_bandeira, situacao) 
             VALUES ($1, $2, $3, $4, $5, $6)`,
-            [idCarteira, protocolo, metodo, valor, idBandeira, 'Concluído']
+            [idCarteira, protocolo, metodo, valor, null, 'Pendente']
         );
 
         await pool.query(
-            'UPDATE Carteira SET saldo_atual = saldo_atual + $1 WHERE id_carteira = $2',
+            'UPDATE carteira SET saldo_atual = saldo_atual + $1 WHERE id_carteira = $2',
             [valor, idCarteira]
         );
 
@@ -90,12 +99,39 @@ exports.processCredit = async (req, res) => {
 
         res.status(200).json({ 
             success: true, 
-            protocolo 
+            message: 'Crédito adicionado com sucesso',
+            protocolo,
+            valor
         });
 
     } catch (err) {
         await pool.query('ROLLBACK');
-        console.error("Erro no processCredit:", err);
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Erro ao processar pagamento" });
     }
 };
+
+function validarCartao(numCartao) {
+    if (!numCartao) return false;
+    
+    const cartaoLimpo = numCartao.replace(/\D/g, '');
+    if (cartaoLimpo.length < 13 || cartaoLimpo.length > 19) return false;
+    
+    let soma = 0;
+    let alternar = false;
+    
+    for (let i = cartaoLimpo.length - 1; i >= 0; i--) {
+        let n = parseInt(cartaoLimpo.charAt(i), 10);
+        
+        if (alternar) {
+            n *= 2;
+            if (n > 9) n -= 9;
+        }
+        
+        soma += n;
+        alternar = !alternar;
+    }
+    
+    return soma % 10 === 0;
+}
+
+module.exports = exports;

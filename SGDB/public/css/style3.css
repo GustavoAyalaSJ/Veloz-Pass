@@ -318,11 +318,6 @@ body {
     color: #555;
 }
 
-.tipo-destaque {
-    font-weight: 700;
-    color: #34495e;
-}
-
 .tabela-linha-item span.col-protocolo {
     font-weight: 500;
     color: #375477 !important;

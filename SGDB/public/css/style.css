@@ -428,13 +428,6 @@ body {
     border: none;
 }
 
-#btnGoToTermos:hover,
-#btnGoToPrivacidade:hover{
-    color: #6cb3ff;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
 #btnGoToCadastro,
 #btnBackToLogin {
     background-color: #f8f9fa;
@@ -445,12 +438,6 @@ body {
 #btnGoToCadastro:hover,
 #btnBackToLogin:hover {
     background-color: #e2e6ea;
-}
-
-.destacarLogin {
-    color: #007bff;
-    font-weight: bold;
-    cursor: pointer;
 }
 
 /* Rodapé */

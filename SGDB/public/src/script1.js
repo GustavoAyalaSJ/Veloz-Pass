@@ -219,46 +219,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const formLogin = document.getElementById('formLogin');
+
         if (formLogin) {
-            formLogin.addEventListener('submit', async e => {
+            formLogin.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                const formData = new FormData(formLogin);
-                const payload = Object.fromEntries(formData.entries());
+                const email = formLogin.querySelector('[name="email"]').value;
+                const senha = formLogin.querySelector('[name="senha"]').value;
 
                 try {
                     const response = await fetch('/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({ email, senha })
                     });
-
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => ({ message: "Erro interno no servidor" }));
-                        alert("Erro: " + errorData.message);
-                        return;
-                    }
 
                     const data = await response.json();
 
-                    if (!data.id) {
-                        alert("Erro técnico: ID de usuário não recebido.");
+                    if (!response.ok) {
+                        alert(data.message || 'Erro ao fazer login');
                         return;
                     }
 
-                    localStorage.clear();
-                    localStorage.setItem('nomeUsuario', data.nome);
-                    localStorage.setItem('userId', data.id.toString());
+                    auth.setToken(data.token, {
+                        id: data.id,
+                        nome: data.nome
+                    });
 
-                    setTimeout(() => {
-                        window.location.href = "/dashboard";
-                    }, 100);
 
-                } catch {
-                    alert("Servidor offline ou erro de conexão.");
+                    window.location.href = '/dashboard';
+
+                } catch (error) {
+                    alert('Erro na requisição');
+                    console.error(error);
                 }
             });
         }
+
+        function atualizarNome() {
+            const userData = auth.getUserData();
+            if (userData && spanNome) {
+                const partes = userData.nome.trim().split(/\s+/);
+                spanNome.textContent = partes[0];
+            }
+        }
+
+        async function obterDadosCarteira(idUsuario) {
+            try {
+                const response = await auth.request(
+                    `/api/payments/wallet-data/${idUsuario}`
+                );
+
+                if (!response || !response.ok) {
+                    return null;
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error("Erro:", error);
+                return null;
+            }
+        }
+
 
         const formCadastro = document.getElementById('formCadastro');
         if (formCadastro) {
