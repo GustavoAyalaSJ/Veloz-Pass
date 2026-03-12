@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenLoginMain = document.getElementById('btnOpenLoginMain');
     const btnOpenTermosHeader = document.getElementById('btnOpenTermosHeader');
     const btnOpenSuporteHeader = document.getElementById('btnOpenSuporteHeader');
-    const spanNome = document.getElementById('spanNomeUsuario'); // Referência para a função atualizarNome
+    const spanNome = document.getElementById('spanNomeUsuario');
 
     const termsOverlay = document.createElement('div');
     termsOverlay.id = 'termsOverlay';
