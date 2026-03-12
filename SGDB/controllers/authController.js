@@ -22,7 +22,6 @@ exports.cadastro = async (req, res) => {
         return res.status(400).json({ message: "CPF inválido" });
     }
 
-    // Validar CPF com dígitos verificadores (adicionar função)
     if (!validarCPF(cpfLimpo)) {
         return res.status(400).json({ message: "CPF inválido" });
     }
@@ -103,6 +102,7 @@ exports.login = async (req, res) => {
         });
 
     } catch (err) {
+        console.error("ERRO REAL:", err);
         res.status(500).json({ message: 'Erro ao fazer login' });
     }
 };
