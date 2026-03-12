@@ -337,11 +337,6 @@ body {
     cursor: pointer;
 }
 
-.opt-valor.selected {
-    border-color: #436d4d;
-    background: #e8f5e9;
-}
-
 .opt-valor:hover {
     border-color: #00d4ff;
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);

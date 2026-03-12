@@ -1,14 +1,43 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+require('dotenv').config();
+
 const authRoutes = require('./routes/auth');
 const paymentRoutes = require('./routes/payment');
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Security Headers
+app.use(helmet());
+
+// CORS Restringido
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production' 
+        ? 'https://seudominio.com' 
+        : ['http://localhost:3000', 'http://localhost:5500'],
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
+
+// Rate Limiting - Login
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    message: 'Muitas tentativas de login, tente novamente em 15 minutos'
+});
+
+// Rate Limiting - API Geral
+const apiLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 100,
+    message: 'Muitas requisições, tente novamente depois'
+});
+
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -36,11 +65,17 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index6.html'));
 });
 
+// Aplicar rate limiting ao login
+app.post('/login', loginLimiter);
+
+// Aplicar rate limiting à API
+app.use('/api/', apiLimiter);
+
 app.use('/', authRoutes);
 app.use('/api/payments', paymentRoutes);
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`✅ Servidor rodando na porta ${PORT} em modo ${process.env.NODE_ENV}`);
 });
