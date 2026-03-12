@@ -10,10 +10,8 @@ const paymentRoutes = require('./routes/payment');
 
 const app = express();
 
-// Security Headers
 app.use(helmet());
 
-// CORS Restringido
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
         ? 'https://seudominio.com' 
@@ -22,14 +20,12 @@ app.use(cors({
     optionsSuccessStatus: 200
 }));
 
-// Rate Limiting - Login
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
     message: 'Muitas tentativas de login, tente novamente em 15 minutos'
 });
 
-// Rate Limiting - API Geral
 const apiLimiter = rateLimit({
     windowMs: 60 * 1000,
     max: 100,
@@ -65,7 +61,6 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index6.html'));
 });
 
-// Aplicar rate limiting à API
 app.use('/api/', apiLimiter);
 
 app.use('/', authRoutes);

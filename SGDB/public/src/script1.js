@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenLoginMain = document.getElementById('btnOpenLoginMain');
     const btnOpenTermosHeader = document.getElementById('btnOpenTermosHeader');
     const btnOpenSuporteHeader = document.getElementById('btnOpenSuporteHeader');
+    const spanNome = document.getElementById('spanNomeUsuario'); // Referência para a função atualizarNome
 
     const termsOverlay = document.createElement('div');
     termsOverlay.id = 'termsOverlay';
@@ -133,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Recuperar Conta</h2>
         <form id="formEsqueceuEmail">
             <label>Informe o CPF cadastrado:</label>
-            <input type="text" id="inputCPF" maxlength="11" required>
+            <input type="text" id="inputCPF_Recuperar" maxlength="11" required>
             <button type="submit">Enviar SMS</button>
             <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
@@ -161,52 +162,65 @@ document.addEventListener('DOMContentLoaded', () => {
         setupDynamicEvents();
     }
 
-    function setupDynamicEvents() {
+    function atualizarNome() {
+        if (typeof auth !== 'undefined') {
+            const userData = auth.getUserData();
+            if (userData && spanNome) {
+                const partes = userData.nome.trim().split(/\s+/);
+                spanNome.textContent = partes[0];
+            }
+        }
+    }
 
+    async function obterDadosCarteira(idUsuario) {
+        try {
+            if (typeof auth !== 'undefined') {
+                const response = await auth.request(`/api/payments/wallet-data/${idUsuario}`);
+                if (!response || !response.ok) return null;
+                return await response.json();
+            }
+        } catch (error) {
+            console.error("Erro ao obter dados da carteira:", error);
+            return null;
+        }
+    }
+
+    function setupDynamicEvents() {
         const closeButtons = document.querySelectorAll('.close-btn');
         closeButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.onclick = () => {
                 if (!termsOverlay.classList.contains('hidden') && btn.closest('#termsOverlay')) {
                     termsOverlay.classList.add('hidden');
                 } else {
                     modalRoot.classList.add('hidden');
                 }
-            });
+            };
         });
 
         const btnGoToCadastro = document.getElementById('btnGoToCadastro');
-        if (btnGoToCadastro) btnGoToCadastro.addEventListener('click', () => renderView('cadastro'));
+        if (btnGoToCadastro) btnGoToCadastro.onclick = () => renderView('cadastro');
 
         const btnBackToLogin = document.getElementById('btnBackToLogin');
-        if (btnBackToLogin) btnBackToLogin.addEventListener('click', () => renderView('login'));
+        if (btnBackToLogin) btnBackToLogin.onclick = () => renderView('login');
 
         const btnEsqueceuSenha = document.getElementById('btnEsqueceuSenha');
         if (btnEsqueceuSenha) {
-            btnEsqueceuSenha.addEventListener('click', e => {
-                e.preventDefault();
-                renderView('esqueceuSenha');
-            });
+            btnEsqueceuSenha.onclick = (e) => { e.preventDefault(); renderView('esqueceuSenha'); };
         }
 
         const btnEsqueceuEmail = document.getElementById('btnEsqueceuEmail');
         if (btnEsqueceuEmail) {
-            btnEsqueceuEmail.addEventListener('click', e => {
-                e.preventDefault();
-                renderView('esqueceuEmail');
-            });
+            btnEsqueceuEmail.onclick = (e) => { e.preventDefault(); renderView('esqueceuEmail'); };
         }
 
         const termosLinks = document.querySelectorAll('.abrir-termos');
         termosLinks.forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                openTermsOverlay();
-            });
+            link.onclick = (e) => { e.preventDefault(); openTermsOverlay(); };
         });
 
         const togglePassword = document.getElementById('togglePassword');
         if (togglePassword) {
-            togglePassword.addEventListener('click', () => {
+            togglePassword.onclick = () => {
                 const input = document.getElementById('password');
                 if (input.type === "password") {
                     input.type = "text";
@@ -215,15 +229,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     input.type = "password";
                     togglePassword.classList.replace("bi-eye-slash-fill", "bi-eye-fill");
                 }
-            });
+            };
         }
 
         const formLogin = document.getElementById('formLogin');
-
         if (formLogin) {
-            formLogin.addEventListener('submit', async (e) => {
+            formLogin.onsubmit = async (e) => {
                 e.preventDefault();
-
                 const email = formLogin.querySelector('[name="email"]').value;
                 const senha = formLogin.querySelector('[name="senha"]').value;
 
@@ -241,55 +253,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    auth.setToken(data.token, {
-                        id: data.id,
-                        nome: data.nome
-                    });
-
-
-                    window.location.href = '/dashboard';
+                    if (typeof auth !== 'undefined') {
+                        auth.setToken(data.token, { id: data.id, nome: data.nome });
+                        window.location.href = '/dashboard';
+                    }
 
                 } catch (error) {
-                    alert('Erro na requisição');
-                    console.error(error);
+                    console.error("Erro na requisição:", error);
+                    alert('Erro na requisição. Verifique sua conexão.');
                 }
-            });
+            };
         }
-
-        function atualizarNome() {
-            const userData = auth.getUserData();
-            if (userData && spanNome) {
-                const partes = userData.nome.trim().split(/\s+/);
-                spanNome.textContent = partes[0];
-            }
-        }
-
-        async function obterDadosCarteira(idUsuario) {
-            try {
-                const response = await auth.request(
-                    `/api/payments/wallet-data/${idUsuario}`
-                );
-
-                if (!response || !response.ok) {
-                    return null;
-                }
-
-                return await response.json();
-            } catch (error) {
-                console.error("Erro:", error);
-                return null;
-            }
-        }
-
 
         const formCadastro = document.getElementById('formCadastro');
         if (formCadastro) {
-            formCadastro.addEventListener('submit', async e => {
+            formCadastro.onsubmit = async (e) => {
                 e.preventDefault();
 
                 const cpfInput = document.getElementById('inputCPF');
                 const cpfValue = cpfInput.value.trim();
-
                 if (cpfValue[8] !== '9') {
                     alert("Disponível apenas para Santa Catarina.");
                     cpfInput.focus();
@@ -298,7 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const telefoneInput = document.getElementById('inputTelefone');
                 const telefoneValue = telefoneInput.value.trim();
-
                 if (!telefoneValue.startsWith('47')) {
                     alert("Disponível apenas para o DDD da região onde está situado Joinville.");
                     telefoneInput.focus();
@@ -317,61 +298,59 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await response.json();
 
                     if (response.ok && data.id) {
-                        auth.setToken(data.token || '', {
-                            id: data.id,
-                            nome: data.nome
-                        });
-
-                        setTimeout(() => {
-                            window.location.href = "/dashboard";
-                        }, 100);
+                        if (typeof auth !== 'undefined') {
+                            auth.setToken(data.token || '', { id: data.id, nome: data.nome });
+                        }
+                        setTimeout(() => { window.location.href = "/dashboard"; }, 100);
+                    } else {
+                        alert(data.message || "Erro ao salvar os dados.");
                     }
-
                 } catch (error) {
+                    console.error("Erro no cadastro:", error);
                     alert("Erro ao salvar os dados.");
-                    console.error(error);
                 }
-            });
+            };
         }
 
         const formEsqueceuSenha = document.getElementById('formEsqueceuSenha');
         if (formEsqueceuSenha) {
-            formEsqueceuSenha.addEventListener('submit', e => {
+            formEsqueceuSenha.onsubmit = (e) => {
                 e.preventDefault();
                 alert("Link de recuperação enviado.");
                 modalRoot.classList.add('hidden');
-            });
+            };
         }
 
         const formEsqueceuEmail = document.getElementById('formEsqueceuEmail');
         if (formEsqueceuEmail) {
-            formEsqueceuEmail.addEventListener('submit', e => {
+            formEsqueceuEmail.onsubmit = (e) => {
                 e.preventDefault();
                 alert("Mensagem de SMS enviada.");
                 modalRoot.classList.add('hidden');
-            });
+            };
         }
     }
 
     if (btnOpenLoginMain) {
-        btnOpenLoginMain.addEventListener('click', () => {
+        btnOpenLoginMain.onclick = () => {
             renderView('login');
             modalRoot.classList.remove('hidden');
-        });
+        };
     }
 
     if (btnOpenTermosHeader) {
-        btnOpenTermosHeader.addEventListener('click', () => {
+        btnOpenTermosHeader.onclick = () => {
             renderView('termos');
             modalRoot.classList.remove('hidden');
-        });
+        };
     }
 
     if (btnOpenSuporteHeader) {
-        btnOpenSuporteHeader.addEventListener('click', () => {
+        btnOpenSuporteHeader.onclick = () => {
             renderView('suporte');
             modalRoot.classList.remove('hidden');
-        });
+        };
     }
 
+    atualizarNome();
 });
