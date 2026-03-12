@@ -69,7 +69,7 @@ exports.login = async (req, res) => {
 
     try {
         const result = await db.query(
-            `SELECT id, nome_usuario, senha FROM usuario WHERE email = $1`, 
+            `SELECT id_usuario, nome_usuario, senha FROM usuario WHERE email = $1`, 
             [email]
         );
 
