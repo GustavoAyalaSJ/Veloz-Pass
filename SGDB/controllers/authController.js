@@ -46,8 +46,20 @@ exports.cadastro = async (req, res) => {
 
         await db.query('COMMIT');
 
+        const token = jwt.sign(
+            {
+                id: userId,
+                email,
+                nome: nome_usuario
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '7d' }
+        );
+
         res.status(201).json({
             message: "Cadastro realizado com sucesso!",
+            token,
+            id: userId,
             nome: nome_usuario
         });
 

@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const criarTransfen = Joi.object({
+const criarTransfer = Joi.object({
     valor: Joi.number()
         .positive()
         .max(10000)
