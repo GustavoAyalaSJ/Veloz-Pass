@@ -120,9 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
             btnFinalizar.innerText = "Processando...";
 
             try {
-                const response = await fetch('/api/payments/add-credit', {
+                const response = await auth.request('/api/payments/add-credit', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         idUsuario: idLogado,
                         valor: valorParaInserir,

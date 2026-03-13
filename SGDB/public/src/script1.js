@@ -272,20 +272,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
 
                 const cpfInput = document.getElementById('inputCPF');
-                const cpfValue = cpfInput.value.trim();
-                if (cpfValue[8] !== '9') {
+                const cpfRaw = cpfInput.value.trim();
+                const cpfDigits = cpfRaw.replace(/\D/g, '');
+
+                if (cpfDigits.length !== 11) {
+                    alert("CPF deve conter 11 dígitos numéricos.");
+                    cpfInput.focus();
+                    return;
+                }
+
+                if (cpfDigits[8] !== '9') {
                     alert("Disponível apenas para Santa Catarina.");
                     cpfInput.focus();
                     return;
                 }
 
+                cpfInput.value = cpfDigits;
+
                 const telefoneInput = document.getElementById('inputTelefone');
-                const telefoneValue = telefoneInput.value.trim();
-                if (!telefoneValue.startsWith('47')) {
+                const telefoneRaw = telefoneInput.value.trim();
+                const telefoneDigits = telefoneRaw.replace(/\D/g, '');
+
+                if (telefoneDigits.length !== 11) {
+                    alert("Telefone deve conter 11 dígitos (DDD + 9 dígitos do celular). Ex: 47999999999");
+                    telefoneInput.focus();
+                    return;
+                }
+
+                if (!telefoneDigits.startsWith('47')) {
                     alert("Disponível apenas para o DDD da região onde está situado Joinville.");
                     telefoneInput.focus();
                     return;
                 }
+
+                if (telefoneDigits[2] !== '9') {
+                    alert("O telefone deve começar com 9 após o DDD (ex: 479...).");
+                    telefoneInput.focus();
+                    return;
+                }
+
+                telefoneInput.value = telefoneDigits;
 
                 const payload = Object.fromEntries(new FormData(formCadastro).entries());
 
