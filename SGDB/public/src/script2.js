@@ -23,15 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const userData = auth.getUserData();
         const idUsuario = userData?.id;
         
-        console.log('Iniciando carregarSaldoDashboard:', { userData, idUsuario });
-        
         if (!idUsuario) {
             console.warn('ID do usuário não encontrado');
             return;
         }
 
         const dadosCarteira = await obterDadosCarteira(idUsuario);
-        console.log('Dados da carteira recebidos em script2:', dadosCarteira);
         
         if (!dadosCarteira) {
             console.warn('Dados da carteira vazios');

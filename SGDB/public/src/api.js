@@ -9,7 +9,6 @@ async function obterDadosCarteira(idUsuario) {
         }
 
         const data = await response.json();
-        console.log('Dados da carteira recebidos:', data);
         return data;
 
     } catch (error) {

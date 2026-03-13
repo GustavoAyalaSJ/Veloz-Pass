@@ -17,13 +17,11 @@ exports.getWalletData = async (req, res) => {
         );
 
         if (carteiraRes.rows.length === 0) {
-            console.log(`Carteira não encontrada para id_usuario: ${idUsuario}`);
             return res.json({ saldo: 0, historico: [] });
         }
 
         const id_carteira = carteiraRes.rows[0].id_carteira;
         const saldoAtual = carteiraRes.rows[0].saldo_atual;
-        console.log(`Carteira encontrada: id=${id_carteira}, saldo=${saldoAtual}`);
 
         const history = await pool.query(`
             SELECT m.*, b.nome_bandeira 
@@ -42,8 +40,7 @@ exports.getWalletData = async (req, res) => {
     } catch (err) {
         console.error("Erro ao buscar dados da carteira:", err.message);
         res.status(500).json({ 
-            error: "Erro ao buscar dados da carteira",
-            details: err.message
+            error: "Erro ao buscar dados da carteira"
         });
     }
 };
