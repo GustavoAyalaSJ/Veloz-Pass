@@ -1,0 +1,10 @@
+*.sql
+*.dump
+*.bak
+*.backup
+*.sql.gz
+*.sql.bz2
+.env
+.env.local
+*.env
+*.log
