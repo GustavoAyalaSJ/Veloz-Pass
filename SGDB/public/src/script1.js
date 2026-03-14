@@ -253,10 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    // Guardar token e dados do usuário
                     auth.setToken(data.token, { id: data.id, nome: data.nome });
                     
-                    // Redirecionar para dashboard
                     window.location.href = '/dashboard';
 
                 } catch (error) {
@@ -325,10 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await response.json();
 
                     if (response.ok && data.id) {
-                        // Guardar token e armazenar dados de forma segura
                         auth.setToken(data.token || '', { id: data.id, nome: data.nome });
                         
-                        // Redirecionar para dashboard
                         setTimeout(() => { window.location.href = "/dashboard"; }, 100);
                     } else {
                         alert(data.message || "Erro ao salvar os dados.");

@@ -2,7 +2,7 @@ const pool = require('../config/db');
 
 exports.getWalletData = async (req, res) => {
     const idUsuario = parseInt(req.params.idUsuario);
-    const idUsuarioAutenticado = req.userId; // Do JWT
+    const idUsuarioAutenticado = req.userId;
     
     if (idUsuario !== idUsuarioAutenticado) {
         return res.status(403).json({ 

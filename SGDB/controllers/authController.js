@@ -121,7 +121,7 @@ exports.login = async (req, res) => {
 
 function validarCPF(cpf) {
     if (cpf.length !== 11 || !/^\d+$/.test(cpf)) return false;
-    if (/^(\d)\1{10}$/.test(cpf)) return false; // Todos iguais
+    if (/^(\d)\1{10}$/.test(cpf)) return false;
     
     let soma = 0, resto;
     
