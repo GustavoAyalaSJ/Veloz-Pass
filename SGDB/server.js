@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const helmet = require('helmet');
+const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
@@ -11,6 +12,8 @@ const paymentRoutes = require('./routes/payment');
 const app = express();
 
 app.use(helmet());
+
+app.use(compression());
 
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
@@ -35,7 +38,18 @@ const apiLimiter = rateLimit({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: '1d',  
+    etag: false
+}));
+
+app.use((req, res, next) => {
+    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1 ano para assets versionados
+        res.setHeader('Expires', new Date(Date.now() + 31536000000).toUTCString());
+    }
+    next();
+});
 
 app.get('/introduction', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
