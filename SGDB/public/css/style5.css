@@ -216,7 +216,7 @@ body {
     margin-bottom: 25px;
 }
 
-/* Container do select */
+/* Conteúdo Principal - Seletor */
 .top-group {
     flex: 1;
 }
@@ -326,7 +326,7 @@ body {
     transition: 0.3s #c77f7f ease;
 }
 
-/* Card principal */
+/* Conteúdo Principal - Card */
 .card-recarga {
     display: grid;
     grid-template-columns: 320px 40px 1fr;

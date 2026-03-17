@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await obterDadosCarteira(idLogado);
             
             if (!data || !data.historico) {
-                corpoTabelaInfo.innerHTML = '<div style="text-align:center; padding:20px; font-size:0.8rem;">Nenhum registro encontrado.</div>';
+                corpoTabelaInfo.innerHTML = '<div class="empty-table-message">Nenhum registro encontrado.</div>';
                 return;
             }
 
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             corpoTabelaInfo.innerHTML = '';
 
             if (historicoFiltrado.length === 0) {
-                corpoTabelaInfo.innerHTML = '<div style="text-align:center; padding:20px; font-size:0.8rem;">Sem movimentações confirmadas.</div>';
+                corpoTabelaInfo.innerHTML = '<div class="empty-table-message">Sem movimentações confirmadas.</div>';
                 return;
             }
 

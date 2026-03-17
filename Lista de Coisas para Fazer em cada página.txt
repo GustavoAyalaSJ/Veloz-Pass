@@ -7,7 +7,7 @@ index3.html (HTML, CSS, Java Script e Banco de Dados):
 - Pegar todas as informações do site e colocar em uma lista abaixo dentro da tabela de histórico geral (O comentário no HTML explica melhor).
 
 index4.html (CSS, Java Script e Banco de Dados):
-- Alteração no Modal, quando escolher Pix ou Boleto;
+- Alteração no Modal, quando escolher um método de pagamento diferente;
 - Compartilhar o protocolo da Carteira Digital com histórico geral.
 
 index5.html (Java Script e Banco de Dados):

@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div class="password-input-container">
                 <label>Senha:</label>
-                <div style="position: relative;">
+                <div class="password-wrapper">
                     <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" required>
-                    <i id="togglePassword" class="bi bi-eye-fill" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;"></i>
+                    <i id="togglePassword" class="bi bi-eye-fill toggle-password-icon"></i>
                 </div>
             </div>
             <a href="#" id="btnEsqueceuSenha">Esqueceu a senha?</a>

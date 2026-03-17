@@ -365,7 +365,7 @@ body {
     margin-top: 20px;
 }
 
-/* Container do select */
+/* Modal - Seletor de Pagamento */
 .select-wrapper-modal {
     position: relative;
     width: 100%;
@@ -424,6 +424,62 @@ select {
     padding: 10px;
     border-radius: 15px;
     margin: 20px 0;
+}
+
+#container-cartao,
+#container-pix {
+    display: none;
+}
+
+#container-cartao p,
+#container-pix p {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#num-cartao,
+#validade-cartao,
+#cvv-cartao {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 15px;
+    border: 3px solid #375477;
+    background: #dbdbdb;
+}
+
+#validade-cartao,
+#cvv-cartao {
+    margin-top: 10px;
+}
+
+.card-inputs-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.card-inputs-wrapper input {
+    flex: 1;
+}
+
+#container-pix > div {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    background: #d0d0d0;
+    border-radius: 15px;
+    border: 3px solid #375477;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-weight: bold;
+}
+
+td.table-bold {
+    font-weight: bold;
 }
 
 /* Media Queries */

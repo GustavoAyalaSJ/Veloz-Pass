@@ -1,4 +1,4 @@
-/* Layout Geral */
+/* Estrutura Geral */
 * {
     margin: 0;
     padding: 0;
@@ -229,7 +229,7 @@ body {
     transition: 0.3s rgba(161, 73, 58, 0.744) ease;
 }
 
-/* Dashboard */
+/* Conteúdo Principal - Dashboard */
 .card-container {
     width: 100%;
     max-width: 900px;

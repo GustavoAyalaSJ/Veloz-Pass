@@ -26,23 +26,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const containerCartao = document.createElement('div');
     containerCartao.id = 'container-cartao';
-    containerCartao.style.display = 'none';
     containerCartao.innerHTML = `
-        <p style="font-size:0.8rem; margin-top:10px; font-weight:bold;">Informações do Cartão:</p>
-        <input type="text" id="num-cartao" placeholder="Número do Cartão (16 dígitos)" maxlength="16"
-            style="width:100%; padding:12px; margin-top:5px; border-radius:15px; border:3px solid #375477; background:#dbdbdb;">
+        <p>Informações do Cartão:</p>
+        <input type="text" id="num-cartao" placeholder="Número do Cartão (16 dígitos)" maxlength="16">
+        <div class="card-inputs-wrapper">
+            <input type="text" id="validade-cartao" placeholder="MM/YY" maxlength="5">
+            <input type="text" id="cvv-cartao" placeholder="CVV" maxlength="3">
+        </div>
     `;
+
+    const containerPix = document.createElement('div');
+    containerPix.id = 'container-pix';
+    containerPix.innerHTML = `
+        <p>QR Code PIX:</p>
+        <div>
+            Placeholder QR Code
+        </div>
+    `;
+
 
     if (selectPagamento) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
         
         if (wrapper) {
             wrapper.parentNode.insertBefore(containerCartao, wrapper.nextSibling);
+            wrapper.parentNode.insertBefore(containerPix, wrapper.nextSibling);
         }
 
         selectPagamento.addEventListener('change', () => {
             const metodosComCartao = ['débito', 'crédito', 'internacional'];
-            containerCartao.style.display = metodosComCartao.includes(selectPagamento.value) ? 'block' : 'none';
+            const metodoSelecionado = selectPagamento.value;
+            
+            containerCartao.style.display = metodosComCartao.includes(metodoSelecionado) ? 'block' : 'none';
+            containerPix.style.display = metodoSelecionado === 'pix' ? 'block' : 'none';
+            
             if (wrapper) wrapper.classList.remove('active');
         });
 
@@ -109,11 +126,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!metodo) return alert("Selecione o método de pagamento.");
 
             const inputCartao = document.getElementById('num-cartao');
+            const validadeInput = document.getElementById('validade-cartao');
+            const cvvInput = document.getElementById('cvv-cartao');
             const numCartao = inputCartao?.value || "";
+            const validade = validadeInput?.value || "";
+            const cvv = cvvInput?.value || "";
             const metodosComCartao = ['débito', 'crédito', 'internacional'];
 
             if (metodosComCartao.includes(metodo) && numCartao.length < 16) {
                 return alert("Por favor, digite os 16 dígitos do cartão.");
+            }
+
+            if (metodosComCartao.includes(metodo) && validade.length < 5) {
+                return alert("Por favor, digite a validade do cartão (MM/YY).");
+            }
+
+            if (metodosComCartao.includes(metodo) && cvv.length < 3) {
+                return alert("Por favor, digite o CVV do cartão (3 dígitos).");
             }
 
             btnFinalizar.disabled = true;
@@ -126,7 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         idUsuario: idLogado,
                         valor: valorParaInserir,
                         metodo: metodo,
-                        numCartao: numCartao || "0000000000000000"
+                        numCartao: numCartao || "0000000000000000",
+                        validade: validade || "",
+                        cvv: cvv || ""
                     })
                 });
 
@@ -167,9 +198,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     linha.className = classe;
                     linha.innerHTML = `
                         <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
-                        <td style="font-weight:bold;">${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                        <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
                         <td>${mov.nome_bandeira || 'VISA'}</td>
-                        <td style="font-weight:bold;">R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
+                        <td class="table-bold">R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
                         <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
                     `;
                     corpoTabela.appendChild(linha);

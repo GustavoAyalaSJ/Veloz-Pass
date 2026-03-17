@@ -96,13 +96,13 @@ body {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background-image: url('FundoRightNEW.png');
+    background-image: url('FundoRight.png');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
 }
 
-/* Card Logar */
+/* Conteúdo Principal - Cards */
 .containerLeft {
     background-color: #24344d;
     color: white;
@@ -461,6 +461,18 @@ body {
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 /* Media Queries */

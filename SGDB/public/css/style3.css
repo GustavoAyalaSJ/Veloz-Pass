@@ -266,7 +266,6 @@ body {
     overflow-x: auto;
 }
 
-/* Configuração da Tabela */
 .tabela-header,
 .tabela-linha-item {
     display: flex;
@@ -460,4 +459,10 @@ body {
         padding: 4px 8px;
         font-size: 0.55rem;
     }
+}
+
+.empty-table-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
 }
