@@ -1,24 +1,23 @@
 const Joi = require('joi');
 
 const criarTransfer = Joi.object({
-    valor: Joi.number()
-        .positive()
-        .max(10000)
-        .required()
-        .messages({
-            'number.positive': 'Valor deve ser positivo',
-            'number.max': 'Valor máximo é 10000'
-        }),
+    valor: Joi.number().positive().max(10000).required(),
+    
     metodo: Joi.string()
+        .uppercase() 
         .valid('DEBITO', 'CREDITO', 'INTERNACIONAL', 'PIX', 'CARTEIRA_DIGITAL')
         .required(),
+        
     numCartao: Joi.string()
-        .length(16)
+        .min(13)
+        .max(19)
         .when('metodo', {
-            is: 'pix',
-            then: Joi.optional(),
+            is: Joi.string().valid('PIX', 'CARTEIRA_DIGITAL'), 
+            then: Joi.optional().allow(''),
             otherwise: Joi.required()
-        })
+        }),
+        
+    idBandeira: Joi.number().optional().allow(null)
 });
 
 module.exports = { criarTransfer };

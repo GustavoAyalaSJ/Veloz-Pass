@@ -69,6 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <label>Confirmar Senha:</label>
             <input type="password" name="confirmar_senha" placeholder="Confirmar a senha." required>
 
+           <div class="checkbox">
+             <input type="checkbox" id="checkboxCadastro" name="aceite_termos" required />
+              <label for="checkboxCadastro">
+                Eu li e concordo com as <span class="destacarTermos abrir-termos">Políticas de Privacidade</span> do Veloz Pass.
+              </label>
+           </div>
+
             <button type="submit">Finalizar Cadastro</button>
         </form>
     `;
@@ -255,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     auth.setToken(data.token, { id: data.id, nome: data.nome });
-                    
+
                     window.location.href = '/dashboard';
 
                 } catch (error) {
@@ -325,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (response.ok && data.id) {
                         auth.setToken(data.token, { id: data.id, nome: data.nome });
-                        
+
                         setTimeout(() => { window.location.href = "/dashboard"; }, 100);
                     } else {
                         alert(data.message || "Erro ao salvar os dados.");
