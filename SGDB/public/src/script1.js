@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const termsBox = document.createElement('div');
     termsBox.className = 'modal-content';
-
     termsOverlay.appendChild(termsBox);
     document.body.appendChild(termsOverlay);
 
+    // Templates
     const loginTemplate = `
         <button class="close-btn">X</button>
         <h2>Login</h2>
@@ -142,6 +142,18 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
 
+        const togglePassword = document.getElementById('togglePassword');
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                const passwordInput = document.getElementById('password');
+                if (!passwordInput) return;
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('bi-eye-fill');
+                this.classList.toggle('bi-eye-slash');
+            });
+        }
+
         const inputCPF = document.getElementById('inputCPF');
         if (inputCPF) {
             inputCPF.addEventListener('input', (e) => {
@@ -153,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.target.value = v;
             });
         }
+
 
         const inputTelefone = document.getElementById('inputTelefone') || document.getElementById('inputTelefoneSuporte');
         if (inputTelefone) {
@@ -180,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const email = formLogin.querySelector('[name="email"]').value;
                 const senha = formLogin.querySelector('[name="senha"]').value;
                 try {
-                    const response = await fetch('https://veloz-pass.onrender.com/auth/login', {
+                    const response = await fetch('/auth/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, senha })
@@ -215,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 payload.telefone = telefoneLimpo;
 
                 try {
-                    const response = await fetch('https://veloz-pass.onrender.com/auth/register', {
+                    const response = await fetch('/auth/register', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)

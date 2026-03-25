@@ -65,9 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.id === 'validade-cartao') {
             let v = e.target.value.replace(/\D/g, "");
             if (v.length > 4) v = v.slice(0, 4);
-            if (v.length >= 3) {
-                v = v.replace(/(\d{2})(\d{1,2})/, "$1/$2");
-            }
+            if (v.length >= 3) v = v.replace(/(\d{2})(\d{1,2})/, "$1/$2");
             e.target.value = v;
         }
     });
@@ -116,69 +114,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnFinalizar) {
-        if (btnFinalizar) {
-            btnFinalizar.addEventListener('click', async () => {
-                const metodoRaw = selectPagamento?.value;
-                const numCartaoInput = document.getElementById('num-cartao')?.value || "";
-                const numerosApenas = numCartaoInput.replace(/\D/g, '');
+        btnFinalizar.addEventListener('click', async () => {
+            const metodoRaw = selectPagamento?.value;
+            const numCartaoInput = document.getElementById('num-cartao')?.value || "";
+            const numerosApenas = numCartaoInput.replace(/\D/g, '');
 
-                let metodoFormatado = metodoRaw.toUpperCase();
-                if (metodoRaw === 'débito') metodoFormatado = 'DEBITO';
-                if (metodoRaw === 'crédito') metodoFormatado = 'CREDITO';
+            let metodoFormatado = metodoRaw.toUpperCase();
+            if (metodoRaw === 'débito') metodoFormatado = 'DEBITO';
+            if (metodoRaw === 'crédito') metodoFormatado = 'CREDITO';
 
-                const metodosComCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
-                let idBandeiraFinal = null;
+            const metodosCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
+            let idBandeiraFinal = null;
 
-                if (metodosComCartao.includes(metodoFormatado)) {
-                    if (numerosApenas.length < 16) {
-                        return alert("Digite os 16 dígitos do cartão.");
-                    }
+            if (metodosCartao.includes(metodoFormatado)) {
+                if (numerosApenas.length < 16) return alert("Digite os 16 dígitos do cartão.");
+                const ultimoDigito = parseInt(numerosApenas.charAt(15));
+                if (ultimoDigito >= 1 && ultimoDigito <= 5) idBandeiraFinal = ultimoDigito;
+                else return alert("Último digito não reconhecido no sistema.");
+            }
 
-                    const ultimoDigito = parseInt(numerosApenas.substring(15, 16));
+            const payload = {
+                valor: valorParaInserir,
+                metodo: metodoFormatado,
+                numCartao: metodosCartao.includes(metodoFormatado) ? numerosApenas : null,
+                idBandeira: idBandeiraFinal
+            };
 
-                    if (ultimoDigito >= 1 && ultimoDigito <= 5) {
-                        idBandeiraFinal = ultimoDigito;
-                    } else {
-                        return alert("Último digito não reconhecido no sistema.");
-                    }
-                }
+            btnFinalizar.disabled = true;
+            btnFinalizar.innerText = "Processando...";
 
-                const payload = {
-                    valor: valorParaInserir,
-                    metodo: metodoFormatado,
-                    numCartao: metodosComCartao.includes(metodoFormatado) ? numerosApenas : null,
-                    idBandeira: idBandeiraFinal
-                };
+            try {
+                const response = await auth.request('/api/payments/add-credit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-                btnFinalizar.disabled = true;
-                btnFinalizar.innerText = "Processando...";
-
-                try {
-                    const response = await auth.request('/api/payments/add-credit', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (response && response.ok) {
-                        alert("Crédito solicitado com sucesso!");
-                        location.reload();
-                    } else {
-                        const erroData = await response.json();
-                        alert(erroData.error || "Erro no servidor. Verifique os dados.");
-                        btnFinalizar.disabled = false;
-                        btnFinalizar.innerText = "Finalizar";
-                    }
-                } catch (err) {
-                    alert("Erro de conexão.");
+                if (response && response.ok) {
+                    alert("Crédito solicitado com sucesso!");
+                    location.reload();
+                } else {
+                    const erroData = await response.json();
+                    alert(erroData.error || "Erro no servidor. Verifique os dados.");
                     btnFinalizar.disabled = false;
                     btnFinalizar.innerText = "Finalizar";
                 }
-            });
-        }
+            } catch (err) {
+                alert("Erro de conexão.");
+                btnFinalizar.disabled = false;
+                btnFinalizar.innerText = "Finalizar";
+            }
+        });
     }
-    
+
     async function carregarDadosIniciais() {
+        console.log('[DEBUG script4] Auth:', auth.isAuthenticated(), 'ID:', idLogado, 'Token preview:', auth.getToken()?.slice(0,10) + '...');
         try {
             const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
             if (!response || !response.ok) return;
@@ -191,26 +181,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 saldoDisplay.innerText = `R$ ${saldoNumerico.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             }
 
-            if (corpoTabela && data.historico) {
-                corpoTabela.innerHTML = data.historico.length ? '' : '<tr><td colspan="5">Sem movimentações.</td></tr>';
-                data.historico.forEach(mov => {
-                    const situacao = (mov.situacao || 'pendente').toLowerCase();
-                    const classe = situacao.includes('concl') ? 'status-verde' :
-                        (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
+            if (corpoTabela) {
+                corpoTabela.innerHTML = '';
+                if (!data.historico || !data.historico.length) {
+                    corpoTabela.innerHTML = '<tr><td colspan="5">Sem movimentações.</td></tr>';
+                } else {
+                    data.historico.forEach(mov => {
+                        const situacao = (mov.situacao || 'pendente').toLowerCase();
+                        const classe = situacao.includes('concl') ? 'status-verde' :
+                            (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
 
-                    const linha = document.createElement('tr');
-                    linha.className = classe;
-                    linha.innerHTML = `
-                        <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
-                        <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
-                        <td>${mov.metodo_pagamento || '---'}</td>
-                        <td class="table-bold">R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
-                        <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
-                    `;
-                    corpoTabela.appendChild(linha);
-                });
+                        const linha = document.createElement('tr');
+                        linha.className = classe;
+                        linha.innerHTML = `
+                            <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
+                            <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                            <td>${mov.metodo_pagamento || '---'}</td>
+                            <td class="table-bold">R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                            <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
+                        `;
+                        corpoTabela.appendChild(linha);
+                    });
+                }
             }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     carregarDadosIniciais();
