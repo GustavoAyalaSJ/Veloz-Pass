@@ -127,42 +127,49 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputCartao = document.getElementById('num-cartao');
             const numCartao = inputCartao?.value || "";
 
-            const metodosComCartao = ['débito', 'crédito', 'internacional'];
+            const metodoRaw = selectPagamento?.value;
+            let metodoFormatado = "";
 
-            if (metodosComCartao.includes(metodo) && numCartao.length < 16) {
-                return alert("Por favor, digite os 16 dígitos do cartão.");
-            }
+            if (metodoRaw === 'débito') metodoFormatado = 'DEBITO';
+            else if (metodoRaw === 'crédito') metodoFormatado = 'CREDITO';
+            else if (metodoRaw === 'internacional') metodoFormatado = 'INTERNACIONAL';
+            else if (metodoRaw === 'pix') metodoFormatado = 'PIX';
+            else if (metodoRaw === 'carteira_digital') metodoFormatado = 'CARTEIRA_DIGITAL';
 
-            btnFinalizar.disabled = true;
-            btnFinalizar.innerText = "Processando...";
+                try {
+                    const response = await auth.request('/api/payments/add-credit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            valor: valorParaInserir,
+                            metodo: metodoFormatado,
+                            numCartao: numCartao || null,
+                            idBandeira: null
+                        })
+                    });
 
-            try {
-                const response = await auth.request('/api/payments/add-credit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        valor: valorParaInserir,
-                        metodo: metodo.toUpperCase(),
-                        numCartao: metodosComCartao.includes(metodo) ? numCartao : null,
-                        idBandeira: null
-                    })
-                });
+                    if (metodosComCartao.includes(metodo) && numCartao.length < 16) {
+                        return alert("Por favor, digite os 16 dígitos do cartão.");
+                    }
 
-                if (response && response.ok) {
-                    alert("Crédito solicitado com sucesso!");
-                    location.reload();
-                } else {
-                    const erro = await response.json();
-                    alert(erro.error || "Erro ao processar. Tente novamente.");
+                    btnFinalizar.disabled = true;
+                    btnFinalizar.innerText = "Processando...";
+
+                    if (response && response.ok) {
+                        alert("Crédito solicitado com sucesso!");
+                        location.reload();
+                    } else {
+                        const erro = await response.json();
+                        alert(erro.error || "Erro ao processar. Tente novamente.");
+                        btnFinalizar.disabled = false;
+                        btnFinalizar.innerText = "Finalizar";
+                    }
+                } catch (err) {
+                    alert("Erro de conexão com o servidor.");
                     btnFinalizar.disabled = false;
                     btnFinalizar.innerText = "Finalizar";
                 }
-            } catch (err) {
-                alert("Erro de conexão com o servidor.");
-                btnFinalizar.disabled = false;
-                btnFinalizar.innerText = "Finalizar";
-            }
-        });
+            });
     }
 
     async function carregarDadosIniciais() {

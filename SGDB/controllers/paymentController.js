@@ -77,7 +77,7 @@ exports.processCredit = async (req, res) => {
             .from('movimentacao')
             .insert([{
                 id_carteira: carteira.id_carteira,
-                id_bandeira: idBandeira || null, // opcional
+                id_bandeira: idBandeira || null,
                 n_protocolo: protocolo,
                 tipo,
                 valor: parseFloat(valor),
