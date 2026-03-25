@@ -85,42 +85,62 @@ document.addEventListener('DOMContentLoaded', () => {
         modalPagamento.style.display = 'flex';
     });
 
-    if (btnFinalizar) btnFinalizar.addEventListener('click', async () => {
-        const metodoRaw = selectPagamento?.value;
-        let metodo = metodoRaw?.toUpperCase();
-        if (metodoRaw === 'débito') metodo = 'DEBITO';
-        if (metodoRaw === 'crédito') metodo = 'CREDITO';
-        let numCartao = null;
-        let idBandeira = null;
-        if (['DEBITO','CREDITO','INTERNACIONAL'].includes(metodo)) {
-            const inputCartao = document.getElementById('num-cartao')?.value.replace(/\D/g,'') || '';
-            if (inputCartao.length < 16) return alert("Digite os 16 dígitos do cartão.");
-            numCartao = inputCartao;
-            const ultimo = parseInt(inputCartao.slice(-1));
-            if (ultimo >= 1 && ultimo <= 5) idBandeira = ultimo;
-        }
-        const payload = { valor: valorParaInserir, metodo, numCartao, idBandeira };
-        btnFinalizar.disabled = true; btnFinalizar.innerText = "Processando...";
-        try {
-            const token = auth.getToken();
-            const response = await fetch(`/api/payments/add-credit`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify(payload)
-            });
-            if (response.ok) {
-                alert("Crédito solicitado com sucesso!");
-                location.reload();
-            } else {
-                const data = await response.json();
-                alert(data.error || "Erro no servidor.");
-                btnFinalizar.disabled = false; btnFinalizar.innerText = "Finalizar";
+    if (btnFinalizar) {
+        btnFinalizar.addEventListener('click', async () => {
+            const metodoRaw = selectPagamento?.value;
+            const numCartaoInput = document.getElementById('num-cartao')?.value || "";
+            const numerosApenas = numCartaoInput.replace(/\D/g, '');
+
+            let metodoFormatado = metodoRaw.toUpperCase();
+            if (metodoRaw === 'débito') metodoFormatado = 'DEBITO';
+            if (metodoRaw === 'crédito') metodoFormatado = 'CREDITO';
+
+            const metodosCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
+            let idBandeiraFinal = null;
+
+            if (metodosCartao.includes(metodoFormatado)) {
+                if (numerosApenas.length < 13 || numerosApenas.length > 19) {
+                    return alert("Número de cartão inválido.");
+                }
+                const ultimoDigito = parseInt(numerosApenas.slice(-1));
+                if (ultimoDigito >= 1 && ultimoDigito <= 5) idBandeiraFinal = ultimoDigito;
+                else return alert("Último dígito não reconhecido no sistema.");
             }
-        } catch (err) {
-            alert("Erro de conexão.");
-            btnFinalizar.disabled = false; btnFinalizar.innerText = "Finalizar";
-        }
-    });
+
+            const payload = {
+                valor: valorParaInserir,
+                metodo: metodoFormatado,
+                numCartao: metodosCartao.includes(metodoFormatado) ? numerosApenas : null,
+                idBandeira: idBandeiraFinal
+            };
+
+            btnFinalizar.disabled = true;
+            btnFinalizar.innerText = "Processando...";
+
+            try {
+                const response = await auth.request('/api/payments/add-credit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response && response.ok) {
+                    const data = await response.json();
+                    alert(`Crédito solicitado com sucesso! Protocolo: ${data.protocolo}`);
+                    location.reload();
+                } else {
+                    const erroData = await response.json();
+                    alert(erroData.error || "Erro no servidor.");
+                    btnFinalizar.disabled = false;
+                    btnFinalizar.innerText = "Finalizar";
+                }
+            } catch (err) {
+                alert("Erro de conexão.");
+                btnFinalizar.disabled = false;
+                btnFinalizar.innerText = "Finalizar";
+            }
+        });
+    }
 
     async function carregarDadosIniciais() {
         const token = auth.getToken();
@@ -133,23 +153,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) return;
             const data = await response.json();
             if (!data) return;
-            if (saldoDisplay) saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
+            if (saldoDisplay) saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             if (!corpoTabela) return;
             corpoTabela.innerHTML = '';
             if (!data.historico || !data.historico.length) {
                 corpoTabela.innerHTML = '<tr><td colspan="5">Sem movimentações.</td></tr>';
             } else {
                 data.historico.forEach(mov => {
-                    const situacao = (mov.situacao||'pendente').toLowerCase();
+                    const situacao = (mov.situacao || 'pendente').toLowerCase();
                     const classe = situacao.includes('concl') ? 'status-verde' :
-                        (situacao.includes('rev')||situacao.includes('pend') ? 'status-amarelo':'status-vermelho');
+                        (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
                     const linha = document.createElement('tr');
                     linha.className = classe;
                     linha.innerHTML = `
-                        <td>${mov.n_protocolo||'---'}</td>
-                        <td>${(mov.tipo||'Crédito').toUpperCase()}</td>
-                        <td>${mov.metodo_pagamento||'---'}</td>
-                        <td>R$ ${parseFloat(mov.valor).toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
+                        <td>${mov.n_protocolo || '---'}</td>
+                        <td>${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                        <td>${mov.metodo_pagamento || '---'}</td>
+                        <td>R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
                         <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
                     `;
                     corpoTabela.appendChild(linha);
