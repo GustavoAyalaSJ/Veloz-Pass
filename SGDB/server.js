@@ -78,7 +78,13 @@ app.get('/app', (req, res) => {
 
 app.use('/api/', apiLimiter);
 app.use('/auth', loginLimiter, authRoutes);
-app.use('/api/payments', paymentRoutes);
+app.use('/api/payments', (req, res, next) => {
+    if (req.method === 'POST' && (req.path === '/add-credit' || req.path.includes('add-credit'))) {
+        console.log(`[PAYMENT ${req.method}] ${req.userId || 'NO_USER'} -> ${req.path}`);
+        console.log('Body:', JSON.stringify(req.body, null, 2));
+    }
+    next();
+}, paymentRoutes);
 
 app.get('/health', async (req, res) => {
   try {

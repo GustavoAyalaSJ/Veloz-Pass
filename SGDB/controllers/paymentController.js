@@ -41,16 +41,25 @@ exports.getWalletData = async (req, res) => {
 };
 
 exports.processCredit = async (req, res) => {
-    const { valor, metodo, numCartao, idBandeira } = req.body;
+    const { valor: valorRaw, metodo, numCartao, idBandeira } = req.body;
+    const valor = parseFloat(valorRaw);
     const idUsuario = req.userId;
+    console.log(`[PROCESS_CREDIT] User: ${idUsuario}, Body:`, { valor, metodo, numCartao: numCartao?.length || 0, idBandeira });
 
-    if (!valor || valor <= 0) return res.status(400).json({ error: "Valor inválido" });
+    if (isNaN(valor) || valor <= 0) {
+        console.log('[ERROR] Valor inválido:', valorRaw, '->', valor);
+        return res.status(400).json({ error: "Valor inválido", received: valorRaw });
+    }
 
     const tiposPermitidos = ['DEBITO', 'CREDITO', 'INTERNACIONAL', 'PIX', 'CARTEIRA_DIGITAL'];
-    if (!tiposPermitidos.includes(metodo)) return res.status(400).json({ error: "Tipo de movimentação inválido" });
+if (!tiposPermitidos.includes(metodo)) {
+    console.log('[ERROR] Metodo inválido:', metodo);
+    return res.status(400).json({ error: "Tipo de movimentação inválido", received: metodo });
+}
 
-    if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo) && !validarCartao(numCartao)) {
-        return res.status(400).json({ error: "Número de cartão inválido" });
+if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo) && !validarCartao(numCartao)) {
+        console.log('[ERROR] Cartao inválido:', numCartao);
+        return res.status(400).json({ error: "Número de cartão inválido", received: numCartao });
     }
 
     try {
