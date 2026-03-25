@@ -86,6 +86,20 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `;
 
+    async function obterDadosCarteira(idUsuario) {
+    try {
+        if (typeof auth !== 'undefined') {
+            const response = await auth.request(`/api/payments/wallet-data/${idUsuario}`);
+            if (!response || !response.ok) return null;
+            return await response.json();
+        }
+    } catch (error) {
+        console.error("Erro ao obter dados da carteira:", error);
+        return null;
+    }
+}
+
+
     politicasOverlay.appendChild(politicasBox);
     document.body.appendChild(politicasOverlay);
 
