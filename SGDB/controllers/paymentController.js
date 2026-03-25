@@ -19,12 +19,12 @@ exports.getWalletData = async (req, res) => {
             return res.json({ saldo: 0, historico: [] });
         }
 
-        const { data: history, error: erroHistory } = await supabase
+        const { data: history } = await supabase
             .from('movimentacao')
             .select(`
-                *,
-                bandeira_banco (nome_bandeira)
-            `)
+             *,
+             bandeira_banco (nome_bandeira)
+           `)
             .eq('id_carteira', carteira.id_carteira)
             .order('id_move', { ascending: false })
             .limit(50);
@@ -52,12 +52,12 @@ exports.processCredit = async (req, res) => {
     }
 
     const tiposPermitidos = ['DEBITO', 'CREDITO', 'INTERNACIONAL', 'PIX', 'CARTEIRA_DIGITAL'];
-if (!tiposPermitidos.includes(metodo)) {
-    console.log('[ERROR] Metodo inválido:', metodo);
-    return res.status(400).json({ error: "Tipo de movimentação inválido", received: metodo });
-}
+    if (!tiposPermitidos.includes(metodo)) {
+        console.log('[ERROR] Metodo inválido:', metodo);
+        return res.status(400).json({ error: "Tipo de movimentação inválido", received: metodo });
+    }
 
-if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo) && !validarCartao(numCartao)) {
+    if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo) && !validarCartao(numCartao)) {
         console.log('[ERROR] Cartao inválido:', numCartao);
         return res.status(400).json({ error: "Número de cartão inválido", received: numCartao });
     }

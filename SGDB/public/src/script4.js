@@ -102,6 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!metodo) return alert("Método de pagamento inválido.");
 
             let idBandeira = null;
+            if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo)) {
+                const ultimoDigito = parseInt(numCartao.slice(-1), 10);
+                if (ultimoDigito >= 1 && ultimoDigito <= 5) {
+                    idBandeira = ultimoDigito;
+                } else {
+                    idBandeira = null;
+                }
+            }
 
             const metodosComCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
             if (metodosComCartao.includes(metodo)) {
@@ -172,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const linha = document.createElement('tr');
                     linha.className = classe;
                     linha.innerHTML = `
+                        <td>${mov.bandeira_banco?.nome_bandeira || '---'}</td>
                         <td>${mov.n_protocolo || '---'}</td>
                         <td>${(mov.tipo || 'Crédito').toUpperCase()}</td>
                         <td>${mov.metodo_pagamento || '---'}</td>
