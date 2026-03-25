@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const valorConfirmadoTxt = document.getElementById('valor-confirmado');
     const saldoDisplay = document.getElementById('saldo-usuario');
     const corpoTabela = document.getElementById('corpo-tabela');
-    const selectPagamento = document.getElementById('select-pagamento'); 
-    
+    const selectPagamento = document.getElementById('select-pagamento');
+
     let valorParaInserir = 0;
 
     const containerCartao = document.createElement('div');
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (selectPagamento) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
-        
+
         if (wrapper) {
             wrapper.parentNode.insertBefore(containerCartao, wrapper.nextSibling);
             wrapper.parentNode.insertBefore(containerPix, wrapper.nextSibling);
@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         selectPagamento.addEventListener('change', () => {
             const metodosComCartao = ['débito', 'crédito', 'internacional'];
             const metodoSelecionado = selectPagamento.value;
-            
+
             containerCartao.style.display = metodosComCartao.includes(metodoSelecionado) ? 'block' : 'none';
             containerPix.style.display = metodoSelecionado === 'pix' ? 'block' : 'none';
-            
+
             if (wrapper) wrapper.classList.remove('active');
         });
 
@@ -168,7 +168,17 @@ document.addEventListener('DOMContentLoaded', () => {
     async function carregarDadosIniciais() {
         try {
             if (typeof obterDadosCarteira !== 'function') return;
-            const data = await obterDadosCarteira(idLogado);
+            const response = await auth.request(`/api/payments/wallet-data/${idLogado}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if (!response || !response.ok) {
+                console.error("Erro ao buscar carteira:", response?.status);
+                return;
+            }
+
+            const data = await response.json();
             if (!data) return;
 
             if (saldoDisplay) {
@@ -180,30 +190,69 @@ document.addEventListener('DOMContentLoaded', () => {
                 corpoTabela.innerHTML = data.historico.length ? '' : '<tr><td colspan="5">Sem movimentações.</td></tr>';
                 data.historico.forEach(mov => {
                     const situacao = (mov.situacao || 'pendente').toLowerCase();
-                    const classe = situacao.includes('concl') ? 'status-verde' : (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
-                    
+                    const classe = situacao.includes('concl') ? 'status-verde' :
+                        (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
+
                     const linha = document.createElement('tr');
                     linha.className = classe;
                     linha.innerHTML = `
-                        <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
-                        <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
-                        <td>${mov.nome_bandeira || '---'}</td>
-                        <td class="table-bold">R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
-                        <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
-                    `;
+                    <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
+                    <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                    <td>${mov.nome_bandeira || '---'}</td>
+                    <td class="table-bold">R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
+                    <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
+                `;
                     corpoTabela.appendChild(linha);
                 });
             }
         } catch (e) { console.error(e); }
     }
 
-    if (listButton && contentDropdown) {
-        listButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            contentDropdown.classList.toggle('active');
+    if (btnFinalizar) {
+        btnFinalizar.addEventListener('click', async () => {
+            const metodo = selectPagamento?.value;
+            if (!metodo) return alert("Selecione o método de pagamento.");
+
+            const inputCartao = document.getElementById('num-cartao');
+            const numCartao = inputCartao?.value || "";
+            const metodosComCartao = ['débito', 'crédito', 'internacional'];
+
+            if (metodosComCartao.includes(metodo) && numCartao.length < 16) {
+                return alert("Por favor, digite os 16 dígitos do cartão.");
+            }
+
+            btnFinalizar.disabled = true;
+            btnFinalizar.innerText = "Processando...";
+
+            try {
+                const response = await auth.request('/api/payments/add-credit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        valor: valorParaInserir,
+                        metodo: metodo.toUpperCase(), // backend espera maiúsculo
+                        numCartao: metodosComCartao.includes(metodo) ? numCartao : null,
+                        idBandeira: null
+                    })
+                });
+
+                if (response && response.ok) {
+                    alert("Crédito solicitado com sucesso!");
+                    location.reload();
+                } else {
+                    const erro = await response.json();
+                    alert(erro.error || "Erro ao processar. Tente novamente.");
+                    btnFinalizar.disabled = false;
+                    btnFinalizar.innerText = "Finalizar";
+                }
+            } catch (err) {
+                alert("Erro de conexão com o servidor.");
+                btnFinalizar.disabled = false;
+                btnFinalizar.innerText = "Finalizar";
+            }
         });
-        window.addEventListener('click', () => contentDropdown.classList.remove('active'));
     }
 
     carregarDadosIniciais();
+
 });
