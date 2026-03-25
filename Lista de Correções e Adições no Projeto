@@ -1,0 +1,36 @@
+O que precisa ser arrumado no projeto:
+
+index.html:
+- Evitar utilizar o mesmo CPF e telefone para criar duas contas;
+- O checkbox tem que ser funcional;
+- Criar uma tabela para suporte e torna ela funcional.
+
+index2.html:
+- Fazer que o saldo da carteira digital vá para o dashboard.
+
+index3.html:
+- Pegar as informações da página Recarga e Carteira Digital e colocar dentro da tabela.
+- Fazer ele considerar apenas os protocolos aprovados.
+
+PROTOCOLO        TIPO      REALIZADO-NO   VALOR IMPRIMIR-PROTOCOLO
+ASDIJOF12 CARTEIRA_DIGITAL    DÉBITO      40,00
+
+index4.html
+- Arrumar o identificador de bandeira (pois não está aceitando o primeiro ID);
+- Fazer que o site bloquei o aumento de valor em caso de transações (pendentes e recusadas).
+
+PROTOCOLO  REALIZADO-NO   BANDEIRA    VALOR   IMPRIMIR-PROTOCOLO
+ASDIJOF12     DÉBITO         ELO      40,00
+
+index5.html:
+- Criar uma tabela chamada "UniqueCard" onde apenas um pessoa por ID pode ter um cartão;
+- Em caso de cartão vinculado em uma conta errada, o suporte pode ser chamado;
+- Criar o campos para colocar os dados e criar um modal para concluir a recarga.
+
+index6.html:
+- Arrumar o design e implementar o HTML, CSS e JavaScript da página.
+
+Nota:
+- Observar a performance;
+- Remover arquivos que ocupam espaços no projeto.
+
