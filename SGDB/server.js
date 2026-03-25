@@ -6,18 +6,13 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
+const { supabase } = require('./config/supabase.js'); 
 const authRoutes = require('./routes/auth');
 const paymentRoutes = require('./routes/payment');
-
-app.use(express.json());
-app.use(authRoutes);
-
-const { supabase } = require('./config/supabase.js'); 
 
 const app = express();
 
 app.use(helmet());
-
 app.use(compression());
 
 app.use(cors({
@@ -27,6 +22,7 @@ app.use(cors({
     credentials: true,
     optionsSuccessStatus: 200
 }));
+
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -40,13 +36,16 @@ const apiLimiter = rateLimit({
     message: 'Muitas requisições, tente novamente depois'
 });
 
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
 
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d',  
     etag: false
 }));
+
 
 app.use((req, res, next) => {
     if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
@@ -56,36 +55,30 @@ app.use((req, res, next) => {
     next();
 });
 
+
 app.get('/introduction', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index2.html'));
 });
-
 app.get('/historico_geral', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index3.html'));
 });
-
 app.get('/carteira_digital', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index4.html'));
 });
-
 app.get('/recarga', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index5.html'));
 });
-
 app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index6.html'));
 });
 
-app.use('/api/', apiLimiter);
 
+app.use('/api/', apiLimiter);
 app.use('/auth', loginLimiter, authRoutes);
 app.use('/api/payments', paymentRoutes);
-
-const PORT = process.env.PORT || 3000;
 
 app.get('/health', async (req, res) => {
   try {
@@ -106,6 +99,8 @@ app.get('/health', async (req, res) => {
   }
 });
 
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Servidor rodando na porta ${PORT} em modo ${process.env.NODE_ENV}`);
 });
