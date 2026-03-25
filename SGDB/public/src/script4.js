@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `;
 
-
     if (selectPagamento) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
         
@@ -126,23 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!metodo) return alert("Selecione o método de pagamento.");
 
             const inputCartao = document.getElementById('num-cartao');
-            const validadeInput = document.getElementById('validade-cartao');
-            const cvvInput = document.getElementById('cvv-cartao');
             const numCartao = inputCartao?.value || "";
-            const validade = validadeInput?.value || "";
-            const cvv = cvvInput?.value || "";
+
             const metodosComCartao = ['débito', 'crédito', 'internacional'];
 
             if (metodosComCartao.includes(metodo) && numCartao.length < 16) {
                 return alert("Por favor, digite os 16 dígitos do cartão.");
-            }
-
-            if (metodosComCartao.includes(metodo) && validade.length < 5) {
-                return alert("Por favor, digite a validade do cartão (MM/YY).");
-            }
-
-            if (metodosComCartao.includes(metodo) && cvv.length < 3) {
-                return alert("Por favor, digite o CVV do cartão (3 dígitos).");
             }
 
             btnFinalizar.disabled = true;
@@ -151,21 +139,21 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await auth.request('/api/payments/add-credit', {
                     method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        idUsuario: idLogado,
                         valor: valorParaInserir,
-                        metodo: metodo,
-                        numCartao: numCartao || "0000000000000000",
-                        validade: validade || "",
-                        cvv: cvv || ""
+                        metodo: metodo.toUpperCase(),
+                        numCartao: metodosComCartao.includes(metodo) ? numCartao : null,
+                        idBandeira: null
                     })
                 });
 
-                if (response.ok) {
+                if (response && response.ok) {
                     alert("Crédito solicitado com sucesso!");
                     location.reload();
                 } else {
-                    alert("Erro ao processar. Tente novamente.");
+                    const erro = await response.json();
+                    alert(erro.error || "Erro ao processar. Tente novamente.");
                     btnFinalizar.disabled = false;
                     btnFinalizar.innerText = "Finalizar";
                 }
@@ -199,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     linha.innerHTML = `
                         <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
                         <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
-                        <td>${mov.nome_bandeira || 'VISA'}</td>
+                        <td>${mov.nome_bandeira || '---'}</td>
                         <td class="table-bold">R$ ${parseFloat(mov.valor).toFixed(2).replace('.', ',')}</td>
                         <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
                     `;
