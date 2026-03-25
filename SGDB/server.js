@@ -9,6 +9,9 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const paymentRoutes = require('./routes/payment');
 
+app.use(express.json());
+app.use(authRoutes);
+
 const { supabase } = require('./config/supabase.js'); 
 
 const app = express();
