@@ -1,13 +1,20 @@
 async function obterDadosCarteira(idUsuario) {
-
-    if (typeof auth === 'undefined' || !auth.isAuthenticated()) {
-        console.warn("Busca de carteira cancelada: Usuário não está logado.");
-        return null; 
+    const token = auth.getToken();
+    if (!token) {
+        console.warn("Usuário não autenticado.");
+        return null;
     }
-    
+
     try {
-        const response = await auth.request(`/api/payments/wallet-data/${idUsuario}`);
-        if (!response || !response.ok) return null;
+        const response = await fetch(`/api/payments/wallet-data/${idUsuario}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) return null;
         return await response.json();
     } catch (error) {
         console.error("Erro ao obter dados da carteira:", error);
@@ -16,48 +23,20 @@ async function obterDadosCarteira(idUsuario) {
 }
 
 async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
-    const mapaMetodos = {
-        'débito': 'DEBITO',
-        'crédito': 'CREDITO',
-        'internacional': 'INTERNACIONAL',
-        'pix': 'PIX',
-        'carteira_digital': 'CARTEIRA_DIGITAL'
-    };
+    const token = auth.getToken();
+    if (!token) return alert("Usuário não autenticado.");
 
-    const metodo = mapaMetodos[metodoRaw.toLowerCase()];
-    if (!metodo) return alert("Método de pagamento inválido.");
-
-    let idBandeira = null;
-    let numCartao = null;
-
-    const metodosComCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
-    if (metodosComCartao.includes(metodo)) {
-        numCartao = numCartaoInput.replace(/\D/g, '');
-
-        if (numCartao.length < 13 || numCartao.length > 19) {
-            return alert("Número de cartão inválido.");
-        }
-
-        const ultimoDigito = parseInt(numCartao.slice(-1));
-        if (ultimoDigito >= 1 && ultimoDigito <= 5) idBandeira = ultimoDigito;
-        else return alert("Último dígito do cartão não reconhecido.");
-    }
-
-    const payload = {
-        valor: parseFloat(valor),
-        metodo,
-        numCartao,
-        idBandeira
-    };
+    const payload = { valor, metodo: metodoRaw, numCartao: numCartaoInput };
 
     try {
-        const response = await auth.request('/api/payments/add-credit', {
+        const response = await fetch('/api/payments/add-credit', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify(payload)
         });
-
-        if (!response) return;
 
         const data = await response.json();
 
@@ -66,7 +45,6 @@ async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
         }
 
         alert(`Crédito solicitado com sucesso! Protocolo: ${data.protocolo}`);
-        location.reload();
     } catch (err) {
         console.error(err);
         alert("Erro de conexão ao adicionar crédito.");

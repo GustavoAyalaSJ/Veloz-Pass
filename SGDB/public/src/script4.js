@@ -144,9 +144,15 @@ document.addEventListener('DOMContentLoaded', () => {
             btnFinalizar.innerText = "Processando...";
 
             try {
-                const response = await auth.request('/api/payments/add-credit', {
+                const token = auth.getToken();
+                if (!token) return alert("Usuário não autenticado.");
+
+                const response = await fetch('/api/payments/add-credit', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
                     body: JSON.stringify(payload)
                 });
 
@@ -168,10 +174,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function carregarDadosIniciais() {
-        console.log('[DEBUG script4] Auth:', auth.isAuthenticated(), 'ID:', idLogado, 'Token preview:', auth.getToken()?.slice(0,10) + '...');
+        const token = auth.getToken();
+        if (!token) {
+            console.warn("Usuário não autenticado.");
+            return;
+        }
+
+        console.log('[DEBUG script4] Auth:', auth.isAuthenticated(), 'ID:', idLogado, 'Token preview:', token.slice(0, 10) + '...');
+
         try {
-            const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
-            if (!response || !response.ok) return;
+            const response = await fetch(`/api/payments/wallet-data/${idLogado}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // ✅ token no header
+                }
+            });
+
+            if (!response.ok) {
+                console.warn("Erro ao buscar dados da carteira:", response.status);
+                return;
+            }
 
             const data = await response.json();
             if (!data) return;
@@ -194,12 +217,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         const linha = document.createElement('tr');
                         linha.className = classe;
                         linha.innerHTML = `
-                            <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
-                            <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
-                            <td>${mov.metodo_pagamento || '---'}</td>
-                            <td class="table-bold">R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
-                            <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
-                        `;
+                        <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
+                        <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                        <td>${mov.metodo_pagamento || '---'}</td>
+                        <td class="table-bold">R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                        <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
+                    `;
                         corpoTabela.appendChild(linha);
                     });
                 }
