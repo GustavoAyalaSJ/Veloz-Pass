@@ -1,10 +1,10 @@
 const { supabase } = require('../config/supabase');
 
 exports.getWalletData = async (req, res) => {
-    const idUsuario = req.params.idUsuario; 
+    const idUsuario = req.params.idUsuario;
     const idUsuarioAutenticado = req.userId;
 
-    if (idUsuario !== idUsuarioAutenticado) {
+    if (String(idUsuario) !== String(idUsuarioAutenticado)) {
         return res.status(403).json({ error: "Acesso negado." });
     }
 
@@ -48,7 +48,7 @@ exports.processCredit = async (req, res) => {
 
     const tipo = metodo.toUpperCase();
 
-    const tiposPermitidos = ['DEBITO','CREDITO','INTERNACIONAL','PIX','CARTEIRA_DIGITAL'];
+    const tiposPermitidos = ['DEBITO', 'CREDITO', 'INTERNACIONAL', 'PIX', 'CARTEIRA_DIGITAL'];
     if (!tiposPermitidos.includes(tipo)) {
         return res.status(400).json({ error: "Tipo de movimentação inválido" });
     }
@@ -88,7 +88,7 @@ exports.processCredit = async (req, res) => {
         if (erroMove) throw erroMove;
 
         const novoSaldo = parseFloat(carteira.saldo_atual) + parseFloat(valor);
-        
+
         const { error: erroSaldo } = await supabase
             .from('carteira')
             .update({ saldo_atual: novoSaldo })

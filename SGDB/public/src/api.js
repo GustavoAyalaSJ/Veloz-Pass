@@ -1,4 +1,10 @@
 async function obterDadosCarteira(idUsuario) {
+
+    if (typeof auth === 'undefined' || !auth.isAuthenticated()) {
+        console.warn("Busca de carteira cancelada: Usuário não está logado.");
+        return null; 
+    }
+    
     try {
         const response = await auth.request(`/api/payments/wallet-data/${idUsuario}`);
         if (!response || !response.ok) return null;
