@@ -83,11 +83,22 @@ app.use('/api/payments', paymentRoutes);
 const PORT = process.env.PORT || 3000;
 
 app.get('/health', async (req, res) => {
-  const { data, error } = await supabase.from('bandeira_banco').select('*').limit(1);
-  if (error) {
-    return res.status(500).json({ status: 'Erro ao conectar', error });
+  try {
+    const { data, error } = await supabase
+      .from('bandeira_banco')
+      .select('*')
+      .limit(1);
+
+    if (error) {
+      console.error('Erro Supabase:', error.message);
+      return res.status(500).json({ status: 'Erro ao conectar', error: error.message });
+    }
+
+    res.json({ status: 'Conectado ao Supabase', exemplo: data });
+  } catch (err) {
+    console.error('Erro inesperado:', err);
+    res.status(500).json({ status: 'Erro inesperado', error: err.message });
   }
-  res.json({ status: 'Conectado ao Supabase', exemplo: data });
 });
 
 app.listen(PORT, () => {
