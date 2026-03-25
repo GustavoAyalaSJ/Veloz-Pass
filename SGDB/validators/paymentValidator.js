@@ -20,4 +20,22 @@ const criarTransfer = Joi.object({
     idBandeira: Joi.number().optional().allow(null)
 });
 
-module.exports = { criarTransfer };
+const criarTransferSchema = criarTransfer;
+
+const validateTransfer = (req, res, next) => {
+  const { error } = criarTransferSchema.validate(req.body);
+  if (error) {
+    console.log('[JOI ERROR]', error.details[0].message, 'Body:', req.body);
+    return res.status(400).json({ 
+      error: 'Dados inválidos', 
+      details: error.details[0].message,
+      received: req.body 
+    });
+  }
+  next();
+};
+
+module.exports = { 
+  criarTransfer: criarTransferSchema,
+  validateTransfer 
+};
