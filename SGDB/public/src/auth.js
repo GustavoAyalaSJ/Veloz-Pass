@@ -33,7 +33,7 @@ class AuthManager {
 
     async request(url, options = {}) {
         const token = this.getToken();
-        
+
         const headers = {
             'Content-Type': 'application/json',
             ...options.headers
@@ -55,6 +55,7 @@ class AuthManager {
 
         return response;
     }
+
 }
 
 const auth = new AuthManager();

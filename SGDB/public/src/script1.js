@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await response.json();
 
                     if (response.ok && data.id) {
-                        auth.setToken(data.token || '', { id: data.id, nome: data.nome });
+                        auth.setToken(data.token, { id: data.id, nome: data.nome });
                         
                         setTimeout(() => { window.location.href = "/dashboard"; }, 100);
                     } else {
