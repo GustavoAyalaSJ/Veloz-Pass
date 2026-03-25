@@ -116,52 +116,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnFinalizar) {
-        btnFinalizar.addEventListener('click', async () => {
-            const metodoRaw = selectPagamento?.value;
-            if (!metodoRaw) return alert("Selecione o método de pagamento.");
+        if (btnFinalizar) {
+            btnFinalizar.addEventListener('click', async () => {
+                const metodoRaw = selectPagamento?.value;
+                const numCartaoInput = document.getElementById('num-cartao')?.value || "";
+                const numerosApenas = numCartaoInput.replace(/\D/g, '');
 
-            const numCartao = document.getElementById('num-cartao')?.value || "";
+                let metodoFormatado = metodoRaw.toUpperCase();
+                if (metodoRaw === 'débito') metodoFormatado = 'DEBITO';
+                if (metodoRaw === 'crédito') metodoFormatado = 'CREDITO';
 
-            if (metodosComCartao.includes(metodoRaw) && numCartao.length < 16) {
-                return alert("Por favor, digite os 16 dígitos do cartão.");
-            }
+                const metodosComCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
+                let idBandeiraFinal = null;
 
-            btnFinalizar.disabled = true;
-            btnFinalizar.innerText = "Processando...";
+                if (metodosComCartao.includes(metodoFormatado)) {
+                    if (numerosApenas.length < 16) {
+                        return alert("Digite os 16 dígitos do cartão.");
+                    }
 
-            let metodoFormatado = metodoRaw.toUpperCase();
-            if (metodoRaw === 'débito') metodoFormatado = 'DEBITO';
-            if (metodoRaw === 'crédito') metodoFormatado = 'CREDITO';
+                    const ultimoDigito = parseInt(numerosApenas.substring(15, 16));
 
-            try {
-                const response = await auth.request('/api/payments/add-credit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        valor: valorParaInserir,
-                        metodo: metodoFormatado,
-                        numCartao: metodosComCartao.includes(metodoRaw) ? numCartao : null,
-                        idBandeira: null
-                    })
-                });
+                    if (ultimoDigito >= 1 && ultimoDigito <= 5) {
+                        idBandeiraFinal = ultimoDigito;
+                    } else {
+                        return alert("Último digito não reconhecido no sistema.");
+                    }
+                }
 
-                if (response && response.ok) {
-                    alert("Crédito solicitado com sucesso!");
-                    location.reload();
-                } else {
-                    const erro = await response.json();
-                    alert(erro.error || "Erro ao processar. Tente novamente.");
+                const payload = {
+                    valor: valorParaInserir,
+                    metodo: metodoFormatado,
+                    numCartao: metodosComCartao.includes(metodoFormatado) ? numerosApenas : null,
+                    idBandeira: idBandeiraFinal
+                };
+
+                btnFinalizar.disabled = true;
+                btnFinalizar.innerText = "Processando...";
+
+                try {
+                    const response = await auth.request('/api/payments/add-credit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response && response.ok) {
+                        alert("Crédito solicitado com sucesso!");
+                        location.reload();
+                    } else {
+                        const erroData = await response.json();
+                        alert(erroData.error || "Erro no servidor. Verifique os dados.");
+                        btnFinalizar.disabled = false;
+                        btnFinalizar.innerText = "Finalizar";
+                    }
+                } catch (err) {
+                    alert("Erro de conexão.");
                     btnFinalizar.disabled = false;
                     btnFinalizar.innerText = "Finalizar";
                 }
-            } catch (err) {
-                alert("Erro de conexão com o servidor.");
-                btnFinalizar.disabled = false;
-                btnFinalizar.innerText = "Finalizar";
-            }
-        });
+            });
+        }
     }
-
+    
     async function carregarDadosIniciais() {
         try {
             const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
@@ -180,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data.historico.forEach(mov => {
                     const situacao = (mov.situacao || 'pendente').toLowerCase();
                     const classe = situacao.includes('concl') ? 'status-verde' :
-                                   (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
+                        (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
 
                     const linha = document.createElement('tr');
                     linha.className = classe;
@@ -188,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td class="protocolo-texto">${mov.n_protocolo || '---'}</td>
                         <td class="table-bold">${(mov.tipo || 'Crédito').toUpperCase()}</td>
                         <td>${mov.metodo_pagamento || '---'}</td>
-                        <td class="table-bold">R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                        <td class="table-bold">R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
                         <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
                     `;
                     corpoTabela.appendChild(linha);
