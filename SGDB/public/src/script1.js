@@ -11,24 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
     termsOverlay.id = 'termsOverlay';
     termsOverlay.className = 'modal-overlay hidden';
     termsOverlay.style.zIndex = "3000";
-
     const termsBox = document.createElement('div');
     termsBox.className = 'modal-content';
     termsOverlay.appendChild(termsBox);
     document.body.appendChild(termsOverlay);
-
-    // Templates
+    
     const loginTemplate = `
         <button class="close-btn">X</button>
         <h2>Login</h2>
         <form id="formLogin">
             <label>E-mail:</label>
-            <input type="email" name="email" placeholder="Digite o email aqui." required />
+            <input type="email" name="email" placeholder="Digite o email aqui." maxlength="100" required />
             <a href="#" id="btnEsqueceuEmail">Esqueceu o email?</a>
             <div class="password-input-container">
                 <label>Senha:</label>
                 <div class="password-wrapper">
-                    <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" required>
+                    <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" maxlength="50" required>
                     <i id="togglePassword" class="bi bi-eye-fill toggle-password-icon"></i>
                 </div>
             </div>
@@ -49,21 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Crie sua conta</h2>
         <form id="formCadastro">
             <label>Nome Completo:</label>
-            <input type="text" name="nome_usuario" placeholder="Coloque seu nome completo." required>
+            <input type="text" name="nome_usuario" placeholder="Coloque seu nome completo." maxlength="100" required>
             <label>CPF:</label>
-            <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00." maxlength="14" required>
+            <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00" maxlength="14" required>
             <label>Telefone:</label>
-            <input type="text" name="telefone" id="inputTelefone" placeholder="(xx) xxxxx-xxxx." maxlength="15" required>
+            <input type="text" name="telefone" id="inputTelefone" placeholder="(xx) xxxxx-xxxx" maxlength="15" required>
             <label>E-mail:</label>
-            <input type="email" name="email" placeholder="Digite o email aqui." required>
+            <input type="email" name="email" placeholder="Digite o email aqui." maxlength="100" required>
             <label>Senha:</label>
-            <input type="password" name="senha" placeholder="Digite a senha aqui." required>
+            <input type="password" name="senha" placeholder="Digite a senha aqui." maxlength="50" required>
             <label>Confirmar Senha:</label>
-            <input type="password" name="confirmar_senha" placeholder="Confirmar a senha." required>
+            <input type="password" name="confirmar_senha" placeholder="Confirmar a senha." maxlength="50" required>
             <div class="checkbox">
              <input type="checkbox" id="checkboxCadastro" name="aceite_termos" required />
               <label for="checkboxCadastro">
-                Eu li e concordo com as <span class="destacarTermos abrir-termos">Políticas de Privacidade</span> do Veloz Pass.
+                Eu li e concordo com as <span class="destacarTermos abrir-termos">Políticas de Privacidade</span>.
               </label>
             </div>
             <button type="submit">Finalizar Cadastro</button>
@@ -75,16 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Termos de Privacidade</h2>
         <div class="modal-terms-content">
             <div><strong>1. Coleta de Informações: </strong>
-                <p>Para a utilização do serviço, coletamos algumas informações pessoais como nome, CPF, telefone e e-mail. Esses dados são necessários para identificar o usuário e permitir o processamento correto das recargas realizadas na plataforma.</p>
+                <p>Coletamos informações pessoais como nome, CPF, telefone e e-mail para identificação e processamento das recargas.</p>
             </div>
             <div><strong>2. Proteção de Dados: </strong>
-                <p>O Veloz Pass adota medidas de segurança para proteger os dados dos usuários. Informações bancárias completas não são armazenadas no sistema, sendo registrada apenas a bandeira do cartão utilizado na transação. Recomendamos que os usuários nunca compartilhem dados sensíveis com terceiros.</p>
+                <p>Medidas de segurança são aplicadas. Dados bancários completos não são armazenados.</p>
             </div>
             <div><strong>3. Finalidade das Informações: </strong>
-                <p>As informações coletadas são utilizadas exclusivamente para permitir o funcionamento do serviço de recarga, identificar a conta do usuário e garantir o suporte quando necessário.</p>
+                <p>Permitir funcionamento do serviço, identificar a conta e dar suporte.</p>
             </div>
             <div><strong>4. Direitos do Usuário: </strong>
-                <p>O usuário pode solicitar a atualização, correção ou exclusão de seus dados pessoais a qualquer momento por meio do suporte da plataforma.</p>
+                <p>O usuário pode solicitar atualização, correção ou exclusão dos dados.</p>
             </div>
         </div>
     `;
@@ -103,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <option>Meu cartão foi registrado por outro usuário sem meu consentimento.</option>
             </select>
             <label>Email:</label>
-            <input type="email" placeholder="Seu email cadastro aqui." required/>
+            <input type="email" placeholder="Seu email cadastro aqui." maxlength="100" required/>
             <label>Número de Telefone:</label>
             <input type="text" id="inputTelefoneSuporte" placeholder="(xx) xxxxx-xxxx" maxlength="15" required/>
             <label>Detalhes do problema:</label>
@@ -131,8 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupDynamicEvents() {
-        const closeButtons = document.querySelectorAll('.close-btn');
-        closeButtons.forEach(btn => {
+        document.querySelectorAll('.close-btn').forEach(btn => {
             btn.onclick = () => {
                 if (!termsOverlay.classList.contains('hidden') && btn.closest('#termsOverlay')) {
                     termsOverlay.classList.add('hidden');
@@ -156,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const inputCPF = document.getElementById('inputCPF');
         if (inputCPF) {
-            inputCPF.addEventListener('input', (e) => {
+            inputCPF.addEventListener('input', e => {
                 let v = e.target.value.replace(/\D/g, "");
                 if (v.length > 11) v = v.slice(0, 11);
                 v = v.replace(/(\d{3})(\d)/, "$1.$2");
@@ -166,10 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-
         const inputTelefone = document.getElementById('inputTelefone') || document.getElementById('inputTelefoneSuporte');
         if (inputTelefone) {
-            inputTelefone.addEventListener('input', (e) => {
+            inputTelefone.addEventListener('input', e => {
                 let v = e.target.value.replace(/\D/g, "");
                 if (v.length > 11) v = v.slice(0, 11);
                 v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
@@ -177,18 +173,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.target.value = v;
             });
         }
-
+        
         const btnGoToCadastro = document.getElementById('btnGoToCadastro');
         if (btnGoToCadastro) btnGoToCadastro.onclick = () => renderView('cadastro');
 
-        const termosLinks = document.querySelectorAll('.abrir-termos');
-        termosLinks.forEach(link => {
-            link.onclick = (e) => { e.preventDefault(); openTermsOverlay(); };
+        document.querySelectorAll('.abrir-termos').forEach(link => {
+            link.onclick = e => { e.preventDefault(); openTermsOverlay(); };
         });
 
         const formLogin = document.getElementById('formLogin');
         if (formLogin) {
-            formLogin.onsubmit = async (e) => {
+            formLogin.onsubmit = async e => {
                 e.preventDefault();
                 const email = formLogin.querySelector('[name="email"]').value;
                 const senha = formLogin.querySelector('[name="senha"]').value;
@@ -202,15 +197,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!response.ok) { alert(data.message || 'Erro ao fazer login'); return; }
                     auth.setToken(data.token, { id: data.id, nome: data.nome });
                     window.location.href = '/dashboard';
-                } catch (error) {
-                    alert('Erro na requisição.');
-                }
+                } catch (error) { alert('Erro na requisição.'); }
             };
         }
 
         const formCadastro = document.getElementById('formCadastro');
         if (formCadastro) {
-            formCadastro.onsubmit = async (e) => {
+            formCadastro.onsubmit = async e => {
                 e.preventDefault();
                 
                 const cpfField = document.getElementById('inputCPF');
@@ -220,8 +213,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const telefoneLimpo = telField.value.replace(/\D/g, '');
 
                 if (cpfLimpo.length !== 11) { alert("CPF deve conter 11 dígitos."); return; }
-                if (cpfLimpo[8] !== '9') { alert("Disponível apenas para Santa Catarina."); return; }
                 if (telefoneLimpo.length !== 11) { alert("Telefone inválido."); return; }
+
+                const senha = formCadastro.querySelector('[name="senha"]').value;
+                const confirmarSenha = formCadastro.querySelector('[name="confirmar_senha"]').value;
+                if (senha !== confirmarSenha) { alert("Senhas não conferem."); return; }
 
                 const payload = Object.fromEntries(new FormData(formCadastro).entries());
                 payload.cpf = cpfLimpo;
@@ -240,9 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else {
                         alert(data.message || "Erro ao salvar os dados.");
                     }
-                } catch (error) {
-                    alert("Erro no servidor.");
-                }
+                } catch (error) { alert("Erro no servidor."); }
             };
         }
     }
@@ -255,4 +249,5 @@ document.addEventListener('DOMContentLoaded', () => {
         const userData = auth.getUserData();
         if (userData && spanNome) spanNome.textContent = userData.nome.split(' ')[0];
     }
+
 });
