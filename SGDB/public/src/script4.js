@@ -88,30 +88,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnFinalizar) {
         btnFinalizar.addEventListener('click', async () => {
             const metodoRaw = selectPagamento?.value;
-            const numCartaoInput = document.getElementById('num-cartao')?.value || "";
-            const numerosApenas = numCartaoInput.replace(/\D/g, '');
+            let numCartaoInput = document.getElementById('num-cartao')?.value || "";
+            numCartaoInput = numCartaoInput.replace(/\D/g, '');
 
-            let metodoFormatado = metodoRaw.toUpperCase();
-            if (metodoRaw === 'débito') metodoFormatado = 'DEBITO';
-            if (metodoRaw === 'crédito') metodoFormatado = 'CREDITO';
+            const mapaMetodos = {
+                'débito': 'DEBITO',
+                'crédito': 'CREDITO',
+                'internacional': 'INTERNACIONAL',
+                'pix': 'PIX',
+                'carteira_digital': 'CARTEIRA_DIGITAL'
+            };
+            const metodo = mapaMetodos[metodoRaw.toLowerCase()];
+            if (!metodo) return alert("Método de pagamento inválido.");
 
-            const metodosCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
-            let idBandeiraFinal = null;
+            let idBandeira = null;
 
-            if (metodosCartao.includes(metodoFormatado)) {
-                if (numerosApenas.length < 13 || numerosApenas.length > 19) {
-                    return alert("Número de cartão inválido.");
-                }
-                const ultimoDigito = parseInt(numerosApenas.slice(-1));
-                if (ultimoDigito >= 1 && ultimoDigito <= 5) idBandeiraFinal = ultimoDigito;
-                else return alert("Último dígito não reconhecido no sistema.");
+            const metodosComCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
+            if (metodosComCartao.includes(metodo)) {
+                if (numCartaoInput.length !== 16)
+                    return alert("O número do cartão deve ter 16 dígitos.");
+
+                const ultimoDigito = parseInt(numCartaoInput.slice(-1), 10);
+                if (ultimoDigito >= 1 && ultimoDigito <= 5) idBandeira = ultimoDigito;
+                else return alert("Último dígito do cartão não corresponde no sistema.");
             }
 
             const payload = {
                 valor: valorParaInserir,
-                metodo: metodoFormatado,
-                numCartao: metodosCartao.includes(metodoFormatado) ? numerosApenas : null,
-                idBandeira: idBandeiraFinal
+                metodo,
+                numCartao: metodosComCartao.includes(metodo) ? numCartaoInput : null,
+                idBandeira
             };
 
             btnFinalizar.disabled = true;
