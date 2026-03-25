@@ -180,10 +180,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const linha = document.createElement('tr');
                     linha.className = classe;
                     linha.innerHTML = `
-                        <td>${mov.bandeira_banco?.nome_bandeira || '---'}</td>
                         <td>${mov.n_protocolo || '---'}</td>
                         <td>${(mov.tipo || 'Crédito').toUpperCase()}</td>
-                        <td>${mov.metodo_pagamento || '---'}</td>
+                        <td>${mov.bandeira_banco?.nome_bandeira || '---'}</td>
                         <td>R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
                         <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
                     `;
