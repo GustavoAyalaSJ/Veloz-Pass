@@ -10,7 +10,7 @@ const criarTransfer = Joi.object({
             'number.max': 'Valor máximo é 10000'
         }),
     metodo: Joi.string()
-        .valid('crédito', 'débito', 'internacional', 'pix')
+        .valid('DEBITO', 'CREDITO', 'INTERNACIONAL', 'PIX', 'CARTEIRA_DIGITAL')
         .required(),
     numCartao: Joi.string()
         .length(16)
