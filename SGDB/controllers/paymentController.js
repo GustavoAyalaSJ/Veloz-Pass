@@ -42,45 +42,37 @@ exports.getWalletData = async (req, res) => {
 
 exports.processCredit = async (req, res) => {
     const { valor, metodo, numCartao, idBandeira } = req.body;
-    const idUsuarioAutenticado = req.userId;
+    const idUsuario = req.userId;
 
     if (!valor || valor <= 0) return res.status(400).json({ error: "Valor inválido" });
 
-    const tipo = metodo.toUpperCase();
-
     const tiposPermitidos = ['DEBITO', 'CREDITO', 'INTERNACIONAL', 'PIX', 'CARTEIRA_DIGITAL'];
-    if (!tiposPermitidos.includes(tipo)) {
-        return res.status(400).json({ error: "Tipo de movimentação inválido" });
-    }
+    if (!tiposPermitidos.includes(metodo)) return res.status(400).json({ error: "Tipo de movimentação inválido" });
 
-    if (tipo !== 'PIX' && tipo !== 'CARTEIRA_DIGITAL' && !validarCartao(numCartao)) {
+    if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo) && !validarCartao(numCartao)) {
         return res.status(400).json({ error: "Número de cartão inválido" });
     }
 
     try {
-        const { data: carteira, error: erroBusca } = await supabase
+        const { data: carteira, error: erroCarteira } = await supabase
             .from('carteira')
             .select('id_carteira, saldo_atual')
-            .eq('id_usuario', idUsuarioAutenticado)
+            .eq('id_usuario', idUsuario)
             .single();
 
-        if (erroBusca || !carteira) {
-            console.error("ERRO: Carteira não encontrada para:", idUsuarioAutenticado);
-            return res.status(404).json({
-                error: "Carteira não encontrada. Verifique se o usuário foi criado corretamente."
-            });
+        if (erroCarteira || !carteira) {
+            return res.status(404).json({ error: "Carteira não encontrada" });
         }
 
         const protocolo = 'VP' + Date.now();
-
         const { error: erroMove } = await supabase
             .from('movimentacao')
             .insert([{
                 id_carteira: carteira.id_carteira,
                 id_bandeira: idBandeira || null,
                 n_protocolo: protocolo,
-                tipo,
-                valor: parseFloat(valor),
+                tipo: metodo,
+                valor,
                 situacao: 'PENDENTE',
                 realizado_no: new Date().toISOString()
             }]);
@@ -88,7 +80,6 @@ exports.processCredit = async (req, res) => {
         if (erroMove) throw erroMove;
 
         const novoSaldo = parseFloat(carteira.saldo_atual) + parseFloat(valor);
-
         const { error: erroSaldo } = await supabase
             .from('carteira')
             .update({ saldo_atual: novoSaldo })
@@ -96,7 +87,7 @@ exports.processCredit = async (req, res) => {
 
         if (erroSaldo) throw erroSaldo;
 
-        res.status(200).json({ success: true, protocolo, valor, tipo });
+        res.status(200).json({ success: true, protocolo, valor, tipo: metodo });
 
     } catch (err) {
         console.error("Erro no pagamento:", err);

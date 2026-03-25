@@ -15,24 +15,60 @@ async function obterDadosCarteira(idUsuario) {
     }
 }
 
-async function adicionarCredito(valor, metodo, numCartao, idBandeira) {
+async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
+    const mapaMetodos = {
+        'débito': 'DEBITO',
+        'crédito': 'CREDITO',
+        'internacional': 'INTERNACIONAL',
+        'pix': 'PIX',
+        'carteira_digital': 'CARTEIRA_DIGITAL'
+    };
+
+    const metodo = mapaMetodos[metodoRaw.toLowerCase()];
+    if (!metodo) return alert("Método de pagamento inválido.");
+
+    let idBandeira = null;
+    let numCartao = null;
+
+    const metodosComCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
+    if (metodosComCartao.includes(metodo)) {
+        numCartao = numCartaoInput.replace(/\D/g, '');
+
+        if (numCartao.length < 13 || numCartao.length > 19) {
+            return alert("Número de cartão inválido.");
+        }
+
+        const ultimoDigito = parseInt(numCartao.slice(-1));
+        if (ultimoDigito >= 1 && ultimoDigito <= 5) idBandeira = ultimoDigito;
+        else return alert("Último dígito do cartão não reconhecido.");
+    }
+
+    const payload = {
+        valor: parseFloat(valor),
+        metodo,
+        numCartao,
+        idBandeira
+    };
+
     try {
         const response = await auth.request('/api/payments/add-credit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ valor, metodo, numCartao, idBandeira })
+            body: JSON.stringify(payload)
         });
 
-        if (!response.ok) {
-            const erro = await response.json();
-            throw new Error(erro.error || 'Erro ao adicionar crédito');
-        }
+        if (!response) return;
 
         const data = await response.json();
-        console.log("Crédito adicionado:", data);
-        return data;
-    } catch (error) {
-        console.error("Erro na API de crédito:", error);
-        return null;
+
+        if (!response.ok) {
+            return alert(data.error || "Erro ao adicionar crédito.");
+        }
+
+        alert(`Crédito solicitado com sucesso! Protocolo: ${data.protocolo}`);
+        location.reload();
+    } catch (err) {
+        console.error(err);
+        alert("Erro de conexão ao adicionar crédito.");
     }
 }
