@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const payload = Object.fromEntries(new FormData(formCadastro).entries());
 
                 try {
-                    const response = await fetch('/auth/cadastro', {
+                    const response = await fetch('/auth/register', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
