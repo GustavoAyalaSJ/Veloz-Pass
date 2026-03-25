@@ -17,15 +17,15 @@ app.use(compression());
 
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
-        ? 'https://seudominio.com' 
-        : ['http://localhost:3000', 'http://localhost:5500'],
+        ? 'https://veloz-pass.onrender.com' 
+        : ['http://localhost:3000', 'http://localhost:5500', 'https://veloz-pass.onrender.com'],
     credentials: true,
     optionsSuccessStatus: 200
 }));
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 5,
+    max: 100,
     message: 'Muitas tentativas de login, tente novamente em 15 minutos'
 });
 
@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
 
 app.use((req, res, next) => {
     if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
-        res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1 ano para assets versionados
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
         res.setHeader('Expires', new Date(Date.now() + 31536000000).toUTCString());
     }
     next();
@@ -77,10 +77,18 @@ app.get('/app', (req, res) => {
 
 app.use('/api/', apiLimiter);
 
-app.use('/', authRoutes);
+app.use('/auth', loginLimiter, authRoutes);
 app.use('/api/payments', paymentRoutes);
 
 const PORT = process.env.PORT || 3000;
+
+app.get('/health', async (req, res) => {
+  const { data, error } = await supabase.from('bandeira_banco').select('*').limit(1);
+  if (error) {
+    return res.status(500).json({ status: 'Erro ao conectar', error });
+  }
+  res.json({ status: 'Conectado ao Supabase', exemplo: data });
+});
 
 app.listen(PORT, () => {
   console.log(`✅ Servidor rodando na porta ${PORT} em modo ${process.env.NODE_ENV}`);

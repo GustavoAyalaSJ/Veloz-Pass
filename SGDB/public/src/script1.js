@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const senha = formLogin.querySelector('[name="senha"]').value;
 
                 try {
-                    const response = await fetch('/login', {
+                    const response = await fetch('/auth/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, senha })
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const payload = Object.fromEntries(new FormData(formCadastro).entries());
 
                 try {
-                    const response = await fetch('/cadastro', {
+                    const response = await fetch('/auth/cadastro', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const saldo = parseFloat(dadosCarteira.saldo) || 0;
+        const saldo = parseFloat(dadosCarteira.saldo_atual) || 0;
         console.log('Saldo formatado:', saldo);
 
         if (saldoDashboard) {
