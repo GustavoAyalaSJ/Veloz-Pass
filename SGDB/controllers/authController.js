@@ -83,7 +83,7 @@ exports.cadastro = async (req, res) => {
                     saldo_atual: 0.00
                 }]);
             if (walletError) throw walletError;
-        }|
+        }
         
         const token = jwt.sign(
             { id: novoUsuario.id_usuario, email, nome: nome_usuario },
