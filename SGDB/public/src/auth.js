@@ -12,7 +12,7 @@ class AuthManager {
             cod_identificador: userData.cod_identificador
         }));
     }
-    
+
     getToken() {
         return sessionStorage.getItem(this.tokenKey);
     }

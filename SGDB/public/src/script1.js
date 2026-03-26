@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ddd = telefoneLimpo.slice(0, 2);
         const naturalidade = dddNaturalidade[ddd];
         if (!naturalidade) return null;
-        const randomNumber = Math.floor(100 + Math.random() * 900); 
+        const randomNumber = Math.floor(100 + Math.random() * 900);
         return `${randomNumber}${naturalidade.id}`;
     }
 
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const togglePassword = document.getElementById('togglePassword');
         if (togglePassword) {
-            togglePassword.addEventListener('click', function() {
+            togglePassword.addEventListener('click', function () {
                 const passwordInput = document.getElementById('password');
                 if (!passwordInput) return;
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -218,8 +218,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     const data = await response.json();
                     if (!response.ok) { alert(data.message || 'Erro ao fazer login'); return; }
-                    auth.setToken(data.token, { id: data.id, nome: data.nome, cod_identificador: data.cod_identificador });
-                    preencherDashboard({ nome: data.nome, cod_identificador: data.cod_identificador });
+                    auth.setToken(data.token, {
+                        id: data.id,
+                        nome: data.nome,
+                        cod_identificador:
+                        data.cod_identificador
+                    });
+                    preencherDashboard({
+                        nome: data.nome,
+                        cod_identificador: data.cod_identificador
+                    });
+
                     window.location.href = '/dashboard';
                 } catch (error) {
                     alert('Erro na requisição.');
@@ -251,8 +260,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     const data = await response.json();
                     if (response.ok) {
-                        auth.setToken(data.token, { id: data.id, nome: data.nome, cod_identificador: codIdentificador });
-                        preencherDashboard({ nome: data.nome, cod_identificador: codIdentificador });
+                        auth.setToken(data.token, {
+                            id: data.id,
+                            nome: data.nome,
+                            cod_identificador: codIdentificador
+                        });
+                        preencherDashboard({
+                            nome: data.nome,
+                            cod_identificador:
+                                codIdentificador
+                        });
                         window.location.href = "/dashboard";
                     } else {
                         alert(data.message || "Erro ao salvar os dados.");

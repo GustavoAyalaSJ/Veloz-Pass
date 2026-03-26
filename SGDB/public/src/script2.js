@@ -8,18 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenPoliticasHeader = document.getElementById('btnOpenPoliticasHeader');
 
     function atualizarNomeECod() {
-    const userData = auth.getUserData();
-    if (userData) {
-        if (spanNome) {
-            const partes = userData.nome.trim().split(/\s+/);
-            spanNome.textContent = `${partes[0]} ${partes[partes.length - 1] || ""}`.trim();
-        }
+        const userData = auth.getUserData();
+        if (userData) {
+            if (spanNome) {
+                const partes = userData.nome.trim().split(/\s+/);
+                spanNome.textContent = `${partes[0]} ${partes[partes.length - 1] || ""}`.trim();
+            }
 
-        if (spanCodUnique) {
-            spanCodUnique.textContent = userData.cod_identificador || 'SEM CÓDIGO';
+            if (spanCodUnique) {
+                spanCodUnique.textContent = userData.cod_identificador || 'SEM CÓDIGO';
+            }
         }
     }
-}
 
     async function carregarSaldoDashboard() {
         const userData = auth.getUserData();
@@ -88,5 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnNaoLogout) btnNaoLogout.addEventListener('click', () => logoutModal.style.display = "none");
 
     atualizarNomeECod();
+
+    setTimeout(() => {
+        atualizarNomeECod();
+    }, 100);
+
     carregarSaldoDashboard();
 });
