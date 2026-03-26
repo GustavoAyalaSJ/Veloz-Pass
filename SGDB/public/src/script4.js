@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
             await adicionarCredito(valorParaInserir, metodoRaw, numCartaoInput);
             btnFinalizar.disabled = false;
             btnFinalizar.innerText = "Finalizar";
-            // Refresh data after success
             await carregarDadosIniciais();
         });
     }
@@ -130,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return window.location.href = "/introduction"
         }
         try {
-            const response = await fetch(`/api/payments/wallet-data/${idLogado}`, {
+            const response = await fetch(`${window.location.origin}/api/payments/wallet-data/${idLogado}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
