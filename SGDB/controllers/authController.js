@@ -8,7 +8,7 @@ exports.login = async (req, res) => {
     try {
         const { data: usuario, error } = await supabase
             .from('usuario')
-            .select('id_usuario, nome_usuario, senha_hash')
+            .select('id_usuario, nome_usuario, senha_hash, cod_identificador')
             .eq('email', email)
             .single();
 
@@ -29,7 +29,8 @@ exports.login = async (req, res) => {
             message: 'Login realizado!',
             token,
             nome: usuario.nome_usuario,
-            id: usuario.id_usuario
+            id: usuario.id_usuario,
+            cod_identificador: usuario.cod_identificador || null
         });
 
     } catch (err) {
