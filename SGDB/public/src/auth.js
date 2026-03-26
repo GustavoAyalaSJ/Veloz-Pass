@@ -9,6 +9,7 @@ class AuthManager {
         sessionStorage.setItem(this.userKey, JSON.stringify({
             id: userData.id,
             nome: userData.nome,
+            cod_identificador: userData.cod_identificador
         }));
     }
 

@@ -61,12 +61,13 @@ exports.cadastro = async (req, res) => {
                 telefone: telLimpo,
                 email,
                 senha_hash: senhaHash,
-                cod_identificador: cod_identificador || null,
-                id_naturalidade: id_naturalidade || null
+                cod_identificador: String(cod_identificador).trim(),
+                id_naturalidade: id_naturalidade ? String(id_naturalidade).trim() : null
             }])
             .select();
 
         if (userError) {
+            console.error("ERRO DETALHADO DO SUPABASE:", userError);
             if (userError.code === '23505') {
                 return res.status(400).json({ message: "Email ou CPF já cadastrado" });
             }
