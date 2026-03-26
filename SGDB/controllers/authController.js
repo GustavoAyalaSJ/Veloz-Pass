@@ -40,8 +40,8 @@ exports.login = async (req, res) => {
 };
 
 exports.cadastro = async (req, res) => {
-    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, cod_identificador } = req.body;
-
+    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, cod_identificador, id_naturalidade } = req.body;
+    
     if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
         return res.status(400).json({ message: "Preencha todos os campos" });
     }
@@ -61,7 +61,8 @@ exports.cadastro = async (req, res) => {
                 telefone: telLimpo,
                 email,
                 senha_hash: senhaHash,
-                cod_identificador: cod_identificador || null
+                cod_identificador: cod_identificador || null,
+                id_naturalidade: id_naturalidade || null
             }])
             .select();
 
@@ -82,8 +83,8 @@ exports.cadastro = async (req, res) => {
                     saldo_atual: 0.00
                 }]);
             if (walletError) throw walletError;
-        }
-
+        }|
+        
         const token = jwt.sign(
             { id: novoUsuario.id_usuario, email, nome: nome_usuario },
             process.env.JWT_SECRET,
