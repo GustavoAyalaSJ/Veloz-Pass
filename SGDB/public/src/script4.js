@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectPagamento = document.getElementById('select-pagamento');
     const btnDropdown = document.querySelector('#list-button.second-button');
     const contentDropdown = document.getElementById('content-dropdown');
+    const exitLink = document.querySelector('.exit-link');
+    const logoutModal = document.getElementById("logoutModal");
 
     if (btnDropdown && contentDropdown) {
         console.log('Dropdown elements found, adding listeners');
@@ -30,7 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     } else {
-        console.error('Dropdown elements not found:', {btnDropdown, contentDropdown});
+        console.error('Dropdown elements not found:', { btnDropdown, contentDropdown });
+    }
+
+    if (exitLink) {
+        exitLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            logoutModal.style.display = "flex";
+        });
+    }
+
+    const btnSimLogout = document.getElementById('btn-sim-logout');
+    const btnNaoLogout = document.getElementById('btn-nao-logout');
+
+    if (btnSimLogout) {
+        btnSimLogout.addEventListener('click', () => {
+            auth.clear();
+        });
+    }
+
+    if (btnNaoLogout) {
+        btnNaoLogout.addEventListener('click', () => {
+            logoutModal.style.display = "none";
+        });
     }
 
     let valorParaInserir = 0;
@@ -114,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const numCartaoInput = document.getElementById('num-cartao')?.value || "";
             btnFinalizar.disabled = true;
             btnFinalizar.innerText = "Processando...";
-            console.log('Calling adicionarCredito with:', {valorParaInserir, metodoRaw, numCartaoInput});
+            console.log('Calling adicionarCredito with:', { valorParaInserir, metodoRaw, numCartaoInput });
             await adicionarCredito(valorParaInserir, metodoRaw, numCartaoInput);
             btnFinalizar.disabled = false;
             btnFinalizar.innerText = "Finalizar";

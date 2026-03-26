@@ -29,7 +29,7 @@
                     <div class="dropdown-content" id="content-dropdown">
                         <a href="/recarga"><i class="bi bi-credit-card"></i> Recarga</a>
                         <a href="/historico_geral"><i class="bi bi-clock"></i> Histórico Geral</a>
-                        <a href="/introduction"><i class="bi bi-box-arrow-left"></i> Sair</a>
+                        <a href="/introduction" class="exit-link"><i class="bi bi-box-arrow-left"></i> Sair</a>
                     </div>
                 </div>
             </div>
@@ -63,6 +63,7 @@
                 </div>
             </div>
 
+            <!-- Modal Valor -->
             <div class="modal-wrapper" id="modal-valor">
                 <div class="modal-box">
                     <h3>Escolha um dos valores para inserir na sua carteira digital do Veloz Pass</h3>
@@ -83,6 +84,7 @@
                 </div>
             </div>
 
+            <!-- Modal Pagamento -->
             <div class="modal-wrapper" id="modal-pagamento">
                 <div class="modal-box">
                     <h3>Valor inserido: <span id="valor-confirmado">R$ 0,00</span></h3>
@@ -101,6 +103,17 @@
                     <div class="modal-footer">
                         <button id="btn-finalizar" class="btn-finalizar">Finalizar</button>
                         <button class="btn-cancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Logout -->
+            <div id="logoutModal" class="modal-overlay">
+                <div class="modal-box">
+                    <h3>Deseja sair da sua conta?</h3>
+                    <div class="modal-buttons">
+                        <button id="btn-sim-logout" class="btn-sim">Sim</button>
+                        <button id="btn-nao-logout" class="btn-nao">Não</button>
                     </div>
                 </div>
             </div>

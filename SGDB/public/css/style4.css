@@ -365,6 +365,47 @@ body {
     margin-top: 20px;
 }
 
+/* Estilos para o Modal de Logout */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.btn-sim {
+    background-color: #436d4d; 
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-nao {
+    background-color: #703030; 
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-sim:hover, .btn-nao:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.dark-mode #logoutModal .modal-box {
+    background-color: #11161d;
+    border: 3px solid rgb(139, 172, 209);
+    color: white;
+}
+
 /* Modal - Seletor de Pagamento */
 .select-wrapper-modal {
     position: relative;
