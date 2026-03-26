@@ -53,7 +53,7 @@ body {
     padding: 10px 0;
 }
 
-.dropdown-content.active {
+.dropdown-content.show {
     display: flex;
     flex-direction: column;
 }

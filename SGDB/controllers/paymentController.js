@@ -21,41 +21,32 @@ exports.getWalletData = async (req, res) => {
 
         const { data: history } = await supabase
             .from('movimentacao')
-            .select(`
-             *,
-             bandeira_banco (nome_bandeira)
-            `)
+            .select('*, bandeira_banco(nome_bandeira)')
             .eq('id_carteira', carteira.id_carteira)
             .order('id_move', { ascending: false })
             .limit(50);
 
         res.json({
-            saldo: parseFloat(carteira.saldo_atual),
+            saldo: parseFloat(carteira.saldo_atual || 0),
             historico: history || []
         });
 
     } catch (err) {
-        console.error("Erro na carteira:", err.message);
         res.status(500).json({ error: "Erro interno ao buscar dados" });
     }
 };
 
 exports.processCredit = async (req, res) => {
     const { valor: valorRaw, metodo, numCartao, idBandeira } = req.body;
-    const valor = parseFloat(valorRaw);
+    const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
 
-    if (isNaN(valor) || valor <= 0) {
-        return res.status(400).json({ error: "Valor inválido", received: valorRaw });
-    }
-
-    const tiposPermitidos = ['DEBITO', 'CREDITO', 'INTERNACIONAL', 'PIX', 'CARTEIRA_DIGITAL'];
-    if (!tiposPermitidos.includes(metodo)) {
-        return res.status(400).json({ error: "Tipo de movimentação inválido", received: metodo });
+    if (isNaN(valorNum) || valorNum <= 0) {
+        return res.status(400).json({ error: "Valor inválido" });
     }
 
     if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo) && !validarCartao(numCartao)) {
-        return res.status(400).json({ error: "Número de cartão inválido para o sistema", received: numCartao });
+        return res.status(400).json({ error: "Cartão inválido" });
     }
 
     try {
@@ -65,11 +56,10 @@ exports.processCredit = async (req, res) => {
             .eq('id_usuario', idUsuario)
             .single();
 
-        if (erroCarteira || !carteira) {
-            return res.status(404).json({ error: "Carteira não encontrada" });
-        }
+        if (erroCarteira || !carteira) return res.status(404).json({ error: "Carteira não encontrada" });
 
         const protocolo = 'VP' + Date.now();
+        
         const { error: erroMove } = await supabase
             .from('movimentacao')
             .insert([{
@@ -77,14 +67,16 @@ exports.processCredit = async (req, res) => {
                 id_bandeira: idBandeira || null,
                 n_protocolo: protocolo,
                 tipo: metodo,
-                valor,
-                situacao: 'PENDENTE',
+                valor: valorNum,
+                situacao: 'CONCLUIDO',
                 realizado_no: new Date().toISOString()
             }]);
 
         if (erroMove) throw erroMove;
 
-        const novoSaldo = parseFloat(carteira.saldo_atual) + parseFloat(valor);
+        const saldoAnterior = parseFloat(carteira.saldo_atual || 0);
+        const novoSaldo = saldoAnterior + valorNum;
+
         const { error: erroSaldo } = await supabase
             .from('carteira')
             .update({ saldo_atual: novoSaldo })
@@ -92,18 +84,18 @@ exports.processCredit = async (req, res) => {
 
         if (erroSaldo) throw erroSaldo;
 
-        res.status(200).json({ success: true, protocolo, valor, tipo: metodo });
+        res.status(200).json({ success: true, protocolo, valor: valorNum });
 
     } catch (err) {
-        console.error("Erro no pagamento:", err);
-        res.status(500).json({ error: "Erro ao processar crédito" });
+        console.error("ERRO_SUPABASE:", err);
+        res.status(500).json({ error: "Erro ao processar crédito no banco" });
     }
 };
 
 function validarCartao(numCartao) {
     if (!numCartao) return false;
-    const cartaoLimpo = numCartao.replace(/\D/g, '');
-    return cartaoLimpo.length >= 13 && cartaoLimpo.length <= 16;
+    const limpo = numCartao.replace(/\D/g, '');
+    return limpo.length >= 13 && limpo.length <= 16;
 }
 
 module.exports = exports;
