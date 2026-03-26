@@ -39,7 +39,7 @@ exports.login = async (req, res) => {
 };
 
 exports.cadastro = async (req, res) => {
-    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha } = req.body;
+    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, cod_identificador } = req.body;
 
     if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
         return res.status(400).json({ message: "Preencha todos os campos" });
@@ -52,19 +52,26 @@ exports.cadastro = async (req, res) => {
     try {
         const senhaHash = await bcrypt.hash(senha, 10);
 
-        const { data: novoUsuario, error: userError } = await supabase
+        const { data: novoUsuarioArray, error: userError } = await supabase
             .from('usuario')
             .insert([{
                 nome_usuario,
                 cpf: cpfLimpo,
                 telefone: telLimpo,
                 email,
-                senha_hash: senhaHash
+                senha_hash: senhaHash,
+                cod_identificador: cod_identificador || null
             }])
-            .select()
-            .single();
+            .select();
 
-        if (userError) throw userError;
+        if (userError) {
+            if (userError.code === '23505') {
+                return res.status(400).json({ message: "Email ou CPF já cadastrado" });
+            }
+            throw userError;
+        }
+
+        const novoUsuario = novoUsuarioArray[0];
 
         if (novoUsuario) {
             const { error: walletError } = await supabase
@@ -73,7 +80,6 @@ exports.cadastro = async (req, res) => {
                     id_usuario: novoUsuario.id_usuario,
                     saldo_atual: 0.00
                 }]);
-
             if (walletError) throw walletError;
         }
 
@@ -87,11 +93,11 @@ exports.cadastro = async (req, res) => {
             message: "Cadastro e Carteira realizados!",
             token,
             id: novoUsuario.id_usuario,
-            nome: nome_usuario
+            nome: nome_usuario,
+            cod_identificador: cod_identificador || null
         });
 
     } catch (err) {
-        if (err.code === '23505') return res.status(400).json({ message: "Email ou CPF já cadastrado" });
         console.error("Erro no cadastro:", err);
         res.status(500).json({ message: "Erro ao criar conta no Veloz Pass" });
     }
