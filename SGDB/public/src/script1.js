@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Login</h2>
         <form id="formLogin">
             <label>E-mail:</label>
-            <input type="email" name="email" placeholder="Digite o email aqui." required />
+            <input type="email" name="email" placeholder="Digite o email aqui." autocomplete="off" required />
             <a href="#" id="btnEsqueceuEmail">Esqueceu o email?</a>
             <div class="password-input-container">
                 <label>Senha:</label>
                 <div class="password-wrapper">
-                    <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" required>
+                    <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" autocomplete="off" required>
                     <i id="togglePassword" class="bi bi-eye-fill toggle-password-icon"></i>
                 </div>
             </div>
@@ -48,17 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Crie sua conta</h2>
         <form id="formCadastro">
             <label>Nome Completo:</label>
-            <input type="text" name="nome_usuario" placeholder="Coloque seu nome completo." maxlength="100" required>
+            <input type="text" name="nome_usuario" placeholder="Coloque seu nome completo." maxlength="100" autocomplete="off" required>
             <label>CPF:</label>
-            <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00." maxlength="14" required>
+            <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00." maxlength="14" autocomplete="off" required>
             <label>Telefone:</label>
-            <input type="text" name="telefone" id="inputTelefone" placeholder="(xx) xxxxx-xxxx." maxlength="15" required>
+            <input type="text" name="telefone" id="inputTelefone" placeholder="(xx) xxxxx-xxxx." maxlength="15" autocomplete="off" required>
             <label>E-mail:</label>
-            <input type="email" name="email" placeholder="Digite o email aqui." maxlength="100" required>
+            <input type="email" name="email" placeholder="Digite o email aqui." maxlength="100" autocomplete="off" required>
             <label>Senha:</label>
-            <input type="password" name="senha" placeholder="Digite a senha aqui." maxlength="50" required>
+            <input type="password" name="senha" placeholder="Digite a senha aqui." maxlength="50" autocomplete="off" required>
             <label>Confirmar Senha:</label>
-            <input type="password" name="confirmar_senha" placeholder="Confirmar a senha." maxlength="50" required>
+            <input type="password" name="confirmar_senha" placeholder="Confirmar a senha." maxlength="50" autocomplete="off" required>
             <div class="checkbox">
              <input type="checkbox" id="checkboxCadastro" name="aceite_termos" required />
               <label for="checkboxCadastro">
