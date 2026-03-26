@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnInserir) btnInserir.addEventListener('click', () => modalValor.style.display = 'flex');
-    
+
     document.querySelectorAll('.btn-cancelar').forEach(btn => btn.addEventListener('click', () => {
         modalValor.style.display = 'none';
         modalPagamento.style.display = 'none';
@@ -112,10 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function carregarDadosIniciais() {
         const token = auth.getToken();
-        if (!token) return;
+        if (!token) {
+            console.error("Token não encontrado.");
+            return window.location.href = "/introduction"
+        }
         try {
             const response = await fetch(`/api/payments/wallet-data/${idLogado}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
             });
             if (!response.ok) return;
             const data = await response.json();

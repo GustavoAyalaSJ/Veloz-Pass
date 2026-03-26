@@ -56,16 +56,19 @@ async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
     };
 
     try {
-        const response = await auth.request('/api/payments/add-credit', {
+        const token = auth.getToken();
+        const response = await fetch('/api/payments/add-credit', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify(payload)
         });
 
-        if (!response) return;
         const data = await response.json();
         if (!response.ok) return alert(data.error || "Erro ao adicionar crédito.");
-        
+
         alert(`Crédito solicitado com sucesso! Protocolo: ${data.protocolo}`);
         location.reload();
     } catch (err) {
