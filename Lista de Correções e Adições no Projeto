@@ -3,10 +3,7 @@ O que precisa ser arrumado no projeto:
 index.html:
 - Evitar utilizar o mesmo CPF e telefone para criar duas contas;
 - O checkbox tem que ser funcional;
-- Criar uma tabela para suporte e torna ela funcional.
-
-index2.html:
-- Fazer que o saldo da carteira digital vá para o dashboard.
+- Criar uma tabela para suporte, arrumar o modal de Suporte e tornar ele funcional.
 
 index3.html:
 - Pegar as informações da página Recarga e Carteira Digital e colocar dentro da tabela.
@@ -16,7 +13,6 @@ PROTOCOLO        TIPO      REALIZADO-NO   VALOR IMPRIMIR-PROTOCOLO
 ASDIJOF12 CARTEIRA_DIGITAL    DÉBITO      40,00
 
 index4.html
-- Arrumar o identificador de bandeira (pois não está aceitando o primeiro ID);
 - Fazer que o site bloquei o aumento de valor em caso de transações (pendentes e recusadas).
 
 PROTOCOLO  REALIZADO-NO   BANDEIRA    VALOR   IMPRIMIR-PROTOCOLO
