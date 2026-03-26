@@ -8,17 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenPoliticasHeader = document.getElementById('btnOpenPoliticasHeader');
 
     function atualizarNomeECod() {
-        const userData = auth.getUserData();
-        if (userData && spanNome) {
+    const userData = auth.getUserData();
+    if (userData) {
+        if (spanNome) {
             const partes = userData.nome.trim().split(/\s+/);
-            const primeiroNome = partes[0];
-            const ultimoNome = partes.length > 1 ? partes[partes.length - 1] : "";
-            spanNome.textContent = `${primeiroNome} ${ultimoNome}`.trim();
+            spanNome.textContent = `${partes[0]} ${partes[partes.length - 1] || ""}`.trim();
         }
-        if (userData && spanCodUnique) {
-            spanCodUnique.textContent = userData.cod_identificador || '---';
+
+        if (spanCodUnique) {
+            spanCodUnique.textContent = userData.cod_identificador || 'SEM CÓDIGO';
         }
     }
+}
 
     async function carregarSaldoDashboard() {
         const userData = auth.getUserData();
