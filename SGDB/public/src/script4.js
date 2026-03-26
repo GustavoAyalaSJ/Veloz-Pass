@@ -18,13 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const contentDropdown = document.getElementById('content-dropdown');
 
     if (btnDropdown && contentDropdown) {
+        console.log('Dropdown elements found, adding listeners');
         btnDropdown.addEventListener('click', (e) => {
             e.stopPropagation();
             contentDropdown.classList.toggle('show');
+            console.log('Dropdown toggled, show:', contentDropdown.classList.contains('show'));
         });
         document.addEventListener('click', () => {
-            contentDropdown.classList.remove('show');
+            if (contentDropdown.classList.contains('show')) {
+                contentDropdown.classList.remove('show');
+            }
         });
+    } else {
+        console.error('Dropdown elements not found:', {btnDropdown, contentDropdown});
     }
 
     let valorParaInserir = 0;
@@ -101,12 +107,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnFinalizar) {
         btnFinalizar.addEventListener('click', async () => {
             const metodoRaw = selectPagamento?.value;
+            if (!metodoRaw) {
+                alert('Selecione um método de pagamento.');
+                return;
+            }
             const numCartaoInput = document.getElementById('num-cartao')?.value || "";
             btnFinalizar.disabled = true;
             btnFinalizar.innerText = "Processando...";
+            console.log('Calling adicionarCredito with:', {valorParaInserir, metodoRaw, numCartaoInput});
             await adicionarCredito(valorParaInserir, metodoRaw, numCartaoInput);
             btnFinalizar.disabled = false;
             btnFinalizar.innerText = "Finalizar";
+            // Refresh data after success
+            await carregarDadosIniciais();
         });
     }
 

@@ -9,14 +9,28 @@ exports.getWalletData = async (req, res) => {
     }
 
     try {
-        const { data: carteira, error: erroCarteira } = await supabase
+        let { data: carteira, error: erroCarteira } = await supabase
             .from('carteira')
             .select('id_carteira, saldo_atual')
             .eq('id_usuario', idUsuario)
             .single();
 
         if (erroCarteira || !carteira) {
-            return res.json({ saldo: 0, historico: [] });
+            const novoCarteiraData = {
+                id_usuario: idUsuario,
+                saldo_atual: 0
+            };
+            const { data: newCarteira, error: createError } = await supabase
+                .from('carteira')
+                .insert([novoCarteiraData])
+                .select()
+                .single();
+
+            if (createError) {
+                console.error('Erro ao criar carteira em getWalletData:', createError);
+                return res.json({ saldo: 0, historico: [] });
+            }
+            carteira = newCarteira;
         }
 
         const { data: history } = await supabase
@@ -32,6 +46,7 @@ exports.getWalletData = async (req, res) => {
         });
 
     } catch (err) {
+        console.error("ERRO_SUPABASE getWalletData:", err);
         res.status(500).json({ error: "Erro interno ao buscar dados" });
     }
 };
@@ -50,16 +65,25 @@ exports.processCredit = async (req, res) => {
     }
 
     try {
-        const { data: carteira, error: erroCarteira } = await supabase
+        let { data: carteira, error: erroCarteira } = await supabase
             .from('carteira')
             .select('id_carteira, saldo_atual')
             .eq('id_usuario', idUsuario)
             .single();
 
-        if (erroCarteira || !carteira) return res.status(404).json({ error: "Carteira não encontrada" });
+        if (erroCarteira || !carteira) {
+            const { data: newCarteira, error: createError } = await supabase
+                .from('carteira')
+                .insert([{ id_usuario: idUsuario, saldo_atual: 0 }])
+                .select('id_carteira, saldo_atual')
+                .single();
+
+            if (createError) throw createError;
+            carteira = newCarteira;
+        }
 
         const protocolo = 'VP' + Date.now();
-        
+
         const { error: erroMove } = await supabase
             .from('movimentacao')
             .insert([{
@@ -87,8 +111,8 @@ exports.processCredit = async (req, res) => {
         res.status(200).json({ success: true, protocolo, valor: valorNum });
 
     } catch (err) {
-        console.error("ERRO_SUPABASE:", err);
-        res.status(500).json({ error: "Erro ao processar crédito no banco" });
+        console.error("ERRO_SUPABASE processCredit:", err);
+        res.status(500).json({ error: "Erro ao processar crédito: " + err.message });
     }
 };
 

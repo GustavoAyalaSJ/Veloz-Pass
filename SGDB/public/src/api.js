@@ -67,12 +67,15 @@ async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
         });
 
         const data = await response.json();
-        if (!response.ok) return alert(data.error || "Erro ao adicionar crédito.");
+        if (!response.ok) {
+            console.error('API Error:', data);
+            return alert('Erro ao adicionar crédito: ' + (data.error || data.details || 'Erro desconhecido'));
+        }
 
-        alert(`Crédito solicitado com sucesso! Protocolo: ${data.protocolo}`);
+        alert(`Crédito adicionado com sucesso! Protocolo: ${data.protocolo}`);
         location.reload();
     } catch (err) {
-        console.error(err);
+        console.error('Fetch Error:', err);
         alert("Erro de conexão ao adicionar crédito.");
     }
 }
