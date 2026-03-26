@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saldoDisplay = document.getElementById('saldo-usuario');
     const corpoTabela = document.getElementById('corpo-tabela');
     const selectPagamento = document.getElementById('select-pagamento');
-    const btnDropdown = document.querySelector('.dropdown-btn');
+    const btnDropdown = document.querySelector('#list-button.second-button');
     const contentDropdown = document.getElementById('content-dropdown');
 
     if (btnDropdown && contentDropdown) {

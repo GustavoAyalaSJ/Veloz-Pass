@@ -16,18 +16,14 @@ exports.getWalletData = async (req, res) => {
             .single();
 
         if (erroCarteira || !carteira) {
-            const novoCarteiraData = {
-                id_usuario: idUsuario,
-                saldo_atual: 0
-            };
             const { data: newCarteira, error: createError } = await supabase
                 .from('carteira')
-                .insert([novoCarteiraData])
+                .insert([{ id_usuario: idUsuario, saldo_atual: 0 }])
                 .select()
                 .single();
 
             if (createError) {
-                console.error('Erro ao criar carteira em getWalletData:', createError);
+                console.error('Erro ao criar carteira:', createError);
                 return res.json({ saldo: 0, historico: [] });
             }
             carteira = newCarteira;
@@ -83,10 +79,13 @@ exports.processCredit = async (req, res) => {
         }
 
         const protocolo = 'VP' + Date.now();
+        // Gerando um ID manual para evitar o erro de constraint do banco
+        const idManual = Math.floor(Date.now() / 1000); 
 
         const { error: erroMove } = await supabase
             .from('movimentacao')
             .insert([{
+                id_move: idManual, // Inserindo manualmente para satisfazer a constraint
                 id_carteira: carteira.id_carteira,
                 id_bandeira: idBandeira || null,
                 n_protocolo: protocolo,
@@ -112,7 +111,7 @@ exports.processCredit = async (req, res) => {
 
     } catch (err) {
         console.error("ERRO_SUPABASE processCredit:", err);
-        res.status(500).json({ error: "Erro ao processar crédito: " + err.message });
+        res.status(500).json({ error: "Erro ao processar crédito: " + (err.message || "Erro desconhecido") });
     }
 };
 
