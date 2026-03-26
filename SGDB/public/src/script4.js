@@ -14,9 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const saldoDisplay = document.getElementById('saldo-usuario');
     const corpoTabela = document.getElementById('corpo-tabela');
     const selectPagamento = document.getElementById('select-pagamento');
+    const btnDropdown = document.querySelector('.dropdown-btn');
+    const contentDropdown = document.getElementById('content-dropdown');
+
+    if (btnDropdown && contentDropdown) {
+        btnDropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+            contentDropdown.classList.toggle('show');
+        });
+        document.addEventListener('click', () => {
+            contentDropdown.classList.remove('show');
+        });
+    }
 
     let valorParaInserir = 0;
-    const metodosComCartao = ['débito', 'crédito', 'internacional'];
+    const metodosComCartaoTexto = ['débito', 'crédito', 'internacional'];
 
     const containerCartao = document.createElement('div');
     containerCartao.id = 'container-cartao';
@@ -29,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const containerPix = document.createElement('div');
     containerPix.id = 'container-pix';
     containerPix.style.display = 'none';
-    containerPix.innerHTML = `<div>PIX QR Code Aqui</div>`;
+    containerPix.innerHTML = `<div class="pix-placeholder">PIX QR Code Disponível no App</div>`;
 
     if (selectPagamento) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
@@ -38,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             wrapper.parentNode.insertBefore(containerPix, wrapper.nextSibling);
         }
         selectPagamento.addEventListener('change', () => {
-            const metodo = selectPagamento.value;
-            containerCartao.style.display = metodosComCartao.includes(metodo) ? 'block' : 'none';
+            const metodo = selectPagamento.value.toLowerCase();
+            containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
             containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
         });
     }
@@ -70,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnInserir) btnInserir.addEventListener('click', () => modalValor.style.display = 'flex');
+    
     document.querySelectorAll('.btn-cancelar').forEach(btn => btn.addEventListener('click', () => {
         modalValor.style.display = 'none';
         modalPagamento.style.display = 'none';
@@ -79,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     if (btnProximo) btnProximo.addEventListener('click', () => {
-        if (valorParaInserir <= 0) return alert("Valor inválido.");
+        if (valorParaInserir <= 0) return alert("Selecione um valor.");
         if (valorConfirmadoTxt) valorConfirmadoTxt.innerText = `R$ ${valorParaInserir.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
         modalValor.style.display = 'none';
         modalPagamento.style.display = 'flex';
@@ -88,85 +101,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnFinalizar) {
         btnFinalizar.addEventListener('click', async () => {
             const metodoRaw = selectPagamento?.value;
-            let numCartaoInput = document.getElementById('num-cartao')?.value || "";
-            numCartaoInput = numCartaoInput.replace(/\D/g, '');
-
-            const mapaMetodos = {
-                'débito': 'DEBITO',
-                'crédito': 'CREDITO',
-                'internacional': 'INTERNACIONAL',
-                'pix': 'PIX',
-                'carteira_digital': 'CARTEIRA_DIGITAL'
-            };
-            const metodo = mapaMetodos[metodoRaw.toLowerCase()];
-            if (!metodo) return alert("Método de pagamento inválido.");
-
-            let idBandeira = null;
-            if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo)) {
-                const ultimoDigito = parseInt(numCartao.slice(-1), 10);
-                if (ultimoDigito >= 1 && ultimoDigito <= 5) {
-                    idBandeira = ultimoDigito;
-                } else {
-                    idBandeira = null;
-                }
-            }
-
-            const metodosComCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
-            if (metodosComCartao.includes(metodo)) {
-                if (numCartaoInput.length !== 16)
-                    return alert("O número do cartão deve ter 16 dígitos.");
-
-                const ultimoDigito = parseInt(numCartaoInput.slice(-1), 10);
-                if (ultimoDigito >= 1 && ultimoDigito <= 5) idBandeira = ultimoDigito;
-                else return alert("Último dígito do cartão não corresponde no sistema.");
-            }
-
-            const payload = {
-                valor: valorParaInserir,
-                metodo,
-                numCartao: metodosComCartao.includes(metodo) ? numCartaoInput : null,
-                idBandeira
-            };
-
+            const numCartaoInput = document.getElementById('num-cartao')?.value || "";
             btnFinalizar.disabled = true;
             btnFinalizar.innerText = "Processando...";
-
-            try {
-                const response = await auth.request('/api/payments/add-credit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response && response.ok) {
-                    const data = await response.json();
-                    alert(`Crédito solicitado com sucesso! Protocolo: ${data.protocolo}`);
-                    location.reload();
-                } else {
-                    const erroData = await response.json();
-                    alert(erroData.error || "Erro no servidor.");
-                    btnFinalizar.disabled = false;
-                    btnFinalizar.innerText = "Finalizar";
-                }
-            } catch (err) {
-                alert("Erro de conexão.");
-                btnFinalizar.disabled = false;
-                btnFinalizar.innerText = "Finalizar";
-            }
+            await adicionarCredito(valorParaInserir, metodoRaw, numCartaoInput);
+            btnFinalizar.disabled = false;
+            btnFinalizar.innerText = "Finalizar";
         });
     }
 
     async function carregarDadosIniciais() {
         const token = auth.getToken();
-        if (!token) return console.error("Token não encontrado.");
-
+        if (!token) return;
         try {
             const response = await fetch(`/api/payments/wallet-data/${idLogado}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) return;
             const data = await response.json();
-            if (!data) return;
             if (saldoDisplay) saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             if (!corpoTabela) return;
             corpoTabela.innerHTML = '';
@@ -175,8 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 data.historico.forEach(mov => {
                     const situacao = (mov.situacao || 'pendente').toLowerCase();
-                    const classe = situacao.includes('concl') ? 'status-verde' :
-                        (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
+                    const classe = situacao.includes('concl') ? 'status-verde' : (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
                     const linha = document.createElement('tr');
                     linha.className = classe;
                     linha.innerHTML = `

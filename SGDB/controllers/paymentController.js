@@ -24,7 +24,7 @@ exports.getWalletData = async (req, res) => {
             .select(`
              *,
              bandeira_banco (nome_bandeira)
-           `)
+            `)
             .eq('id_carteira', carteira.id_carteira)
             .order('id_move', { ascending: false })
             .limit(50);
@@ -44,22 +44,18 @@ exports.processCredit = async (req, res) => {
     const { valor: valorRaw, metodo, numCartao, idBandeira } = req.body;
     const valor = parseFloat(valorRaw);
     const idUsuario = req.userId;
-    console.log(`[PROCESS_CREDIT] User: ${idUsuario}, Body:`, { valor, metodo, numCartao: numCartao?.length || 0, idBandeira });
 
     if (isNaN(valor) || valor <= 0) {
-        console.log('[ERROR] Valor inválido:', valorRaw, '->', valor);
         return res.status(400).json({ error: "Valor inválido", received: valorRaw });
     }
 
     const tiposPermitidos = ['DEBITO', 'CREDITO', 'INTERNACIONAL', 'PIX', 'CARTEIRA_DIGITAL'];
     if (!tiposPermitidos.includes(metodo)) {
-        console.log('[ERROR] Metodo inválido:', metodo);
         return res.status(400).json({ error: "Tipo de movimentação inválido", received: metodo });
     }
 
     if (['DEBITO', 'CREDITO', 'INTERNACIONAL'].includes(metodo) && !validarCartao(numCartao)) {
-        console.log('[ERROR] Cartao inválido:', numCartao);
-        return res.status(400).json({ error: "Número de cartão inválido", received: numCartao });
+        return res.status(400).json({ error: "Número de cartão inválido para o sistema", received: numCartao });
     }
 
     try {
@@ -107,18 +103,7 @@ exports.processCredit = async (req, res) => {
 function validarCartao(numCartao) {
     if (!numCartao) return false;
     const cartaoLimpo = numCartao.replace(/\D/g, '');
-    if (cartaoLimpo.length < 13 || cartaoLimpo.length > 19) return false;
-    let soma = 0, alternar = false;
-    for (let i = cartaoLimpo.length - 1; i >= 0; i--) {
-        let n = parseInt(cartaoLimpo.charAt(i), 10);
-        if (alternar) {
-            n *= 2;
-            if (n > 9) n -= 9;
-        }
-        soma += n;
-        alternar = !alternar;
-    }
-    return soma % 10 === 0;
+    return cartaoLimpo.length >= 13 && cartaoLimpo.length <= 16;
 }
 
 module.exports = exports;

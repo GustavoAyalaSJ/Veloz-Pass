@@ -1,9 +1,6 @@
 async function obterDadosCarteira(idUsuario) {
     const token = auth.getToken();
-    if (!token) {
-        console.warn("Usuário não autenticado.");
-        return null;
-    }
+    if (!token) return null;
 
     try {
         const response = await fetch(`/api/payments/wallet-data/${idUsuario}`, {
@@ -35,21 +32,26 @@ async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
     if (!metodo) return alert("Método de pagamento inválido.");
 
     let idBandeira = null;
-    let numCartao = null;
+    let numCartaoLimpo = null;
     const metodosComCartao = ['DEBITO', 'CREDITO', 'INTERNACIONAL'];
 
     if (metodosComCartao.includes(metodo)) {
-        numCartao = numCartaoInput.replace(/\D/g, '');
-        if (numCartao.length < 13 || numCartao.length > 19) return alert("Número de cartão inválido.");
-        const ultimoDigito = parseInt(numCartao.slice(-1));
-        if (ultimoDigito >= 1 && ultimoDigito <= 5) idBandeira = ultimoDigito;
-        else return alert("Último dígito do cartão não reconhecido.");
+        numCartaoLimpo = numCartaoInput.replace(/\D/g, '');
+        if (numCartaoLimpo.length < 13 || numCartaoLimpo.length > 16) {
+            return alert("O número do cartão deve ter entre 13 e 16 dígitos.");
+        }
+        const ultimoDigito = parseInt(numCartaoLimpo.slice(-1));
+        if (ultimoDigito >= 1 && ultimoDigito <= 5) {
+            idBandeira = ultimoDigito;
+        } else {
+            return alert("Para testes, use um cartão com final entre 1 e 5.");
+        }
     }
 
     const payload = {
         valor: parseFloat(valor),
         metodo,
-        numCartao,
+        numCartao: numCartaoLimpo,
         idBandeira
     };
 
@@ -63,6 +65,7 @@ async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
         if (!response) return;
         const data = await response.json();
         if (!response.ok) return alert(data.error || "Erro ao adicionar crédito.");
+        
         alert(`Crédito solicitado com sucesso! Protocolo: ${data.protocolo}`);
         location.reload();
     } catch (err) {
