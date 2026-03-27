@@ -213,9 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
 
                 if (isPassword) {
-                    this.classList.replace('bi bi-eye-fill');
+                    this.classList.replace('bi bi-eye-slash-fill', 'bi bi-eye-fill');
                 } else {
-                    this.classList.replace('bi bi-eye-slash-fill');
+                    this.classList.replace('bi bi-eye-fill', 'bi bi-eye-slash-fill');
                 }
             });
         }
