@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const containerPix = document.createElement('div');
     containerPix.id = 'container-pix';
     containerPix.style.display = 'none';
-    containerPix.innerHTML = `<div class="pix-placeholder">PIX QR Code Disponível no App</div>`;
+    containerPix.innerHTML = `<div class="pix-placeholder">PIX QR Code Placeholder</div>`;
 
     if (selectPagamento) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
