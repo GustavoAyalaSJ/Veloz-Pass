@@ -524,6 +524,10 @@ td.table-bold {
 }
 
 /* Media Queries */
+#logoutModal {
+    display: none;
+}
+
 @media (max-width: 600px) {
     .cabeçalho {
         padding: 10px 15px;

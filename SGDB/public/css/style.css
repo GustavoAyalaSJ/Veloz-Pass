@@ -274,18 +274,16 @@ body {
     padding-right: 45px;
 }
 
-.password-input-container i {
-    position: absolute;
-    top: 70%;
-    right: 12px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #555;
-    font-size: 1.2rem;
+.toggle-password-icon{
+    position:absolute;
+    right:10px;
+    top:50%; 
+    transform:translateY(-50%); 
+    cursor:pointer;
 }
 
-.password-input-container i:hover {
-    color: #007bff;
+.toggle-password-icon:hover{
+   color: #007bff;
 }
 
 .checkbox {

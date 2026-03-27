@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label>Senha:</label>
                 <div class="password-wrapper">
                     <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" autocomplete="off" required>
-                    <i id="togglePassword" class="bi bi-eye-fill toggle-password-icon"></i>
+                    <i id="togglePassword" class="toggle-password-icon"></i>
                 </div>
             </div>
             <a href="#" id="btnEsqueceuSenha">Esqueceu a senha?</a>
@@ -111,6 +111,28 @@ document.addEventListener('DOMContentLoaded', () => {
         </form>
     `;
 
+    const esqueceuSenhaTemplate = `
+        <button id="btnCloseModal" class="close-btn">X</button>
+        <h2>Recuperar Senha</h2>
+        <form id="formEsqueceuSenha">
+            <label>E-mail cadastrado:</label>
+            <input type="email" required>
+            <button type="submit">Enviar Link</button>
+            <button type="button" id="btnBackToLogin">Voltar ao Login</button>
+        </form>
+    `;
+
+    const esqueceuEmailTemplate = `
+        <button id="btnCloseModal" class="close-btn">X</button>
+        <h2>Recuperar Conta</h2>
+        <form id="formEsqueceuEmail">
+            <label>Informe o CPF cadastrado:</label>
+            <input type="text" id="inputCPF" maxlength="11" required>
+            <button type="submit">Enviar SMS</button>
+            <button type="button" id="btnBackToLogin">Voltar ao Login</button>
+        </form>
+    `;
+
     const dddNaturalidade = {
         '47': { id: 'A', nome: 'Joinville e Região' },
         '48': { id: 'B', nome: 'Florianópolis e Região' },
@@ -139,6 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (viewName === 'suporte') {
             modalContentContainer.innerHTML = suporteTemplate;
             modalContentContainer.classList.add('scrollable');
+        } else if (viewName === 'esqueceuSenha') {
+            modalContentContainer.innerHTML = esqueceuSenhaTemplate;
+        } else if (viewName === 'esqueceuEmail') {
+            modalContentContainer.innerHTML = esqueceuEmailTemplate;
         }
         setupDynamicEvents();
     }
@@ -161,6 +187,22 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
 
+        const btnEsqueceuSenha = document.getElementById('btnEsqueceuSenha');
+        if (btnEsqueceuSenha) {
+            btnEsqueceuSenha.addEventListener('click', (e) => {
+                e.preventDefault();
+                renderView('esqueceuSenha');
+            });
+        }
+
+        const btnEsqueceuEmail = document.getElementById('btnEsqueceuEmail');
+        if (btnEsqueceuEmail) {
+            btnEsqueceuEmail.addEventListener('click', (e) => {
+                e.preventDefault();
+                renderView('esqueceuEmail');
+            });
+        }
+
         const togglePassword = document.getElementById('togglePassword');
         if (togglePassword) {
             togglePassword.addEventListener('click', function () {
@@ -169,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
                 this.classList.toggle('bi-eye-fill');
-                this.classList.toggle('bi-eye-slash');
+                this.classList.toggle('bi bi-eye-slash-fill');
             });
         }
 
@@ -281,9 +323,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (btnOpenLoginMain) btnOpenLoginMain.onclick = () => { renderView('login'); modalRoot.classList.remove('hidden'); };
-    if (btnOpenTermosHeader) btnOpenTermosHeader.onclick = () => { renderView('termos'); modalRoot.classList.remove('hidden'); };
-    if (btnOpenSuporteHeader) btnOpenSuporteHeader.onclick = () => { renderView('suporte'); modalRoot.classList.remove('hidden'); };
+    if (btnOpenLoginMain) btnOpenLoginMain.onclick = () => {
+         renderView('login'); modalRoot.classList.remove('hidden'); 
+    };
+    if (btnOpenTermosHeader) btnOpenTermosHeader.onclick = () => {
+         renderView('termos'); modalRoot.classList.remove('hidden'); 
+    };
+    if (btnOpenSuporteHeader) btnOpenSuporteHeader.onclick = () => {
+         renderView('suporte'); modalRoot.classList.remove('hidden'); 
+    };
 
     if (typeof auth !== 'undefined') {
         const userData = auth.getUserData();

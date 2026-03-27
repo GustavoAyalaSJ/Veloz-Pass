@@ -21,7 +21,7 @@ ASDIJOF12     DÉBITO         ELO      40,00
 index5.html:
 - Criar uma tabela chamada "UniqueCard" onde apenas um pessoa por ID pode ter um cartão;
 - Em caso de cartão vinculado em uma conta errada, o suporte pode ser chamado;
-- Criar o campos para colocar os dados e criar um modal para concluir a recarga.
+- Criar um campo para colocar os dados e criar um modal para concluir a recarga.
 
 index6.html:
 - Arrumar o design e implementar o HTML, CSS e JavaScript da página.

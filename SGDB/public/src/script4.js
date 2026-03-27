@@ -20,19 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutModal = document.getElementById("logoutModal");
 
     if (btnDropdown && contentDropdown) {
-        console.log('Dropdown elements found, adding listeners');
         btnDropdown.addEventListener('click', (e) => {
             e.stopPropagation();
             contentDropdown.classList.toggle('show');
-            console.log('Dropdown toggled, show:', contentDropdown.classList.contains('show'));
         });
         document.addEventListener('click', () => {
             if (contentDropdown.classList.contains('show')) {
                 contentDropdown.classList.remove('show');
             }
         });
-    } else {
-        console.error('Dropdown elements not found:', { btnDropdown, contentDropdown });
     }
 
     if (exitLink) {
