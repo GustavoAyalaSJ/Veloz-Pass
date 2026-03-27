@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label>Senha:</label>
                 <div class="password-wrapper">
                     <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" autocomplete="off" required>
-                    <i id="togglePassword" class="toggle-password-icon"></i>
+                    <i id="togglePassword" class="bi bi-eye-slash toggle-password-icon"></i>
                 </div>
             </div>
             <a href="#" id="btnEsqueceuSenha">Esqueceu a senha?</a>
@@ -208,13 +208,17 @@ document.addEventListener('DOMContentLoaded', () => {
             togglePassword.addEventListener('click', function () {
                 const passwordInput = document.getElementById('password');
                 if (!passwordInput) return;
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                this.classList.toggle('bi-eye-fill');
-                this.classList.toggle('bi bi-eye-slash-fill');
+
+                const isPassword = passwordInput.getAttribute('type') === 'password';
+                passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+                if (isPassword) {
+                    this.classList.replace('bi bi-eye-fill');
+                } else {
+                    this.classList.replace('bi bi-eye-slash-fill');
+                }
             });
         }
-
         const inputCPF = document.getElementById('inputCPF');
         if (inputCPF) {
             inputCPF.addEventListener('input', (e) => {
@@ -264,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         id: data.id,
                         nome: data.nome,
                         cod_identificador:
-                        data.cod_identificador
+                            data.cod_identificador
                     });
                     preencherDashboard({
                         nome: data.nome,
@@ -324,13 +328,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnOpenLoginMain) btnOpenLoginMain.onclick = () => {
-         renderView('login'); modalRoot.classList.remove('hidden'); 
+        renderView('login'); modalRoot.classList.remove('hidden');
     };
     if (btnOpenTermosHeader) btnOpenTermosHeader.onclick = () => {
-         renderView('termos'); modalRoot.classList.remove('hidden'); 
+        renderView('termos'); modalRoot.classList.remove('hidden');
     };
     if (btnOpenSuporteHeader) btnOpenSuporteHeader.onclick = () => {
-         renderView('suporte'); modalRoot.classList.remove('hidden'); 
+        renderView('suporte'); modalRoot.classList.remove('hidden');
     };
 
     if (typeof auth !== 'undefined') {
