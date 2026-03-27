@@ -274,16 +274,12 @@ body {
     padding-right: 45px;
 }
 
-.toggle-password-icon{
-    position:absolute;
-    right:10px;
-    top:50%; 
-    transform:translateY(-50%); 
-    cursor:pointer;
-}
-
-.toggle-password-icon:hover{
-   color: #007bff;
+.toggle-password-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .checkbox {

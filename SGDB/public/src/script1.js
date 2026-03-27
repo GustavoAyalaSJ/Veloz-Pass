@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label>Senha:</label>
                 <div class="password-wrapper">
                     <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" autocomplete="off" required>
-                    <i id="togglePassword" class="bi bi-eye-slash toggle-password-icon"></i>
+                    <i id="togglePassword" class="toggle-password-icon"></i>
                 </div>
             </div>
             <a href="#" id="btnEsqueceuSenha">Esqueceu a senha?</a>
@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (spanCodUnique) spanCodUnique.textContent = userData.cod_identificador || '---';
     }
 
+
     function renderView(viewName) {
         modalContentContainer.classList.remove('scrollable');
         if (viewName === 'login') modalContentContainer.innerHTML = loginTemplate;
@@ -203,22 +204,33 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        const btnBackToLogin = document.getElementById('btnBackToLogin');
+        if (btnBackToLogin) {
+            btnBackToLogin.onclick = (e) => {
+                e.preventDefault();
+                renderView('login');
+            };
+        }
+
         const togglePassword = document.getElementById('togglePassword');
         if (togglePassword) {
-            togglePassword.addEventListener('click', function () {
+            togglePassword.classList.add('bi', 'bi-eye-slash-fill');
+
+            togglePassword.onclick = function () {
                 const passwordInput = document.getElementById('password');
                 if (!passwordInput) return;
 
-                const isPassword = passwordInput.getAttribute('type') === 'password';
-                passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
 
                 if (isPassword) {
-                    this.classList.replace('bi bi-eye-slash-fill', 'bi bi-eye-fill');
+                    this.classList.replace('bi-eye-slash-fill', 'bi-eye-fill');
                 } else {
-                    this.classList.replace('bi bi-eye-fill', 'bi bi-eye-slash-fill');
+                    this.classList.replace('bi-eye-fill', 'bi-eye-slash-fill');
                 }
-            });
+            };
         }
+
         const inputCPF = document.getElementById('inputCPF');
         if (inputCPF) {
             inputCPF.addEventListener('input', (e) => {
