@@ -555,11 +555,21 @@ td.table-bold {
     font-weight: bold;
 }
 
-/* Media Queries */
 #logoutModal {
     display: none;
 }
 
+#valor-personalizado::-webkit-outer-spin-button,
+#valor-personalizado::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#valor-personalizado {
+  -moz-appearance: textfield;
+}
+
+/* Media Queries */
 @media (max-width: 600px) {
     .cabeçalho {
         padding: 10px 15px;
