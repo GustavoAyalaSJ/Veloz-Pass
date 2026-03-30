@@ -72,8 +72,7 @@ body {
     background-color: #f1f1f1;
 }
 
-.first-button,
-.second-button {
+.icon-button {
     background: none;
     border: none;
     color: white;
@@ -95,6 +94,12 @@ body {
     background-color: #1f2a36;
     color: #ffffff;
     border-bottom: 4px solid #2f3e53;
+}
+
+.dark-mode .icon-button:hover{
+    color: rgb(167, 199, 255);
+    transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 .dark-mode .card-valor {

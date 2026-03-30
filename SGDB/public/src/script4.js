@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saldoDisplay = document.getElementById('saldo-usuario');
     const corpoTabela = document.getElementById('corpo-tabela');
     const selectPagamento = document.getElementById('select-pagamento');
-    const btnDropdown = document.querySelector('#list-button.second-button');
+    const btnDropdown = document.querySelector('#list-button.icon-button');
     const contentDropdown = document.getElementById('content-dropdown');
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
@@ -93,10 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     optValores.forEach(opt => {
         opt.addEventListener('click', () => {
-            optValores.forEach(o => o.classList.remove('ativo'));
-            opt.classList.add('ativo');
-            if (inputPersonalizado) inputPersonalizado.value = '';
-            valorParaInserir = parseFloat(opt.dataset.valor);
+            if (opt.classList.contains('ativo')) {
+                opt.classList.remove('ativo');
+                valorParaInserir = 0;
+            } else {
+                optValores.forEach(o => o.classList.remove('ativo'));
+                opt.classList.add('ativo');
+
+                if (inputPersonalizado) inputPersonalizado.value = '';
+
+                valorParaInserir = parseFloat(opt.dataset.valor);
+            }
         });
     });
 
@@ -130,8 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
         valorParaInserir = 0;
     }));
 
-
-
     if (btnProximo) {
         btnProximo.addEventListener('click', () => {
             if (valorParaInserir <= 0) {
@@ -151,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalPagamento.style.display = 'flex';
         });
     }
-    
+
     if (selectPagamento) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
 
