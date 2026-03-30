@@ -130,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
         valorParaInserir = 0;
     }));
 
+
+
     if (btnProximo) {
         btnProximo.addEventListener('click', () => {
             if (valorParaInserir <= 0) {
@@ -148,6 +150,27 @@ document.addEventListener('DOMContentLoaded', () => {
             modalValor.style.display = 'none';
             modalPagamento.style.display = 'flex';
         });
+    }
+    
+    if (selectPagamento) {
+        const wrapper = selectPagamento.closest('.select-wrapper-modal');
+
+        if (wrapper) {
+            selectPagamento.addEventListener('focus', () => {
+                wrapper.classList.add('active');
+            });
+
+            selectPagamento.addEventListener('blur', () => {
+                wrapper.classList.remove('active');
+            });
+
+            selectPagamento.addEventListener('change', () => {
+                wrapper.classList.remove('active');
+                const metodo = selectPagamento.value.toLowerCase();
+                containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
+                containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
+            });
+        }
     }
 
     if (btnFinalizar) {

@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
 
 exports.cadastro = async (req, res) => {
     const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, cod_identificador, id_naturalidade } = req.body;
-    
+
     if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
         return res.status(400).json({ message: "Preencha todos os campos" });
     }
@@ -69,7 +69,9 @@ exports.cadastro = async (req, res) => {
         if (userError) {
             console.error("ERRO DETALHADO DO SUPABASE:", userError);
             if (userError.code === '23505') {
-                return res.status(400).json({ message: "Email ou CPF já cadastrado" });
+                return res.status(409).json({
+                    message: "O CPF ou Telefone já está registrado em nosso sistema. Contate o suporte caso suspeite de uso indevido de suas credenciais."
+                });
             }
             throw userError;
         }
@@ -85,7 +87,7 @@ exports.cadastro = async (req, res) => {
                 }]);
             if (walletError) throw walletError;
         }
-        
+
         const token = jwt.sign(
             { id: novoUsuario.id_usuario, email, nome: nome_usuario },
             process.env.JWT_SECRET,
