@@ -1,7 +1,6 @@
 O que precisa ser arrumado no projeto:
 
 index.html:
-- Evitar os usuários utilizarem o mesmo CPF e telefone para criar duas contas;
 - Dar funcionalidade ao checkbox (sem ser apenas algo que o usuário irá marcar);
 - Criar uma tabela para suporte (onde pega a exata data e qual usuário pediu o suporte), arrumar o modal de suporte e tornar ele funcional.
 
