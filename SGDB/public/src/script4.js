@@ -101,10 +101,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (inputPersonalizado) {
-        inputPersonalizado.addEventListener('input', () => {
+        inputPersonalizado.addEventListener('input', (e) => {
             optValores.forEach(o => o.classList.remove('ativo'));
-            valorParaInserir = parseFloat(inputPersonalizado.value) || 0;
+
+            const valorFormatado = formatarMoeda(e.target.value);
+            e.target.value = valorFormatado;
+            valorParaInserir = parseFloat(valorFormatado.replace("R$ ", "").replace(/\./g, "").replace(",", ".")) || 0;
         });
+    }
+
+    function formatarMoeda(valor) {
+        let v = valor.replace(/\D/g, "");
+
+        v = (v / 100).toFixed(2).replace(".", ",");
+
+        v = v.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+        return "R$ " + v;
     }
 
     if (btnInserir) btnInserir.addEventListener('click', () => modalValor.style.display = 'flex');
@@ -117,12 +130,25 @@ document.addEventListener('DOMContentLoaded', () => {
         valorParaInserir = 0;
     }));
 
-    if (btnProximo) btnProximo.addEventListener('click', () => {
-        if (valorParaInserir <= 0) return alert("Selecione um valor.");
-        if (valorConfirmadoTxt) valorConfirmadoTxt.innerText = `R$ ${valorParaInserir.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-        modalValor.style.display = 'none';
-        modalPagamento.style.display = 'flex';
-    });
+    if (btnProximo) {
+        btnProximo.addEventListener('click', () => {
+            if (valorParaInserir <= 0) {
+                return alert("Selecione ou digite um valor.");
+            }
+
+            if (valorParaInserir < 5.00) {
+                alert("Valor mínimo requisitado: 5,00.");
+                return;
+            }
+
+            if (valorConfirmadoTxt) {
+                valorConfirmadoTxt.innerText = `R$ ${valorParaInserir.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            }
+
+            modalValor.style.display = 'none';
+            modalPagamento.style.display = 'flex';
+        });
+    }
 
     if (btnFinalizar) {
         btnFinalizar.addEventListener('click', async () => {

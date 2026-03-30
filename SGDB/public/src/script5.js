@@ -1,47 +1,69 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    /* Comentário em breve. */
-
     const userData = auth.getUserData();
     const idLogado = userData?.id;
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
     const selectElement = document.getElementById('select-pagamento');
     const inputValor = document.querySelector('.top-group.valor input');
+    const btnProsseguir = document.querySelector('.btn-prosseguir');
     const wrapper = selectElement ? selectElement.parentElement : null;
+
+    let saldoAtualCarteira = 0;
 
     if (!idLogado) {
         window.location.href = "/introduction";
         return;
     }
 
-    if (selectElement && wrapper) {
-        selectElement.addEventListener('click', () => {
-            wrapper.classList.toggle('active');
-        });
+    function formatarMoeda(valor) {
+        let v = valor.replace(/\D/g, "");
+        if (v === "") return "";
+        
+        v = (v / 100).toFixed(2).replace(".", ",");
+        v = v.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        return "R$ " + v;
+    }
 
-        selectElement.addEventListener('blur', () => {
-            setTimeout(() => wrapper.classList.remove('active'), 200);
-        });
+    function validarSaldo() {
+        const valorDigitado = parseFloat(inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".")) || 0;
+        const options = selectElement.options;
+        let indexCarteira = -1;
 
-        selectElement.addEventListener('change', () => {
-            wrapper.classList.remove('active');
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].text.includes('Carteira Digital')) {
+                indexCarteira = i;
+                break;
+            }
+        }
+
+        if (indexCarteira !== -1) {
+            if (valorDigitado > saldoAtualCarteira) {
+                options[indexCarteira].disabled = true;
+                if (selectElement.selectedIndex === indexCarteira) {
+                    selectElement.selectedIndex = 0;
+                }
+            } else {
+                options[indexCarteira].disabled = false;
+            }
+        }
+    }
+
+    if (inputValor) {
+        inputValor.addEventListener('input', (e) => {
+            e.target.value = formatarMoeda(e.target.value);
+            validarSaldo();
         });
     }
 
     async function carregarSaldoCarteira() {
         try {
             const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
-            if (!response || !response.ok) {
-                console.error("Erro ao buscar saldo");
-                return;
-            }
+            if (!response || !response.ok) return;
             
             const data = await response.json();
-
             if (data && data.saldo !== undefined) {
-                const saldoNumerico = parseFloat(data.saldo) || 0;
-                const saldoFormatado = saldoNumerico.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+                saldoAtualCarteira = parseFloat(data.saldo) || 0;
+                const saldoFormatado = saldoAtualCarteira.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
 
                 const options = selectElement.options;
                 for (let i = 0; i < options.length; i++) {
@@ -50,47 +72,47 @@ document.addEventListener('DOMContentLoaded', () => {
                         break;
                     }
                 }
+                validarSaldo();
             }
         } catch (err) {
             console.error("Erro ao buscar saldo:", err);
         }
     }
 
-    if (inputValor) {
-        inputValor.addEventListener('input', (e) => {
-            let v = e.target.value.replace(/\D/g, '');
-            if (v === "") {
-                e.target.value = "";
+    if (btnProsseguir) {
+        btnProsseguir.addEventListener('click', () => {
+            const valorDigitado = parseFloat(inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".")) || 0;
+            
+            if (valorDigitado < 5.00) {
+                alert("Valor mínimo de recarga: R$ 5,00.");
                 return;
             }
-            v = (v / 100).toFixed(2).replace(".", ",");
-            v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-            v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
-            e.target.value = "R$ " + v;
+
+            if (selectElement.selectedIndex === 0) {
+                alert("Selecione uma forma de pagamento.");
+                return;
+            }
         });
     }
 
+    if (selectElement && wrapper) {
+        selectElement.addEventListener('click', () => wrapper.classList.toggle('active'));
+        selectElement.addEventListener('blur', () => setTimeout(() => wrapper.classList.remove('active'), 200));
+        selectElement.addEventListener('change', () => {
+            wrapper.classList.remove('active');
+            validarSaldo();
+        });
+    }
+
+    const setupLogout = () => {
+        if (exitLink) exitLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            logoutModal.style.display = "flex";
+        });
+        document.getElementById('btn-sim-logout')?.addEventListener('click', () => auth.clear());
+        document.getElementById('btn-nao-logout')?.addEventListener('click', () => logoutModal.style.display = "none");
+    };
+
+    setupLogout();
     carregarSaldoCarteira();
-
-    if (exitLink) {
-        exitLink.addEventListener('click', (event) => {
-            event.preventDefault();
-            if (logoutModal) logoutModal.style.display = "flex";
-        });
-    }
-
-    const btnSimLogout = document.getElementById('btn-sim-logout');
-    const btnNaoLogout = document.getElementById('btn-nao-logout');
-
-    if (btnSimLogout) {
-        btnSimLogout.addEventListener('click', () => {
-            auth.clear();
-        });
-    }
-
-    if (btnNaoLogout) {
-        btnNaoLogout.addEventListener('click', () => {
-            if (logoutModal) logoutModal.style.display = "none";
-        });
-    }
 });
