@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function formatarMoeda(valor) {
         let v = valor.replace(/\D/g, "");
         if (v === "") return "";
-        
+
         v = (v / 100).toFixed(2).replace(".", ",");
         v = v.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         return "R$ " + v;
@@ -26,28 +26,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function validarSaldo() {
         const valorDigitado = parseFloat(inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".")) || 0;
-        const options = selectElement.options;
-        let indexCarteira = -1;
 
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].text.includes('Carteira Digital')) {
-                indexCarteira = i;
-                break;
-            }
-        }
+        const options = Array.from(selectElement.options);
+        const opcaoCarteira = options.find(opt => opt.text.includes('Carteira Digital'));
 
-        if (indexCarteira !== -1) {
+        if (opcaoCarteira) {
             if (valorDigitado > saldoAtualCarteira) {
-                options[indexCarteira].disabled = true;
-                if (selectElement.selectedIndex === indexCarteira) {
+                opcaoCarteira.disabled = true;
+
+                if (selectElement.value === opcaoCarteira.value) {
                     selectElement.selectedIndex = 0;
+                    selectElement.style.borderColor = "red";
+                    setTimeout(() => selectElement.style.borderColor = "", 1500);
                 }
             } else {
-                options[indexCarteira].disabled = false;
+                opcaoCarteira.disabled = false;
             }
         }
     }
-
+    
     if (inputValor) {
         inputValor.addEventListener('input', (e) => {
             e.target.value = formatarMoeda(e.target.value);
@@ -59,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
             if (!response || !response.ok) return;
-            
+
             const data = await response.json();
             if (data && data.saldo !== undefined) {
                 saldoAtualCarteira = parseFloat(data.saldo) || 0;
@@ -82,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnProsseguir) {
         btnProsseguir.addEventListener('click', () => {
             const valorDigitado = parseFloat(inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".")) || 0;
-            
+
             if (valorDigitado < 5.00) {
                 alert("Valor mínimo de recarga: R$ 5,00.");
                 return;
