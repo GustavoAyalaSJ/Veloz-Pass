@@ -143,6 +143,32 @@ body {
     border: 3px solid #6782ad;
 }
 
+.dark-mode .card-inputs-row input,
+.dark-mode .confirm-card input {
+    background-color: #2f3e53 !important;
+    border-color: #4a5a6e !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .card-inputs-row label {
+    color: #ccd6e0;
+}
+
+.dark-mode .pix-copy-wrapper {
+    background-color: #2f3e53;
+    border-color: #4a5a6e;
+}
+
+.dark-mode #pix-input {
+    color: #8ab4f8;
+    background: transparent !important;
+}
+
+.dark-mode .qr-placeholder {
+    background-color: #1a1f26;
+    border-color: #4a5a6e;
+    color: #707b89;
+}
 
 .dark-mode .passo.passo-1 {
     color: rgb(96, 188, 230)
@@ -387,13 +413,6 @@ body {
     padding: 20px;
 }
 
-.empty-msg {
-    color: #666;
-    font-style: italic;
-    text-align: center;
-    margin-top: 50px;
-}
-
 .card-inputs-row {
     display: flex;
     flex-direction: column;
@@ -432,16 +451,17 @@ body {
     gap: 20px;
 }
 
-.pix-copy-wrapper {
+.qr-placeholder {
+    width: 180px;
+    height: 180px;
+    background: #d0d0d0;
+    border: 2px dashed #999;
     display: flex;
     align-items: center;
-    width: 100%;
-    max-width: 500px;
-    background: #e0e0e0;
-    border: 2px solid #666;
-    border-radius: 25px;
-    padding: 5px 5px 5px 15px;
-    overflow: hidden;
+    justify-content: center;
+    font-weight: bold;
+    color: #555;
+    border-radius: 10px;
 }
 
 #pix-input {
@@ -454,17 +474,24 @@ body {
     color: #333;
 }
 
+.pix-copy-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    background: #e0e0e0;
+    border: 2px solid #666;
+    border-radius: 25px;
+    padding: 5px 5px 5px 15px;
+    overflow: hidden;
+}
+
 .btn-copy {
     background: #7296be;
     color: white;
     border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+    padding: 0 15px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: background 0.3s;
 }
 
@@ -472,8 +499,10 @@ body {
     background: #5d7ca0;
 }
 
-.btn-prosseguir {
-    transition: opacity 0.3s ease;
+.btn-prosseguir:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 input[type="text"],

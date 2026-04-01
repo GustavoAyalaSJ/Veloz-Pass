@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inputsTransporte.forEach(input => {
         aplicarMascara(input, "00.00.00000000-0");
     });
-    
+
     const containerPagamento = document.querySelector('.payment-information');
 
     selectElement.addEventListener('change', () => {
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="qr-placeholder">QR PLACEHOLDER</div>
                 <div class="pix-copy-wrapper">
                     <input type="text" value="Placeholder_cod_PIX" id="pix-input" readonly>
-                    <button class="btn-copy" onclick="copiarPix()">
+                    <button class="btn-copy">
                         <i class="bi bi-copy"></i>
                     </button>
                 </div>
