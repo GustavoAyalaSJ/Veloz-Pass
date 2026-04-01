@@ -611,6 +611,31 @@ select {
         display: flex;
         justify-content: center;
     }
+
+    .payment-information {
+        min-height: 300px;
+    }
+
+    .pix-container {
+        gap: 20px;
+    }
+
+    .qr-placeholder {
+        width: 160px;
+        height: 160px;
+    }
+
+    .pix-copy-wrapper {
+        max-width: 90%;
+    }
+
+    .card-inputs-row {
+        gap: 15px;
+    }
+
+    .input-group-half {
+        gap: 10px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -654,6 +679,7 @@ select {
 
     .payment-information {
         min-height: auto;
+        padding: 15px;
     }
 
     .confirm-card {
@@ -662,5 +688,109 @@ select {
 
     .passo h3 {
         text-align: center;
+    }
+
+    .pix-container {
+        padding: 15px 0;
+        gap: 15px;
+    }
+
+    .qr-placeholder {
+        width: 150px;
+        height: 150px;
+        font-size: 0.8rem;
+    }
+
+    .pix-copy-wrapper {
+        max-width: 100%;
+        height: 45px;
+        padding: 0 0 0 15px;
+    }
+
+    #pix-input {
+        font-size: 0.85rem;
+    }
+
+    .btn-copy {
+        padding: 0 15px;
+    }
+
+    .card-inputs-row {
+        gap: 12px;
+    }
+
+    .card-inputs-row label {
+        font-size: 0.75rem;
+    }
+
+    .card-inputs-row input {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .input-group-half {
+        gap: 8px;
+    }
+
+    .input-group-full {
+        gap: 6px;
+    }
+
+    .input-group-full label {
+        font-size: 0.75rem;
+    }
+
+    .input-group-full input {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-recarga {
+        padding: 15px;
+        grid-template-columns: 1fr;
+    }
+
+    .passo h3 {
+        font-size: 1rem;
+    }
+
+    .payment-information {
+        min-height: 250px;
+        padding: 12px;
+    }
+
+    .qr-placeholder {
+        width: 120px;
+        height: 120px;
+        font-size: 0.7rem;
+    }
+
+    .pix-copy-wrapper {
+        height: 40px;
+        padding: 0 0 0 12px;
+    }
+
+    #pix-input {
+        font-size: 0.75rem;
+    }
+
+    .btn-copy {
+        padding: 0 12px;
+        font-size: 0.9rem;
+    }
+
+    .card-inputs-row input {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+
+    .input-group-half {
+        gap: 6px;
+    }
+
+    .btn-prosseguir {
+        padding: 12px 30px;
+        font-size: 1rem;
     }
 }
