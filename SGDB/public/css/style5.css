@@ -566,6 +566,33 @@ select {
 }
 
 /* Media Queries */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .top-recarga {
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .top-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .select-wrapper, 
+    #select-pagamento,
+    .top-group.valor input {
+        width: 100%;
+        box-sizing: border-box;
+        height: 45px;
+    }
+
+    .top-group.valor {
+        padding-right: 0;
+    }
+}
+
 @media (max-width: 768px) {
     .titulo-pagina-externo {
         height: 20px;
