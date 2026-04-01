@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inputsTransporte.forEach(input => {
         aplicarMascara(input, "00.00.00000000-0");
     });
-
+    
     const containerPagamento = document.querySelector('.payment-information');
 
     selectElement.addEventListener('change', () => {
@@ -114,42 +114,45 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderizarPasso2() {
         const metodo = selectElement.value.toLowerCase();
         containerPagamento.innerHTML = '';
-        btnProsseguir.disabled = (metodo === 'pix');
 
-        if (metodo.includes('cartão')) {
-            containerPagamento.innerHTML = `
-            <div class="card-inputs-row">
-                <div class="input-group-full">
-                    <label>Número do Cartão</label>
-                    <input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19">
-                </div>
-                <div class="input-group-half">
-                    <div>
-                        <label>Validade</label>
-                        <input type="text" id="card-valid" placeholder="MM/YY" maxlength="5">
-                    </div>
-                    <div>
-                        <label>CVV</label>
-                        <input type="text" id="card-cvv" placeholder="000" maxlength="3">
-                    </div>
-                </div>
-            </div>
-        `;
+        if (metodo === 'pix') {
+            if (btnProsseguir) btnProsseguir.style.display = 'none';
 
-            aplicarMascara(document.getElementById('card-num'), "0000 0000 0000 0000");
-            aplicarMascara(document.getElementById('card-valid'), "00/00");
-            aplicarMascara(document.getElementById('card-cvv'), "000");
-
-        } else if (metodo === 'pix') {
             containerPagamento.innerHTML = `
             <div class="pix-container">
                 <div class="qr-placeholder">QR PLACEHOLDER</div>
-                <div class="pix-copy-field">
+                <div class="pix-copy-wrapper">
                     <input type="text" value="Placeholder_cod_PIX" id="pix-input" readonly>
-                    <button class="btn-copy" onclick="copiarPix()"><i class="bi bi-copy"></i></button>
+                    <button class="btn-copy" onclick="copiarPix()">
+                        <i class="bi bi-copy"></i>
+                    </button>
                 </div>
             </div>
         `;
+        } else {
+            if (btnProsseguir) btnProsseguir.style.display = 'block';
+            btnProsseguir.disabled = false;
+
+            if (metodo.includes('cartão')) {
+                containerPagamento.innerHTML = `
+                <div class="card-inputs-row">
+                    <div class="input-group-full">
+                        <label>Número do Cartão</label>
+                        <input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19">
+                    </div>
+                    <div class="input-group-half">
+                        <div>
+                            <label>Validade</label>
+                            <input type="text" id="card-valid" placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div>
+                            <label>CVV</label>
+                            <input type="text" id="card-cvv" placeholder="000" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
         }
     }
 
