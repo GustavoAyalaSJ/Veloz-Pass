@@ -444,6 +444,27 @@ body {
     flex: 1;
 }
 
+.input-group-full {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group-full label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.input-group-full input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background: #e0e0e0;
+    font-size: 1rem;
+}
+
 .pix-container {
     display: flex;
     flex-direction: column;
@@ -485,8 +506,8 @@ body {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
     color: #333;
-    display: flex;
-    align-items: center;
+    padding: 0 10px;
+    line-height: 50px;
 }
 
 .btn-copy {
