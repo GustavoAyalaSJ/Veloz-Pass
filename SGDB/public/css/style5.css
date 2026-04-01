@@ -387,6 +387,101 @@ body {
     padding: 20px;
 }
 
+.empty-msg {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.card-inputs-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card-inputs-row label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.card-inputs-row input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background: #e0e0e0;
+}
+
+.input-group-half {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group-half > div {
+    flex: 1;
+}
+
+.pix-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.qr-placeholder {
+    width: 180px;
+    height: 180px;
+    background: #d0d0d0;
+    border: 2px dashed #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #555;
+    border-radius: 10px;
+}
+
+.pix-copy-field {
+    display: flex;
+    width: 100%;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+
+.pix-copy-field input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px;
+    font-family: monospace;
+    color: #444;
+}
+
+.btn-copy {
+    background: #7296be;
+    color: white;
+    border: none;
+    padding: 0 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-copy:hover {
+    background: #5d7ca0;
+}
+
+.btn-prosseguir:disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
 input[type="text"],
 select {
     width: 100%;
