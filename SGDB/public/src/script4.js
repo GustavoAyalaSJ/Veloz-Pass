@@ -54,7 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let valorParaInserir = 0;
+    let idBandeiraSelecionada = null;
     const metodosComCartaoTexto = ['débito', 'crédito', 'internacional'];
+
+    // Mapeamento de métodos de pagamento para ID de bandeira
+    const mapaBandeiras = {
+        'débito': 1,      // VISA Débito
+        'crédito': 1,     // VISA Crédito (usando mesmo ID como padrão)
+        'internacional': 2, // Mastercard
+        'pix': null       // PIX não tem bandeira
+    };
 
     const containerCartao = document.createElement('div');
     containerCartao.id = 'container-cartao';
@@ -79,6 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const metodo = selectPagamento.value.toLowerCase();
             containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
             containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
+            
+            // Atualizar ID de bandeira baseado no método selecionado
+            idBandeiraSelecionada = mapaBandeiras[metodo] || null;
         });
     }
 
@@ -189,9 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({
                     valor: valor,
-                    metodo: metodo,
+                    metodo: metodo.toUpperCase(),
                     numCartao: numCartao,
-                    idBandeira: idBandeira,
+                    idBandeira: idBandeiraSelecionada,
                     origem: "Carteira Digital"
                 })
             });
