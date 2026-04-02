@@ -79,20 +79,20 @@ exports.processCredit = async (req, res) => {
         }
 
         const protocolo = 'VP' + Date.now();
-        // Gerando um ID manual para evitar o erro de constraint do banco
         const idManual = Math.floor(Date.now() / 1000); 
 
         const { error: erroMove } = await supabase
             .from('movimentacao')
             .insert([{
-                id_move: idManual, // Inserindo manualmente para satisfazer a constraint
+                id_move: idManual,
                 id_carteira: carteira.id_carteira,
                 id_bandeira: idBandeira || null,
                 n_protocolo: protocolo,
                 tipo: metodo,
                 valor: valorNum,
                 situacao: 'CONCLUIDO',
-                realizado_no: new Date().toISOString()
+                realizado_no: origem || "Recarga",
+                data_realizada: new Date().toISOString()
             }]);
 
         if (erroMove) throw erroMove;

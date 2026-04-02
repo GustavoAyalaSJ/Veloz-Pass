@@ -178,6 +178,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function adicionarCredito(valor, metodo, numCartao) {
+        const token = auth.getToken();
+        try {
+            const response = await fetch(`${window.location.origin}/api/payments/process-credit`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    valor: valor,
+                    metodo: metodo,
+                    numCartao: numCartao,
+                    idBandeira: idBandeira,
+                    origem: "Carteira Digital"
+                })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("Crédito adicionado com sucesso!");
+                modalPagamento.style.display = 'none';
+                valorParaInserir = 0;
+                if (inputPersonalizado) inputPersonalizado.value = '';
+                optValores.forEach(o => o.classList.remove('ativo'));
+            } else {
+                alert("Erro: " + (result.error || "Falha ao processar"));
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            alert("Erro de conexão com o servidor.");
+        }
+    }
+
     if (btnFinalizar) {
         btnFinalizar.addEventListener('click', async () => {
             const metodoRaw = selectPagamento?.value;
@@ -186,12 +221,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             const numCartaoInput = document.getElementById('num-cartao')?.value || "";
+
             btnFinalizar.disabled = true;
             btnFinalizar.innerText = "Processando...";
-            console.log('Calling adicionarCredito with:', { valorParaInserir, metodoRaw, numCartaoInput });
+
             await adicionarCredito(valorParaInserir, metodoRaw, numCartaoInput);
+
             btnFinalizar.disabled = false;
             btnFinalizar.innerText = "Finalizar";
+
             await carregarDadosIniciais();
         });
     }
