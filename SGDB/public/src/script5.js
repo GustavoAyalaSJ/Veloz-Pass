@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (selectElement.value === opcaoCarteira.value) {
                     selectElement.selectedIndex = 0;
-                    selectElement.style.borderColor = "red";
-                    setTimeout(() => selectElement.style.borderColor = "", 1500);
+                    selectElement.classList.add('saldo-insuficiente');
+                    setTimeout(() => selectElement.classList.remove('saldo-insuficiente'), 1500);
                 }
             } else {
                 opcaoCarteira.disabled = false;
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         containerPagamento.innerHTML = '';
 
         if (metodo === 'pix') {
-            if (btnProsseguir) btnProsseguir.style.display = 'none';
+            if (btnProsseguir) btnProsseguir.classList.add('hidden-button');
 
             containerPagamento.innerHTML = `
             <div class="pix-container">
@@ -130,8 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         } else {
-            if (btnProsseguir) btnProsseguir.style.display = 'block';
-            btnProsseguir.disabled = false;
+            if (btnProsseguir) {
+                btnProsseguir.classList.remove('hidden-button');
+                btnProsseguir.disabled = false;
+            }
 
             if (metodo.includes('cartão')) {
                 containerPagamento.innerHTML = `
@@ -156,19 +158,90 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function abrirModalFinalizacao() {
+        const metodoTexto = selectElement.options[selectElement.selectedIndex].text;
+        const valorInserido = inputValor.value;
+        const numCartaoTransporte = document.querySelectorAll('.confirm-card input')[0].value;
+
+        let modalOverlay = document.getElementById('modalRecarga');
+        if (!modalOverlay) {
+            modalOverlay = document.createElement('div');
+            modalOverlay.id = 'modalRecarga';
+            document.body.appendChild(modalOverlay);
+        }
+
+        modalOverlay.innerHTML = `
+        <div class="modal-content">
+            <h2>Visão Geral</h2>
+            <div class="modal-separator"></div>
+            
+            <div class="modal-details">
+                <p><strong>Pagamento:</strong> <span class="modal-details-value">${metodoTexto}</span></p>
+                <p><strong>Valor:</strong> <span class="modal-details-value">${valorInserido}</span></p>
+                <p><strong>Cartão:</strong> <span class="modal-details-value">${numCartaoTransporte}</span></p>
+            </div>
+
+            <div class="modal-buttons-wrapper">
+                <button id="btn-finalizar-fake" class="btn-prosseguir">Concluir</button>
+                <button id="btn-cancelar-modal">Cancelar</button>
+            </div>
+        </div>
+    `;
+
+        modalOverlay.style.display = 'flex';
+
+        document.getElementById('btn-cancelar-modal').addEventListener('click', () => {
+            modalOverlay.style.display = 'none';
+        });
+
+        document.getElementById('btn-finalizar-fake').addEventListener('click', () => {
+            alert("Funcionalidade de finalização em breve!");
+        });
+    }
+
     if (btnProsseguir) {
         btnProsseguir.addEventListener('click', () => {
-            const valorDigitado = parseFloat(inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".")) || 0;
+            const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+            const valorDigitado = parseFloat(valorRaw) || 0;
+
+            const inputsTransporte = document.querySelectorAll('.confirm-card input');
+            const numTransp1 = inputsTransporte[0]?.value || "";
+            const numTransp2 = inputsTransporte[1]?.value || "";
+
+            const metodoSelecionado = selectElement.value.toLowerCase();
+
+            const campoNumCard = document.getElementById('card-num')?.value || "";
+            const campoValidCard = document.getElementById('card-valid')?.value || "";
+            const campoCvvCard = document.getElementById('card-cvv')?.value || "";
 
             if (valorDigitado < 5.00) {
-                alert("Valor mínimo de recarga: R$ 5,00.");
+                alert("Coloque um valor (Mínimo requisitado: 5 reais).");
                 return;
             }
 
-            if (selectElement.selectedIndex === 0) {
-                alert("Selecione uma forma de pagamento.");
+            if (selectElement.selectedIndex === 0 && numTransp1 === "") {
+                alert("Complete as informações abaixo.");
                 return;
             }
+
+            if (selectElement.selectedIndex !== 0 && numTransp1 === "") {
+                alert("Coloque o número do seu cartão de passagem.");
+                return;
+            }
+
+            if (metodoSelecionado.includes('cartão')) {
+                if (campoNumCard.length < 19 || campoValidCard.length < 5 || campoCvvCard.length < 3) {
+                    alert("Complete os campos da informação do cartão para continuar.");
+                    return;
+                }
+            }
+
+            if (numTransp1 !== numTransp2) {
+                alert("A confirmação do número do cartão de transporte não confere.");
+                return;
+            }
+
+            abrirModalFinalizacao();
         });
     }
 

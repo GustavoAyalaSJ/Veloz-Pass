@@ -95,11 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <label>Selecione um problema:</label>
             <select required>
                 <option value="" disabled selected>Selecione</option>
-                <option>Não consigo acessar minha conta.</option>
-                <option>Meus dados de cadastro foram considerados inválidos.</option>
-                <option>Erro na validação das informações pela Carteira Digital.</option>
-                <option>Recarga realizada em um cartão incorreto.</option>
-                <option>Meu cartão foi registrado por outro usuário sem meu consentimento.</option>
+                <option>PLACEHOLDER.</option>
+                <option>PLACEHOLDER.</option>
+                <option>PLACEHOLDER.</option>
+                <option>PLACEHOLDER.</option>
+                <option>PLACEHOLDER.</option>
             </select>
             <label>Email:</label>
             <input type="email" placeholder="Seu email cadastro aqui." required/>

@@ -91,7 +91,7 @@ body {
     color: #e0e0e0;
 }
 
-.dark-mode body{
+.dark-mode body {
     background-color: #070707;
 }
 
@@ -106,7 +106,7 @@ body {
     color: #ffffff;
 }
 
-.dark-mode .icon-button:hover{
+.dark-mode .icon-button:hover {
     color: rgb(167, 199, 255);
     transition: all 0.4s ease;
     cursor: pointer;
@@ -124,7 +124,7 @@ body {
 .dark-mode .top-group select,
 .dark-mode .top-group.valor input {
     background-color: #1e293b;
-    color:#73d4f2;
+    color: #73d4f2;
     border: 3px solid #6782ad;
 }
 
@@ -134,7 +134,7 @@ body {
 
 .dark-mode .confirm-card input {
     background-color: #1e293b;
-    color:#73d4f2;
+    color: #73d4f2;
     border: 3px solid #6782ad;
 }
 
@@ -174,7 +174,7 @@ body {
     color: rgb(96, 188, 230)
 }
 
-.dark-mode .modal-box{
+.dark-mode .modal-box {
     background-color: rgba(10, 15, 28, 0.939);
     border: 2px solid #6782ad;
     color: #e0e0e0;
@@ -213,6 +213,53 @@ body {
     background-color: rgba(161, 73, 58, 0.744);
     border: 1.5px solid rgb(58, 14, 14);
     transition: 0.3s rgba(161, 73, 58, 0.744) ease;
+}
+
+.dark-mode .modal-content {
+    background: #242b33;
+    color: white;
+}
+
+.dark-mode #modalRecarga {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.dark-mode #modalRecarga .modal-content {
+    background: #1e293b;
+    border-color: #6782ad;
+}
+
+.dark-mode #modalRecarga h2 {
+    color: #a9cdff;
+}
+
+.dark-mode .modal-separator {
+    background: #5b8ec8;
+}
+
+.dark-mode .modal-details {
+    color: #e0e0e0;
+}
+
+.dark-mode .modal-details p {
+    color: #ccd6e0;
+}
+
+.dark-mode .modal-details-value {
+    color: #8ab4f8;
+}
+
+.dark-mode #btn-cancelar-modal {
+    color: #ff6b9d;
+}
+
+.dark-mode #btn-cancelar-modal:hover {
+    color: #ff85b3;
+}
+
+.dark-mode #select-pagamento.saldo-insuficiente {
+    border-color: #ff6b6b !important;
+    background-color: #331a1a !important;
 }
 
 /* Conteúdo Principal */
@@ -261,7 +308,7 @@ body {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    padding-right: 45px; 
+    padding-right: 45px;
     cursor: pointer;
 }
 
@@ -286,7 +333,7 @@ body {
 
 }
 
-/* Modal */
+/* Modal - Deslogar */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -440,7 +487,7 @@ body {
     gap: 10px;
 }
 
-.input-group-half > div {
+.input-group-half>div {
     flex: 1;
 }
 
@@ -490,7 +537,7 @@ body {
     align-items: stretch;
     width: 100%;
     max-width: 500px;
-    height: 50px; 
+    height: 50px;
     background: #e0e0e0;
     border: 2px solid #666;
     border-radius: 25px;
@@ -553,6 +600,138 @@ select {
     cursor: pointer;
 }
 
+/* Modal de Recarga */
+#modalRecarga {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+#modalRecarga .modal-content {
+    background: var(--bg-passo);
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+    border: 1px solid #555;
+}
+
+#modalRecarga h2 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    color: #ffffff;
+}
+
+.modal-separator {
+    height: 2px;
+    background: #7296be;
+    margin-bottom: 20px;
+}
+
+.modal-details {
+    text-align: left;
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+.modal-details p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.modal-details-value {
+    color: #7296be;
+    font-weight: bold;
+}
+
+.modal-buttons-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#btn-finalizar-fake {
+    width: 100%;
+    margin: 0;
+    padding: 12px 0;
+}
+
+#btn-cancelar-modal {
+    background: transparent;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+#btn-cancelar-modal:hover {
+    color: #ff7070;
+}
+
+#select-pagamento.saldo-insuficiente {
+    border-color: red !important;
+}
+
+.btn-prosseguir.hidden-button {
+    display: none;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.divide-bar {
+    height: 2px;
+    background: #ccc;
+    margin: 15px 0;
+}
+
+.campo-finalizacao {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-finalizar {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -580,7 +759,7 @@ select {
         flex-direction: column;
     }
 
-    .select-wrapper, 
+    .select-wrapper,
     #select-pagamento,
     .top-group.valor input {
         width: 100%;
