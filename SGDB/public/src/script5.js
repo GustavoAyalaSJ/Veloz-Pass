@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function aplicarMascara(input, mascara) {
+        if (!input) return;
         input.addEventListener('input', (e) => {
             let v = e.target.value.replace(/\D/g, '');
             let k = 0;
@@ -154,6 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
+                const inputNum = document.getElementById('card-num');
+                const inputValid = document.getElementById('card-valid');
+                const inputCvv = document.getElementById('card-cvv');
+
+                aplicarMascara(inputNum, "0000 0000 0000 0000");
+                aplicarMascara(inputValid, "00/00");
+                aplicarMascara(inputCvv, "000");
             }
         }
     }

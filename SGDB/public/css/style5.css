@@ -615,18 +615,19 @@ select {
 }
 
 #modalRecarga .modal-content {
-    background: var(--bg-passo);
+    background: #ffffff;
     padding: 30px;
     border-radius: 20px;
     width: 350px;
     text-align: center;
-    border: 1px solid #555;
+    border: 1px solid #ddd;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 #modalRecarga h2 {
     margin-bottom: 10px;
     font-size: 1.3rem;
-    color: #ffffff;
+    color: #333; 
 }
 
 .modal-separator {
@@ -665,18 +666,21 @@ select {
 }
 
 #btn-cancelar-modal {
-    background: transparent;
-    border: none;
+    background: #f8f9fa;
+    border: 1px solid #ff4d4d;
     color: #ff4d4d;
     cursor: pointer;
     font-weight: bold;
     padding: 10px;
     font-size: 1rem;
-    transition: color 0.3s ease;
+    border-radius: 12px;
+    transition: all 0.3s ease;
 }
 
 #btn-cancelar-modal:hover {
+    background: #fff5f5;
     color: #ff7070;
+    border-color: #ff7070;
 }
 
 #select-pagamento.saldo-insuficiente {
