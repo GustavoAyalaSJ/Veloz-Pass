@@ -225,6 +225,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+function validarMesExpiracao(validade) {
+    if (!validade) return false;
+    const mes = parseInt(validade.substring(0, 2));
+    return mes >= 1 && mes <= 12;
+}
+
+
     if (btnFinalizar) {
         btnFinalizar.addEventListener('click', async () => {
             const metodoRaw = selectPagamento?.value;
@@ -232,6 +239,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Selecione um método de pagamento.');
                 return;
             }
+
+        if (metodosComCartaoTexto.includes(metodoRaw)) {
+            const validadeInput = document.getElementById('validade-cartao')?.value;
+            
+            if (!validarMesExpiracao(validadeInput)) {
+                alert("Data de validade inválida!");
+                return;
+            }
+        }
             const numCartaoInput = document.getElementById('num-cartao')?.value || "";
 
             btnFinalizar.disabled = true;
