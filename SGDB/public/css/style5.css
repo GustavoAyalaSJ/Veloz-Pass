@@ -644,7 +644,7 @@ select {
 
 .modal-details p {
     margin: 0;
-    color: #ffffff;
+    color: #555;
     font-size: 1rem;
 }
 
@@ -666,9 +666,9 @@ select {
 }
 
 #btn-cancelar-modal {
-    background: #f8f9fa;
-    border: 1px solid #ff4d4d;
-    color: #ff4d4d;
+    background: #8b1f1f;
+    border: 1px solid #3e0a0a;
+    color: #ffbebe;
     cursor: pointer;
     font-weight: bold;
     padding: 10px;

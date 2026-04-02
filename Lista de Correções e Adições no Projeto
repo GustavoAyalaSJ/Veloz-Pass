@@ -5,19 +5,21 @@ index.html:
 - Criar uma tabela para suporte (onde pega a exata data e qual usuário pediu o suporte), arrumar o modal de suporte e tornar ele funcional.
 
 index3.html:
-- Pegar as informações da página Recarga e Carteira Digital e colocar dentro da tabela.
-- Fazer ele considerar apenas os protocolos aprovados.
+- Fazer a página Histórico geral aceitar apenas os protocolos aprovados.
 
 PROTOCOLO        TIPO      REALIZADO-NO   VALOR IMPRIMIR-PROTOCOLO
-ASDIJOF12 CARTEIRA_DIGITAL    DÉBITO      40,00
+ASDIJOF12  CARTEIRA_DIGITAL    DÉBITO      40,00
+
+PROTOCOLO        TIPO      REALIZADO-NO   VALOR IMPRIMIR-PROTOCOLO
+J104F023      RECARGA        CRÉDITO     55,00
 
 index4.html
-- Fazer que o site bloquei o aumento de valor em caso de transações (pendentes e recusadas).
+- Fazer a página recarga bloquear o aumento de valor em caso de transações (pendentes e recusadas).
 
 index5.html:
 - Criar uma tabela chamada "UniqueCard" onde apenas um pessoa por ID pode ter um cartão;
 - Em caso de cartão vinculado em uma conta errada, o suporte pode ser chamado;
-- Criar um campo para colocar os dados e criar um modal de conclusão de recarga.
+- Finalizar o modal de conclusão de recarga e enviar para a página histórico geral.
 
 index6.html:
 - Arrumar o design e implementar o HTML, CSS e JavaScript da página.
