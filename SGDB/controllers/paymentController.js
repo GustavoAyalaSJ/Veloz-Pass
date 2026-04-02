@@ -48,7 +48,7 @@ exports.getWalletData = async (req, res) => {
 };
 
 exports.processCredit = async (req, res) => {
-    const { valor: valorRaw, metodo, numCartao, idBandeira } = req.body;
+    const { valor: valorRaw, metodo, numCartao, idBandeira, origem } = req.body;
     const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
 
