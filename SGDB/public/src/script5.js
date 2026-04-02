@@ -207,51 +207,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (btnProsseguir) {
-        btnProsseguir.addEventListener('click', () => {
-            const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
-            const valorDigitado = parseFloat(valorRaw) || 0;
+function validarMesExpiracao(validade) {
+    if (!validade || validade.length < 5) return false;
+    const mes = parseInt(validade.substring(0, 2));
+    return mes >= 1 && mes <= 12;
+}
 
-            const inputsTransporte = document.querySelectorAll('.confirm-card input');
-            const numTransp1 = inputsTransporte[0]?.value || "";
-            const numTransp2 = inputsTransporte[1]?.value || "";
+ if (btnProsseguir) {
+    btnProsseguir.addEventListener('click', () => {
+        const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+        const valorDigitado = parseFloat(valorRaw) || 0;
 
-            const metodoSelecionado = selectElement.value.toLowerCase();
+        const inputsTransporte = document.querySelectorAll('.confirm-card input');
+        const numTransp1 = inputsTransporte[0]?.value || "";
+        const numTransp2 = inputsTransporte[1]?.value || "";
 
-            const campoNumCard = document.getElementById('card-num')?.value || "";
-            const campoValidCard = document.getElementById('card-valid')?.value || "";
-            const campoCvvCard = document.getElementById('card-cvv')?.value || "";
+        const metodoSelecionado = selectElement.value.toLowerCase();
 
-            if (valorDigitado < 5.00) {
-                alert("Coloque um valor (Mínimo requisitado: 5 reais).");
+        const campoNumCard = document.getElementById('card-num')?.value || "";
+        const campoValidCard = document.getElementById('card-valid')?.value || "";
+        const campoCvvCard = document.getElementById('card-cvv')?.value || "";
+
+        if (valorDigitado < 5.00) {
+            alert("Coloque um valor (Mínimo requisitado: 5 reais).");
+            return;
+        }
+
+        if (selectElement.selectedIndex === 0 && numTransp1 === "") {
+            alert("Complete as informações abaixo.");
+            return;
+        }
+
+        if (selectElement.selectedIndex !== 0 && numTransp1 === "") {
+            alert("Coloque o número do seu cartão de passagem.");
+            return;
+        }
+
+        if (metodoSelecionado.includes('cartão')) {
+            if (campoNumCard.length < 19 || campoValidCard.length < 5 || campoCvvCard.length < 3) {
+                alert("Complete os campos da informação do cartão para continuar.");
                 return;
             }
 
-            if (selectElement.selectedIndex === 0 && numTransp1 === "") {
-                alert("Complete as informações abaixo.");
+            if (!validarMesExpiracao(campoValidCard)) {
+                alert("Data de validade inválida!");
                 return;
             }
+        }
 
-            if (selectElement.selectedIndex !== 0 && numTransp1 === "") {
-                alert("Coloque o número do seu cartão de passagem.");
-                return;
-            }
+        if (numTransp1 !== numTransp2) {
+            alert("A confirmação do número do cartão de transporte não confere.");
+            return;
+        }
 
-            if (metodoSelecionado.includes('cartão')) {
-                if (campoNumCard.length < 19 || campoValidCard.length < 5 || campoCvvCard.length < 3) {
-                    alert("Complete os campos da informação do cartão para continuar.");
-                    return;
-                }
-            }
-
-            if (numTransp1 !== numTransp2) {
-                alert("A confirmação do número do cartão de transporte não confere.");
-                return;
-            }
-
-            abrirModalFinalizacao();
-        });
-    }
+        abrirModalFinalizacao();
+    });
+}
 
     if (selectElement && wrapper) {
         selectElement.addEventListener('click', () => wrapper.classList.toggle('active'));
