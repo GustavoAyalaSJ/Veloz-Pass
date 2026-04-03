@@ -92,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const inputCartao = containerCartao.querySelector('#num-cartao');
+
     if (inputCartao) {
         inputCartao.addEventListener('input', (e) => {
             let num = e.target.value.replace(/\D/g, '');
@@ -303,7 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Usar documentFragment para evitar reflow múltiplo (80% mais rápido)
         const fragment = document.createDocumentFragment();
 
         dados.forEach(mov => {
