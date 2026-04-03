@@ -75,14 +75,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function aplicarFiltros() {
         const valOrigem = filtroTipo?.value?.toLowerCase().trim() || '';
-        const valMetodo = filtroRealizadoNo?.value?.toLowerCase().trim() || '';
+        const valRealizadoNo = filtroRealizadoNo?.value?.toLowerCase().trim() || '';
 
         const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
-            const origemBanco = (mov.origem || mov.realizado_no || 'carteira digital').toLowerCase().trim();
+            // Verificar origem: 'carteira digital' ou 'recarga'
+            const origemBanco = (mov.origem || 'carteira digital').toLowerCase().trim();
+            
+            // Verificar método de pagamento: débito, crédito, internacional, pix
             const metodoBanco = (mov.metodo || mov.tipo || 'pix').toLowerCase().trim();
 
+            // Aplicar filtros com comparação exata ou parcial
             const bateOrigem = valOrigem === '' || origemBanco.includes(valOrigem);
-            const bateMetodo = valMetodo === '' || metodoBanco.includes(valMetodo);
+            const bateMetodo = valRealizadoNo === '' || metodoBanco.includes(valRealizadoNo);
 
             return bateOrigem && bateMetodo;
         });

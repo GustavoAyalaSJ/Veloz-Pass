@@ -276,17 +276,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 function aplicarFiltros() {
-    const valOrigem = filtroTipo?.value?.toLowerCase().trim() || '';
-    const valMetodo = filtroRealizadoNo?.value?.toLowerCase().trim() || '';
+    const valRealizadoPor = filtroRealizadoPor?.value?.toLowerCase().trim() || '';
+    const valBandeira = filtroBandeira?.value?.toLowerCase().trim() || '';
     
     const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
-        const origemBanco = (mov.origem || mov.realizado_no || 'carteira digital').toLowerCase().trim();
-        const metodoBanco = (mov.metodo || mov.tipo || 'pix').toLowerCase().trim();
+        const realizadoPorBanco = (mov.tipo || mov.metodo || 'pix').toLowerCase().trim();
+        const bandeiraBanco = (mov.bandeira_banco?.nome_bandeira || '---').toLowerCase().trim();
 
-        const bateOrigem = valOrigem === '' || origemBanco.includes(valOrigem);
-        const bateMetodo = valMetodo === '' || metodoBanco.includes(valMetodo);
+        const bateRealizadoPor = valRealizadoPor === '' || realizadoPorBanco.includes(valRealizadoPor);
+        const bateBandeira = valBandeira === '' || bandeiraBanco.includes(valBandeira);
 
-        return bateOrigem && bateMetodo;
+        return bateRealizadoPor && bateBandeira;
     });
     
     renderizarTabela(dadosFiltrados);
