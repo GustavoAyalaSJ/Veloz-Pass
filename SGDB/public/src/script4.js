@@ -19,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
 
+    // Variáveis para filtros
+    let dadosHistoricoCompleto = [];
+    const filtroRealizadoPor = document.getElementById('filtro-realizado-por');
+    const filtroBandeira = document.getElementById('filtro-bandeira');
+
     if (btnDropdown && contentDropdown) {
         btnDropdown.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -234,26 +239,65 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             if (saldoDisplay) saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             if (!corpoTabela) return;
-            corpoTabela.innerHTML = '';
-            if (!data.historico.length) {
-                corpoTabela.innerHTML = '<tr><td colspan="5">Sem movimentações.</td></tr>';
-            } else {
-                data.historico.forEach(mov => {
-                    const situacao = (mov.situacao || 'pendente').toLowerCase();
-                    const classe = situacao.includes('concl') ? 'status-verde' : (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
-                    const linha = document.createElement('tr');
-                    linha.className = classe;
-                    linha.innerHTML = `
-                        <td>${mov.n_protocolo || '---'}</td>
-                        <td>${(mov.tipo || 'Crédito').toUpperCase()}</td>
-                        <td>${mov.bandeira_banco?.nome_bandeira || '---'}</td>
-                        <td>R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
-                        <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
-                    `;
-                    corpoTabela.appendChild(linha);
-                });
+            
+            // Armazenar dados completos para filtro
+            dadosHistoricoCompleto = data.historico || [];
+            
+            // Renderizar tabela
+            renderizarTabela(dadosHistoricoCompleto);
+            
+            // Adicionar event listeners aos filtros
+            if (filtroRealizadoPor) {
+                filtroRealizadoPor.addEventListener('change', aplicarFiltros);
+            }
+            if (filtroBandeira) {
+                filtroBandeira.addEventListener('change', aplicarFiltros);
             }
         } catch (e) { console.error(e); }
+    }
+
+    function renderizarTabela(dados) {
+        corpoTabela.innerHTML = '';
+        if (!dados || !dados.length) {
+            corpoTabela.innerHTML = '<tr><td colspan="5">Sem movimentações.</td></tr>';
+            return;
+        }
+        
+        dados.forEach(mov => {
+            const situacao = (mov.situacao || 'pendente').toLowerCase();
+            const classe = situacao.includes('concl') ? 'status-verde' : (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
+            const linha = document.createElement('tr');
+            linha.className = classe;
+            linha.innerHTML = `
+                <td>${mov.n_protocolo || '---'}</td>
+                <td>${(mov.tipo || 'Crédito').toUpperCase()}</td>
+                <td>${mov.bandeira_banco?.nome_bandeira || '---'}</td>
+                <td>R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
+                <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
+            `;
+            corpoTabela.appendChild(linha);
+        });
+    }
+
+    function aplicarFiltros() {
+        const filtroTipo = filtroRealizadoPor?.value || '';
+        const filtroBand = filtroBandeira?.value || '';
+        
+        let dadosFiltrados = dadosHistoricoCompleto;
+        
+        if (filtroTipo) {
+            dadosFiltrados = dadosFiltrados.filter(mov => 
+                (mov.tipo || 'Crédito').toUpperCase() === filtroTipo
+            );
+        }
+        
+        if (filtroBand) {
+            dadosFiltrados = dadosFiltrados.filter(mov => 
+                (mov.bandeira_banco?.nome_bandeira || '').toUpperCase() === filtroBand
+            );
+        }
+        
+        renderizarTabela(dadosFiltrados);
     }
 
     carregarDadosIniciais();
