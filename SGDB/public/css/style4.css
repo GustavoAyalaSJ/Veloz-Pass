@@ -155,7 +155,7 @@ body {
     color: #73d4f2;
 }
 
-.dark-mode .select-wrapper.active .select-icon {
+.dark-mode .filtro-item.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
 
@@ -511,7 +511,7 @@ body {
     transform: translateY(-50%) rotate(180deg);
 }
 
-.select-wrapper.active .select-icon {
+.filtro-item.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
 

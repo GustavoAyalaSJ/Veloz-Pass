@@ -180,7 +180,7 @@ body {
     color: #73d4f2;
 }
 
-.dark-mode .select-wrapper.active .select-icon {
+.dark-mode .filtro-item.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
 
@@ -469,10 +469,9 @@ body {
     transition: transform 0.3s ease;
 }
 
-.select-wrapper.active .select-icon {
+.filtro-item.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
-
 
 /* Media Queries */
 @media (max-width: 600px) and (orientation: portrait) {

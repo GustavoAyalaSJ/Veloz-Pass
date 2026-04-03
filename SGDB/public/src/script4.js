@@ -286,15 +286,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function aplicarFiltros() {
         const valRealizadoPor = normalizarTexto(filtroRealizadoPor?.value);
         const valBandeira = normalizarTexto(filtroBandeira?.value);
+        const valSituacao = normalizarTexto(filtroRealizadoNo?.value);
 
         const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
             const realizadoPorBanco = normalizarTexto(mov.tipo || mov.metodo || 'pix');
             const bandeiraBanco = normalizarTexto(mov.bandeira_banco?.nome_bandeira || '');
+            const situacaoBanco = normalizarTexto(mov.situacao || '');
 
+            const bateSituacao = !valSituacao || situacaoBanco === valSituacao;
             const bateRealizadoPor = !valRealizadoPor || realizadoPorBanco === valRealizadoPor;
             const bateBandeira = !valBandeira || bandeiraBanco === valBandeira;
 
             return bateRealizadoPor && bateBandeira;
+            return bateOrigem && bateMetodo && bateSituacao;
         });
 
         renderizarTabela(dadosFiltrados);
