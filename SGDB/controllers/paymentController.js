@@ -91,7 +91,7 @@ exports.processCredit = async (req, res) => {
                 tipo: metodo.toUpperCase(),
                 valor: valorNum,
                 situacao: 'CONCLUIDO',
-                origem: origem || "RECARGA",
+                realizado_no: origem || "RECARGA",
                 data_realizada: new Date().toISOString()
             }]);
 
