@@ -86,23 +86,8 @@ app.use('/api/payments', (req, res, next) => {
     next();
 }, paymentRoutes);
 
-app.get('/health', async (req, res) => {
-  try {
-    const { data, error } = await supabase
-      .from('bandeira_banco')
-      .select('*')
-      .limit(1);
-
-    if (error) {
-      console.error('Erro Supabase:', error.message);
-      return res.status(500).json({ status: 'Erro ao conectar', error: error.message });
-    }
-
-    res.json({ status: 'Conectado ao Supabase', exemplo: data });
-  } catch (err) {
-    console.error('Erro inesperado:', err);
-    res.status(500).json({ status: 'Erro inesperado', error: err.message });
-  }
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
 

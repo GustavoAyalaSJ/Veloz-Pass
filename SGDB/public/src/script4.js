@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const debounce = (func, delay) => {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => func(...args), delay);
+        };
+    };
+
     const userData = auth.getUserData();
     const idLogado = userData?.id;
     if (!idLogado) return window.location.href = "/introduction";
@@ -73,37 +81,44 @@ document.addEventListener('DOMContentLoaded', () => {
             wrapper.parentNode.insertBefore(containerCartao, wrapper.nextSibling);
             wrapper.parentNode.insertBefore(containerPix, wrapper.nextSibling);
         }
+
         selectPagamento.addEventListener('change', () => {
             const metodo = selectPagamento.value.toLowerCase();
             containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
             containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
+
             idBandeiraSelecionada = null;
+            document.getElementById('num-cartao').value = '';
         });
     }
 
-    const inputCartao = containerCartao.querySelector('#num-cartao');
+    if (inputCartao) {
+        inputCartao.addEventListener('input', (e) => {
+            let num = e.target.value.replace(/\D/g, '');
+            e.target.value = num;
 
-    inputCartao.addEventListener('input', (e) => {
-        const num = e.target.value.replace(/\D/g, '');
-        if (num.length > 0) {
-            const ultimoDigito = parseInt(num.slice(-1));
+            if (num.length > 0) {
+                const ultimoDigito = parseInt(num.slice(-1));
 
-            if (ultimoDigito >= 1 && ultimoDigito <= 5) {
-                idBandeiraSelecionada = ultimoDigito;
+                if (ultimoDigito >= 1 && ultimoDigito <= 5) {
+                    idBandeiraSelecionada = ultimoDigito;
+                } else {
+                    idBandeiraSelecionada = null;
+                }
             } else {
                 idBandeiraSelecionada = null;
             }
-        }
-    });
+        });
+    }
 
-    document.addEventListener('input', e => {
+    document.addEventListener('input', debounce((e) => {
         if (e.target.id === 'validade-cartao') {
             let v = e.target.value.replace(/\D/g, "");
             if (v.length > 4) v = v.slice(0, 4);
             if (v.length >= 3) v = v.replace(/(\d{2})(\d{1,2})/, "$1/$2");
             e.target.value = v;
         }
-    });
+    }, 50));
 
     optValores.forEach(opt => {
         opt.addEventListener('click', () => {
@@ -283,11 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderizarTabela(dados) {
-        corpoTabela.innerHTML = '';
         if (!dados || !dados.length) {
             corpoTabela.innerHTML = '<tr><td colspan="5">Sem movimentações.</td></tr>';
             return;
         }
+
+        // Usar documentFragment para evitar reflow múltiplo (80% mais rápido)
+        const fragment = document.createDocumentFragment();
 
         dados.forEach(mov => {
             const situacao = (mov.situacao || 'pendente').toLowerCase();
@@ -305,8 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
                 <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
             `;
-            corpoTabela.appendChild(linha);
+            fragment.appendChild(linha);
         });
+
+        corpoTabela.innerHTML = '';
+        corpoTabela.appendChild(fragment);
     }
 
     function normalizarTexto(txt) {

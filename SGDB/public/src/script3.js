@@ -40,12 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderizarTabela(dados) {
-        corpoTabelaInfo.innerHTML = '';
-
         if (!dados || dados.length === 0) {
             corpoTabelaInfo.innerHTML = '<div class="empty-table-message">Sem movimentações confirmadas.</div>';
             return;
         }
+
+        const fragment = document.createDocumentFragment();
 
         dados.forEach(mov => {
             const linha = document.createElement('div');
@@ -69,8 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 </span>
             `;
 
-            corpoTabelaInfo.appendChild(linha);
+            fragment.appendChild(linha);
         });
+
+        corpoTabelaInfo.innerHTML = '';
+        corpoTabelaInfo.appendChild(fragment);
     }
 
     function normalizarTexto(txt) {
