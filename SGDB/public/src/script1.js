@@ -92,13 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="close-btn">X</button>
         <h2>Suporte</h2>
         <form id="formSuporte">
-            <label>Selecione um problema:</label>
+            <label>Selecione o problema que enfrenta:</label>
             <select required>
                 <option value="" disabled selected>Selecione</option>
-                <option>PLACEHOLDER.</option>
-                <option>PLACEHOLDER.</option>
-                <option>PLACEHOLDER.</option>
-                <option>PLACEHOLDER.</option>
+                <option>Não estou conseguindo acessar minha conta do Veloz Pass.</option>
+                <option>Minhas credenciais foram consideradas como inválidas.</option>
+                <option>O saldo não está sendo creditado na minha Carteira Digital.</option>
+                <option>Meu cartão foi registrado por outro usuário sem meu consentimento.</option>
                 <option>PLACEHOLDER.</option>
             </select>
             <label>Email:</label>

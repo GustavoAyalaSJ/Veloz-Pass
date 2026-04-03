@@ -132,6 +132,10 @@ body {
     color: #73d4f2;
 }
 
+.select-wrapper-modal.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
 .dark-mode .confirm-card input {
     background-color: #1e293b;
     color: #73d4f2;

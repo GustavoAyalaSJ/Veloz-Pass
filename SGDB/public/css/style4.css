@@ -102,6 +102,15 @@ body {
     cursor: pointer;
 }
 
+.dark-mode .filtro-select{
+    background-color: rgba(9, 9, 9, 0.518);
+    color: rgb(167, 199, 255);
+}
+
+.dark-mode .filtro-item label{
+    color: rgb(167, 199, 255);
+}
+
 .dark-mode .card-valor {
     background-color: #000;
     color: rgb(244, 244, 244);
@@ -142,8 +151,12 @@ body {
     color: #e0e0e0;
 }
 
-.dark-mode .select-icon-modal {
+.dark-mode .select-icon {
     color: #73d4f2;
+}
+
+.dark-mode .select-wrapper-modal.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
 }
 
 .dark-mode #num-cartao,
@@ -159,14 +172,6 @@ body {
 .dark-mode #validade-cartao::placeholder,
 .dark-mode #cvv-cartao::placeholder {
     color: rgba(150, 206, 255, 0.5);
-}
-
-.dark-mode .select-icon-modal {
-    transition: transform 0.3s ease;
-}
-
-.dark-mode .select-wrapper-modal.active .select-icon-modal {
-    transform: translateY(-50%) rotate(180deg);
 }
 
 .dark-mode .modal-box .campo-personalizado input:focus {
@@ -488,7 +493,7 @@ body {
     outline: none;
 }
 
-.select-icon-modal {
+.select-icon {
     position: absolute;
     right: 15px;
     top: 50%;
@@ -498,7 +503,7 @@ body {
     color: #666;
 }
 
-.select-wrapper-modal.active .select-icon-modal {
+.select-wrapper-modal.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
 
@@ -600,24 +605,21 @@ td.table-bold {
 
 /* Filtros */
 .card-container > .filtros-container {
-    margin: -30px -40px 20px -40px;
-    padding: 20px 40px;
-    border-bottom: 1px solid #e0e0e0;
+    margin: -20px -40px 5px -40px;
+    padding: 20px 30px;
 }
 
 .filtros-container {
     display: flex;
     gap: 20px;
-    margin-bottom: 20px;
-    padding: 15px 0;
-    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+    padding: 10px 0;
     flex-wrap: wrap;
 }
 
 .filtro-item {
     display: flex;
     flex-direction: column;
-    gap: 8px;
 }
 
 .filtro-item label {
