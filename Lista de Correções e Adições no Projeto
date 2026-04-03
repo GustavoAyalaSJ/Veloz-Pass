@@ -6,7 +6,6 @@ index.html:
 
 index3.html:
 - Fazer a página Histórico geral aceitar apenas os protocolos aprovados;
-- Adicionar um botão de filtro que irá pegar os (tipos de recarga e relizados_no).
 
 PROTOCOLO        TIPO      REALIZADO-NO   VALOR IMPRIMIR-PROTOCOLO
 ASDIJOF12  CARTEIRA_DIGITAL    DÉBITO      40,00
@@ -16,7 +15,6 @@ J104F023      RECARGA        CRÉDITO     55,00
 
 index4.html
 - Fazer a página recarga bloquear o aumento de valor em caso de transações (pendentes e recusadas);
-- Adicionar um botão de filtro que irá os saldos adicionados realizado por e filtrar os aprovados, pendentes e recusados.
 
 index5.html:
 - Criar uma tabela chamada "UniqueCard" onde apenas um pessoa por ID pode ter um cartão;
