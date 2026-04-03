@@ -1,15 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
     const userData = auth.getUserData();
     const idLogado = userData?.id;
     const corpoTabelaInfo = document.querySelector('.tabela-corpoInfo');
-
-    // Variáveis para filtros
-    let dadosHistoricoCompleto = [];
     const filtroTipo = document.getElementById('filtro-tipo');
     const filtroRealizadoNo = document.getElementById('filtro-realizado-no');
+
+    let dadosHistoricoCompleto = [];
 
     if (!idLogado) {
         window.location.href = "/introduction";
@@ -25,25 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Filtrar por situação confirmada
             const historicoFiltrado = data.historico.filter(mov => {
                 const situacao = (mov.situacao || '').toLowerCase();
                 return situacao.includes('concl') || situacao.includes('pago') || situacao.includes('confirmado');
             });
 
-            // Armazenar dados completos para filtro
             dadosHistoricoCompleto = historicoFiltrado;
-
-            // Renderizar tabela
             renderizarTabela(dadosHistoricoCompleto);
 
-            // Adicionar event listeners aos filtros
-            if (filtroTipo) {
-                filtroTipo.addEventListener('change', aplicarFiltros);
-            }
-            if (filtroRealizadoNo) {
-                filtroRealizadoNo.addEventListener('change', aplicarFiltros);
-            }
+            if (filtroTipo) filtroTipo.addEventListener('change', aplicarFiltros);
+            if (filtroRealizadoNo) filtroRealizadoNo.addEventListener('change', aplicarFiltros);
 
         } catch (error) {
             console.error(error);
@@ -67,13 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 currency: 'BRL'
             });
 
-            // Pegar o tipo corretamente do banco
-            const metodoExibicao = (mov.metodo || mov.tipo || 'PIX').toUpperCase();
-            const tipoExibicao = (mov.origem || mov.tipo || 'CARTEIRA DIGITAL').toUpperCase();
+            const metodoExibicao = (mov.metodo || 'PIX').toUpperCase();
+            const origemExibicao = (mov.origem || 'CARTEIRA DIGITAL').toUpperCase();
 
             linha.innerHTML = `
                 <span class="col-protocolo">${mov.n_protocolo || '---'}</span>
-                <span class="col-origem">${tipoExibicao}</span>
+                <span class="col-origem">${origemExibicao}</span>
                 <span class="col-metodo">${metodoExibicao}</span>
                 <span class="col-valor">${valorFormatado}</span>
                 <span class="col-acao">
@@ -86,22 +74,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function aplicarFiltros() {
-        const filterTipo = filtroTipo?.value?.toLowerCase() || '';
-        const filterRealizadoNo = filtroRealizadoNo?.value?.toLowerCase() || '';
+        const valOrigem = filtroTipo?.value?.toLowerCase() || '';
+        const valMetodo = filtroRealizadoNo?.value?.toLowerCase() || '';
         
-        let dadosFiltrados = dadosHistoricoCompleto;
-        
-        if (filterTipo) {
-            dadosFiltrados = dadosFiltrados.filter(mov => 
-                (mov.origem || mov.tipo || 'carteira digital').toLowerCase().includes(filterTipo)
-            );
-        }
-        
-        if (filterRealizadoNo) {
-            dadosFiltrados = dadosFiltrados.filter(mov => 
-                (mov.metodo || mov.tipo || 'pix').toLowerCase().includes(filterRealizadoNo)
-            );
-        }
+        const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
+            const origemMov = (mov.origem || 'carteira digital').toLowerCase();
+            const metodoMov = (mov.metodo || 'pix').toLowerCase();
+
+            const bateOrigem = valOrigem === '' || origemMov.includes(valOrigem);
+            const bateMetodo = valMetodo === '' || metodoMov.includes(valMetodo);
+
+            return bateOrigem && bateMetodo;
+        });
         
         renderizarTabela(dadosFiltrados);
     }
@@ -118,9 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return null;
         }
     }
-
-
-    carregarHistoricoGeral();
 
     if (exitLink) {
         exitLink.addEventListener('click', (event) => {
@@ -143,4 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
             logoutModal.style.display = "none";
         });
     }
+
+    carregarHistoricoGeral();
 });

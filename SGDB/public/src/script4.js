@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const exitLink = document.querySelector('.exit-link');
     const logoutModal = document.getElementById("logoutModal");
 
-    // Variáveis para filtros
     let dadosHistoricoCompleto = [];
     const filtroRealizadoPor = document.getElementById('filtro-realizado-por');
     const filtroBandeira = document.getElementById('filtro-bandeira');
@@ -240,19 +239,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (saldoDisplay) saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             if (!corpoTabela) return;
             
-            // Armazenar dados completos para filtro
             dadosHistoricoCompleto = data.historico || [];
             
-            // Renderizar tabela
             renderizarTabela(dadosHistoricoCompleto);
             
-            // Adicionar event listeners aos filtros
-            if (filtroRealizadoPor) {
-                filtroRealizadoPor.addEventListener('change', aplicarFiltros);
-            }
-            if (filtroBandeira) {
-                filtroBandeira.addEventListener('change', aplicarFiltros);
-            }
+            if (filtroRealizadoPor) filtroRealizadoPor.addEventListener('change', aplicarFiltros);
+            if (filtroBandeira) filtroBandeira.addEventListener('change', aplicarFiltros);
         } catch (e) { console.error(e); }
     }
 
@@ -269,7 +261,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const linha = document.createElement('tr');
             linha.className = classe;
             
-            // Normalizar dados
             const tipo = (mov.tipo || mov.metodo || 'Crédito').toLowerCase();
             const bandeira = (mov.bandeira_banco?.nome_bandeira || '---').toLowerCase();
             
@@ -285,22 +276,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function aplicarFiltros() {
-        const filtroTipo = filtroRealizadoPor?.value?.toLowerCase() || '';
-        const filtroBand = filtroBandeira?.value?.toLowerCase() || '';
+        const valTipo = filtroRealizadoPor?.value?.toLowerCase() || '';
+        const valBand = filtroBandeira?.value?.toLowerCase() || '';
         
-        let dadosFiltrados = dadosHistoricoCompleto;
-        
-        if (filtroTipo) {
-            dadosFiltrados = dadosFiltrados.filter(mov => 
-                (mov.tipo || mov.metodo || 'crédito').toLowerCase().includes(filtroTipo)
-            );
-        }
-        
-        if (filtroBand) {
-            dadosFiltrados = dadosFiltrados.filter(mov => 
-                (mov.bandeira_banco?.nome_bandeira || '').toLowerCase().includes(filtroBand)
-            );
-        }
+        const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
+            const tipoMov = (mov.tipo || mov.metodo || 'crédito').toLowerCase();
+            const bandMov = (mov.bandeira_banco?.nome_bandeira || '').toLowerCase();
+
+            const bateTipo = valTipo === '' || tipoMov.includes(valTipo);
+            const bateBand = valBand === '' || bandMov.includes(valBand);
+
+            return bateTipo && bateBand;
+        });
         
         renderizarTabela(dadosFiltrados);
     }
