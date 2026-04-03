@@ -18,13 +18,14 @@ index4.html
 
 index5.html:
 - Criar uma tabela chamada "UniqueCard" onde apenas um pessoa por ID pode ter um cartão;
-- Em caso de cartão vinculado em uma conta errada, o suporte pode ser chamado;
-- Finalizar o modal de conclusão de recarga e enviar para a página histórico geral.
+- Finalizar o modal de conclusão de recarga e enviar para a página histórico geral;
+- Fazer a imagem do Cartão Ideal mude conforme o último digito de (1 -5) for colocado, enquanto apenas para o PIX, a alteração será instantânea. 
+
 
 index6.html:
 - Arrumar o design e implementar o HTML, CSS e JavaScript da página.
 
 Nota:
-- Observar a performance;
+- Fazer o modal de logout ser global em todas as páginas;
 - Remover arquivos que ocupam espaços no projeto.
 
