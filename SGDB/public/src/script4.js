@@ -53,13 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let idBandeiraSelecionada = null;
     const metodosComCartaoTexto = ['débito', 'crédito', 'internacional'];
 
-    const mapaBandeiras = {
-        'débito': 1,
-        'crédito': 1,
-        'internacional': 2,
-        'pix': null
-    };
-
     const containerCartao = document.createElement('div');
     containerCartao.id = 'container-cartao';
     containerCartao.style.display = 'none';
@@ -84,9 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const metodo = selectPagamento.value.toLowerCase();
             containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
             containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
-            idBandeiraSelecionada = mapaBandeiras[metodo] || null;
+            idBandeiraSelecionada = null;
         });
     }
+
+    const inputCartao = containerCartao.querySelector('#num-cartao');
+
+    inputCartao.addEventListener('input', (e) => {
+        const num = e.target.value.replace(/\D/g, '');
+        if (num.length > 0) {
+            const ultimoDigito = parseInt(num.slice(-1));
+
+            if (ultimoDigito >= 1 && ultimoDigito <= 5) {
+                idBandeiraSelecionada = ultimoDigito;
+            } else {
+                idBandeiraSelecionada = null;
+            }
+        }
+    });
 
     document.addEventListener('input', e => {
         if (e.target.id === 'validade-cartao') {
