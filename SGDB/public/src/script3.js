@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 currency: 'BRL'
             });
 
-            const metodoExibicao = (mov.metodo || 'PIX').toUpperCase();
+            const metodoExibicao = (mov.metodo || mov.tipo || 'PIX').toUpperCase();
             const origemExibicao = (mov.origem || 'CARTEIRA DIGITAL').toUpperCase();
 
             linha.innerHTML = `
@@ -74,19 +74,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function aplicarFiltros() {
-        const valOrigem = filtroTipo?.value?.toLowerCase() || '';
-        const valMetodo = filtroRealizadoNo?.value?.toLowerCase() || '';
-        
-        const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
-            const origemMov = (mov.origem || 'carteira digital').toLowerCase();
-            const metodoMov = (mov.metodo || 'pix').toLowerCase();
+        const valOrigem = filtroTipo?.value?.toLowerCase().trim() || '';
+        const valMetodo = filtroRealizadoNo?.value?.toLowerCase().trim() || '';
 
-            const bateOrigem = valOrigem === '' || origemMov.includes(valOrigem);
-            const bateMetodo = valMetodo === '' || metodoMov.includes(valMetodo);
+        const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
+            const origemBanco = (mov.origem || mov.realizado_no || 'carteira digital').toLowerCase().trim();
+            const metodoBanco = (mov.metodo || mov.tipo || 'pix').toLowerCase().trim();
+
+            const bateOrigem = valOrigem === '' || origemBanco.includes(valOrigem);
+            const bateMetodo = valMetodo === '' || metodoBanco.includes(valMetodo);
 
             return bateOrigem && bateMetodo;
         });
-        
+
         renderizarTabela(dadosFiltrados);
     }
 
@@ -113,17 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSimLogout = document.getElementById('btn-sim-logout');
     const btnNaoLogout = document.getElementById('btn-nao-logout');
 
-    if (btnSimLogout) {
-        btnSimLogout.addEventListener('click', () => {
-            auth.clear();
-        });
-    }
-
-    if (btnNaoLogout) {
-        btnNaoLogout.addEventListener('click', () => {
-            logoutModal.style.display = "none";
-        });
-    }
+    if (btnSimLogout) btnSimLogout.addEventListener('click', () => auth.clear());
+    if (btnNaoLogout) btnNaoLogout.addEventListener('click', () => logoutModal.style.display = "none");
 
     carregarHistoricoGeral();
 });

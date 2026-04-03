@@ -88,10 +88,10 @@ exports.processCredit = async (req, res) => {
                 id_carteira: carteira.id_carteira,
                 id_bandeira: idBandeira || null,
                 n_protocolo: protocolo,
-                tipo: metodo,
+                tipo: metodo.toUpperCase(),
                 valor: valorNum,
                 situacao: 'CONCLUIDO',
-                realizado_no: origem || "Recarga",
+                origem: origem || "RECARGA",
                 data_realizada: new Date().toISOString()
             }]);
 

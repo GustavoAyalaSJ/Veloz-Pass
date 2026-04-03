@@ -275,22 +275,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function aplicarFiltros() {
-        const valTipo = filtroRealizadoPor?.value?.toLowerCase() || '';
-        const valBand = filtroBandeira?.value?.toLowerCase() || '';
-        
-        const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
-            const tipoMov = (mov.tipo || mov.metodo || 'crédito').toLowerCase();
-            const bandMov = (mov.bandeira_banco?.nome_bandeira || '').toLowerCase();
+function aplicarFiltros() {
+    const valOrigem = filtroTipo?.value?.toLowerCase().trim() || '';
+    const valMetodo = filtroRealizadoNo?.value?.toLowerCase().trim() || '';
+    
+    const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
+        const origemBanco = (mov.origem || mov.realizado_no || 'carteira digital').toLowerCase().trim();
+        const metodoBanco = (mov.metodo || mov.tipo || 'pix').toLowerCase().trim();
 
-            const bateTipo = valTipo === '' || tipoMov.includes(valTipo);
-            const bateBand = valBand === '' || bandMov.includes(valBand);
+        const bateOrigem = valOrigem === '' || origemBanco.includes(valOrigem);
+        const bateMetodo = valMetodo === '' || metodoBanco.includes(valMetodo);
 
-            return bateTipo && bateBand;
-        });
-        
-        renderizarTabela(dadosFiltrados);
-    }
+        return bateOrigem && bateMetodo;
+    });
+    
+    renderizarTabela(dadosFiltrados);
+}
 
     carregarDadosIniciais();
 });
