@@ -41,28 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSimLogout = document.getElementById('btn-sim-logout');
     const btnNaoLogout = document.getElementById('btn-nao-logout');
 
-    if (btnSimLogout) {
-        btnSimLogout.addEventListener('click', () => {
-            auth.clear();
-        });
-    }
-
-    if (btnNaoLogout) {
-        btnNaoLogout.addEventListener('click', () => {
-            logoutModal.style.display = "none";
-        });
-    }
+    if (btnSimLogout) btnSimLogout.addEventListener('click', () => auth.clear());
+    if (btnNaoLogout) btnNaoLogout.addEventListener('click', () => logoutModal.style.display = "none");
 
     let valorParaInserir = 0;
     let idBandeiraSelecionada = null;
     const metodosComCartaoTexto = ['débito', 'crédito', 'internacional'];
 
-    // Mapeamento de métodos de pagamento para ID de bandeira
     const mapaBandeiras = {
-        'débito': 1,      // VISA Débito
-        'crédito': 1,     // VISA Crédito (usando mesmo ID como padrão)
-        'internacional': 2, // Mastercard
-        'pix': null       // PIX não tem bandeira
+        'débito': 1,
+        'crédito': 1,
+        'internacional': 2,
+        'pix': null
     };
 
     const containerCartao = document.createElement('div');
@@ -73,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <input type="text" id="validade-cartao" placeholder="MM/YY" maxlength="5">
         <input type="text" id="cvv-cartao" placeholder="CVV" maxlength="3">
     `;
+
     const containerPix = document.createElement('div');
     containerPix.id = 'container-pix';
     containerPix.style.display = 'none';
@@ -88,8 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const metodo = selectPagamento.value.toLowerCase();
             containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
             containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
-
-            // Atualizar ID de bandeira baseado no método selecionado
             idBandeiraSelecionada = mapaBandeiras[metodo] || null;
         });
     }
@@ -105,24 +94,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     optValores.forEach(opt => {
         opt.addEventListener('click', () => {
-            if (opt.classList.contains('ativo')) {
-                opt.classList.remove('ativo');
-                valorParaInserir = 0;
-            } else {
-                optValores.forEach(o => o.classList.remove('ativo'));
-                opt.classList.add('ativo');
-
-                if (inputPersonalizado) inputPersonalizado.value = '';
-
-                valorParaInserir = parseFloat(opt.dataset.valor);
-            }
+            optValores.forEach(o => o.classList.remove('ativo'));
+            opt.classList.add('ativo');
+            if (inputPersonalizado) inputPersonalizado.value = '';
+            valorParaInserir = parseFloat(opt.dataset.valor);
         });
     });
 
     if (inputPersonalizado) {
         inputPersonalizado.addEventListener('input', (e) => {
             optValores.forEach(o => o.classList.remove('ativo'));
-
             const valorFormatado = formatarMoeda(e.target.value);
             e.target.value = valorFormatado;
             valorParaInserir = parseFloat(valorFormatado.replace("R$ ", "").replace(/\./g, "").replace(",", ".")) || 0;
@@ -131,11 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function formatarMoeda(valor) {
         let v = valor.replace(/\D/g, "");
-
         v = (v / 100).toFixed(2).replace(".", ",");
-
         v = v.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
         return "R$ " + v;
     }
 
@@ -151,19 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnProximo) {
         btnProximo.addEventListener('click', () => {
-            if (valorParaInserir <= 0) {
-                return alert("Selecione ou digite um valor.");
-            }
-
-            if (valorParaInserir < 5.00) {
-                alert("Valor mínimo requisitado: 5,00.");
-                return;
-            }
-
+            if (valorParaInserir < 5.00) return alert("Valor mínimo requisitado: 5,00.");
             if (valorConfirmadoTxt) {
                 valorConfirmadoTxt.innerText = `R$ ${valorParaInserir.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             }
-
             modalValor.style.display = 'none';
             modalPagamento.style.display = 'flex';
         });
@@ -171,23 +140,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (selectPagamento) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
-
         if (wrapper) {
-            selectPagamento.addEventListener('focus', () => {
-                wrapper.classList.add('active');
-            });
-
-            selectPagamento.addEventListener('blur', () => {
-                wrapper.classList.remove('active');
-            });
-
-            selectPagamento.addEventListener('change', () => {
-                wrapper.classList.remove('active');
-                const metodo = selectPagamento.value.toLowerCase();
-                containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
-                containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
-            });
+            selectPagamento.addEventListener('focus', () => wrapper.classList.add('active'));
+            selectPagamento.addEventListener('blur', () => wrapper.classList.remove('active'));
         }
+    }
+
+    function validarDataExpiracao(validade) {
+        if (!validade || validade.length < 5) {
+            alert("Preencha a validade corretamente (MM/YY).");
+            return false;
+        }
+        const partes = validade.split('/');
+        const mes = parseInt(partes[0]);
+        const ano = parseInt(partes[1]);
+        const anoAtual = 26;
+
+        if (mes < 1 || mes > 12) {
+            alert("Mês inválido! Use de 01 a 12.");
+            return false;
+        }
+        if (ano < anoAtual) {
+            alert("Cartão vencido! O ano deve ser 26 ou superior.");
+            return false;
+        }
+        return true;
     }
 
     async function adicionarCredito(valor, metodo, numCartao) {
@@ -214,40 +191,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("Crédito adicionado com sucesso!");
                 modalPagamento.style.display = 'none';
                 valorParaInserir = 0;
-                if (inputPersonalizado) inputPersonalizado.value = '';
-                optValores.forEach(o => o.classList.remove('ativo'));
+                await carregarDadosIniciais();
             } else {
                 alert("Erro: " + (result.error || "Falha ao processar"));
             }
         } catch (error) {
-            console.error("Erro na requisição:", error);
             alert("Erro de conexão com o servidor.");
         }
     }
 
-    function validarMesExpiracao(validade) {
-        if (!validade) return false;
-        const mes = parseInt(validade.substring(0, 2));
-        return mes >= 1 && mes <= 12;
-    }
-
-
     if (btnFinalizar) {
         btnFinalizar.addEventListener('click', async () => {
             const metodoRaw = selectPagamento?.value;
-            if (!metodoRaw) {
-                alert('Selecione um método de pagamento.');
-                return;
-            }
+            if (!metodoRaw) return alert('Selecione um método de pagamento.');
 
-            if (metodosComCartaoTexto.includes(metodoRaw)) {
+            if (metodosComCartaoTexto.includes(metodoRaw.toLowerCase())) {
                 const validadeInput = document.getElementById('validade-cartao')?.value;
-
-                if (!validarMesExpiracao(validadeInput)) {
-                    alert("Data de validade inválida!");
-                    return;
-                }
+                if (!validarDataExpiracao(validadeInput)) return;
             }
+
             const numCartaoInput = document.getElementById('num-cartao')?.value || "";
 
             btnFinalizar.disabled = true;
@@ -257,31 +219,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             btnFinalizar.disabled = false;
             btnFinalizar.innerText = "Finalizar";
-
-            await carregarDadosIniciais();
         });
     }
 
     async function carregarDadosIniciais() {
         const token = auth.getToken();
-        if (!token) {
-            console.error("Token não encontrado.");
-            return window.location.href = "/introduction"
-        }
+        if (!token) return window.location.href = "/introduction";
         try {
             const response = await fetch(`${window.location.origin}/api/payments/wallet-data/${idLogado}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) return;
             const data = await response.json();
             if (saldoDisplay) saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             if (!corpoTabela) return;
             corpoTabela.innerHTML = '';
-            if (!data.historico || !data.historico.length) {
+            if (!data.historico.length) {
                 corpoTabela.innerHTML = '<tr><td colspan="5">Sem movimentações.</td></tr>';
             } else {
                 data.historico.forEach(mov => {
