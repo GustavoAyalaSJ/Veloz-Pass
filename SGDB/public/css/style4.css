@@ -626,6 +626,7 @@ td.table-bold {
 }
 
 .filtro-item {
+    position: relative;
     display: flex;
     flex-direction: column;
 }
@@ -638,6 +639,9 @@ td.table-bold {
 }
 
 .filtro-select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none; 
     padding: 10px 12px;
     border: 2px solid #7296be;
     border-radius: 6px;

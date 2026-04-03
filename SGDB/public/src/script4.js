@@ -150,6 +150,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    if (selectFiltro) {
+        const filtro = selectPagamento.closest('.filtro-item');
+        if (filtro) {
+            selectFiltro.addEventListener('focus', () => filtro.classList.add('active'));
+            selectFiltro.addEventListener('blur', () => filtro.classList.remove('active'));
+        }
+    }
+
     function validarDataExpiracao(validade) {
         if (!validade || validade.length < 5) {
             alert("Preencha a validade corretamente (MM/YY).");

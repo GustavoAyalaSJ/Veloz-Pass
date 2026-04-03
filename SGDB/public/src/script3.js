@@ -98,6 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
         renderizarTabela(dadosFiltrados);
     }
 
+    if (selectFiltro) {
+        const filtro = selectPagamento.closest('.filtro-item');
+        if (filtro) {
+            selectFiltro.addEventListener('focus', () => filtro.classList.add('active'));
+            selectFiltro.addEventListener('blur', () => filtro.classList.remove('active'));
+        }
+    }
+
     async function obterDadosCarteira(idUsuario) {
         try {
             if (typeof auth !== 'undefined') {
