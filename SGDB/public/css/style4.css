@@ -500,7 +500,7 @@ body {
 .select-icon {
     position: absolute;
     right: 15px;
-    bottom: 12px;
+    bottom: 20px;
     transform: translateY(-50%);
     transition: transform 0.3s ease;
     pointer-events: none;

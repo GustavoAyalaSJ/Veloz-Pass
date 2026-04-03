@@ -462,7 +462,7 @@ body {
 .select-icon {
     position: absolute;
     right: 12px;
-    bottom: 12px;
+    top: 66%;
     transform: translateY(-50%);
     pointer-events: none;
     color: #7296be;
