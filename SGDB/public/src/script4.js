@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function adicionarCredito(valor, metodo, numCartao) {
         const token = auth.getToken();
         try {
-            const response = await fetch(`${window.location.origin}/api/payments/process-credit`, {
+            const response = await fetch(`${window.location.origin}/api/payments/add-credit`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
