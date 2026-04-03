@@ -207,10 +207,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function validarMesExpiracao(validade) {
-        if (!validade || validade.length < 5) return false;
-        const mes = parseInt(validade.substring(0, 2));
-        return mes >= 1 && mes <= 12;
+    function validarDataExpiracao(validade) {
+        if (!validade || validade.length < 5) {
+            alert("Preencha a validade corretamente (MM/YY).");
+            return false;
+        }
+        const partes = validade.split('/');
+        const mes = parseInt(partes[0]);
+        const ano = parseInt(partes[1]);
+        const anoAtual = 26; 
+
+        if (mes < 1 || mes > 12) {
+            alert("Mês inválido! Use de 01 a 12.");
+            return false;
+        }
+        if (ano < anoAtual) {
+            alert("Cartão vencido! O ano deve ser 26 ou superior.");
+            return false;
+        }
+        return true;
     }
 
     if (btnProsseguir) {
@@ -249,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                if (!validarMesExpiracao(campoValidCard)) {
+                if (!validarDataExpiracao(campoValidCard)) {
                     alert("Data de validade inválida!");
                     return;
                 }
