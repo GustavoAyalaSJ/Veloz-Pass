@@ -73,6 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function normalizarTexto(txt) {
+        return (txt || '')
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
+
     function aplicarFiltros() {
         const valOrigem = normalizarTexto(filtroTipo?.value);
         const valRealizadoNo = normalizarTexto(filtroRealizadoNo?.value);
