@@ -238,11 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             if (saldoDisplay) saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             if (!corpoTabela) return;
-            
+
             dadosHistoricoCompleto = data.historico || [];
-            
+
             renderizarTabela(dadosHistoricoCompleto);
-            
+
             if (filtroRealizadoPor) filtroRealizadoPor.addEventListener('change', aplicarFiltros);
             if (filtroBandeira) filtroBandeira.addEventListener('change', aplicarFiltros);
         } catch (e) { console.error(e); }
@@ -254,16 +254,16 @@ document.addEventListener('DOMContentLoaded', () => {
             corpoTabela.innerHTML = '<tr><td colspan="5">Sem movimentações.</td></tr>';
             return;
         }
-        
+
         dados.forEach(mov => {
             const situacao = (mov.situacao || 'pendente').toLowerCase();
             const classe = situacao.includes('concl') ? 'status-verde' : (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
             const linha = document.createElement('tr');
             linha.className = classe;
-            
+
             const tipo = (mov.tipo || mov.metodo || 'Crédito').toLowerCase();
             const bandeira = (mov.bandeira_banco?.nome_bandeira || '---').toLowerCase();
-            
+
             linha.innerHTML = `
                 <td>${mov.n_protocolo || '---'}</td>
                 <td>${tipo.toUpperCase()}</td>
@@ -275,22 +275,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-function aplicarFiltros() {
-    const valRealizadoPor = filtroRealizadoPor?.value?.toLowerCase().trim() || '';
-    const valBandeira = filtroBandeira?.value?.toLowerCase().trim() || '';
-    
-    const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
-        const realizadoPorBanco = (mov.tipo || mov.metodo || 'pix').toLowerCase().trim();
-        const bandeiraBanco = (mov.bandeira_banco?.nome_bandeira || '---').toLowerCase().trim();
+    function normalizarTexto(txt) {
+        return (txt || '')
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
 
-        const bateRealizadoPor = valRealizadoPor === '' || realizadoPorBanco.includes(valRealizadoPor);
-        const bateBandeira = valBandeira === '' || bandeiraBanco.includes(valBandeira);
+    function aplicarFiltros() {
+        const valRealizadoPor = normalizarTexto(filtroRealizadoPor?.value);
+        const valBandeira = normalizarTexto(filtroBandeira?.value);
 
-        return bateRealizadoPor && bateBandeira;
-    });
-    
-    renderizarTabela(dadosFiltrados);
-}
+        const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
+            const realizadoPorBanco = normalizarTexto(mov.tipo || mov.metodo || 'pix');
+            const bandeiraBanco = normalizarTexto(mov.bandeira_banco?.nome_bandeira || '');
+
+            const bateRealizadoPor = !valRealizadoPor || realizadoPorBanco === valRealizadoPor;
+            const bateBandeira = !valBandeira || bandeiraBanco === valBandeira;
+
+            return bateRealizadoPor && bateBandeira;
+        });
+
+        renderizarTabela(dadosFiltrados);
+    }
 
     carregarDadosIniciais();
 });
