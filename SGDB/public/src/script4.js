@@ -268,10 +268,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const classe = situacao.includes('concl') ? 'status-verde' : (situacao.includes('rev') || situacao.includes('pend') ? 'status-amarelo' : 'status-vermelho');
             const linha = document.createElement('tr');
             linha.className = classe;
+            
+            // Normalizar dados
+            const tipo = (mov.tipo || mov.metodo || 'Crédito').toLowerCase();
+            const bandeira = (mov.bandeira_banco?.nome_bandeira || '---').toLowerCase();
+            
             linha.innerHTML = `
                 <td>${mov.n_protocolo || '---'}</td>
-                <td>${(mov.tipo || 'Crédito').toUpperCase()}</td>
-                <td>${mov.bandeira_banco?.nome_bandeira || '---'}</td>
+                <td>${tipo.toUpperCase()}</td>
+                <td>${bandeira.toUpperCase()}</td>
                 <td>R$ ${parseFloat(mov.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
                 <td><button class="btn-print"><i class="bi bi-printer"></i> IMPRIMIR</button></td>
             `;
@@ -280,20 +285,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function aplicarFiltros() {
-        const filtroTipo = filtroRealizadoPor?.value || '';
-        const filtroBand = filtroBandeira?.value || '';
+        const filtroTipo = filtroRealizadoPor?.value?.toLowerCase() || '';
+        const filtroBand = filtroBandeira?.value?.toLowerCase() || '';
         
         let dadosFiltrados = dadosHistoricoCompleto;
         
         if (filtroTipo) {
             dadosFiltrados = dadosFiltrados.filter(mov => 
-                (mov.tipo || 'Crédito').toUpperCase() === filtroTipo
+                (mov.tipo || mov.metodo || 'crédito').toLowerCase().includes(filtroTipo)
             );
         }
         
         if (filtroBand) {
             dadosFiltrados = dadosFiltrados.filter(mov => 
-                (mov.bandeira_banco?.nome_bandeira || '').toUpperCase() === filtroBand
+                (mov.bandeira_banco?.nome_bandeira || '').toLowerCase().includes(filtroBand)
             );
         }
         

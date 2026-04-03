@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Filtrar por situação confirmada
             const historicoFiltrado = data.historico.filter(mov => {
                 const situacao = (mov.situacao || '').toLowerCase();
                 return situacao.includes('concl') || situacao.includes('pago') || situacao.includes('confirmado');
@@ -66,8 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 currency: 'BRL'
             });
 
+            // Pegar o tipo corretamente do banco
             const metodoExibicao = (mov.metodo || mov.tipo || 'PIX').toUpperCase();
-            const tipoExibicao = (mov.tipo || 'CARTEIRA DIGITAL').toUpperCase();
+            const tipoExibicao = (mov.origem || mov.tipo || 'CARTEIRA DIGITAL').toUpperCase();
 
             linha.innerHTML = `
                 <span class="col-protocolo">${mov.n_protocolo || '---'}</span>
@@ -84,20 +86,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function aplicarFiltros() {
-        const filterTipo = filtroTipo?.value || '';
-        const filterRealizadoNo = filtroRealizadoNo?.value || '';
+        const filterTipo = filtroTipo?.value?.toLowerCase() || '';
+        const filterRealizadoNo = filtroRealizadoNo?.value?.toLowerCase() || '';
         
         let dadosFiltrados = dadosHistoricoCompleto;
         
         if (filterTipo) {
             dadosFiltrados = dadosFiltrados.filter(mov => 
-                (mov.tipo || 'CARTEIRA DIGITAL').toUpperCase() === filterTipo
+                (mov.origem || mov.tipo || 'carteira digital').toLowerCase().includes(filterTipo)
             );
         }
         
         if (filterRealizadoNo) {
             dadosFiltrados = dadosFiltrados.filter(mov => 
-                (mov.metodo || mov.tipo || 'PIX').toUpperCase() === filterRealizadoNo
+                (mov.metodo || mov.tipo || 'pix').toLowerCase().includes(filterRealizadoNo)
             );
         }
         

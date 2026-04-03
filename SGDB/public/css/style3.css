@@ -387,6 +387,12 @@ body {
 }
 
 /* Filtros */
+.main-content > .filtros-container {
+    max-width: 900px;
+    margin: 0 auto 20px;
+    padding: 0 40px;
+}
+
 .filtros-container {
     display: flex;
     gap: 20px;
@@ -537,9 +543,14 @@ body {
         font-size: 0.55rem;
     }
 
+    .main-content > .filtros-container {
+        padding: 0 15px;
+    }
+
     .filtros-container {
         flex-direction: column;
         gap: 15px;
+        margin-bottom: 15px;
     }
 
     .filtro-select {

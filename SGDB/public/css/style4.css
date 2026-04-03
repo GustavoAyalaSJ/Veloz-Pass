@@ -599,6 +599,12 @@ td.table-bold {
 }
 
 /* Filtros */
+.card-container > .filtros-container {
+    margin: -30px -40px 20px -40px;
+    padding: 20px 40px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
 .filtros-container {
     display: flex;
     gap: 20px;
@@ -727,9 +733,15 @@ td.table-bold {
         font-size: 0.9rem;
     }
 
+    .card-container > .filtros-container {
+        margin: -20px -15px 15px -15px;
+        padding: 15px 15px;
+    }
+
     .filtros-container {
         flex-direction: column;
         gap: 15px;
+        margin-bottom: 15px;
     }
 
     .filtro-select {
