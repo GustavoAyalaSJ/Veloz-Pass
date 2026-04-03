@@ -176,6 +176,14 @@ body {
     transition: 0.3s rgba(161, 73, 58, 0.744) ease;
 }
 
+.dark-mode .select-icon {
+    color: #73d4f2;
+}
+
+.dark-mode .select-wrapper.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
 /* Conteúdo Principal */
 .main-content {
     flex: 1;
@@ -414,6 +422,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    position: relative;
+    min-width: 180px;
 }
 
 .filtro-item label {
@@ -424,7 +434,10 @@ body {
 }
 
 .filtro-select {
-    padding: 10px 12px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;  
+    padding: 10px 35px 10px 12px;
     border: 2px solid #7296be;
     border-radius: 6px;
     background-color: #ffffff;
@@ -432,7 +445,7 @@ body {
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 150px;
+    width: 100%;
 }
 
 .filtro-select:hover {
@@ -445,6 +458,21 @@ body {
     border-color: #607ba0;
     box-shadow: 0 0 8px rgba(114, 150, 190, 0.4);
 }
+
+.select-icon {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    pointer-events: none;
+    color: #7296be;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.select-wrapper.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
 
 /* Media Queries */
 @media (max-width: 600px) and (orientation: portrait) {

@@ -155,6 +155,10 @@ body {
     color: #73d4f2;
 }
 
+.dark-mode .select-wrapper.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
 .dark-mode .select-wrapper-modal.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
@@ -504,6 +508,10 @@ body {
 }
 
 .select-wrapper-modal.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.select-wrapper.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
 

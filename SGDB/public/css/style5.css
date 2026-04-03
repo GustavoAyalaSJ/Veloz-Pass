@@ -132,7 +132,7 @@ body {
     color: #73d4f2;
 }
 
-.select-wrapper-modal.active .select-icon {
+.dark-mode .select-wrapper.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
 
@@ -334,7 +334,6 @@ body {
 
 .top-group.valor {
     padding-right: 550px;
-
 }
 
 /* Modal - Deslogar */
