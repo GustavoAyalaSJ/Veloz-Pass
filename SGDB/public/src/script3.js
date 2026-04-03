@@ -98,11 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
         renderizarTabela(dadosFiltrados);
     }
 
-    if (selectFiltro) {
-        const filtro = selectPagamento.closest('.filtro-item');
-        if (filtro) {
-            selectFiltro.addEventListener('focus', () => filtro.classList.add('active'));
-            selectFiltro.addEventListener('blur', () => filtro.classList.remove('active'));
+    if (filtroTipo) {
+        const filtroItem1 = filtroTipo.closest('.filtro-item');
+        if (filtroItem1) {
+            filtroTipo.addEventListener('focus', () => filtroItem1.classList.add('active'));
+            filtroTipo.addEventListener('blur', () => filtroItem1.classList.remove('active'));
+        }
+    }
+
+    if (filtroRealizadoNo) {
+        const filtroItem2 = filtroRealizadoNo.closest('.filtro-item');
+        if (filtroItem2) {
+            filtroRealizadoNo.addEventListener('focus', () => filtroItem2.classList.add('active'));
+            filtroRealizadoNo.addEventListener('blur', () => filtroItem2.classList.remove('active'));
         }
     }
 

@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let dadosHistoricoCompleto = [];
     const filtroRealizadoPor = document.getElementById('filtro-realizado-por');
     const filtroBandeira = document.getElementById('filtro-bandeira');
+    const filtroSituacao = document.getElementById('filtro-situacao');
 
     if (btnDropdown && contentDropdown) {
         btnDropdown.addEventListener('click', (e) => {
@@ -150,11 +151,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (selectFiltro) {
-        const filtro = selectPagamento.closest('.filtro-item');
-        if (filtro) {
-            selectFiltro.addEventListener('focus', () => filtro.classList.add('active'));
-            selectFiltro.addEventListener('blur', () => filtro.classList.remove('active'));
+    if (filtroRealizadoPor) {
+        const filtroItem1 = filtroRealizadoPor.closest('.filtro-item');
+        if (filtroItem1) {
+            filtroRealizadoPor.addEventListener('focus', () => filtroItem1.classList.add('active'));
+            filtroRealizadoPor.addEventListener('blur', () => filtroItem1.classList.remove('active'));
+        }
+    }
+
+    if (filtroBandeira) {
+        const filtroItem2 = filtroBandeira.closest('.filtro-item');
+        if (filtroItem2) {
+            filtroBandeira.addEventListener('focus', () => filtroItem2.classList.add('active'));
+            filtroBandeira.addEventListener('blur', () => filtroItem2.classList.remove('active'));
+        }
+    }
+
+    if (filtroSituacao) {
+        const filtroItem3 = filtroSituacao.closest('.filtro-item');
+        if (filtroItem3) {
+            filtroSituacao.addEventListener('focus', () => filtroItem3.classList.add('active'));
+            filtroSituacao.addEventListener('blur', () => filtroItem3.classList.remove('active'));
         }
     }
 
@@ -253,6 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (filtroRealizadoPor) filtroRealizadoPor.addEventListener('change', aplicarFiltros);
             if (filtroBandeira) filtroBandeira.addEventListener('change', aplicarFiltros);
+            if (filtroSituacao) filtroSituacao.addEventListener('change', aplicarFiltros);
         } catch (e) { console.error(e); }
     }
 
@@ -294,19 +312,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function aplicarFiltros() {
         const valRealizadoPor = normalizarTexto(filtroRealizadoPor?.value);
         const valBandeira = normalizarTexto(filtroBandeira?.value);
-        const valSituacao = normalizarTexto(filtroRealizadoNo?.value);
+        const valSituacao = normalizarTexto(filtroSituacao?.value);
 
         const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
             const realizadoPorBanco = normalizarTexto(mov.tipo || mov.metodo || 'pix');
             const bandeiraBanco = normalizarTexto(mov.bandeira_banco?.nome_bandeira || '');
             const situacaoBanco = normalizarTexto(mov.situacao || '');
 
-            const bateSituacao = !valSituacao || situacaoBanco === valSituacao;
             const bateRealizadoPor = !valRealizadoPor || realizadoPorBanco === valRealizadoPor;
             const bateBandeira = !valBandeira || bandeiraBanco === valBandeira;
+            const bateSituacao = !valSituacao || situacaoBanco === valSituacao;
 
-            return bateRealizadoPor && bateBandeira;
-            return bateOrigem && bateMetodo && bateSituacao;
+            return bateRealizadoPor && bateBandeira && bateSituacao;
         });
 
         renderizarTabela(dadosFiltrados);
