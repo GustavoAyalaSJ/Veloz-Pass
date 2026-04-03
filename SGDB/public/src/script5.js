@@ -207,62 +207,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-function validarMesExpiracao(validade) {
-    if (!validade || validade.length < 5) return false;
-    const mes = parseInt(validade.substring(0, 2));
-    return mes >= 1 && mes <= 12;
-}
+    function validarMesExpiracao(validade) {
+        if (!validade || validade.length < 5) return false;
+        const mes = parseInt(validade.substring(0, 2));
+        return mes >= 1 && mes <= 12;
+    }
 
- if (btnProsseguir) {
-    btnProsseguir.addEventListener('click', () => {
-        const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
-        const valorDigitado = parseFloat(valorRaw) || 0;
+    if (btnProsseguir) {
+        btnProsseguir.addEventListener('click', () => {
+            const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+            const valorDigitado = parseFloat(valorRaw) || 0;
 
-        const inputsTransporte = document.querySelectorAll('.confirm-card input');
-        const numTransp1 = inputsTransporte[0]?.value || "";
-        const numTransp2 = inputsTransporte[1]?.value || "";
+            const inputsTransporte = document.querySelectorAll('.confirm-card input');
+            const numTransp1 = inputsTransporte[0]?.value || "";
+            const numTransp2 = inputsTransporte[1]?.value || "";
 
-        const metodoSelecionado = selectElement.value.toLowerCase();
+            const metodoSelecionado = selectElement.value.toLowerCase();
 
-        const campoNumCard = document.getElementById('card-num')?.value || "";
-        const campoValidCard = document.getElementById('card-valid')?.value || "";
-        const campoCvvCard = document.getElementById('card-cvv')?.value || "";
+            const campoNumCard = document.getElementById('card-num')?.value || "";
+            const campoValidCard = document.getElementById('card-valid')?.value || "";
+            const campoCvvCard = document.getElementById('card-cvv')?.value || "";
 
-        if (valorDigitado < 5.00) {
-            alert("Coloque um valor (Mínimo requisitado: 5 reais).");
-            return;
-        }
-
-        if (selectElement.selectedIndex === 0 && numTransp1 === "") {
-            alert("Complete as informações abaixo.");
-            return;
-        }
-
-        if (selectElement.selectedIndex !== 0 && numTransp1 === "") {
-            alert("Coloque o número do seu cartão de passagem.");
-            return;
-        }
-
-        if (metodoSelecionado.includes('cartão')) {
-            if (campoNumCard.length < 19 || campoValidCard.length < 5 || campoCvvCard.length < 3) {
-                alert("Complete os campos da informação do cartão para continuar.");
+            if (valorDigitado < 5.00) {
+                alert("Coloque um valor (Mínimo requisitado: 5 reais).");
                 return;
             }
 
-            if (!validarMesExpiracao(campoValidCard)) {
-                alert("Data de validade inválida!");
+            if (selectElement.selectedIndex === 0 && numTransp1 === "") {
+                alert("Complete as informações abaixo.");
                 return;
             }
-        }
 
-        if (numTransp1 !== numTransp2) {
-            alert("A confirmação do número do cartão de transporte não confere.");
-            return;
-        }
+            if (selectElement.selectedIndex !== 0 && numTransp1 === "") {
+                alert("Coloque o número do seu cartão de passagem.");
+                return;
+            }
 
-        abrirModalFinalizacao();
-    });
-}
+            if (metodoSelecionado.includes('cartão')) {
+                if (campoNumCard.length < 19 || campoValidCard.length < 5 || campoCvvCard.length < 3) {
+                    alert("Complete os campos da informação do cartão para continuar.");
+                    return;
+                }
+
+                if (!validarMesExpiracao(campoValidCard)) {
+                    alert("Data de validade inválida!");
+                    return;
+                }
+            }
+
+            if (numTransp1 !== numTransp2) {
+                alert("A confirmação do número do cartão de transporte não confere.");
+                return;
+            }
+
+            abrirModalFinalizacao();
+        });
+    }
 
     if (selectElement && wrapper) {
         selectElement.addEventListener('click', () => wrapper.classList.toggle('active'));

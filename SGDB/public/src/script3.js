@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function carregarHistoricoGeral() {
         try {
             const data = await obterDadosCarteira(idLogado);
-            
+
             if (!data || !data.historico) {
                 corpoTabelaInfo.innerHTML = '<div class="empty-table-message">Nenhum registro encontrado.</div>';
                 return;
@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const linha = document.createElement('div');
                 linha.className = 'tabela-linha-item linha-historico';
 
-                const valorFormatado = parseFloat(mov.valor).toLocaleString('pt-BR', { 
-                    style: 'currency', 
-                    currency: 'BRL' 
+                const valorFormatado = parseFloat(mov.valor).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
                 });
 
                 const metodoExibicao = (mov.metodo || mov.tipo || 'PIX').toUpperCase();
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="btn-imprimir">IMPRIMIR</button>
                     </span>
                 `;
-                
+
                 corpoTabelaInfo.appendChild(linha);
             });
 
@@ -62,17 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function obterDadosCarteira(idUsuario) {
-    try {
-        if (typeof auth !== 'undefined') {
-            const response = await auth.request(`/api/payments/wallet-data/${idUsuario}`);
-            if (!response || !response.ok) return null;
-            return await response.json();
+        try {
+            if (typeof auth !== 'undefined') {
+                const response = await auth.request(`/api/payments/wallet-data/${idUsuario}`);
+                if (!response || !response.ok) return null;
+                return await response.json();
+            }
+        } catch (error) {
+            console.error("Erro ao obter dados da carteira:", error);
+            return null;
         }
-    } catch (error) {
-        console.error("Erro ao obter dados da carteira:", error);
-        return null;
     }
-}
 
 
     carregarHistoricoGeral();

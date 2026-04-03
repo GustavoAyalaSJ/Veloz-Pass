@@ -79,7 +79,7 @@ exports.processCredit = async (req, res) => {
         }
 
         const protocolo = 'VP' + Date.now();
-        const idManual = Math.floor(Date.now() / 1000); 
+        const idManual = Math.floor(Date.now() / 1000);
 
         const { error: erroMove } = await supabase
             .from('movimentacao')

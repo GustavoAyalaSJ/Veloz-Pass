@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const metodo = selectPagamento.value.toLowerCase();
             containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
             containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
-            
+
             // Atualizar ID de bandeira baseado no método selecionado
             idBandeiraSelecionada = mapaBandeiras[metodo] || null;
         });
@@ -225,11 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-function validarMesExpiracao(validade) {
-    if (!validade) return false;
-    const mes = parseInt(validade.substring(0, 2));
-    return mes >= 1 && mes <= 12;
-}
+    function validarMesExpiracao(validade) {
+        if (!validade) return false;
+        const mes = parseInt(validade.substring(0, 2));
+        return mes >= 1 && mes <= 12;
+    }
 
 
     if (btnFinalizar) {
@@ -240,14 +240,14 @@ function validarMesExpiracao(validade) {
                 return;
             }
 
-        if (metodosComCartaoTexto.includes(metodoRaw)) {
-            const validadeInput = document.getElementById('validade-cartao')?.value;
-            
-            if (!validarMesExpiracao(validadeInput)) {
-                alert("Data de validade inválida!");
-                return;
+            if (metodosComCartaoTexto.includes(metodoRaw)) {
+                const validadeInput = document.getElementById('validade-cartao')?.value;
+
+                if (!validarMesExpiracao(validadeInput)) {
+                    alert("Data de validade inválida!");
+                    return;
+                }
             }
-        }
             const numCartaoInput = document.getElementById('num-cartao')?.value || "";
 
             btnFinalizar.disabled = true;
