@@ -87,10 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const options = selectElement.options;
                 for (let i = 0; i < options.length; i++) {
                     if (options[i].text.includes('Carteira Digital')) {
-                        // Manter apenas "Carteira Digital" sem mostrar o saldo no select
-                        if (!options[i].text.includes('(')) {
-                            options[i].text = 'Carteira Digital';
-                        }
+                        // Mostrar saldo no select da página Recarga
+                        options[i].text = `Carteira Digital (R$ ${saldoFormatado})`;
                         break;
                     }
                 }
@@ -283,12 +281,25 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const valorNum = parseFloat(valor.replace("R$ ", "").replace(/\./g, "").replace(",", "."));
             
+            // Normalizar tipo de pagamento para o padrão esperado pelo backend
+            let metodoNormalizado = metodo;
+            if (metodo.includes('débito')) {
+                metodoNormalizado = 'débito';
+            } else if (metodo.includes('crédito')) {
+                metodoNormalizado = 'crédito';
+            } else if (metodo.includes('internacional')) {
+                metodoNormalizado = 'internacional';
+            } else if (metodo === 'pix') {
+                metodoNormalizado = 'pix';
+            } else if (metodo.includes('carteira')) {
+                metodoNormalizado = 'carteira digital';
+            }
+            
             const payload = {
                 valor: valorNum.toString(),
-                metodo: metodo,
+                metodo: metodoNormalizado,
                 numCartaoTransporte: numCartao,
                 tipo: tipo,
-                tipoOperacao: 'RECARGA',
                 idBandeira: idBandeiraSelecionada
             };
 

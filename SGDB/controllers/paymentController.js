@@ -165,9 +165,10 @@ exports.processRecargaTransporte = async (req, res) => {
                 id_carteira: carteira.id_carteira,
                 id_bandeira: idBandeira ? parseInt(idBandeira) : null,
                 n_protocolo: protocolo,
-                tipo: 'RECARGA',
+                tipo: metodo.toUpperCase(),
                 valor: valorNum,
                 situacao: 'CONCLUIDO',
+                realizado_no: "Recarga",
                 data_realizada: new Date().toISOString()
             }]);
 
