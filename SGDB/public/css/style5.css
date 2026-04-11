@@ -336,6 +336,61 @@ body {
     padding-right: 550px;
 }
 
+.type-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    position: relative; 
+    width: 100%;
+}
+
+.type-card label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-left: 2px;
+}
+
+#select-type {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#select-type:hover {
+    border-color: #cbd5e0;
+}
+
+#select-type:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.type-card .select-icon {
+    position: absolute;
+    right: 15px;
+    top: 42px;
+    pointer-events: none;
+    color: #888;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.type-card.active .select-icon {
+    transform: rotate(180deg);
+}
+
 /* Modal - Deslogar */
 .modal-overlay {
     position: fixed;

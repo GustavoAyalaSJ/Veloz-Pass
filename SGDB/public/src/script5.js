@@ -6,13 +6,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectElement = document.getElementById('select-pagamento');
     const inputValor = document.querySelector('.top-group.valor input');
     const btnProsseguir = document.querySelector('.btn-prosseguir');
+    const inputCartao = document.getElementById('num-cartao');
+    const displayImagem = document.querySelector('.buscard-image img');
     const wrapper = selectElement ? selectElement.parentElement : null;
 
     let saldoAtualCarteira = 0;
 
+    const mapaImagens = {
+        1: "Visa.png",
+        2: "Mastercard.png",
+        3: "Hipercard.png",
+        4: "Elo.png",
+        5: "Amex.png"
+    };
+
     if (!idLogado) {
         window.location.href = "/introduction";
         return;
+    }
+
+    function resetarImagem() {
+        if (displayImagem) displayImagem.src = imgDefault;
     }
 
     function formatarMoeda(valor) {
@@ -76,6 +90,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const imgDefault = "Assets/Cartão-ideal.png";
+    const pastaBandeiras = "Assets/Bandeira/";
+
+    if (inputCartao && displayImagem) {
+        inputCartao.addEventListener('input', (e) => {
+            const valor = e.target.value.replace(/\D/g, '');
+
+            if (valor.length > 0) {
+                const ultimoDigito = parseInt(valor.slice(-1));
+
+                if (mapaImagens[ultimoDigito]) {
+                    const nomeArquivo = mapaImagens[ultimoDigito];
+                    displayImagem.src = `${pastaBandeiras}${nomeArquivo}`;
+                } else {
+                    displayImagem.src = imgDefault;
+                }
+            } else {
+                displayImagem.src = imgDefault;
+            }
+        });
+    }
+
     const inputsTransporte = document.querySelectorAll('.confirm-card input');
     inputsTransporte.forEach(input => {
         aplicarMascara(input, "00.00.00000000-0");
@@ -87,6 +123,25 @@ document.addEventListener('DOMContentLoaded', () => {
         wrapper.classList.remove('active');
         validarSaldo();
         renderizarPasso2();
+    });
+
+    document.addEventListener('input', (e) => {
+        if (e.target.id === 'card-num' || e.target.id === 'num-cartao') {
+            const valor = e.target.value.replace(/\D/g, '');
+            const metodoAtual = selectElement?.value.toLowerCase();
+            const eMetodoCartao = ['débito', 'crédito', 'internacional'].includes(metodoAtual) || metodoAtual.includes('cartão');
+
+            if (eMetodoCartao && valor.length > 0) {
+                const ultimoDigito = parseInt(valor.slice(-1));
+                if (mapaBandeiras[ultimoDigito]) {
+                    displayImagem.src = `${pastaBandeiras}${mapaBandeiras[ultimoDigito]}`;
+                } else {
+                    resetarImagem();
+                }
+            } else if (metodoAtual !== 'pix') {
+                resetarImagem();
+            }
+        }
     });
 
     function aplicarMascara(input, mascara) {
@@ -109,6 +164,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             e.target.value = novoValor;
+        });
+    }
+
+    if (selectElement) {
+        selectElement.addEventListener('change', () => {
+            const metodo = selectElement.value.toLowerCase();
+        
+            if (metodo === 'pix') {
+                displayImagem.src = `${pastaBandeiras}pix.png`;
+            } else {
+                resetarImagem();
+            }
+
+            if (wrapper) wrapper.classList.remove('active');
+            validarSaldo();
+            renderizarPasso2();
         });
     }
 
@@ -153,8 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <input type="text" id="card-cvv" placeholder="000" maxlength="3">
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
                 const inputNum = document.getElementById('card-num');
                 const inputValid = document.getElementById('card-valid');
                 const inputCvv = document.getElementById('card-cvv');
@@ -215,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const partes = validade.split('/');
         const mes = parseInt(partes[0]);
         const ano = parseInt(partes[1]);
-        const anoAtual = 26; 
+        const anoAtual = 26;
 
         if (mes < 1 || mes > 12) {
             alert("Mês inválido! Use de 01 a 12.");
