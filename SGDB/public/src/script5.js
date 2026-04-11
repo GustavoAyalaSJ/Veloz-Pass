@@ -313,9 +313,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok && data.success) {
-                btn.textContent = 'Recarga realizada!';
+                btn.textContent = 'Recarga concluida!';
+                alert('Nota técnica: Em um sistema real, esta transação ficaria com status "Pendente" e poderia levar de algumas horas até 2 dias úteis para ser compensada pelos órgãos de transporte.');
                 setTimeout(() => {
-                    window.location.href = '/historico_geral';
+                    window.location.href = '/dashboard';
                 }, 1500);
             } else {
                 alert(data.error || 'Erro ao processar recarga');
@@ -323,8 +324,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.textContent = 'Concluir';
             }
         } catch (err) {
-            console.error("Erro ao finalizar recarga:", err);
-            alert('Erro ao processar recarga: ' + err.message);
+            console.error("Erro ao finalizar recarga:");
+            alert('Erro ao processar recarga');
             btn.disabled = false;
             btn.textContent = 'Concluir';
         }
