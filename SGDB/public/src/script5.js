@@ -105,8 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
         renderizarPasso2();
     });
 
-    document.addEventListener('input', (e) => {
-        if (e.target.id === 'card-num' || e.target.id === 'num-cartao') {
+    function configurarListenerBandeira(inputCartao) {
+        if (!inputCartao) return;
+        
+        inputCartao.addEventListener('input', (e) => {
             const valor = e.target.value.replace(/\D/g, '');
             const metodoAtual = selectElement?.value.toLowerCase();
             const eMetodoCartao = ['débito', 'crédito', 'internacional'].includes(metodoAtual) || metodoAtual.includes('cartão');
@@ -118,11 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     resetarImagem();
                 }
-            } else if (metodoAtual !== 'pix') {
-                resetarImagem();
             }
-        }
-    });
+        });
+    }
 
     function aplicarMascara(input, mascara) {
         if (!input) return;
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const metodo = selectElement.value.toLowerCase();
 
             if (metodo === 'pix') {
-                displayImagem.src = `${pastaBandeiras}pix.png`;
+                displayImagem.src = `${pastaBandeiras}Pix.png`;
             } else {
                 resetarImagem();
             }
@@ -212,6 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 aplicarMascara(inputNum, "0000 0000 0000 0000");
                 aplicarMascara(inputValid, "00/00");
                 aplicarMascara(inputCvv, "000");
+                
+                configurarListenerBandeira(inputNum);
             }
         }
     }
