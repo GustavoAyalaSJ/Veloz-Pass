@@ -222,6 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const metodoTexto = selectElement.options[selectElement.selectedIndex].text;
         const valorInserido = inputValor.value;
         const numCartaoTransporte = document.querySelectorAll('.confirm-card input')[0].value;
+        const tipoSelecionado = document.getElementById('select-type').value;
+        const metodo = selectElement.value.toLowerCase();
 
         let modalOverlay = document.getElementById('modalRecarga');
         if (!modalOverlay) {
@@ -254,9 +256,50 @@ document.addEventListener('DOMContentLoaded', () => {
             modalOverlay.style.display = 'none';
         });
 
-        document.getElementById('btn-finalizar-fake').addEventListener('click', () => {
-            alert("Funcionalidade de finalização em breve!");
+        document.getElementById('btn-finalizar-fake').addEventListener('click', async () => {
+            await finalizarRecarga(valorInserido, metodo, numCartaoTransporte, tipoSelecionado, modalOverlay);
         });
+    }
+
+    async function finalizarRecarga(valor, metodo, numCartao, tipo, modalOverlay) {
+        const btn = document.getElementById('btn-finalizar-fake');
+        btn.disabled = true;
+        btn.textContent = 'Processando...';
+
+        try {
+            const valorNum = parseFloat(valor.replace("R$ ", "").replace(/\./g, "").replace(",", "."));
+            
+            const response = await auth.request('/api/payments/recarga-transporte', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    valor: valorNum.toString(),
+                    metodo: metodo,
+                    numCartaoTransporte: numCartao,
+                    tipo: tipo
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                btn.textContent = 'Recarga realizada!';
+                setTimeout(() => {
+                    window.location.href = '/historico_geral';
+                }, 1500);
+            } else {
+                alert(data.error || 'Erro ao processar recarga');
+                btn.disabled = false;
+                btn.textContent = 'Concluir';
+            }
+        } catch (err) {
+            console.error("Erro ao finalizar recarga:", err);
+            alert('Erro ao processar recarga: ' + err.message);
+            btn.disabled = false;
+            btn.textContent = 'Concluir';
+        }
     }
 
     function validarDataExpiracao(validade) {

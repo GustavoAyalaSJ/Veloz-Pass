@@ -17,8 +17,7 @@ index4.html
 - Fazer a página Recarga bloquear o aumento de valor em caso de transações (pendentes e recusadas);
 
 index5.html:
-- Conectar os inputs de N* Cartão com a tabela UniqueCard;
-- Finalizar o modal de conclusão de recarga e enviar para a página histórico geral e registrar na tabela movimentação.
+- Conectar os inputs de N* Cartão com a tabela UniqueCard.
 
 index6.html:
 - Arrumar o design e implementar o HTML, CSS e JavaScript da página.

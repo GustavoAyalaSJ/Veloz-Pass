@@ -115,6 +115,66 @@ exports.processCredit = async (req, res) => {
     }
 };
 
+exports.processRecargaTransporte = async (req, res) => {
+    const { valor: valorRaw, metodo, numCartaoTransporte, tipo, idBandeira } = req.body;
+    const valorNum = parseFloat(valorRaw);
+    const idUsuario = req.userId;
+
+    if (isNaN(valorNum) || valorNum <= 0) {
+        return res.status(400).json({ error: "Valor inválido" });
+    }
+
+    if (!numCartaoTransporte || numCartaoTransporte.trim() === '') {
+        return res.status(400).json({ error: "Número do cartão de transporte inválido" });
+    }
+
+    try {
+        let { data: carteira, error: erroCarteira } = await supabase
+            .from('carteira')
+            .select('id_carteira, saldo_atual')
+            .eq('id_usuario', idUsuario)
+            .single();
+
+        if (erroCarteira || !carteira) {
+            const { data: newCarteira, error: createError } = await supabase
+                .from('carteira')
+                .insert([{ id_usuario: idUsuario, saldo_atual: 0 }])
+                .select('id_carteira, saldo_atual')
+                .single();
+
+            if (createError) throw createError;
+            carteira = newCarteira;
+        }
+
+        const protocolo = 'VPT' + Date.now();
+
+        const { error: erroMove } = await supabase
+            .from('movimentacao')
+            .insert([{
+                id_carteira: carteira.id_carteira,
+                id_bandeira: idBandeira || null,
+                n_protocolo: protocolo,
+                tipo: metodo.toUpperCase(),
+                valor: valorNum,
+                situacao: 'CONCLUIDO',
+                data_realizada: new Date().toISOString()
+            }]);
+
+        if (erroMove) throw erroMove;
+
+        res.status(200).json({ 
+            success: true, 
+            protocolo, 
+            valor: valorNum,
+            nCartaoTransporte: numCartaoTransporte
+        });
+
+    } catch (err) {
+        console.error("ERRO_SUPABASE processRecargaTransporte:", err);
+        res.status(500).json({ error: "Erro ao processar recarga: " + (err.message || "Erro desconhecido") });
+    }
+};
+
 function validarCartao(numCartao) {
     if (!numCartao) return false;
     const limpo = numCartao.replace(/\D/g, '');

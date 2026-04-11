@@ -15,4 +15,9 @@ router.post('/add-credit',
     paymentController.processCredit
 );
 
+router.post('/recarga-transporte',
+    verificarToken,
+    paymentController.processRecargaTransporte
+);
+
 module.exports = router;
