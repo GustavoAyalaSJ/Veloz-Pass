@@ -88,7 +88,7 @@ body {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background-image: url('FundoRight.png');
+    background-image: url('FundoRight.webp');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
