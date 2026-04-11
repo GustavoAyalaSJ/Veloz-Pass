@@ -6,13 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectElement = document.getElementById('select-pagamento');
     const inputValor = document.querySelector('.top-group.valor input');
     const btnProsseguir = document.querySelector('.btn-prosseguir');
-    const inputCartao = document.getElementById('num-cartao');
     const displayImagem = document.querySelector('.buscard-image img');
     const wrapper = selectElement ? selectElement.parentElement : null;
 
     let saldoAtualCarteira = 0;
 
-    const mapaImagens = {
+    const mapaBandeiras = {
         1: "Visa.png",
         2: "Mastercard.png",
         3: "Hipercard.png",
@@ -93,25 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const imgDefault = "Assets/Cartão-ideal.png";
     const pastaBandeiras = "Assets/Bandeira/";
 
-    if (inputCartao && displayImagem) {
-        inputCartao.addEventListener('input', (e) => {
-            const valor = e.target.value.replace(/\D/g, '');
-
-            if (valor.length > 0) {
-                const ultimoDigito = parseInt(valor.slice(-1));
-
-                if (mapaImagens[ultimoDigito]) {
-                    const nomeArquivo = mapaImagens[ultimoDigito];
-                    displayImagem.src = `${pastaBandeiras}${nomeArquivo}`;
-                } else {
-                    displayImagem.src = imgDefault;
-                }
-            } else {
-                displayImagem.src = imgDefault;
-            }
-        });
-    }
-
     const inputsTransporte = document.querySelectorAll('.confirm-card input');
     inputsTransporte.forEach(input => {
         aplicarMascara(input, "00.00.00000000-0");
@@ -170,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (selectElement) {
         selectElement.addEventListener('change', () => {
             const metodo = selectElement.value.toLowerCase();
-        
+
             if (metodo === 'pix') {
                 displayImagem.src = `${pastaBandeiras}pix.png`;
             } else {
