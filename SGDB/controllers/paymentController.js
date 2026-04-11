@@ -116,7 +116,7 @@ exports.processCredit = async (req, res) => {
 };
 
 exports.processRecargaTransporte = async (req, res) => {
-    const { valor: valorRaw, metodo, numCartaoTransporte, tipo, idBandeira } = req.body;
+    const { valor: valorRaw, metodo, numCartaoTransporte, tipo, tipoOperacao, idBandeira } = req.body;
     const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
 
@@ -146,6 +146,15 @@ exports.processRecargaTransporte = async (req, res) => {
             carteira = newCarteira;
         }
 
+        const ehCarteira = metodo === 'carteira digital';
+        
+        if (ehCarteira) {
+            const saldoAtual = parseFloat(carteira.saldo_atual || 0);
+            if (valorNum > saldoAtual) {
+                return res.status(400).json({ error: "Saldo insuficiente na Carteira Digital" });
+            }
+        }
+
         const protocolo = 'VPT' + Date.now();
         const idManual = parseInt(Date.now().toString().slice(-8)) + Math.floor(Math.random() * 1000);
 
@@ -154,15 +163,27 @@ exports.processRecargaTransporte = async (req, res) => {
             .insert([{
                 id_move: idManual,
                 id_carteira: carteira.id_carteira,
-                id_bandeira: idBandeira || null,
+                id_bandeira: idBandeira ? parseInt(idBandeira) : null,
                 n_protocolo: protocolo,
-                tipo: metodo.toUpperCase(),
+                tipo: 'RECARGA',
                 valor: valorNum,
                 situacao: 'CONCLUIDO',
                 data_realizada: new Date().toISOString()
             }]);
 
         if (erroMove) throw erroMove;
+
+        if (ehCarteira) {
+            const saldoAnterior = parseFloat(carteira.saldo_atual || 0);
+            const novoSaldo = saldoAnterior - valorNum;
+
+            const { error: erroSaldo } = await supabase
+                .from('carteira')
+                .update({ saldo_atual: novoSaldo })
+                .eq('id_carteira', carteira.id_carteira);
+
+            if (erroSaldo) throw erroSaldo;
+        }
 
         res.status(200).json({ 
             success: true, 

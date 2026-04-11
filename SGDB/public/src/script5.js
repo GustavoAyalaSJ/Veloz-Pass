@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrapper = selectElement ? selectElement.parentElement : null;
 
     let saldoAtualCarteira = 0;
+    let idBandeiraSelecionada = null;
 
     const mapaBandeiras = {
         1: "Visa.png",
@@ -17,6 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
         3: "Hipercard.png",
         4: "Elo.png",
         5: "Amex.png"
+    };
+
+    const mapaBandeirasIds = {
+        1: 1,  // Visa
+        2: 2,  // Mastercard
+        3: 3,  // Hipercard
+        4: 4,  // Elo
+        5: 5   // Amex
     };
 
     if (!idLogado) {
@@ -78,7 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const options = selectElement.options;
                 for (let i = 0; i < options.length; i++) {
                     if (options[i].text.includes('Carteira Digital')) {
-                        options[i].text = `Carteira Digital (R$ ${saldoFormatado})`;
+                        // Manter apenas "Carteira Digital" sem mostrar o saldo no select
+                        if (!options[i].text.includes('(')) {
+                            options[i].text = 'Carteira Digital';
+                        }
                         break;
                     }
                 }
@@ -117,8 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ultimoDigito = parseInt(valor.slice(-1));
                 if (mapaBandeiras[ultimoDigito]) {
                     displayImagem.src = `${pastaBandeiras}${mapaBandeiras[ultimoDigito]}`;
+                    idBandeiraSelecionada = mapaBandeirasIds[ultimoDigito];
                 } else {
                     resetarImagem();
+                    idBandeiraSelecionada = null;
                 }
             }
         });
@@ -238,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="modal-separator"></div>
             
             <div class="modal-details">
-                <p><strong>Pagamento:</strong> <span class="modal-details-value">${metodoTexto}</span></p>
+                <p><strong>Pagamento:</strong> <span class="modal-details-value">${metodoTexto.split('(')[0].trim()}</span></p>
                 <p><strong>Valor:</strong> <span class="modal-details-value">${valorInserido}</span></p>
                 <p><strong>Cartão:</strong> <span class="modal-details-value">${numCartaoTransporte}</span></p>
             </div>
@@ -269,17 +283,21 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const valorNum = parseFloat(valor.replace("R$ ", "").replace(/\./g, "").replace(",", "."));
             
+            const payload = {
+                valor: valorNum.toString(),
+                metodo: metodo,
+                numCartaoTransporte: numCartao,
+                tipo: tipo,
+                tipoOperacao: 'RECARGA',
+                idBandeira: idBandeiraSelecionada
+            };
+
             const response = await auth.request('/api/payments/recarga-transporte', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    valor: valorNum.toString(),
-                    metodo: metodo,
-                    numCartaoTransporte: numCartao,
-                    tipo: tipo
-                })
+                body: JSON.stringify(payload)
             });
 
             const data = await response.json();
