@@ -14,13 +14,11 @@ PROTOCOLO        TIPO      REALIZADO-NO   VALOR IMPRIMIR-PROTOCOLO
 J104F023      RECARGA        CRÉDITO     55,00
 
 index4.html
-- Fazer a página recarga bloquear o aumento de valor em caso de transações (pendentes e recusadas);
+- Fazer a página Recarga bloquear o aumento de valor em caso de transações (pendentes e recusadas);
 
 index5.html:
-- Criar uma tabela chamada "UniqueCard" onde apenas um pessoa por ID pode ter um cartão;
-- Finalizar o modal de conclusão de recarga e enviar para a página histórico geral;
-- Fazer a imagem do Cartão Ideal mude conforme o último digito de (1 -5) for colocado, enquanto apenas para o PIX, a alteração será instantânea. 
-
+- Conectar os inputs de N* Cartão com a tabela UniqueCard;
+- Finalizar o modal de conclusão de recarga e enviar para a página histórico geral e registrar na tabela movimentação.
 
 index6.html:
 - Arrumar o design e implementar o HTML, CSS e JavaScript da página.
