@@ -17,7 +17,8 @@ index4.html
 - Fazer a página Recarga bloquear o aumento de valor em caso de transações (pendentes e recusadas);
 
 index5.html:
-- Conectar os inputs de N* Cartão com a tabela UniqueCard.
+- Conectar os inputs de N* Cartão com a tabela UniqueCard;
+- Tornar o filtro de tipo de cartão funcional.
 
 index6.html:
 - Arrumar o design e implementar o HTML, CSS e JavaScript da página.

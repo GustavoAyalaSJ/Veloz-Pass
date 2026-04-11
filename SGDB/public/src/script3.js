@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 currency: 'BRL'
             });
 
-            const metodoExibicao = (mov.metodo || mov.tipo || 'PIX').toUpperCase();
-            const origemExibicao = (mov.origem || 'CARTEIRA DIGITAL').toUpperCase();
+            const metodoExibicao = (mov.tipo || 'PIX').toUpperCase();
+            const origemExibicao = (mov.realizado_no || 'Carteira Digital');
 
             linha.innerHTML = `
                 <span class="col-protocolo">${mov.n_protocolo || '---'}</span>
@@ -85,17 +85,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function aplicarFiltros() {
-        const valOrigem = normalizarTexto(filtroTipo?.value);
-        const valRealizadoNo = normalizarTexto(filtroRealizadoNo?.value);
+        const valOrigen = normalizarTexto(filtroTipo?.value);
+        const valTipo = normalizarTexto(filtroRealizadoNo?.value);
 
         const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
-            const origemBanco = normalizarTexto(mov.origem || 'carteira digital');
-            const metodoBanco = normalizarTexto(mov.metodo || mov.tipo || 'pix');
+            const realizadoNoBanco = normalizarTexto(mov.realizado_no || 'carteira digital');
+            const tipoBanco = normalizarTexto(mov.tipo || 'pix');
 
-            const bateOrigem = !valOrigem || origemBanco === valOrigem;
-            const bateMetodo = !valRealizadoNo || metodoBanco === valRealizadoNo;
+            const bateOrigem = !valOrigen || realizadoNoBanco === valOrigen;
+            const bateTipo = !valTipo || tipoBanco === valTipo;
 
-            return bateOrigem && bateMetodo;
+            return bateOrigem && bateTipo;
         });
 
         renderizarTabela(dadosFiltrados);

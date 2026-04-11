@@ -281,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const valorNum = parseFloat(valor.replace("R$ ", "").replace(/\./g, "").replace(",", "."));
             
-            // Normalizar tipo de pagamento para o padrão esperado pelo backend
             let metodoNormalizado = metodo;
             if (metodo.includes('débito')) {
                 metodoNormalizado = 'débito';
