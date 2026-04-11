@@ -79,7 +79,7 @@ exports.processCredit = async (req, res) => {
         }
 
         const protocolo = 'VP' + Date.now();
-        const idManual = Math.floor(Date.now() / 1000);
+        const idManual = parseInt(Date.now().toString().slice(-8)) + Math.floor(Math.random() * 1000);
 
         const { error: erroMove } = await supabase
             .from('movimentacao')
@@ -147,10 +147,12 @@ exports.processRecargaTransporte = async (req, res) => {
         }
 
         const protocolo = 'VPT' + Date.now();
+        const idManual = parseInt(Date.now().toString().slice(-8)) + Math.floor(Math.random() * 1000);
 
         const { error: erroMove } = await supabase
             .from('movimentacao')
             .insert([{
+                id_move: idManual,
                 id_carteira: carteira.id_carteira,
                 id_bandeira: idBandeira || null,
                 n_protocolo: protocolo,
@@ -171,7 +173,8 @@ exports.processRecargaTransporte = async (req, res) => {
 
     } catch (err) {
         console.error("ERRO_SUPABASE processRecargaTransporte:", err);
-        res.status(500).json({ error: "Erro ao processar recarga: " + (err.message || "Erro desconhecido") });
+        console.error("Erro completo:", JSON.stringify(err, null, 2));
+        res.status(500).json({ error: "Erro ao processar recarga: " + (err.message || JSON.stringify(err)) });
     }
 };
 
