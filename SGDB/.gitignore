@@ -1,7 +1,7 @@
 # Dependências
 node_modules/
 
-# Variáveis de Ambiente (CRUCIAL PARA O SUPABASE)
+# Variáveis de Ambiente (CRUCIAL)
 .env
 .env.local
 .env.*.local
@@ -10,7 +10,7 @@ node_modules/
 *.log
 .cache/
 
-# Pastas de Build (Render usa isso)
+# Pastas de Build (Render)
 build/
 dist/
 

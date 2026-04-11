@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return await response.json();
             }
         } catch (error) {
-            console.error("Erro ao obter dados da carteira:", error);
+            console.error("Erro ao obter dados da carteira:");
             return null;
         }
     }

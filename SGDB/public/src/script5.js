@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let idBandeiraSelecionada = null;
 
     const mapaBandeiras = {
-        1: "Visa.png",
-        2: "Mastercard.png",
-        3: "Hipercard.png",
-        4: "Elo.png",
-        5: "Amex.png"
+        1: "Visa.webp",
+        2: "Mastercard.webp",
+        3: "Hipercard.webp",
+        4: "Elo.webp",
+        5: "Amex.webp"
     };
 
     const mapaBandeirasIds = {
@@ -95,11 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 validarSaldo();
             }
         } catch (err) {
-            console.error("Erro ao buscar saldo:", err);
+            console.error("Erro ao buscar saldo.");
         }
     }
 
-    const imgDefault = "Assets/Cartão-ideal.png";
+    const imgDefault = "Assets/Cartão-ideal.webp";
     const pastaBandeiras = "Assets/Bandeira/";
 
     const inputsTransporte = document.querySelectorAll('.confirm-card input');
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const metodo = selectElement.value.toLowerCase();
 
             if (metodo === 'pix') {
-                displayImagem.src = `${pastaBandeiras}Pix.png`;
+                displayImagem.src = `${pastaBandeiras}Pix.webp`;
             } else {
                 resetarImagem();
             }

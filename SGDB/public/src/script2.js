@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 spanCodUnique.textContent = userData.cod_identificador || '---';
             }
         } else {
-            console.error("UserData não encontrado no sessionStorage");
+            console.error("UserData não encontrado.");
         }
     }
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return await response.json();
             }
         } catch (error) {
-            console.error("Erro ao obter dados da carteira:", error);
+            console.error("Erro ao obter dados da carteira:");
             return null;
         }
     }
