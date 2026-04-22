@@ -115,55 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    function renderizarPasso2() {
+    
+function renderizarPasso2() {
     const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
     const valor = parseFloat(valorRaw) || 0;
 
     const metodo = selectElement.value.toLowerCase();
-    containerPagamento.innerHTML = '';
 
-    if (metodo.includes('pix')) {
-        btnProsseguir?.classList.remove('hidden-button');
-
-        containerPagamento.innerHTML = `
-            <div class="pix-container">
-                <div class="qr-placeholder">QR CODE</div>
-            </div>
-        `;
-    }
-        
-    else if (metodo.includes('cartão') || metodo.includes('débito') || metodo.includes('crédito')) {
-        containerPagamento.innerHTML = `
-            <div class="card-inputs-row">
-                <div class="input-group-full">
-                    <label>Número do Cartão</label>
-                    <input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19">
-                </div>
-                <div class="input-group-half">
-                    <div>
-                        <label>Validade</label>
-                        <input type="text" id="card-valid" placeholder="MM/YY" maxlength="5">
-                    </div>
-                    <div>
-                        <label>CVV</label>
-                        <input type="text" id="card-cvv" placeholder="000" maxlength="3">
-                    </div>
-                </div>
-            </div>
-        `;
-
-        aplicarMascara(document.getElementById('card-num'), "0000 0000 0000 0000");
-        aplicarMascara(document.getElementById('card-valid'), "00/00");
-        aplicarMascara(document.getElementById('card-cvv'), "000");
-        configurarListenerBandeira(document.getElementById('card-num'));
-    }
-
-    else {
-        displayImagem.src = imgDefault;
-    }
-    }
-    }
 
     async function finalizarRecarga(valorStr, situacao, metodo, numCartaoTransp, tipo, modal) {
         const btn = document.getElementById('btn-finalizar-fake');
