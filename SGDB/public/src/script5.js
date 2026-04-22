@@ -162,7 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = true;
         btn.textContent = 'Processando...';
 
-        const valorNum = valorStr.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+        const valorNum = typeof valorStr === "string"
+            ? valorStr.replace("R$ ", "").replace(/\./g, "").replace(",", ".")
+            : valorStr;
         const valor = parseFloat(valorNum);
 
         try {
@@ -249,13 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (selectElement && wrapper) {
-        wrapper.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const icon = wrapper.querySelector('.select-icon');
-            toggleElement(wrapper, wrapper, 'open', 'open', icon);
-        });
         selectElement.addEventListener('change', () => {
-            wrapper.classList.remove('open', 'active');
             validarSaldo();
             renderizarPasso2();
         });
@@ -276,8 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnProsseguir) {
         btnProsseguir.addEventListener('click', () => {
-            const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
-            const valor = parseFloat(valorRaw) || 0;
+            const valor = inputValor.value;
+            const valorNum = parseFloat(valor.replace(/\D/g, '')) / 100;
             const inputs = document.querySelectorAll('.confirm-card input');
             const n1 = inputs[0]?.value;
             const n2 = inputs[1]?.value;
@@ -302,9 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return alert('Valor muito alto, coloque um valor mais baixo.');
             }
 
-            if (valor <= 300) {
+            if (valorNum <= 300) {
                 abrirModalFinalizacao(valor, 'Concluido');
-            } else if (valor <= 650) {
+            } else {
                 abrirModalFinalizacao(valor, 'Em_Revisão');
             }
         });
