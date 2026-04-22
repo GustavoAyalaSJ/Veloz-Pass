@@ -1,0 +1,17 @@
+O que precisa ser arrumado no projeto:
+
+index.html:
+- Dar funcionalidade ao checkbox (sem ser apenas algo que o usuário irá marcar);
+- Colocar a seta giratório no modal de Suporte;
+- Criar uma tabela para suporte (onde pega a exata data e qual usuário pediu o suporte), arrumar o modal de suporte e tornar ele funcional.
+
+index5.html:
+- Conectar os inputs de N* Cartão com a tabela UniqueCard;
+- Tornar o filtro de tipo de cartão funcional.
+
+index6.html:
+- Arrumar o design e implementar o HTML, CSS e JavaScript da página.
+
+Nota:
+- Remover arquivos que ocupam espaços no projeto.
+
