@@ -1,0 +1,34 @@
+{
+  "name": "sgdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build:bundles": "node build-bundles.js",
+    "build:js": "terser public/src/*.js -o public/src/minified/ -c -m",
+    "build:css": "postcss public/css/*.css -o public/css/minified/ --use cssnano",
+    "build:all": "npm run build:bundles && npm run build:js && npm run build:css",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.100.0",
+    "bcrypt": "^6.0.0",
+    "compression": "^1.8.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.3.1",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "cssnano": "^7.1.3",
+    "postcss-cli": "^11.0.1"
+  }
+}

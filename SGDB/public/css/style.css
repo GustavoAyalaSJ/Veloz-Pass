@@ -1,0 +1,675 @@
+/* Estrutura Geral */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #f4f7f6;
+    overflow-x: hidden;
+}
+
+/* Background */
+.background-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+}
+
+/* Cabeçalho */
+.cabeçalho {
+    background-color: #3b5f80;
+    border-bottom: 3px solid;
+    border-image-source: linear-gradient(to right, #8e9cb4 0%, #3b557a 30%, #24344d 100%);
+    border-image-slice: 1;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    color: white;
+    font-weight: 600;
+    flex-shrink: 0;
+    z-index: 10;
+    position: relative;
+}
+
+.link-headers {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.logotipo img {
+    height: 45px;
+    width: auto;
+}
+
+.termos {
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.termos:hover {
+    color: #c0e1f8;
+}
+
+.suporte {
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.suporte:hover {
+    color: #c0e1f8;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    max-width: none;
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.right {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url('FundoRight.webp');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+
+/* Conteúdo Principal - Cards */
+.containerLeft {
+    background-color: #24344d;
+    color: white;
+    width: 100%;
+    padding: 2rem 1.1rem;
+    border-radius: 15px;
+    margin: 2px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    border: 12px solid rgba(27, 36, 58, 0.79);
+}
+
+.left {
+    position: relative;
+    z-index: 2;
+    width: 450px;
+    margin-left: 7%;
+    margin-top: 2%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.sobre-left h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 0.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.sobre-left h2 {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.sobre-left p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+.destacar {
+    color: #a1cdff;
+}
+
+.ButtonBottomText {
+    background-color: #3e6b48;
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(62, 107, 72, 0.4);
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.ButtonBottomText:hover {
+    transform: translateY(-3px);
+    background-color: #4a7e56;
+    box-shadow: 0 6px 20px rgba(62, 107, 72, 0.6);
+}
+
+/* Modais */
+.hidden {
+    display: none !important;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    position: relative;
+    box-sizing: border-box;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 2px solid #00d4ff;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #00d4ff;
+    padding-bottom: 15px;
+    font-weight: 650;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-content label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+    display: block;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.modal-content input:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+.modal-content a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    align-self: flex-end;
+    margin-top: -5px;
+}
+
+.modal-content a:hover {
+    color: #639edd;
+    text-decoration: none;
+}
+
+.modal-content p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.77);
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modal-content form div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-top: 10px;
+}
+
+.password-input-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-container input {
+    padding-right: 45px;
+}
+
+.password-input-container i {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.password-input-container i:hover {
+    color: #007bff;
+}
+
+.checkbox {
+    display: flex !important;
+    flex-direction: row !important; 
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0; 
+    margin: 0;
+    cursor: pointer;
+}
+
+#formCadastro label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#formCadastro input, 
+#formCadastro .input-wrapper {
+    margin-top: 0; 
+    margin-bottom: 4px;
+}
+
+.input-wrapper {
+    margin-bottom: 15px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding-right: 20px !important; 
+}
+
+.check-icon, .x-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    visibility: hidden; 
+    pointer-events: none;
+}
+.check-icon {
+    color: #28a745;
+}
+
+.x-icon {
+    color: #dc3545;
+}
+
+.checkbox label {
+    display: inline !important;
+    margin: 0px 5px 0px 0px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #dbdbdb;
+}
+
+.destacarTermos{
+    color: #2a7cd4;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.destacarTermos:hover {
+    color: #a5c6e8;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.modal-terms-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: calc(85vh - 150px);
+    padding-right: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal-terms-content p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #ffffff;
+    margin: 0;
+}
+
+.modal-terms-content strong {
+    color: #6ba6da;
+    font-size: 1rem;
+}
+
+.modal-content select,
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.modal-content textarea {
+    resize: none;
+}
+
+.modal-content select:focus,
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: #00d4ff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+#formSuporte label {
+    margin-top: 5px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    opacity: 0.8;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #dbdbdb;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    opacity: 1;
+}
+
+.botao-estilizado {
+    display: block;
+    width: 100%;
+    background-color: #007bff;
+    color: rgb(250, 250, 250) !important;
+    text-decoration: none !important;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.botao-estilizado:hover {
+    background-color: #0056b3;
+    text-decoration: none !important;
+    box-shadow: 0 6px 10px rgba(0, 123, 255, 0.4);
+    transform: translateY(-2px);
+    color: rgb(250, 250, 250);
+}
+
+.modal-content button:not(.close-btn) {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+#btnGoToCadastro,
+#btnBackToLogin {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+#btnGoToCadastro:hover,
+#btnBackToLogin:hover {
+    background-color: #e2e6ea;
+}
+
+/* Rodapé */
+.rodapé {
+    background-color: #485f78;
+    border-top: 3px solid #24344d;
+    border-image-source: linear-gradient(to right, #8e9cb4, #3b557a, #24344d);
+    border-image-slice: 1;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    width: 100%;
+    font-size: 0.85rem;
+    z-index: 10;
+}
+
+.destacarAPP {
+    color: #aaddff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.destacarAPP:hover {
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* Media Queries */
+@media (max-width: 1440px) {
+    .background-container {
+        background-color: #92b7e9;
+    }
+
+    .logotipo img {
+        height: 45px;
+    }
+
+    .main-content {
+        min-height: auto;
+        padding: 2rem 1rem;
+        align-items: flex-start;
+        display: flex;
+    }
+
+    .containerLeft {
+        padding-bottom: 30px;
+        padding-top: 25px;
+        border: 12px solid rgba(27, 36, 58, 0.79);
+    }
+
+    .sobre-left p {
+        text-align: center;
+    }
+
+    .modal-content {
+        overflow-y: auto;
+    }
+
+    .modal-terms-content p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.776);
+    }
+
+    .modal-terms-content strong {
+        font-size: 0.9rem;
+        color: rgba(162, 185, 222, 0.709);
+    }
+}
+
+@media (max-width: 1024px) {
+    .left {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .background-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cabeçalho {
+        height: 62px;
+        padding: 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        padding: 40px 20px;
+        position: relative;
+    }
+
+    .left {
+        width: 90%;
+        max-width: 450px;
+        margin-left: 0;
+        z-index: 2;
+    }
+
+    .right {
+        background-image: url("768x1024.webp");
+    }
+
+    .modal-terms-content {
+        max-height: calc(90vh - 140px);
+        overflow-y: auto;
+    }
+
+    .destacarLogin:hover {
+        color: #c0e1f8;
+        transition: 0.2s ease;
+    }
+
+    .rodapé {
+        position: relative;
+        z-index: 10;
+        margin-top: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .cabeçalho {
+      border-bottom: 3px solid #24344d;
+      border-image-source: none;
+      border-image-slice: unset;
+    }
+
+    .logotipo img {
+        height: 36px;
+    }
+
+    .link-headers {
+        margin-left: 20px;
+        gap: 10px;
+    }
+
+    .right {
+        background-image: url("375x667.png");
+    }
+
+    .containerLeft {
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
+    }
+
+    .sobre-left h1 {
+        font-size: 1.8rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .rodapé {
+        border-top: 3px solid #24344d;
+        border-image-source: none;
+        border-image-slice: unset;
+        font-size: 0.81rem;
+        padding: 1.4rem;
+    }
+}

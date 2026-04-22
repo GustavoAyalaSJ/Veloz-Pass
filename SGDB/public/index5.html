@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recarga - Veloz Pass</title>
+    <link rel="icon" type="image/png" href="Assets/Favicon.webp">
+    <link rel="stylesheet" href="css/style5.css">
+    <link rel="stylesheet" href="css/logout-modal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+</head>
+
+<body>
+    <div class="background-container">
+        <header class="cabeçalho">
+            <a href="/dashboard" class="logo-link">
+                <div class="logotipo">
+                    <img src="Assets/LogoWeb.webp" alt="VelozPassLogo">
+                </div>
+            </a>
+            <div class="header-actions">
+                <div class="user-actions">
+                    <a href="/carteira_digital" class="header-link">
+                        <i class="bi bi-credit-card"></i>
+                        <span>Carteira Digital</span>
+                    </a>
+
+                    <button id="change-button" class="icon-button">
+                        <i class="bi bi-brightness-high-fill"></i>
+                    </button>
+
+                    <a class="icon-button exit-link">
+                        <i class="bi bi-box-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h1 class="titulo-pagina-externo">Recarga</h1>
+
+            <div class="container-recarga">
+                <div class="top-recarga">
+                    <div class="top-group">
+                        <h4>Formas de pagamento</h4>
+                        <div class="select-wrapper">
+                            <select id="select-pagamento">
+                                <option disabled selected>Selecione</option>
+                                <option>Carteira Digital</option>
+                                <!-- Se o usuário colocar um valor insuficiente, a opção 'Carteira Digital' ficará desabilitada até colocar o valor suficiente. -->
+                                <option>Cartão de Crédito</option>
+                                <option>Cartão de Débito</option>
+                                <option>PIX</option>
+                                <option>Cartão Internacional</option>
+                            </select>
+                            <i class="bi bi-chevron-down select-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="top-group valor">
+                        <h4>Valor</h4>
+                        <input type="text" placeholder="R$ 0,00">
+                    </div>
+                </div>
+
+                <div class="card-recarga">
+                    <section class="passo passo-1">
+                        <h3>Passo 1</h3>
+
+                        <div class="buscard-image">
+                            <img src="Assets/Cartão-ideal.webp" alt="JoinvilleCard">
+                        </div>
+
+                        <div class="type-card">
+                            <label for="filtro-tipo">Tipo:</label>
+                            <select id="select-type">
+                                <option disabled selected>Selecione</option>
+                                <option>Comum</option>
+                                <option>Estudante</option>
+                                <option>Vale-Transporte</option>
+                            </select>
+                            <i class="bi bi-chevron-down select-icon"></i>
+                        </div>
+
+                        <div class="confirm-card">
+                            <h4>Informe o Nº do seu Cartão de Transporte</h4>
+                            <input type="text" placeholder="00.00.00000000-0" maxlength="13">
+
+                            <h4>Confirme o Nº do seu Cartão de Transporte</h4>
+                            <input type="text" placeholder="00.00.00000000-0" maxlength="13">
+                        </div>
+                    </section>
+
+                    <div class="divider"></div>
+
+                    <section class="passo passo-2">
+                        <h3>Passo 2</h3>
+
+                        <div class="payment-information">
+                            <!-- Um container onde o usuário irá colocar informações bancárias. -->
+                        </div>
+                    </section>
+                </div>
+
+                <div class="action-area">
+                    <button class="btn-prosseguir">PROSSEGUIR</button>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+    <script src="/src/api.js"></script>
+    <script src="/src/auth.js"></script>
+    <script src="src/script5.js"></script>
+    <script src="src/global-config.js"></script>
+</body>
+
+</html>
