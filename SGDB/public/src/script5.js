@@ -91,6 +91,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function carregarSaldoCarteira() {
+    try {
+        const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
+        if (!response || !response.ok) return;
+
+        const data = await response.json();
+
+        if (data && data.saldo !== undefined) {
+            saldoAtualCarteira = parseFloat(data.saldo) || 0;
+
+            const saldoFormatado = saldoAtualCarteira.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2
+            });
+
+            const options = selectElement.options;
+
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].text.includes('Carteira Digital')) {
+                    options[i].text = `Carteira Digital (Saldo: R$ ${saldoFormatado})`;
+                    break;
+                }
+            }
+
+            validarSaldo();
+        }
+
+    } catch (err) {
+        console.error("Erro ao carregar saldo da carteira");
+    }
+}
+
     function configurarListenerBandeira(inputCartao) {
         if (!inputCartao) return;
 
