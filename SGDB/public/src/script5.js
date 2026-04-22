@@ -229,40 +229,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function abrirModalFinalizacao(valorStr, situacao) {
-        const metodo = selectElement.value;
-        const numTransp = document.querySelectorAll('.confirm-card input')[0].value;
-        const tipo = document.getElementById('select-type').value;
+function abrirModalFinalizacao(valorStr, situacao) {
+    const metodoTexto = selectElement.options[selectElement.selectedIndex].text.split('(')[0].trim();
+    const valorInserido = valorStr || inputValor.value;
+    const numTransp = document.querySelectorAll('.confirm-card input')[0].value;
+    const tipo = document.getElementById('select-type').value;
+    const metodo = selectElement.value;
 
-        let modal = document.getElementById('modalRecarga');
+    let modal = document.getElementById('modalRecarga');
 
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'modalRecarga';
-            document.body.appendChild(modal);
-        }
-
-        modal.innerHTML = `
-            <div class="modal-content">
-                <h2>Confirmação de Recarga</h2>
-
-                <div class="modal-buttons-wrapper">
-                    <button id="btn-finalizar-fake">Concluir</button>
-                    <button id="btn-cancelar-modal">Voltar</button>
-                </div>
-            </div>
-        `;
-
-        modal.style.display = 'flex';
-
-        document.getElementById('btn-cancelar-modal').onclick = () => {
-            modal.style.display = 'none';
-        };
-
-        document.getElementById('btn-finalizar-fake').onclick = () => {
-            finalizarRecarga(valorStr, situacao, metodo, numTransp, tipo, modal);
-        };
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modalRecarga';
+        document.body.appendChild(modal);
     }
+
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h2>Confirmação de Recarga</h2>
+
+            <div class="modal-details">
+                <p><strong>Método:</strong> ${metodoTexto}</p>
+                <p><strong>Valor:</strong> ${valorInserido}</p>
+                <p><strong>Tipo:</strong> ${tipo}</p>
+                <p><strong>Cartão:</strong> ${numTransp}</p>
+            </div>
+
+            <div class="modal-buttons-wrapper">
+                <button id="btn-finalizar-fake" class="btn-prosseguir">Concluir</button>
+                <button id="btn-cancelar-modal">Voltar</button>
+            </div>
+        </div>
+    `;
+
+    modal.style.display = 'flex';
+
+    document.getElementById('btn-cancelar-modal').onclick = () => {
+        modal.style.display = 'none';
+    };
+
+    document.getElementById('btn-finalizar-fake').onclick = () => {
+        finalizarRecarga(valorInserido, situacao, metodo, numTransp, tipo, modal);
+    };
+}
 
     if (inputValor) {
         inputValor.addEventListener('input', (e) => {
