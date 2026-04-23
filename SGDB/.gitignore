@@ -16,6 +16,7 @@ dist/
 
 # Lista
 *.txt
+*.md
 
 # IDEs
 .vscode/
