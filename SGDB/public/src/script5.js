@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let saldoAtualCarteira = 0;
     let idBandeiraSelecionada = null;
+
     const imgDefault = "Assets/Cartão-ideal.webp";
     const pastaBandeiras = "Assets/Bandeira/";
 
@@ -37,11 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function aplicarMascara(input, mascara) {
         if (!input) return;
+
         input.addEventListener('input', (e) => {
             let v = e.target.value.replace(/\D/g, '');
             let k = 0;
             let novoValor = "";
-            if (v.length === 0) { e.target.value = ""; return; }
+
+            if (v.length === 0) {
+                e.target.value = "";
+                return;
+            }
 
             for (let i = 0; i < mascara.length && k < v.length; i++) {
                 if (mascara[i] === '0') {
@@ -50,36 +56,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     novoValor += mascara[i];
                 }
             }
+
             e.target.value = novoValor;
         });
     }
 
-    async function carregarSaldoCarteira() {
-        try {
-            const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
-            if (!response || !response.ok) return;
-
-            const data = await response.json();
-            if (data && data.saldo !== undefined) {
-                saldoAtualCarteira = parseFloat(data.saldo) || 0;
-                const saldoFormatado = saldoAtualCarteira.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-
-                const options = selectElement.options;
-                for (let i = 0; i < options.length; i++) {
-                    if (options[i].text.includes('Carteira Digital')) {
-                        options[i].text = `Carteira Digital (Saldo: R$ ${saldoFormatado})`;
-                        break;
-                    }
-                }
-                validarSaldo();
-            }
-        } catch (err) {
-            console.error("Erro ao carregar saldo para recarga.");
-        }
+    function getValorSeguro(raw) {
+        if (typeof raw !== "string") return String(raw || "0");
+        return raw.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
     }
 
     function validarSaldo() {
-        const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+        const valorRaw = getValorSeguro(inputValor.value);
         const valorDigitado = parseFloat(valorRaw) || 0;
 
         const options = Array.from(selectElement.options);
@@ -88,10 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (opcaoCarteira) {
             if (valorDigitado > saldoAtualCarteira) {
                 opcaoCarteira.disabled = true;
+
                 if (selectElement.value === opcaoCarteira.value) {
                     selectElement.selectedIndex = 0;
                     selectElement.classList.add('saldo-insuficiente');
-                    setTimeout(() => selectElement.classList.remove('saldo-insuficiente'), 1500);
+
+                    setTimeout(() => {
+                        selectElement.classList.remove('saldo-insuficiente');
+                    }, 1500);
                 }
             } else {
                 opcaoCarteira.disabled = false;
@@ -99,12 +91,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function carregarSaldoCarteira() {
+    try {
+        const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
+        if (!response || !response.ok) return;
+
+        const data = await response.json();
+
+        if (data && data.saldo !== undefined) {
+            saldoAtualCarteira = parseFloat(data.saldo) || 0;
+
+            const saldoFormatado = saldoAtualCarteira.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2
+            });
+
+            const options = selectElement.options;
+
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].text.includes('Carteira Digital')) {
+                    options[i].text = `Carteira Digital (Saldo: R$ ${saldoFormatado})`;
+                    break;
+                }
+            }
+
+            validarSaldo();
+        }
+
+    } catch (err) {
+        console.error("Erro ao carregar saldo da carteira");
+    }
+}
+
     function configurarListenerBandeira(inputCartao) {
         if (!inputCartao) return;
+
         inputCartao.addEventListener('input', (e) => {
             const valor = e.target.value.replace(/\D/g, '');
+
             if (valor.length > 0) {
                 const ultimoDigito = parseInt(valor.slice(-1));
+
                 if (mapaBandeiras[ultimoDigito]) {
                     displayImagem.src = `${pastaBandeiras}${mapaBandeiras[ultimoDigito]}`;
                     idBandeiraSelecionada = ultimoDigito;
@@ -117,59 +143,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderizarPasso2() {
-        const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
-        const valor = parseFloat(valorRaw) || 0;
-
-        const pixOption = Array.from(selectElement.options).find(opt => 
-            opt.text.toLowerCase().includes('pix')
-        );
-        if (pixOption && valor > 650) {
-            pixOption.disabled = true;
-        } else if (pixOption) {
-            pixOption.disabled = false;
-        }
-
         const metodo = selectElement.value.toLowerCase();
         containerPagamento.innerHTML = '';
 
-        if (metodo === 'pix') {
-            btnProsseguir?.classList.remove('hidden-button');
-            if (metodo.includes('cartão') || ['débito', 'crédito'].includes(metodo)) {
-                containerPagamento.innerHTML = `
-                    <div class="card-inputs-row">
-                        <div class="input-group-full">
-                            <label>Número do Cartão</label>
-                            <input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19">
-                        </div>
-                        <div class="input-group-half">
-                            <div>
-                                <label>Validade</label>
-                                <input type="text" id="card-valid" placeholder="MM/YY" maxlength="5">
-                            </div>
-                            <div>
-                                <label>CVV</label>
-                                <input type="text" id="card-cvv" placeholder="000" maxlength="3">
-                            </div>
-                        </div>
-                    </div>`;
+        if (metodo.includes('pix')) {
+            containerPagamento.innerHTML = `
+                <div class="pix-container">
+                    <div class="qr-placeholder">QR CODE</div>
+                </div>
+            `;
+        }
 
-                aplicarMascara(document.getElementById('card-num'), "0000 0000 0000 0000");
-                aplicarMascara(document.getElementById('card-valid'), "00/00");
-                aplicarMascara(document.getElementById('card-cvv'), "000");
-                configurarListenerBandeira(document.getElementById('card-num'));
-            } else {
-                displayImagem.src = imgDefault;
-            }
+        else if (metodo.includes('cartão') || metodo.includes('credito') || metodo.includes('debito')) {
+            containerPagamento.innerHTML = `
+                <div class="card-inputs-row">
+                    <div class="input-group-full">
+                        <label>Número do Cartão</label>
+                        <input type="text" id="card-num" maxlength="19">
+                    </div>
+                    <div class="input-group-half">
+                        <input type="text" id="card-valid" placeholder="MM/YY">
+                        <input type="text" id="card-cvv" placeholder="CVV">
+                    </div>
+                </div>
+            `;
+
+            aplicarMascara(document.getElementById('card-num'), "0000 0000 0000 0000");
+            aplicarMascara(document.getElementById('card-valid'), "00/00");
+            aplicarMascara(document.getElementById('card-cvv'), "000");
+
+            configurarListenerBandeira(document.getElementById('card-num'));
+        } else {
+            displayImagem.src = imgDefault;
         }
     }
 
     async function finalizarRecarga(valorStr, situacao, metodo, numCartaoTransp, tipo, modal) {
         const btn = document.getElementById('btn-finalizar-fake');
+
         btn.disabled = true;
         btn.textContent = 'Processando...';
 
-        const valorNum = valorStr.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
-        const valor = parseFloat(valorNum);
+        const valorNum = getValorSeguro(valorStr);
 
         try {
             const payload = {
@@ -191,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok && data.success) {
                 btn.textContent = 'Sucesso!';
+
                 if (situacao === 'Concluido') {
                     alert('Recarga realizada com sucesso! Aguarde algumas horas para o saldo ser creditado no seu cartão de transporte.');
                     window.location.href = '/dashboard';
@@ -203,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.disabled = false;
                 btn.textContent = 'Concluir';
             }
+
         } catch (err) {
             alert('Erro de conexão.');
             btn.disabled = false;
@@ -212,40 +229,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function abrirModalFinalizacao(valorStr, situacao) {
-        const metodoTexto = selectElement.options[selectElement.selectedIndex].text.split('(')[0].trim();
-        const valorInserido = valorStr || inputValor.value;
-        const numTransp = document.querySelectorAll('.confirm-card input')[0].value;
-        const tipo = document.getElementById('select-type').value;
-        const metodo = selectElement.value;
+function abrirModalFinalizacao(valorStr, situacao) {
+    const metodoTexto = selectElement.options[selectElement.selectedIndex].text.split('(')[0].trim();
+    const valorInserido = valorStr || inputValor.value;
+    const numTransp = document.querySelectorAll('.confirm-card input')[0].value;
+    const tipo = document.getElementById('select-type').value;
+    const metodo = selectElement.value;
 
-        let modal = document.getElementById('modalRecarga');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'modalRecarga';
-            document.body.appendChild(modal);
-        }
+    let modal = document.getElementById('modalRecarga');
 
-        modal.innerHTML = `
-            <div class="modal-content">
-                <h2>Confirmação de Recarga</h2>
-                <div class="modal-details">
-                    <p><strong>Método:</strong> ${metodoTexto}</p>
-                    <p><strong>Valor:</strong> ${valorInserido}</p>
-                    <p><strong>Tipo:</strong> ${tipo}</p>
-                    <p><strong>Cartão:</strong> ${numTransp}</p>
-                </div>
-                <div class="modal-buttons-wrapper">
-                    <button id="btn-finalizar-fake" class="btn-prosseguir">Concluir</button>
-                    <button id="btn-cancelar-modal">Voltar</button>
-                </div>
-            </div>`;
-
-        modal.style.display = 'flex';
-        document.getElementById('btn-cancelar-modal').onclick = () => modal.style.display = 'none';
-        document.getElementById('btn-finalizar-fake').onclick = () =>
-        finalizarRecarga(valorInserido, situacao, metodo, numTransp, tipo, modal);
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modalRecarga';
+        document.body.appendChild(modal);
     }
+
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h2>Confirmação de Recarga</h2>
+
+            <div class="modal-details">
+                <p><strong>Método:</strong> ${metodoTexto}</p>
+                <p><strong>Valor:</strong> ${valorInserido}</p>
+                <p><strong>Tipo:</strong> ${tipo}</p>
+                <p><strong>Cartão:</strong> ${numTransp}</p>
+            </div>
+
+            <div class="modal-buttons-wrapper">
+                <button id="btn-finalizar-fake" class="btn-prosseguir">Concluir</button>
+                <button id="btn-cancelar-modal">Voltar</button>
+            </div>
+        </div>
+    `;
+
+    modal.style.display = 'flex';
+
+    document.getElementById('btn-cancelar-modal').onclick = () => {
+        modal.style.display = 'none';
+    };
+
+    document.getElementById('btn-finalizar-fake').onclick = () => {
+        finalizarRecarga(valorInserido, situacao, metodo, numTransp, tipo, modal);
+    };
+}
 
     if (inputValor) {
         inputValor.addEventListener('input', (e) => {
@@ -254,36 +280,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (selectElement && wrapper) {
-        wrapper.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const icon = wrapper.querySelector('.select-icon');
-            toggleElement(wrapper, wrapper, 'open', 'open', icon);
-        });
+    if (selectElement) {
         selectElement.addEventListener('change', () => {
-            wrapper.classList.remove('open', 'active');
             validarSaldo();
             renderizarPasso2();
         });
     }
 
-    const selectType = document.getElementById('select-type');
-    const typeWrapper = document.querySelector('.type-card');
-    if (selectType && typeWrapper) {
-        typeWrapper.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const icon = typeWrapper.querySelector('.select-icon');
-            toggleElement(typeWrapper, typeWrapper, 'active', 'active', icon);
-        });
-        selectType.addEventListener('change', () => {
-            typeWrapper.classList.add('active');
-        });
-    }
-
     if (btnProsseguir) {
         btnProsseguir.addEventListener('click', () => {
-            const valorRaw = inputValor.value.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+
+            const valorRaw = getValorSeguro(inputValor.value);
             const valor = parseFloat(valorRaw) || 0;
+
             const inputs = document.querySelectorAll('.confirm-card input');
             const n1 = inputs[0]?.value;
             const n2 = inputs[1]?.value;
@@ -298,25 +307,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (valor > 650) {
-                const pixOption = Array.from(selectElement.options).find(opt => 
+                const pixOption = Array.from(selectElement.options).find(opt =>
                     opt.text.toLowerCase().includes('pix')
                 );
+
                 if (pixOption) pixOption.disabled = true;
+
                 if (selectElement.value.toLowerCase().includes('pix')) {
                     selectElement.selectedIndex = 0;
                 }
+
                 return alert('Valor muito alto, coloque um valor mais baixo.');
             }
 
             if (valor <= 300) {
-                abrirModalFinalizacao(valor, 'Concluido');
-            } else if (valor <= 650) {
-                abrirModalFinalizacao(valor, 'Em_Revisão');
+                abrirModalFinalizacao(inputValor.value, 'Concluido');
+            } else {
+                abrirModalFinalizacao(inputValor.value, 'Em_Revisão');
             }
         });
     }
 
-    document.querySelectorAll('.confirm-card input').forEach(i => aplicarMascara(i, "00.00.00000000-0"));
+    document.querySelectorAll('.confirm-card input')
+        .forEach(i => aplicarMascara(i, "00.00.00000000-0"));
 
     carregarSaldoCarteira();
 });
