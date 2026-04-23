@@ -124,4 +124,6 @@
 
 (22-04-2026 - Atual)
 - Atualização de otimização nos commits do Github;
-- Remoção de conteúdos não utilizados pelo Node.
+- Remoção de conteúdos não utilizados pelo Node;
+- Atualizando o payment back-end;
+- Adicionando os protocolos recusados da página Carteira Digital para Histórico Geral.

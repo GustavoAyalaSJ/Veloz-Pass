@@ -206,7 +206,6 @@ body {
 .tabela-wrapper-scroll {
     width: 100%;
     overflow-x: auto;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -240,8 +239,9 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    max-height: 400px;
-    overflow: auto;
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .tabela-linha-item {
@@ -499,14 +499,15 @@ body {
         width: 100%;
         display: flex;
         flex-direction: column;
-        max-height: 400px;
-        overflow: auto;
+        max-height: 320px;
+        overflow-y: auto;
+        overflow-x: hidden;
         flex-grow: 1;
     }
 
     .tabela-wrapper-scroll {
         width: 100%;
-        overflow: hidden;
+        overflow-x: auto;
         display: flex;
         flex-direction: column;
     }
