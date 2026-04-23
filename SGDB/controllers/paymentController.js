@@ -77,6 +77,7 @@ exports.getHistoricoGeral = async (req, res) => {
             .from('movimentacao')
             .select('*, bandeira_banco(nome_bandeira)')
             .eq('id_carteira', carteira.id_carteira)
+            .neq('situacao', 'Em_Revisão')
             .order('id_move', { ascending: false });
 
         res.json({ historico: historico || [] });
@@ -188,11 +189,8 @@ exports.processRecargaTransporte = async (req, res) => {
         return res.status(400).json({ error: "Método de pagamento não reconhecido." });
     }
 
-    let situacaoFinal = situacao || 'Concluido';
     if (valorNum > 650) {
-        situacaoFinal = 'Recusada';
-    } else if (valorNum > 300) {
-        situacaoFinal = 'Em_Revisão';
+        return res.status(400).json({ error: 'Valor muito alto rejeitado' });
     }
 
     try {
@@ -203,8 +201,7 @@ exports.processRecargaTransporte = async (req, res) => {
             p_metodo_pagamento: mapaBancoRecarga[metodoFormatado],
             p_tipo_movimentacao: 'Recarga',
             p_id_bandeira: idBandeira ? parseInt(idBandeira) : null,
-            p_n_protocolo: protocolo,
-            p_situacao: situacaoFinal
+            p_n_protocolo: protocolo
         });
 
         if (rpcError || !rpcResult || rpcResult.erro) {
