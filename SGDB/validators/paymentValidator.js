@@ -35,7 +35,7 @@ const criarTransferSchema = Joi.object({
 
     idBandeira: Joi.number().integer().optional().allow(null),
     origem: Joi.string().optional(),
-    situacao: Joi.string().optional() 
+    situacao: Joi.string().optional()
 });
 
 const recargaTransporteSchema = Joi.object({
@@ -43,7 +43,15 @@ const recargaTransporteSchema = Joi.object({
     
     metodo: Joi.string()
         .uppercase()
-        .valid('DEBITO', 'CREDITO', 'PIX', 'CARTEIRA_DIGITAL', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL', 'CARTÃO_INTERNACIONAL')
+        .valid(
+            'DEBITO', 'CARTAO_DE_DEBITO',
+            'CREDITO', 'CARTAO_DE_CREDITO',
+            'PIX', 
+            'CARTEIRA_DIGITAL', 
+            'INTERNACIONAL', 
+            'CARTAO_INTERNACIONAL', 
+            'CARTÃO_INTERNACIONAL'
+        )
         .required(),
 
     numCartaoTransporte: Joi.string()
@@ -51,7 +59,6 @@ const recargaTransporteSchema = Joi.object({
         .required(),
 
     tipo: Joi.string().required(),
-    
     idBandeira: Joi.number().integer().optional().allow(null),
     situacao: Joi.string().optional()
 });

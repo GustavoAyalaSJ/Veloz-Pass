@@ -142,7 +142,7 @@ exports.processCredit = async (req, res) => {
         }
         if (!rpcResult.success) {
             console.log(`[REJECTED CREDIT] User ${idUsuario}, Valor ${valorNum}, Reason: ${rpcResult.erro}`);
-            return res.status(200).json({ 
+            return res.status(200).json({
                 success: false,
                 error: rpcResult.erro || 'Transação rejeitada',
                 situacao: rpcResult.situacao,
@@ -150,12 +150,12 @@ exports.processCredit = async (req, res) => {
             });
         }
 
-        res.status(200).json({ 
-            success: true, 
+        res.status(200).json({
+            success: true,
             situacao: rpcResult.situacao,
-            protocolo: rpcResult.protocolo, 
+            protocolo: rpcResult.protocolo,
             valor: valorNum,
-            novo_saldo: rpcResult.novo_saldo 
+            novo_saldo: rpcResult.novo_saldo
         });
 
     } catch (err) {
@@ -174,16 +174,24 @@ exports.processRecargaTransporte = async (req, res) => {
 
     const metodoFormatado = metodo?.trim().toUpperCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s/g, '_');
 
     const mapaBancoRecarga = {
         'DEBITO': 'Débito',
+        'CARTAO_DE_DEBITO': 'Débito',
         'CREDITO': 'Crédito',
+        'CARTAO_DE_CREDITO': 'Crédito',
         'PIX': 'Pix',
         'INTERNACIONAL': 'Internacional',
         'CARTAO_INTERNACIONAL': 'Internacional'
     };
 
+    const metodoParaRPC = mapaBancoRecarga[metodoFormatado];
+
+    if (!metodoParaRPC) {
+        return res.status(400).json({ error: "Método de pagamento não reconhecido." });
+    }
     if (!mapaBancoRecarga[metodoFormatado]) {
         return res.status(400).json({ error: "Método de pagamento não reconhecido para recarga de transporte. Use Débito, Crédito, Pix ou Internacional." });
     }
