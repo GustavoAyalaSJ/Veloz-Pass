@@ -168,6 +168,8 @@ exports.processRecargaTransporte = async (req, res) => {
     const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
 
+    console.log('Recarga Debug - valorRaw:', valorRaw, 'type:', typeof valorRaw, 'valorNum:', valorNum, 'userId:', idUsuario);
+
     if (isNaN(valorNum) || valorNum <= 0) {
         return res.status(400).json({ error: "Valor inválido" });
     }
@@ -213,6 +215,8 @@ exports.processRecargaTransporte = async (req, res) => {
             p_id_bandeira: idBandeira ? parseInt(idBandeira) : null,
             p_n_protocolo: protocolo
         });
+
+        console.log('Recarga RPC Debug - result:', rpcResult, 'error:', rpcError);
 
         if (rpcError || !rpcResult || rpcResult.erro) {
             console.error('RPC Error:', rpcError || rpcResult?.erro);

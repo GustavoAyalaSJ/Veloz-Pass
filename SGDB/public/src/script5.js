@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return parseFloat(limpo) || 0;
     }
 
-    function validarSaldo() {
+function validarSaldo() {
         const valorDigitado = getValorSeguro(inputValor.value);
 
         const options = Array.from(selectElement.options);
@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (opcaoCarteira) {
             if (valorDigitado > 0 && valorDigitado > saldoAtualCarteira) {
                 opcaoCarteira.disabled = true;
+                if (btnProsseguir) btnProsseguir.disabled = true;
 
                 if (selectElement.value === opcaoCarteira.value) {
                     selectElement.selectedIndex = 0;
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } else {
                 opcaoCarteira.disabled = false;
+                if (btnProsseguir) btnProsseguir.disabled = false;
             }
         }
     }
@@ -286,9 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnProsseguir) {
         btnProsseguir.addEventListener('click', () => {
-
             const valorRaw = getValorSeguro(inputValor.value);
             const valor = parseFloat(valorRaw) || 0;
+            const options = Array.from(selectElement.options);
+            const opcaoCarteira = options.find(opt => opt.text.toLowerCase().includes('carteira'));
+            if (selectElement.value === opcaoCarteira?.value && valor > saldoAtualCarteira) {
+                return alert('Saldo insuficiente na Carteira Digital! Adicione crédito primeiro.');
+            }
 
             const inputs = document.querySelectorAll('.confirm-card input');
             const n1 = inputs[0]?.value;
