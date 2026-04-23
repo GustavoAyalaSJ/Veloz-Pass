@@ -164,7 +164,7 @@ exports.processCredit = async (req, res) => {
 };
 
 exports.processRecargaTransporte = async (req, res) => {
-    const { valor: valorRaw, metodo, numCartaoTransporte, idBandeira, situacao } = req.body;
+    const { valor: valorRaw, metodo, numCartaoTransporte, idBandeira, situacao, tipo } = req.body;
     const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
 
@@ -192,9 +192,6 @@ exports.processRecargaTransporte = async (req, res) => {
     const metodoParaRPC = mapaBancoRecarga[metodoFormatado];
 
     if (!metodoParaRPC) {
-        return res.status(400).json({ error: "Método de pagamento não reconhecido." });
-    }
-    if (!mapaBancoRecarga[metodoFormatado]) {
         return res.status(400).json({ error: "Método de pagamento não reconhecido para recarga de transporte. Use Débito, Crédito, Pix ou Internacional." });
     }
     if (metodoFormatado === 'CARTEIRA_DIGITAL') {
@@ -205,35 +202,52 @@ exports.processRecargaTransporte = async (req, res) => {
         return res.status(400).json({ error: 'Valor muito alto rejeitado' });
     }
 
+    const protocolo = 'VPT' + Date.now();
+    console.log('Recarga Non-Wallet - Creating pending tx, user:', idUsuario, 'metodo:', metodoFormatado, 'valor:', valorNum);
+
     try {
-        const protocolo = 'VPT' + Date.now();
-        const { data: rpcResult, error: rpcError } = await supabase.rpc('rpc_descontar_saldo', {
-            p_id_usuario: idUsuario,
-            p_valor: valorNum,
-            p_metodo_pagamento: mapaBancoRecarga[metodoFormatado],
-            p_tipo_movimentacao: 'Recarga',
-            p_id_bandeira: idBandeira ? parseInt(idBandeira) : null,
-            p_n_protocolo: protocolo
-        });
+        const { data: carteira } = await supabase
+            .from('carteira')
+            .select('id_carteira')
+            .eq('id_user', idUsuario)
+            .single();
 
-        console.log('Recarga RPC Debug - result:', rpcResult, 'error:', rpcError);
+        if (!carteira || !carteira.id_carteira) {
+            return res.status(400).json({ error: 'Carteira do usuário não encontrada' });
+        }
 
-        if (rpcError || !rpcResult || rpcResult.erro) {
-            console.error('RPC Error:', rpcError || rpcResult?.erro);
-            return res.status(400).json({ error: rpcResult?.erro || 'Erro ao processar recarga' });
+        const idCarteira = carteira.id_carteira;
+
+        const situacaoValida = situacao === 'Em_Revisão' ? 'Em_Revisão' : 'Concluído';
+
+        const { error: insertError } = await supabase
+            .from('movimentacao')
+            .insert({
+                id_carteira: idCarteira,
+                valor: valorNum,
+                metodo_pagamento: mapaBancoRecarga[metodoFormatado],
+                tipo_movimentacao: 'Recarga',
+                situacao: situacaoValida,
+                n_protocolo: protocolo,
+                id_bandeira: idBandeira ? parseInt(idBandeira) : null
+            });
+
+        if (insertError) {
+            console.error('Insert Movimentacao Error:', insertError);
+            return res.status(400).json({ error: 'Erro ao registrar recarga' });
         }
 
         return res.status(200).json({
             success: true,
-            protocolo: rpcResult.protocolo || protocolo,
+            protocolo,
             valor: valorNum,
-            novo_saldo: rpcResult.novo_saldo,
             nCartaoTransporte: numCartaoTransporte,
-            situacao: situacao || 'Concluído'
+            situacao: situacaoValida,
+            message: 'Recarga registrada com sucesso! Aguarde processamento.'
         });
 
     } catch (err) {
-        console.error('Process Recarga Error:', err);
+        console.error('Process Recarga Non-Wallet Error:', err);
         res.status(500).json({ error: "Erro ao processar recarga" });
     }
 };
