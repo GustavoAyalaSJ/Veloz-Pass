@@ -62,28 +62,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getValorSeguro(raw) {
-        if (typeof raw !== "string") return String(raw || "0");
-        return raw.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+        if (typeof raw !== "string") return parseFloat(raw || 0);
+        let limpo = raw.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+        return parseFloat(limpo) || 0;
     }
 
     function validarSaldo() {
-        const valorRaw = getValorSeguro(inputValor.value);
-        const valorDigitado = parseFloat(valorRaw) || 0;
+        const valorDigitado = getValorSeguro(inputValor.value);
 
         const options = Array.from(selectElement.options);
-        const opcaoCarteira = options.find(opt => opt.value.toLowerCase().includes('carteira'));
+        const opcaoCarteira = options.find(opt => opt.text.toLowerCase().includes('carteira'));
 
         if (opcaoCarteira) {
-            if (valorDigitado > saldoAtualCarteira) {
+            if (valorDigitado > 0 && valorDigitado > saldoAtualCarteira) {
                 opcaoCarteira.disabled = true;
 
                 if (selectElement.value === opcaoCarteira.value) {
                     selectElement.selectedIndex = 0;
                     selectElement.classList.add('saldo-insuficiente');
-
-                    setTimeout(() => {
-                        selectElement.classList.remove('saldo-insuficiente');
-                    }, 1500);
+                    setTimeout(() => selectElement.classList.remove('saldo-insuficiente'), 1500);
                 }
             } else {
                 opcaoCarteira.disabled = false;
@@ -92,35 +89,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function carregarSaldoCarteira() {
-    try {
-        const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
-        if (!response || !response.ok) return;
+        try {
+            const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
+            if (!response || !response.ok) return;
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (data && data.saldo !== undefined) {
-            saldoAtualCarteira = parseFloat(data.saldo) || 0;
+            if (data && data.saldo !== undefined) {
+                saldoAtualCarteira = parseFloat(data.saldo) || 0;
 
-            const saldoFormatado = saldoAtualCarteira.toLocaleString('pt-BR', {
-                minimumFractionDigits: 2
-            });
+                const saldoFormatado = saldoAtualCarteira.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2
+                });
 
-            const options = selectElement.options;
+                const options = selectElement.options;
 
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].text.includes('Carteira Digital')) {
-                    options[i].text = `Carteira Digital (Saldo: R$ ${saldoFormatado})`;
-                    break;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].text.includes('Carteira Digital')) {
+                        options[i].text = `Carteira Digital (Saldo: R$ ${saldoFormatado})`;
+                        break;
+                    }
                 }
+
+                validarSaldo();
             }
 
-            validarSaldo();
+        } catch (err) {
+            console.error("Erro ao carregar saldo da carteira");
         }
-
-    } catch (err) {
-        console.error("Erro ao carregar saldo da carteira");
     }
-}
 
     function configurarListenerBandeira(inputCartao) {
         if (!inputCartao) return;
@@ -229,22 +226,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-function abrirModalFinalizacao(valorStr, situacao) {
-    const metodoTexto = selectElement.options[selectElement.selectedIndex].text.split('(')[0].trim();
-    const valorInserido = valorStr || inputValor.value;
-    const numTransp = document.querySelectorAll('.confirm-card input')[0].value;
-    const tipo = document.getElementById('select-type').value;
-    const metodo = selectElement.value;
+    function abrirModalFinalizacao(valorStr, situacao) {
+        const metodoTexto = selectElement.options[selectElement.selectedIndex].text.split('(')[0].trim();
+        const valorInserido = valorStr || inputValor.value;
+        const numTransp = document.querySelectorAll('.confirm-card input')[0].value;
+        const tipo = document.getElementById('select-type').value;
+        const metodo = selectElement.value;
 
-    let modal = document.getElementById('modalRecarga');
+        let modal = document.getElementById('modalRecarga');
 
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'modalRecarga';
-        document.body.appendChild(modal);
-    }
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'modalRecarga';
+            document.body.appendChild(modal);
+        }
 
-    modal.innerHTML = `
+        modal.innerHTML = `
         <div class="modal-content">
             <h2>Confirmação de Recarga</h2>
 
@@ -262,16 +259,16 @@ function abrirModalFinalizacao(valorStr, situacao) {
         </div>
     `;
 
-    modal.style.display = 'flex';
+        modal.style.display = 'flex';
 
-    document.getElementById('btn-cancelar-modal').onclick = () => {
-        modal.style.display = 'none';
-    };
+        document.getElementById('btn-cancelar-modal').onclick = () => {
+            modal.style.display = 'none';
+        };
 
-    document.getElementById('btn-finalizar-fake').onclick = () => {
-        finalizarRecarga(valorInserido, situacao, metodo, numTransp, tipo, modal);
-    };
-}
+        document.getElementById('btn-finalizar-fake').onclick = () => {
+            finalizarRecarga(valorInserido, situacao, metodo, numTransp, tipo, modal);
+        };
+    }
 
     if (inputValor) {
         inputValor.addEventListener('input', (e) => {
