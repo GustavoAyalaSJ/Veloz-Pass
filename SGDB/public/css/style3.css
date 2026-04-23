@@ -145,6 +145,10 @@ body {
     color: #2ecc71 !important;
 }
 
+.dark-mode .col-valor.valor-recusado {
+    color: #ff6b6b !important;
+}
+
 .dark-mode .close-btn {
     color: #ffffff;
     transition: all 0.3s ease;
@@ -269,6 +273,14 @@ body {
 .tabela-linha-item span.col-valor {
     font-weight: 800;
     color: #27ae60 !important;
+}
+
+.tabela-linha-item.linha-recusada {
+    opacity: 0.75;
+}
+
+.tabela-linha-item span.col-valor.valor-recusado {
+    color: #e74c3c !important;
 }
 
 .btn-imprimir {

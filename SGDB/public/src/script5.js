@@ -204,11 +204,14 @@ function validarSaldo() {
             if (response.ok && data.success) {
                 btn.textContent = 'Sucesso!';
 
-                if (situacao === 'Concluido') {
-                    alert('Recarga realizada com sucesso! Aguarde algumas horas para o saldo ser creditado no seu cartão de transporte.');
+                if (situacao === 'Concluído') {
+                    alert('Recarga Realizada com sucesso! Aguarde para o saldo cair em seu cartão de transporte.');
                     window.location.href = '/dashboard';
-                } else {
-                    alert('Recarga em revisão, aguarde uma resposta do nosso servidor.');
+                } else if (situacao === 'Em_Revisão') {
+                    alert('Recarga em revisão. Isto pode demorar alguns minutos ou hora para obter resultado.');
+                    window.location.href = '/dashboard';
+                } else if (situacao === 'Recusada') {
+                    alert('Recarga Recusada pelo provedor do banco ou falha no sistema. Sua conta bancária não será penalizada.');
                     window.location.href = '/dashboard';
                 }
             } else {
