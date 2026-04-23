@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const verificarToken = require('../middleware/auth');
 const paymentController = require('../controllers/paymentController');
-const { validateTransfer } = require('../validators/paymentValidator');
+const { validateTransfer, validateRecargaTransporte } = require('../validators/paymentValidator');
 
 router.get('/wallet-data/:idUsuario',
     verificarToken,
@@ -22,6 +22,7 @@ router.post('/add-credit',
 
 router.post('/recarga-transporte',
     verificarToken,
+    validateRecargaTransporte,
     paymentController.processRecargaTransporte
 );
 
