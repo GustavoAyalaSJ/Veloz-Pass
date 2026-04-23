@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            dadosHistoricoCompleto = data.historico.filter(mov => mov.situacao === 'Concluído');
+            dadosHistoricoCompleto = data.historico.filter(mov => mov.situacao === 'Concluído' || mov.situacao === 'Recusada');
 
             if (dadosHistoricoCompleto.length === 0) {
                 corpoTabelaInfo.innerHTML = '<div class="empty-table-message">Sem movimentações.</div>';
@@ -77,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
         dados.forEach(mov => {
             const linha = document.createElement('div');
             linha.className = 'tabela-linha-item linha-historico';
+            if (mov.situacao === 'Recusada') {
+                linha.classList.add('linha-recusada');
+            }
 
             const valorFormatado = parseFloat(mov.valor).toLocaleString('pt-BR', {
                 style: 'currency',
@@ -90,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="col-protocolo">${mov.n_protocolo || '---'}</span>
                 <span class="col-origem">${tipoExibicao}</span>
                 <span class="col-metodo">${metodoExibicao}</span>
-                <span class="col-valor">${valorFormatado}</span>
+                <span class="col-valor ${mov.situacao === 'Recusada' ? 'valor-recusado' : ''}">${valorFormatado}</span>
                 <span class="col-acao">
                     <button class="btn-imprimir">IMPRIMIR</button>
                 </span>

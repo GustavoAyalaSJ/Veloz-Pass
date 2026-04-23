@@ -70,7 +70,7 @@ async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
             return alert('Erro ao adicionar crédito: ' + (data.error || 'Erro desconhecido'));
         }
 
-        alert(`Crédito adicionado com sucesso! Protocolo: ${data.protocolo}`);
+        alert('Crédito adicionado com sucesso!');
         location.reload();
     } catch (err) {
         alert("Erro de conexão ao adicionar crédito.");
