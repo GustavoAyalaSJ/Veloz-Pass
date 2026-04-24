@@ -143,6 +143,15 @@ function validarSaldo() {
         const metodo = selectElement.value.toLowerCase();
         containerPagamento.innerHTML = '';
 
+        const warningBox = document.querySelector('.warning-box');
+        if (warningBox) {
+            if (metodo.includes('credito') || metodo.includes('debito') || metodo.includes('internacional')) {
+                warningBox.classList.remove('hidden');
+            } else {
+                warningBox.classList.add('hidden');
+            }
+        }
+
         if (metodo.includes('pix')) {
             containerPagamento.innerHTML = `
                 <div class="pix-container">
@@ -151,7 +160,7 @@ function validarSaldo() {
             `;
         }
 
-        else if (metodo.includes('cartão') || metodo.includes('credito') || metodo.includes('debito')) {
+        else if (metodo.includes('cartão') || metodo.includes('credito') || metodo.includes('debito') || metodo.includes('internacional')) {
             containerPagamento.innerHTML = `
                 <div class="card-inputs-row">
                     <div class="input-group-full">
