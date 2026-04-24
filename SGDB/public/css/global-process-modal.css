@@ -1,0 +1,152 @@
+/* Modal - Processo Global (Resultado de Transações) */
+.process-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeInOverlay 0.2s ease-out;
+}
+
+.process-overlay.active {
+    display: flex;
+}
+
+.process-box {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 340px;
+    max-width: 90vw;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 2.5px solid rgba(114, 150, 190, 0.3);
+    animation: modalSlideIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.process-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.process-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.process-body i {
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.process-body .icon-success {
+    color: #28a745;
+}
+
+.process-body .icon-review {
+    color: #f0ad4e;
+}
+
+.process-body .icon-rejected {
+    color: #dc3545;
+}
+
+.process-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.process-footer p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+.process-footer .btn-ok {
+    padding: 10px 28px;
+    border: none;
+    border-radius: 7px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    background-color: #317134;
+    color: white;
+    border: 1.5px solid rgb(19, 57, 27);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.process-footer .btn-ok:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    background: linear-gradient(135deg, #218838, #1ea080);
+}
+
+/* Dark Mode */
+.dark-mode .process-box {
+    background: rgba(31, 41, 55, 0.98);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+.dark-mode .process-header h3 {
+    color: #e2e8f0;
+}
+
+.dark-mode .process-footer p {
+    color: #cbd5e1;
+}
+
+.dark-mode .process-footer .btn-ok {
+    background-color: rgba(78, 152, 91, 0.518);
+    border: 1.5px solid rgb(24, 82, 57);
+}
+
+.dark-mode .process-footer .btn-ok:hover {
+    background-color: rgba(73, 139, 85, 0.518);
+}
+
+/* Keyframes */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.85) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Media Queries */
+@media (max-width: 480px) {
+    .process-box {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        padding: 2rem 1.5rem;
+    }
+}
+

@@ -188,29 +188,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
 
-            let mensagemAlert = '';
+            let modalStatus = null;
             if (result.situacao?.includes('Concluido') || result.success) {
-                mensagemAlert = `Crédito adicionado com sucesso! Protocolo: ${result.protocolo}`;
+                modalStatus = 'success';
             } else if (result.situacao?.includes('Em_Revisão')) {
-                mensagemAlert = `Saldo em revisão, aguarde a aprovação do sistema. Protocolo: ${result.protocolo}`;
+                modalStatus = 'under-review';
             } else if (result.situacao?.includes('Recusada')) {
-                mensagemAlert = `Transação recusada! Protocolo: ${result.protocolo}`;
+                modalStatus = 'rejected';
             } else {
-                alert(result.error || 'Erro desconhecido');
+                showProcessModal('rejected', 'carteira');
                 return;
             }
 
-            alert(mensagemAlert);
-            modalPagamento.style.display = 'none';
-            valorParaInserir = 0;
-
-            if (inputPersonalizado) inputPersonalizado.value = '';
-            optValores.forEach(o => o.classList.remove('ativo'));
-
-            await carregarDadosIniciais();
+            showProcessModal(modalStatus, 'carteira', () => {
+                modalPagamento.style.display = 'none';
+                valorParaInserir = 0;
+                if (inputPersonalizado) inputPersonalizado.value = '';
+                optValores.forEach(o => o.classList.remove('ativo'));
+                carregarDadosIniciais();
+            });
         } catch (error) {
             console.error("Erro na transação:", error);
-            alert("Erro de conexão com o servidor.");
+            showProcessModal('rejected', 'carteira');
         }
     }
 

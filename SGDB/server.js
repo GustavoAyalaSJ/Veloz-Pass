@@ -83,8 +83,12 @@ app.use('/api/', apiLimiter);
 app.use('/auth', loginLimiter, authRoutes);
 app.use('/api/payments', (req, res, next) => {
     if (req.method === 'POST' && (req.path === '/add-credit' || req.path.includes('add-credit'))) {
+        const sanitizedBody = { ...req.body };
+        if (sanitizedBody.numCartao) {
+            sanitizedBody.numCartao = '[REDACTED]';
+        }
         console.log(`[PAYMENT ${req.method}] ${req.userId || 'NO_USER'} -> ${req.path}`);
-        console.log('Body:', JSON.stringify(req.body, null, 2));
+        console.log('Body:', JSON.stringify(sanitizedBody, null, 2));
     }
     next();
 }, paymentRoutes);
