@@ -202,13 +202,28 @@ body {
     color: rgb(96, 188, 230)
 }
 
-.dark-mode .btn-prosseguir{
+.dark-mode .warning-box {
+    background-color: #967d4a76;
+    border: 1px solid #d4b16a;
+}
+
+.dark-mode .warning-box i {
+    color: #ffffff;
+}
+
+.dark-mode .warning-box p {
+    font-weight: 550;
+    color: #ffffff;
+}
+
+
+.dark-mode .btn-prosseguir {
     background-color: #4e7f5c;
     border: 4px solid rgb(44, 68, 44);
     transition: 0.4s ease;
 }
 
-.dark-mode .btn-prosseguir:hover{
+.dark-mode .btn-prosseguir:hover {
     background: linear-gradient(135deg, #608966, #3d5a41);
     border: 4px solid rgb(44, 68, 44);
     transition: 0.4s ease;
@@ -333,10 +348,24 @@ body {
     font-size: 0.9rem;
 }
 
-.select-icon {
+.select-wrapper .select-icon {
     position: absolute;
+    padding-bottom: 16px;
     right: 12px;
     top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #7296be;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+    z-index: 1;
+}
+
+.type-card .select-icon {
+    position: absolute;
+    padding-bottom: 0px;
+    right: 12px;
+    top: 55%;
     transform: translateY(-50%);
     pointer-events: none;
     color: #7296be;
@@ -403,8 +432,6 @@ body {
     box-shadow: 0 0 8px rgba(114, 150, 190, 0.4);
 }
 
-/* Type card icon now uses unified .select-icon rules above */
-
 /* Modal */
 .modal-box {
     background: #ffffff;
@@ -428,10 +455,14 @@ body {
 .card-recarga {
     display: grid;
     grid-template-columns: 320px 40px 1fr;
+    grid-template-areas:
+        "passo1 divider passo2"
+        "passo1 divider warning";
     background-color: #cfd2d3;
     border-radius: 20px;
     border: 3px solid #9e9e9e;
     padding: 30px;
+    gap: 10px 0;
 }
 
 .passo h3 {
@@ -443,13 +474,15 @@ body {
 .passo-1 {
     display: flex;
     flex-direction: column;
+    grid-area: passo1;
+    padding-right: 15px;
 }
 
 .buscard-image img {
     width: 200px;
     border-radius: 18px;
     border: 4px solid #1a3a5a;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .filtro-tipo.active .select-icon {
@@ -457,7 +490,7 @@ body {
 }
 
 .confirm-card {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .confirm-card h4 {
@@ -468,6 +501,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    grid-area: divider;
+    padding-left: 15px;
 }
 
 .divider::before {
@@ -479,6 +514,7 @@ body {
 
 .passo-2 {
     padding-left: 20px;
+    grid-area: passo2;
 }
 
 .payment-information {
@@ -617,6 +653,34 @@ select {
     display: flex;
     justify-content: flex-end;
     margin-top: 25px;
+}
+
+.warning-box {
+    background-color: #d4b16a;
+    border: 2px solid #9a7f49;
+    grid-area: warning;
+    border-radius: 15px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    margin-left: 20px;
+    align-self: start;
+}
+
+.warning-box i {
+    font-size: 2.5rem;
+    color: #4a4a4a;
+    flex-shrink: 0;
+}
+
+.warning-box p {
+    color: #333;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
 }
 
 .btn-prosseguir {
