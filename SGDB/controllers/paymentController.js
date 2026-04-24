@@ -141,7 +141,7 @@ exports.processCredit = async (req, res) => {
             return res.status(400).json({ error: 'Resposta inválida do servidor' });
         }
         if (!rpcResult.success) {
-            console.log(`[REJECTED CREDIT] User ${idUsuario}, Valor ${valorNum}, Reason: ${rpcResult.erro}`);
+            // DEBUG: console.log(`[REJECTED CREDIT] User ${idUsuario}, Valor ${valorNum}, Reason: ${rpcResult.erro}`);
             return res.status(200).json({
                 success: false,
                 error: rpcResult.erro || 'Transação rejeitada',
@@ -168,7 +168,7 @@ exports.processRecargaTransporte = async (req, res) => {
     const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
 
-    console.log('Recarga Debug - valorRaw:', valorRaw, 'type:', typeof valorRaw, 'valorNum:', valorNum, 'userId:', idUsuario);
+    // DEBUG: console.log('Recarga Debug - valorRaw:', valorRaw, 'type:', typeof valorRaw, 'valorNum:', valorNum, 'userId:', idUsuario);
 
     if (isNaN(valorNum) || valorNum <= 0) {
         return res.status(400).json({ error: "Valor inválido" });
@@ -203,7 +203,7 @@ exports.processRecargaTransporte = async (req, res) => {
     }
 
     const protocolo = 'VPT' + Date.now();
-    console.log('Recarga Non-Wallet - Creating pending tx, user:', idUsuario, 'metodo:', metodoFormatado, 'valor:', valorNum);
+    // DEBUG: console.log('Recarga Non-Wallet - Creating pending tx, user:', idUsuario, 'metodo:', metodoFormatado, 'valor:', valorNum);
 
     try {
         const { data: carteira } = await supabase

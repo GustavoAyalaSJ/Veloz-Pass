@@ -204,26 +204,30 @@ function validarSaldo() {
             if (response.ok && data.success) {
                 btn.textContent = 'Sucesso!';
 
+                let modalStatus;
                 if (situacao === 'Concluído') {
-                    alert('Recarga Realizada com sucesso! Aguarde para o saldo cair em seu cartão de transporte.');
-                    window.location.href = '/dashboard';
+                    modalStatus = 'success';
                 } else if (situacao === 'Em_Revisão') {
-                    alert('Recarga em revisão. Isto pode demorar alguns minutos ou hora para obter resultado.');
-                    window.location.href = '/dashboard';
+                    modalStatus = 'under-review';
                 } else if (situacao === 'Recusada') {
-                    alert('Recarga Recusada pelo provedor do banco ou falha no sistema. Sua conta bancária não será penalizada.');
-                    window.location.href = '/dashboard';
+                    modalStatus = 'rejected';
                 }
+
+                showProcessModal(modalStatus, 'recarga', () => {
+                    window.location.href = '/dashboard';
+                });
             } else {
-                alert(data.error || 'Erro ao processar recarga');
-                btn.disabled = false;
-                btn.textContent = 'Concluir';
+                showProcessModal('rejected', 'recarga', () => {
+                    btn.disabled = false;
+                    btn.textContent = 'Concluir';
+                });
             }
 
         } catch (err) {
-            alert('Erro de conexão.');
-            btn.disabled = false;
-            btn.textContent = 'Concluir';
+            showProcessModal('rejected', 'recarga', () => {
+                btn.disabled = false;
+                btn.textContent = 'Concluir';
+            });
         } finally {
             if (modal) modal.style.display = 'none';
         }

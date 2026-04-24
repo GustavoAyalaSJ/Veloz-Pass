@@ -122,8 +122,14 @@
 - Reescrevendo as regras dos modais de termos da página Introduction e Dashboard.
 - Mais correções no CSS.
 
-(22-04-2026 - Atual)
+(22-04-2026)
 - Atualização de otimização nos commits do Github;
 - Remoção de conteúdos não utilizados pelo Node;
 - Atualizando o payment back-end;
 - Adicionando os protocolos recusados da página Carteira Digital para Histórico Geral.
+
+(23-04-2026 - Atual)
+- Remoção e Modernização dos alerts;
+- Novas implementações de segurança dentro do site;
+- Inicio do novo Veloz Pass V1.7.
+
