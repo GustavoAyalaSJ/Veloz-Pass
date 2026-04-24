@@ -675,6 +675,10 @@ select {
     flex-shrink: 0;
 }
 
+.warning-box.hidden {
+    display: none;
+}
+
 .warning-box p {
     color: #333;
     font-size: 0.95rem;
