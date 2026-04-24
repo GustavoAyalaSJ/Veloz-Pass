@@ -400,18 +400,24 @@ body {
 
 .select-icon {
     position: absolute;
+    margin-top: 13px;
     right: 12px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(0deg);
     pointer-events: none;
     color: #7296be;
     font-size: 1rem;
-    transition: transform 0.2s ease;
-    z-index: 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .filtro-item.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
+}
+
+.empty-table-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
 }
 
 /* Media Queries */
@@ -539,10 +545,4 @@ body {
     .filtro-select {
         width: 100%;
     }
-}
-
-.empty-table-message {
-    text-align: center;
-    padding: 20px;
-    font-size: 0.8rem;
 }
