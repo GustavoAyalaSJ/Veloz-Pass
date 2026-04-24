@@ -74,7 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 Eu li e concordo com as <span class="destacarTermos abrir-termos">Políticas de Privacidade</span> do Veloz Pass.
               </label>
             </div>
-            <button type="submit">Finalizar Cadastro</button>
+            
+            <button class="botao-estilizado" type="submit">Finalizar Cadastro</button>
+            <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
     `;
 

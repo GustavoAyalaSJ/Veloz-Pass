@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Background */
+/* Layout Geral */
 .background-container {
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@ body {
 /* Cabeçalho */
 .cabeçalho {
     background-color: #3b5f80;
-    border-bottom: 3px solid;
+    border-bottom: 3.5px solid;
     border-image-source: linear-gradient(to right, #8e9cb4 0%, #3b557a 30%, #24344d 100%);
     border-image-slice: 1;
     width: 100%;
@@ -48,7 +48,7 @@ body {
 }
 
 .logotipo img {
-    height: 45px;
+    height: 55px;
     width: auto;
 }
 
@@ -84,32 +84,6 @@ body {
     margin: 0 auto;
 }
 
-.right {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background-image: url('FundoRight.webp');
-    background-size: cover;
-    background-position: center right;
-    background-repeat: no-repeat;
-}
-
-/* Conteúdo Principal - Cards */
-.containerLeft {
-    background-color: #24344d;
-    color: white;
-    width: 100%;
-    padding: 2rem 1.1rem;
-    border-radius: 15px;
-    margin: 2px;
-    left: 40px;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-    border: 12px solid rgba(27, 36, 58, 0.79);
-}
-
 .left {
     position: relative;
     z-index: 2;
@@ -120,6 +94,35 @@ body {
     padding-top: 5px;
     display: flex;
     align-items: center;
+}
+
+.right {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url('FundoRight.png');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+
+/* Card Lateral */
+.containerLeft {
+    background-color: #24344d;
+    color: white;
+    width: 100%;
+    padding: 2rem 1.1rem;
+    border-radius: 15px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: -5px;
+    margin-bottom: 20px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    border: 12px solid rgba(27, 36, 58, 0.79);
 }
 
 .sobre-left h1 {
@@ -151,7 +154,7 @@ body {
 }
 
 .ButtonBottomText {
-    background-color: #3e6b48;
+    background-color: #2060a3;
     color: white;
     border: none;
     padding: 15px 50px;
@@ -159,15 +162,14 @@ body {
     font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(62, 107, 72, 0.4);
     transition: all 0.3s ease;
     width: 100%;
 }
 
 .ButtonBottomText:hover {
     transform: translateY(-3px);
-    background-color: #4a7e56;
-    box-shadow: 0 6px 20px rgba(62, 107, 72, 0.6);
+    background-color: #5d87b3;
+    box-shadow: 0 6px 20px rgba(126, 162, 201, 0.737);
 }
 
 /* Modais */
@@ -194,16 +196,14 @@ body {
     width: 90%;
     max-width: 500px;
     max-height: 85vh;
-    padding: 2.5rem 2rem;
+    padding: 2.2rem 2rem;
     border-radius: 12px;
     position: relative;
     box-sizing: border-box;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    border: 2px solid #00d4ff;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 10px 40px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    border: 2px solid #7496c6;
+    box-shadow: 0 0 20px #7090bdcc, 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
 }
 
 .modal-content h2 {
@@ -211,7 +211,7 @@ body {
     margin-bottom: 15px;
     color: #ffffff;
     font-size: 1.4rem;
-    border-bottom: 2px solid #00d4ff;
+    border-bottom: 2px solid #7689a5;
     padding-bottom: 15px;
     font-weight: 650;
 }
@@ -226,6 +226,9 @@ body {
     font-size: 0.9rem;
     font-weight: 600;
     color: #e5e7eb;
+}
+
+.modal-content label:not(.checkbox label) {
     display: block;
 }
 
@@ -253,8 +256,7 @@ body {
 }
 
 .modal-content a:hover {
-    color: #639edd;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 .modal-content p {
@@ -283,7 +285,7 @@ body {
 
 .password-input-container i {
     position: absolute;
-    top: 50%;
+    top: 70%;
     right: 12px;
     transform: translateY(-50%);
     cursor: pointer;
@@ -340,21 +342,14 @@ body {
     padding-right: 20px !important; 
 }
 
-.check-icon, .x-icon {
+.check-icon {
     position: absolute;
     right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 7px;
     font-size: 1.4rem;
+    color: #28a745;
     visibility: hidden; 
     pointer-events: none;
-}
-.check-icon {
-    color: #28a745;
-}
-
-.x-icon {
-    color: #dc3545;
 }
 
 .checkbox label {
@@ -367,14 +362,14 @@ body {
 }
 
 .destacarTermos{
-    color: #2a7cd4;
+    color: #0056b3;
     cursor: pointer;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
-.destacarTermos:hover {
-    color: #a5c6e8;
+.destacarTermos:hover{
+    color: #89a4c1;
     cursor: pointer;
     text-decoration: none;
 }
@@ -385,8 +380,6 @@ body {
     gap: 18px;
     max-height: calc(85vh - 150px);
     padding-right: 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 .modal-terms-content p {
@@ -401,6 +394,7 @@ body {
     font-size: 1rem;
 }
 
+/* Estilos Universais para elementos para o Modal Suporte */
 .modal-content select,
 .modal-content input,
 .modal-content textarea {
@@ -467,7 +461,7 @@ body {
 .botao-estilizado:hover {
     background-color: #0056b3;
     text-decoration: none !important;
-    box-shadow: 0 6px 10px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
     transform: translateY(-2px);
     color: rgb(250, 250, 250);
 }
@@ -494,6 +488,12 @@ body {
     background-color: #e2e6ea;
 }
 
+.destacarLogin {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 /* Rodapé */
 .rodapé {
     background-color: #485f78;
@@ -518,18 +518,6 @@ body {
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
-}
-
-.password-wrapper {
-    position: relative;
-}
-
-.toggle-password-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
 }
 
 /* Media Queries */
@@ -613,6 +601,10 @@ body {
 
     .right {
         background-image: url("768x1024.webp");
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        min-height: 200px; 
     }
 
     .modal-terms-content {
@@ -632,11 +624,10 @@ body {
     }
 }
 
+
 @media (max-width: 480px) {
     .cabeçalho {
-      border-bottom: 3px solid #24344d;
-      border-image-source: none;
-      border-image-slice: unset;
+      border-bottom: 3px solid #24344d;  
     }
 
     .logotipo img {
@@ -649,7 +640,7 @@ body {
     }
 
     .right {
-        background-image: url("375x667.png");
+        background-image: url("375x667.webp");
     }
 
     .containerLeft {
@@ -666,9 +657,7 @@ body {
     }
 
     .rodapé {
-        border-top: 3px solid #24344d;
-        border-image-source: none;
-        border-image-slice: unset;
+        border-top: 3px solid #24344d;  
         font-size: 0.81rem;
         padding: 1.4rem;
     }
