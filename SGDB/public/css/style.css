@@ -424,6 +424,34 @@ body {
     margin-top: 5px;
 }
 
+.modal-content .select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.modal-content .select-wrapper select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.modal-content .select-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+    font-size: 1rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-content .select-wrapper.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
 .close-btn {
     position: absolute;
     top: 15px;

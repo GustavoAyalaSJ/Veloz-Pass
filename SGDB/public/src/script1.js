@@ -104,14 +104,17 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Suporte</h2>
         <form id="formSuporte">
             <label>Selecione o problema:</label>
-            <select required>
-                <option value="" disabled selected>Selecione</option>
-                <option>Não estou conseguindo acessar minha conta.</option>
-                <option>Minhas credenciais foram consideradas inválidas.</option>
-                <option>O saldo não está sendo creditado.</option>
-                <option>Meu cartão foi registrado por outro usuário.</option>
-                <option>Outros problemas.</option>
-            </select>
+            <div class="select-wrapper">
+                <select required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option>Não estou conseguindo acessar minha conta.</option>
+                    <option>Minhas credenciais foram consideradas inválidas.</option>
+                    <option>O saldo não está sendo creditado.</option>
+                    <option>Meu cartão foi registrado por outro usuário.</option>
+                    <option>Outros problemas.</option>
+                </select>
+                <i class="bi bi-chevron-down select-icon"></i>
+            </div>
             <label>Email Cadastrado:</label>
             <input type="email" placeholder="@email.com.br" required/>
             <label>Telefone Cadastrado:</label>
@@ -290,6 +293,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const termosLinks = document.querySelectorAll('.abrir-termos');
         termosLinks.forEach(link => { link.onclick = (e) => { e.preventDefault(); openTermsOverlay(); }; });
+
+        const selectWrappers = document.querySelectorAll('.select-wrapper');
+        selectWrappers.forEach(wrapper => {
+            const select = wrapper.querySelector('select');
+            if (select) {
+                wrapper.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'SELECT') {
+                        e.stopPropagation();
+                        select.focus();
+                        const mousedown = new MouseEvent('mousedown', { bubbles: true });
+                        select.dispatchEvent(mousedown);
+                    }
+                });
+                select.addEventListener('focus', () => wrapper.classList.add('active'));
+                select.addEventListener('blur', () => wrapper.classList.remove('active'));
+            }
+        });
 
         const formLogin = document.getElementById('formLogin');
         if (formLogin) {
