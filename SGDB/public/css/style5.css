@@ -861,33 +861,63 @@ select {
         align-items: flex-end;
         gap: 20px;
         width: 100%;
+        margin-bottom: 25px;
     }
 
     .top-group {
         flex: 1;
         display: flex;
         flex-direction: column;
+        gap: 7px;
+    }
+
+    .top-group h4 {
+        margin-bottom: 0;
+        margin-left: 15px;
     }
 
     .select-wrapper,
     #select-pagamento,
     .top-group.valor input {
-        width: 100%;
+        width: 100% !important;
+        height: 50px !important;
         box-sizing: border-box;
-        height: 45px;
+        margin-bottom: 0 !important; 
+    }
+
+    .top-group.valor input {
+        padding-bottom: 12px !important;
+        padding-top: 12px !important;
+    }
+
+    .select-wrapper .select-icon {
+        padding-bottom: 5px !important;
+        padding-right: 5px !important;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .titulo-pagina-externo {
+        margin-top: 2px !important;
+        font-size: 2rem;
     }
 
     .top-group.valor {
-        padding-right: 0;
+        padding-right: 0 !important;
     }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 768px) {
     .titulo-pagina-externo {
-        height: 20px;
-        padding-bottom: 60px;
-        padding-left: 4px;
+        margin-top: 2px !important;
+        height: auto;
+        padding-bottom: 40px;
         font-size: 1.8rem;
+        text-align: right;
+    }
+
+    .top-group.valor{
+        padding-right: 700px;
     }
 
     .top-recarga {
@@ -895,22 +925,20 @@ select {
         gap: 15px;
     }
 
-    .top-group h4 {
-        padding-bottom: 5px;
-    }
-
-    .top-group.valor {
-        padding-right: 0;
-    }
-
     .card-recarga {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        display: flex;
+        flex-direction: column;
         padding: 20px;
+        gap: 15px;
     }
 
     .divider {
+        margin-top: 0px;
+        margin-left: -15px !important;
+        padding-left: 0 !important;
         height: 40px;
+        display: flex;
+        justify-content: center;
     }
 
     .divider::before {
@@ -919,194 +947,142 @@ select {
         font-size: 1.8rem;
     }
 
-    .passo-2 {
-        padding-left: 0;
+    .warning-box {
+        margin-left: 1px !important;
+        align-self: stretch;
+        margin-top: 10px;
+    }
+
+    .passo-1, .passo-2 {
+        width: 100%;
+        padding: 0;
     }
 
     .buscard-image {
         display: flex;
         justify-content: center;
-    }
-
-    .payment-information {
-        min-height: 300px;
-    }
-
-    .pix-container {
-        gap: 20px;
-    }
-
-    .qr-placeholder {
-        width: 160px;
-        height: 160px;
-    }
-
-    .pix-copy-wrapper {
-        max-width: 90%;
-    }
-
-    .card-inputs-row {
-        gap: 15px;
-    }
-
-    .input-group-half {
-        gap: 10px;
-    }
-}
-
-@media (max-width: 600px) {
-    .cabeçalho {
-        padding: 15px 20px;
-    }
-
-    .logotipo img {
-        height: 30px;
-    }
-
-    .main-content {
-        padding: 20px;
-    }
-
-    .header-link span {
-        display: none;
-    }
-
-    .titulo-pagina-externo {
-        font-size: 1.5rem;
-        margin-top: 10px;
-        padding-bottom: 10px;
-        text-align: right;
-    }
-
-    .divider {
-        height: 10px;
-    }
-
-    .divider::before {
-        content: "« »";
-        writing-mode: horizontal-tb;
-        font-size: 1.8rem;
-    }
-
-    .btn-prosseguir {
-        width: 100%;
-        padding: 15px;
+        margin-bottom: 15px;
     }
 
     .payment-information {
         min-height: auto;
-        padding: 15px;
-    }
-
-    .confirm-card {
-        margin-top: 20px;
-    }
-
-    .passo h3 {
-        text-align: center;
-    }
-
-    .pix-container {
-        padding: 15px 0;
-        gap: 15px;
-    }
-
-    .qr-placeholder {
-        width: 150px;
-        height: 150px;
-        font-size: 0.8rem;
+        padding: 20px;
     }
 
     .pix-copy-wrapper {
         max-width: 100%;
-        height: 45px;
-        padding: 0 0 0 15px;
+        margin: 0 auto;
     }
 
-    #pix-input {
-        font-size: 0.85rem;
+    .btn-prosseguir {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding-top: 20px;
+        padding-bottom: 30px;
+        padding-right: 10px;
+        padding-left: 10px;
     }
 
-    .btn-copy {
-        padding: 0 15px;
+    .container-recarga{
+        padding-top: 15px;
     }
 
-    .card-inputs-row {
-        gap: 12px;
+    .titulo-pagina-externo {
+        font-size: 1.4rem;
+        margin-right: 0;
+        text-align: center;
+        padding-bottom: 20px;
+        margin-left: 230px;
+        margin-bottom: 20px;
     }
 
-    .card-inputs-row label {
-        font-size: 0.75rem;
+    .card-recarga {
+        padding: 15px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .card-inputs-row input {
+    .buscard-image img {
+        width: 160px;
+        border-width: 3px;
+    }
+
+    .divider {
+        height: 30px;
+        margin: 5px 0;
+        padding-left: 0px;
+    }
+
+    .divider::before {
+        font-size: 1.4rem;
+        writing-mode: horizontal-tb;
+        content: "« »";
+    }
+
+    .payment-information {
+        padding: 12px;
+        min-height: auto;
+    }
+
+    .card-inputs-row input, 
+    .input-group-full input {
         padding: 10px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        border-radius: 8px;
     }
 
     .input-group-half {
         gap: 8px;
     }
 
-    .input-group-full {
-        gap: 6px;
-    }
-
-    .input-group-full label {
-        font-size: 0.75rem;
-    }
-
-    .input-group-full input {
-        padding: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .card-recarga {
-        padding: 15px;
-        grid-template-columns: 1fr;
-    }
-
-    .passo h3 {
-        font-size: 1rem;
-    }
-
-    .payment-information {
-        min-height: 250px;
-        padding: 12px;
-    }
-
-    .qr-placeholder {
-        width: 120px;
-        height: 120px;
-        font-size: 0.7rem;
-    }
-
     .pix-copy-wrapper {
-        height: 40px;
-        padding: 0 0 0 12px;
+        height: 42px;
+        max-width: 100%;
+        padding-left: 10px;
     }
 
     #pix-input {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
 
     .btn-copy {
-        padding: 0 12px;
-        font-size: 0.9rem;
+        padding: 0 10px;
+        font-size: 0.8rem;
     }
 
-    .card-inputs-row input {
-        padding: 8px;
-        font-size: 0.85rem;
+    .warning-box {
+        margin-left: 0;
+        padding: 10px;
+        gap: 10px;
     }
 
-    .input-group-half {
-        gap: 6px;
+    .warning-box i {
+        font-size: 1.8rem;
+    }
+
+    .warning-box p {
+        font-size: 0.8rem;
     }
 
     .btn-prosseguir {
-        padding: 12px 30px;
-        font-size: 1rem;
+        width: 100%;
+        padding: 15px;
+        font-size: 0.95rem;
+        border-radius: 12px;
+    }
+
+    .top-recarga {
+        gap: 10px;
+    }
+
+    .top-group h4 {
+        font-size: 0.9rem;
+        margin-left: 5px;
     }
 }
