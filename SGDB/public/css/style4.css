@@ -617,18 +617,55 @@ td.table-bold {
 }
 
 /* Media Queries */
-@media (max-width: 600px) {
-    .cabeçalho {
-        padding: 10px 15px;
+@media screen and (max-width: 480px) {
+    .titulo-pagina-externo {
+        padding-right: 1px !important;
     }
 
-    .logotipo img {
-        height: 30px;
+    .header-carteira-top {
+        margin-bottom: 10px !important;
     }
 
-    .header-actions {
-        gap: 17px;
+    .card-valor {
+        margin-bottom: 20px !important;
     }
+
+    #btn-inserir-credito {
+        margin-top: 30px !important;
+        margin-bottom: 30px !important;
+        margin-right: -2px !important;
+        padding-top: 15px !important;
+    }
+
+    .filtro-item {
+        margin-bottom: -10px !important;
+    }
+
+    .filtro-item:first-of-type {
+        margin-top: 4px !important;
+    }
+
+    .filtro-item:nth-of-type(2) {
+        margin-top: -4px !important;
+    }
+
+    .filtro-item:nth-of-type(3) {
+        margin-top: -10px !important;
+    }
+
+    .filtro-item label {
+        margin-bottom: -5px !important;
+    }
+
+    .select-icon {
+        margin-top: 7px !important;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .cabeçalho { padding: 10px 15px; }
+    .logotipo img { height: 30px; }
+    .header-actions { gap: 17px; }
 
     .titulo-pagina-externo {
         height: 25px;
@@ -638,70 +675,19 @@ td.table-bold {
         font-size: 1.8rem;
     }
 
-    .card-valor {
+    .card-valor, .btn-inserir-credito {
         width: 90%;
-        margin-top: 0;
-        padding: 15px 20px;
-        font-size: 1.2rem;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .btn-inserir-credito {
-        width: 90%;
-        text-align: center;
-        margin-right: 0;
-        border: 4px solid rgb(44, 68, 44);
-        padding: 15px 0;
-        font-size: 1rem;
-    }
-
-    .tabela-header {
-        text-align: center;
-        font-size: 0.58rem;
-    }
-
-    .modal-box {
-        width: 90%;
-        padding: 20px;
-        border-radius: 25px;
-    }
-
-    .modal-box h3 {
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-    }
-
-    .grid-predefinidos {
-        gap: 10px;
-    }
-
-    .opt-valor {
-        padding: 12px;
-        font-size: 1.1rem;
-        border-radius: 12px;
-    }
-
-    .modal-footer {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .btn-proximo,
-    .btn-retornar {
-        padding: 10px 0;
+    .filtro-item .filtro-select {
+        margin-top: 15px !important;
         width: 100%;
-        font-size: 0.9rem;
     }
 
-    .btn-finalizar,
-    .btn-cancelar {
-        padding: 10px 0;
-        width: 100%;
-        font-size: 0.9rem;
-    }
-
-    .card-container>.filtros-container {
-        margin: -20px -15px 15px -15px;
-        padding: 15px 15px;
+    .filtro-item .select-icon {
+        margin-top: 4px !important;
     }
 
     .filtros-container {
@@ -710,7 +696,43 @@ td.table-bold {
         margin-bottom: 15px;
     }
 
-    .filtro-select {
+    .historico-valores {
+        margin-top: -10px !important;
+    }
+
+    .tabela-header { font-size: 0.58rem; text-align: center; }
+    .modal-box { width: 90%; border-radius: 25px; }
+    .modal-footer { flex-direction: row; gap: 10px; }
+    
+    .btn-proximo, .btn-retornar, .btn-finalizar, .btn-cancelar {
         width: 100%;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .filtro-item .filtro-select {
+        margin-top: 15px !important;
+    }
+
+    .filtro-item .select-icon {
+        margin-top: 4px !important;
+    }
+
+    .historico-valores {
+        margin-top: -11px !important;
+    }
+
+    .titulo-pagina-externo {
+        font-size: 2rem;
+        padding-bottom: 30px;
+    }
+
+    .filtros-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
     }
 }
