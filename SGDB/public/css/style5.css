@@ -350,10 +350,9 @@ body {
 
 .select-wrapper .select-icon {
     position: absolute;
-    padding-bottom: 16px;
     right: 12px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(0deg);
     pointer-events: none;
     color: #7296be;
     font-size: 1rem;
@@ -363,10 +362,9 @@ body {
 
 .type-card .select-icon {
     position: absolute;
-    padding-bottom: 0px;
     right: 12px;
     top: 55%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(0deg);
     pointer-events: none;
     color: #7296be;
     font-size: 1rem;
