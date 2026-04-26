@@ -453,7 +453,6 @@ body {
     margin-top: -2px;
     right: 12px;
     top: 50%;
-    transform: translateY(-50%);
     pointer-events: none;
     color: #7296be;
     font-size: 1rem;
