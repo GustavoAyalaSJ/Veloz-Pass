@@ -400,7 +400,7 @@ body {
 
 .select-icon {
     position: absolute;
-    margin-top: 13px;
+    margin-top: 2px;
     right: 12px;
     top: 50%;
     transform: translateY(-50%) rotate(0deg);
@@ -410,7 +410,12 @@ body {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.filtro-item.active .select-icon {
+.select-wrapper-modal .select-icon {
+    margin-top: 0px;
+}
+
+.filtro-item.active .select-icon,
+.select-wrapper-modal.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
 

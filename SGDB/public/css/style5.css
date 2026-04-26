@@ -375,8 +375,7 @@ body {
 }
 
 .select-wrapper.active .select-icon,
-.type-card.active .select-icon,
-.filtro-item.active .select-icon {
+.type-card.active .select-icon{
     transform: translateY(-50%) rotate(180deg);
 }
 
@@ -784,9 +783,9 @@ select {
 }
 
 #btn-cancelar-modal:hover {
-    background: #fff5f5;
+    background: #683535;
     color: #ff7070;
-    border-color: #ff7070;
+    border-color: #552a2a;
 }
 
 #select-pagamento.saldo-insuficiente {
@@ -800,6 +799,7 @@ select {
 
 .modal-content {
     background: white;
+    border: 2px solid black;
     padding: 30px;
     border-radius: 15px;
     width: 90%;
