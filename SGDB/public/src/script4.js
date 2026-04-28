@@ -129,11 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (btnInserir) btnInserir.addEventListener('click', () => modalValor.style.display = 'flex');
+    if (btnInserir) btnInserir.addEventListener('click', () => modalValor.classList.add('active'));
 
     document.querySelectorAll('.btn-cancelar').forEach(btn => btn.addEventListener('click', () => {
-        modalValor.style.display = 'none';
-        modalPagamento.style.display = 'none';
+        modalValor.classList.remove('active');
+        modalPagamento.classList.remove('active');
         optValores.forEach(o => o.classList.remove('ativo'));
         if (inputPersonalizado) inputPersonalizado.value = '';
         valorParaInserir = 0;
@@ -149,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 valorConfirmadoTxt.innerText = `R$ ${valorParaInserir.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             }
 
-            modalValor.style.display = 'none';
-            modalPagamento.style.display = 'flex';
+            modalValor.classList.remove('active');
+            modalPagamento.classList.add('active');
         });
     }
 
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             showProcessModal(modalStatus, 'carteira', () => {
-                modalPagamento.style.display = 'none';
+                modalPagamento.classList.remove('active');
                 valorParaInserir = 0;
                 if (inputPersonalizado) inputPersonalizado.value = '';
                 optValores.forEach(o => o.classList.remove('ativo'));
