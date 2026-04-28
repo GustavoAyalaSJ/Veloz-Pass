@@ -6,15 +6,21 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    animation: fadeInOverlay 0.2s ease-out;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, visibility;
+    pointer-events: none;
 }
 
 .process-overlay.active {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .process-box {
@@ -26,10 +32,18 @@
     text-align: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     border: 2.5px solid rgba(114, 150, 190, 0.3);
-    animation: modalSlideIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: flex;
     flex-direction: column;
     gap: 16px;
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, transform;
+}
+
+.process-overlay.active .process-box {
+    opacity: 1;
+    transform: scale(1) translateY(0);
 }
 
 .process-header h3 {

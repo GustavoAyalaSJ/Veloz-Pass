@@ -238,7 +238,7 @@ function validarSaldo() {
                 btn.textContent = 'Concluir';
             });
         } finally {
-            if (modal) modal.style.display = 'none';
+            if (modal) modal.classList.remove('active');
         }
     }
 
@@ -275,10 +275,10 @@ function validarSaldo() {
         </div>
     `;
 
-        modal.style.display = 'flex';
+        modal.classList.add('active');
 
         document.getElementById('btn-cancelar-modal').onclick = () => {
-            modal.style.display = 'none';
+            modal.classList.remove('active');
         };
 
         document.getElementById('btn-finalizar-fake').onclick = () => {

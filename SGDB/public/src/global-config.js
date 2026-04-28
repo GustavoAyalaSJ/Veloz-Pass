@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutModal = document.createElement('div');
         logoutModal.id = 'logoutModal';
         logoutModal.className = 'logout-overlay';
-        logoutModal.style.display = 'none';
         logoutModal.innerHTML = `
             <div class="logout-box">
                 <h3>Deseja sair da sua conta?</h3>
@@ -55,14 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        document.getElementById('btn-nao-logout').onclick = () => logoutModal.style.display = 'none';
+        document.getElementById('btn-nao-logout').onclick = () => logoutModal.classList.remove('active');
 
         logoutModal.onclick = (e) => {
-            if (e.target === logoutModal) logoutModal.style.display = 'none';
+            if (e.target === logoutModal) logoutModal.classList.remove('active');
         };
 
         document.onkeydown = (e) => {
-            if (e.key === 'Escape' && logoutModal.style.display !== 'none') logoutModal.style.display = 'none';
+            if (e.key === 'Escape' && logoutModal.classList.contains('active')) logoutModal.classList.remove('active');
         };
     }
 
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.closest('.exit-link')) {
             e.preventDefault();
             createLogoutModal();
-            logoutModal.style.display = 'flex';
+            logoutModal.classList.add('active');
         }
     };
 
