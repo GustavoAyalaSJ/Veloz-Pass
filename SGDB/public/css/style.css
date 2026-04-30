@@ -357,7 +357,7 @@ body {
 
 .checkbox {
     display: flex !important;
-    flex-direction: row !important; 
+    flex-direction: row !important;
     align-items: flex-start;
     gap: 10px;
     margin-top: 15px;
@@ -367,7 +367,7 @@ body {
 .checkbox input[type="checkbox"] {
     width: 18px !important;
     height: 18px !important;
-    flex-shrink: 0; 
+    flex-shrink: 0;
     margin: 0;
     cursor: pointer;
 }
@@ -378,9 +378,9 @@ body {
     font-weight: 600;
 }
 
-#formCadastro input, 
+#formCadastro input,
 #formCadastro .input-wrapper {
-    margin-top: 0; 
+    margin-top: 0;
     margin-bottom: 4px;
 }
 
@@ -397,7 +397,7 @@ body {
 
 .input-wrapper input {
     width: 100%;
-    padding-right: 20px !important; 
+    padding-right: 20px !important;
 }
 
 .check-icon {
@@ -406,7 +406,7 @@ body {
     bottom: 7px;
     font-size: 1.4rem;
     color: #28a745;
-    visibility: hidden; 
+    visibility: hidden;
     pointer-events: none;
 }
 
@@ -419,14 +419,14 @@ body {
     color: #dbdbdb;
 }
 
-.destacarTermos{
+.destacarTermos {
     color: #0056b3;
     cursor: pointer;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
-.destacarTermos:hover{
+.destacarTermos:hover {
     color: #89a4c1;
     cursor: pointer;
     text-decoration: none;
@@ -691,7 +691,7 @@ body {
         background-size: cover;
         background-position: center;
         width: 100%;
-        min-height: 200px; 
+        min-height: 200px;
     }
 
     .modal-terms-content {
@@ -714,7 +714,7 @@ body {
 
 @media (max-width: 480px) {
     .cabeçalho {
-      border-bottom: 3px solid #24344d;  
+        border-bottom: 3px solid #24344d;
     }
 
     .logotipo img {
@@ -744,7 +744,7 @@ body {
     }
 
     .rodapé {
-        border-top: 3px solid #24344d;  
+        border-top: 3px solid #24344d;
         font-size: 0.81rem;
         padding: 1.4rem;
     }

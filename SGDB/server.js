@@ -6,7 +6,7 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-const { supabase } = require('./config/supabase.js'); 
+const { supabase } = require('./config/supabase.js');
 const authRoutes = require('./routes/auth');
 const paymentRoutes = require('./routes/payment');
 
@@ -16,8 +16,8 @@ app.use(helmet());
 app.use(compression());
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? 'https://veloz-pass.onrender.com' 
+    origin: process.env.NODE_ENV === 'production'
+        ? 'https://veloz-pass.onrender.com'
         : ['http://localhost:3000', 'http://localhost:5500', 'https://veloz-pass.onrender.com'],
     credentials: true,
     optionsSuccessStatus: 200
@@ -42,7 +42,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 
 app.use(express.static(path.join(__dirname, 'public'), {
-    maxAge: '1d',  
+    maxAge: '1d',
     etag: false
 }));
 
@@ -94,11 +94,11 @@ app.use('/api/payments', (req, res, next) => {
 }, paymentRoutes);
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+    res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`✅ Servidor rodando na porta ${PORT} em modo ${process.env.NODE_ENV}`);
+    console.log(`✅ Servidor rodando na porta ${PORT} em modo ${process.env.NODE_ENV}`);
 });

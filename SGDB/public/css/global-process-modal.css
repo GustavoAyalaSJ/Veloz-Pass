@@ -140,6 +140,7 @@
         opacity: 0;
         transform: scale(0.85) translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -150,6 +151,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -163,4 +165,3 @@
         padding: 2rem 1.5rem;
     }
 }
-

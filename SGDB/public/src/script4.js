@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
             timeoutId = setTimeout(() => func(...args), delay);
         };
     };
-    
+
     const userData = auth.getUserData();
     const idLogado = userData?.id;
     if (!idLogado) return window.location.href = "/introduction";
@@ -22,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const saldoDisplay = document.getElementById('saldo-usuario');
     const corpoTabela = document.getElementById('corpo-tabela');
     const selectPagamento = document.getElementById('select-pagamento');
-    const btnDropdown = document.querySelector('#list-button.icon-button');
-    const contentDropdown = document.getElementById('content-dropdown');
     const filtroRealizadoPor = document.getElementById('filtro-realizado-por');
     const filtroBandeira = document.getElementById('filtro-bandeira');
     const filtroSituacao = document.getElementById('filtro-situacao');
@@ -32,14 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let valorParaInserir = 0;
     let idBandeiraSelecionada = null;
     const metodosComCartaoTexto = ['débito', 'crédito', 'internacional'];
-
-    if (btnDropdown && contentDropdown) {
-        btnDropdown.addEventListener('click', (e) => {
-            e.stopPropagation();
-        const icon = btnDropdown.querySelector('i');
-        window.toggleElement(btnDropdown, contentDropdown, 'open', 'show', icon);
-        });
-    }
 
     const containerCartao = document.createElement('div');
     containerCartao.id = 'container-cartao';
