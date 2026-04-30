@@ -562,10 +562,6 @@ td.table-bold {
     font-weight: bold;
 }
 
-#logoutModal {
-    display: none;
-}
-
 #valor-personalizado::-webkit-outer-spin-button,
 #valor-personalizado::-webkit-inner-spin-button {
     -webkit-appearance: none;
