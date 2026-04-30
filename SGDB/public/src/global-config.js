@@ -198,7 +198,6 @@ function finalizarMint() {
 document.addEventListener("DOMContentLoaded", () => {
     initMint();
 
-    // Configura o botão de replay se ele existir
     const btnReplay = document.getElementById("mint-replay-btn");
     if (btnReplay) {
         btnReplay.onclick = () => initMint(true);
