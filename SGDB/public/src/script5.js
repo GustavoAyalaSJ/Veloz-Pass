@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return parseFloat(limpo) || 0;
     }
 
-function validarSaldo() {
+    function validarSaldo() {
         const valorDigitado = getValorSeguro(inputValor.value);
 
         const options = Array.from(selectElement.options);
@@ -343,6 +343,19 @@ function validarSaldo() {
 
     document.querySelectorAll('.confirm-card input')
         .forEach(i => aplicarMascara(i, "00.00.00000000-0"));
+
+
+    if (wrapper) {
+        selectElement.addEventListener('focus', () => wrapper.classList.add('active'));
+        selectElement.addEventListener('blur', () => wrapper.classList.remove('active'));
+    }
+
+    const selectType = document.getElementById('select-type');
+    const typeCardWrapper = selectType?.closest('.type-card');
+    if (typeCardWrapper) {
+        selectType.addEventListener('focus', () => typeCardWrapper.classList.add('active'));
+        selectType.addEventListener('blur', () => typeCardWrapper.classList.remove('active'));
+    }
 
     carregarSaldoCarteira();
 });

@@ -128,8 +128,13 @@
 - Atualizando o payment back-end;
 - Adicionando os protocolos recusados da página Carteira Digital para Histórico Geral.
 
-(23-04-2026 - Atual)
+(23-04-2026)
 - Remoção e Modernização dos alerts;
 - Novas implementações de segurança dentro do site;
 - Inicio do novo Veloz Pass V1.7.
+
+(30-04-2026 - Atual)
+- Atualização na logotipo Mobile;
+- Adição de um assistente no Veloz Pass chamado MINT;
+- Ajustes no CSS (posições e animações) no site.
 
