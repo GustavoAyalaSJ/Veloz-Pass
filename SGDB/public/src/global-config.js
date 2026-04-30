@@ -116,45 +116,10 @@ const mintSteps = [
         acao: "next"
     },
     {
-        texto: "Irei te introduzir a interface do site.",
-        sprite: "thinking",
+        texto: "Estou sendo desenvolvido pela equipe do Veloz Pass, então fim dos testes.",
+        sprite: "introduction",
         acao: "next"
     },
-    {
-        texto: "Este é o dashboard.",
-        sprite: "pointing",
-        target: ".card-container",
-        acao: "click"
-    },
-    {
-        texto: "Indo para carteira digital.",
-        sprite: "pointing",
-        target: ".btn-carteira",
-        acao: "click"
-    },
-    {
-        texto: "Perfeito! agora para voltar clique na logo do Veloz Pass.",
-        sprite: "pointing",
-        target: ".logotipo",
-        acao: "click"
-    },
-    {
-        texto: "Clique aqui para realizar uma recarga.",
-        sprite: "pointing",
-        target: ".recarga",
-        acao: "click"
-    },
-    {
-        texto: "Aqui você pode visualizar seu histórico geral.",
-        sprite: "pointing",
-        target: ".btn-historico",
-        acao: "click"
-    },
-    {
-        texto: "Perfeito! Fim dos testes.",
-        sprite: "celebrate",
-        acao: "next"
-    }
 ];
 
 function initMint(force = false) {
