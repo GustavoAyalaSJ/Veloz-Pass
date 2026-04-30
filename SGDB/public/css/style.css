@@ -174,7 +174,9 @@ body {
 
 /* Modais */
 .hidden {
-    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 .modal-overlay {
@@ -188,17 +190,17 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: opacity, visibility;
-    pointer-events: none;
-}
-
-.modal-overlay.active {
     opacity: 1;
     visibility: visible;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, visibility;
     pointer-events: auto;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 #modalRecarga {
@@ -237,7 +239,7 @@ body {
     transform: scale(1) translateY(0);
 }
 
-.modal-content {
+.modal-overlay .modal-content {
     background-color: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(12px);
     width: 90%;
@@ -251,6 +253,15 @@ body {
     border: 2px solid #7496c6;
     box-shadow: 0 0 20px #7090bdcc, 0 10px 40px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, transform;
+}
+
+.modal-overlay:not(.hidden) .modal-content {
+    opacity: 1;
+    transform: scale(1) translateY(0);
 }
 
 .modal-content h2 {
