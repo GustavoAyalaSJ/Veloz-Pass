@@ -95,9 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const MINT_KEY = "mint-visto";
 let stepIndex = 0;
+
 const MINT_SPRITES = {
-    'greeting': '#',
-    'introduction': '#',
+    'greeting': '../Assets/MINT/placeholder-icon.webp', 
+    'introduction': '../Assets/MINT/placeholder-icon.webp',
     'pointing': '#',
     'happy': '#',
     'thinking': '#',
@@ -111,7 +112,7 @@ const mintSteps = [
         acao: "next"
     },
     {
-        texto: "Eu me chamo <span class='destacarMint'>MINT</span> seu robozinho introdutório do Veloz Pass.",
+        texto: "Eu me chamo <span class='destacarMint'>MINT</span> seu robozinho introdutório.",
         sprite: "introduction",
         acao: "next"
     },
@@ -123,26 +124,21 @@ const mintSteps = [
 ];
 
 function initMint(force = false) {
-    if (!force && localStorage.getItem(MINT_KEY)) return;
-
-    const savedStep = localStorage.getItem("mint-step");
-    if (savedStep !== null) {
-        stepIndex = parseInt(savedStep);
-    }
+    if (!force && localStorage.getItem(MINT_KEY) === "true") return;
 
     if (document.getElementById("mint-ui")) return;
+
+    if(force) stepIndex = 0;
 
     document.body.insertAdjacentHTML('beforeend', `
         <div class="mint-overlay"></div>
         <div class="mint-highlight"></div>
-
         <div class="mint-ui" id="mint-ui">
             <div class="mint-sprite-container">
                 <img id="mint-sprite" class="mint-sprite" src="" alt="MINT Avatar">
             </div>
             <div class="mint-balao">
                 <div id="mint-texto"></div>
-
                 <div class="mint-actions">
                     <button class="mint-btn mint-next">Próximo</button>
                 </div>
@@ -150,150 +146,64 @@ function initMint(force = false) {
         </div>
     `);
 
-    document.querySelector('.mint-next').onclick = proximoPasso;
+    document.querySelector('.mint-next').addEventListener('click', proximoPasso);
 
     executarPasso();
 }
 
 function executarPasso() {
     const step = mintSteps[stepIndex];
+    if (!step) {
+        finalizarMint();
+        return;
+    }
+
     const textoEl = document.getElementById('mint-texto');
     const spriteEl = document.getElementById('mint-sprite');
-    const highlight = document.querySelector('.mint-highlight');
-    const overlay = document.querySelector('.mint-overlay');
     const ui = document.getElementById('mint-ui');
-
-    if (!step) return;
 
     textoEl.innerHTML = step.texto;
 
-    if (step.sprite && MINT_SPRITES[step.sprite]) {
+    if (step.sprite && MINT_SPRITES[step.sprite] !== "#") {
         spriteEl.src = MINT_SPRITES[step.sprite];
+        spriteEl.classList.add('active');
         spriteEl.style.display = "block";
     } else {
         spriteEl.style.display = "none";
     }
 
-    // reset visual
-    highlight.style.display = "none";
-    overlay.style.pointerEvents = "none";
-    ui.style.transform = "";
-
-    limparTarget();
-
-    if (step.target) {
-        const el = document.querySelector(step.target);
-
-        if (!el) {
-            console.warn("MINT target não encontrado:", step.target);
-            proximoPasso();
-            return;
-        }
-
-        const rect = el.getBoundingClientRect();
-
-        highlight.style.display = "block";
-        highlight.style.top = rect.top + "px";
-        highlight.style.left = rect.left + "px";
-        highlight.style.width = rect.width + "px";
-        highlight.style.height = rect.height + "px";
-
-        el.classList.add("mint-target");
-
-        ui.style.top = (rect.bottom + 15) + "px";
-        ui.style.left = rect.left + "px";
-
-        if (step.acao === "click") {
-
-            overlay.style.pointerEvents = "all";
-            el.classList.add("mint-target");
-
-            const isLink = el.tagName.toLowerCase() === "a";
-
-            const handleClick = (e) => {
-
-                if (isLink) {
-                    e.preventDefault();
-                }
-
-                el.removeEventListener("click", handleClick);
-
-                stepIndex++;
-                localStorage.setItem("mint-step", stepIndex);
-
-                if (isLink) {
-                    window.location.href = el.href;
-                } else {
-                    proximoPasso();
-                }
-            };
-
-            el.addEventListener("click", handleClick);
-
-            return;
-        }
-    } else {
-        ui.style.top = "50%";
-        ui.style.left = "50%";
-        ui.style.transform = "translate(-50%, -50%)";
-    }
+    ui.style.top = "50%";
+    ui.style.left = "50%";
+    ui.style.transform = "translate(-50%, -50%)";
+    ui.style.display = "block";
 }
 
 function proximoPasso() {
     stepIndex++;
-
     if (stepIndex >= mintSteps.length) {
         finalizarMint();
-        return;
+    } else {
+        executarPasso();
     }
-
-    localStorage.setItem("mint-step", stepIndex);
-
-    executarPasso();
-}
-
-function limparTarget() {
-    document.querySelectorAll('.mint-target').forEach(el => {
-        el.classList.remove('mint-target');
-    });
 }
 
 function finalizarMint() {
     document.querySelector('.mint-overlay')?.remove();
     document.querySelector('.mint-highlight')?.remove();
     document.getElementById('mint-ui')?.remove();
-
-    limparTarget();
-
     localStorage.setItem(MINT_KEY, "true");
-
-    localStorage.removeItem("mint-step");
 }
 
-function startMintReplay() {
-    stepIndex = 0;
-
-    document.querySelector('.mint-overlay')?.remove();
-    document.querySelector('.mint-highlight')?.remove();
-    document.getElementById('mint-ui')?.remove();
-
-    limparTarget();
-
-    initMint(true);
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     initMint();
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("mint-replay-btn");
-
-    if (btn) {
-        btn.onclick = startMintReplay;
+    // Configura o botão de replay se ele existir
+    const btnReplay = document.getElementById("mint-replay-btn");
+    if (btnReplay) {
+        btnReplay.onclick = () => initMint(true);
     }
 });
-
 
 (function() {
     let processModal = null;
