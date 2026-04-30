@@ -65,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    document.onclick = (e) => {
+    document.addEventListener('click', (e) => {
         if (e.target.closest('.exit-link')) {
             e.preventDefault();
             createLogoutModal();
             logoutModal.classList.add('active');
         }
-    };
+    });
 
     (function () {
         const theme = localStorage.getItem('theme');
