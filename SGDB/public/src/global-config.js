@@ -13,7 +13,7 @@ function toggleElement(trigger, content, triggerClass = 'open', contentClass = '
             if (trigger) trigger.classList.remove(triggerClass);
             if (icon) icon.style.transform = 'rotate(0deg)';
         } else {
-            document.querySelectorAll('.dropdown-content.show, .select-wrapper.open, .filtro-item.active, .type-card.active').forEach(el => {
+            document.querySelectorAll('.select-wrapper.open, .filtro-item.active, .type-card.active').forEach(el => {
                 el.classList.remove('show', 'open', 'active');
             });
             document.querySelectorAll('.select-icon, .icon-button.open i').forEach(i => i.style.transform = 'rotate(0deg)');
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    (function() {
+    (function () {
         const theme = localStorage.getItem('theme');
         if (theme === 'dark') document.documentElement.classList.add('dark-mode');
     })();
@@ -97,7 +97,7 @@ const MINT_KEY = "mint-visto";
 let stepIndex = 0;
 
 const MINT_SPRITES = {
-    'greeting': '../Assets/MINT/placeholder-icon.webp', 
+    'greeting': '../Assets/MINT/placeholder-icon.webp',
     'introduction': '../Assets/MINT/placeholder-icon.webp',
     'pointing': '#',
     'happy': '#',
@@ -128,7 +128,7 @@ function initMint(force = false) {
 
     if (document.getElementById("mint-ui")) return;
 
-    if(force) stepIndex = 0;
+    if (force) stepIndex = 0;
 
     document.body.insertAdjacentHTML('beforeend', `
         <div class="mint-overlay"></div>
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-(function() {
+(function () {
     let processModal = null;
     let autoCloseTimeout = null;
 
@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hideProcessModal();
     }
 
-    window.showProcessModal = function(status, pageType, onConfirm) {
+    window.showProcessModal = function (status, pageType, onConfirm) {
         createProcessModal();
 
         if (autoCloseTimeout) {

@@ -40,16 +40,16 @@ const criarTransferSchema = Joi.object({
 
 const recargaTransporteSchema = Joi.object({
     valor: Joi.number().positive().min(5).required(),
-    
+
     metodo: Joi.string()
         .uppercase()
         .valid(
             'DEBITO', 'CARTAO_DE_DEBITO',
             'CREDITO', 'CARTAO_DE_CREDITO',
-            'PIX', 
-            'CARTEIRA_DIGITAL', 
-            'INTERNACIONAL', 
-            'CARTAO_INTERNACIONAL', 
+            'PIX',
+            'CARTEIRA_DIGITAL',
+            'INTERNACIONAL',
+            'CARTAO_INTERNACIONAL',
             'CARTÃO_INTERNACIONAL'
         )
         .required(),

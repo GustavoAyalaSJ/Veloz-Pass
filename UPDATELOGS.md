@@ -136,5 +136,6 @@
 (30-04-2026 - Atual)
 - Atualização na logotipo Mobile;
 - Adição de um assistente no Veloz Pass chamado MINT;
-- Ajustes no CSS (posições e animações) no site.
+- Ajustes no CSS (posições e animações) no site;
+- Remoção do dropdown-content na página Carteira Digital.
 
