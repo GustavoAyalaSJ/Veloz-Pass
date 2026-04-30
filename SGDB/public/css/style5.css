@@ -373,7 +373,7 @@ body {
 }
 
 .select-wrapper.active .select-icon,
-.type-card.active .select-icon{
+.type-card.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
 
@@ -886,7 +886,7 @@ select {
         width: 100% !important;
         height: 50px !important;
         box-sizing: border-box;
-        margin-bottom: 0 !important; 
+        margin-bottom: 0 !important;
     }
 
     .top-group.valor input {
@@ -920,7 +920,7 @@ select {
         text-align: right;
     }
 
-    .top-group.valor{
+    .top-group.valor {
         padding-right: 700px;
     }
 
@@ -957,7 +957,8 @@ select {
         margin-top: 10px;
     }
 
-    .passo-1, .passo-2 {
+    .passo-1,
+    .passo-2 {
         width: 100%;
         padding: 0;
     }
@@ -992,7 +993,7 @@ select {
         padding-left: 10px;
     }
 
-    .container-recarga{
+    .container-recarga {
         padding-top: 15px;
     }
 
@@ -1034,7 +1035,7 @@ select {
         min-height: auto;
     }
 
-    .card-inputs-row input, 
+    .card-inputs-row input,
     .input-group-full input {
         padding: 10px;
         font-size: 0.85rem;

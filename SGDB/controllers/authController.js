@@ -44,7 +44,7 @@ exports.cadastro = async (req, res) => {
     if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
         return res.status(400).json({ message: "Preencha todos os campos" });
     }
-    
+
     if (senha !== confirmar_senha) {
         return res.status(400).json({ message: "As senhas não coincidem" });
     }
@@ -55,11 +55,11 @@ exports.cadastro = async (req, res) => {
     if (cpfLimpo.length !== 11) {
         return res.status(400).json({ message: "CPF inválido (11 dígitos)" });
     }
-    
+
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return res.status(400).json({ message: "Email inválido" });
     }
-    
+
     if (!cod_identificador || String(cod_identificador).trim().length !== 6) {
         return res.status(400).json({ message: "Código identificador inválido (6 caracteres)" });
     }
