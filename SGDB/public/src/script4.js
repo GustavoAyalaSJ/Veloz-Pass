@@ -47,7 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
     containerPix.id = 'container-pix';
     containerPix.className = 'payment-method-container';
     containerPix.style.display = 'none';
-    containerPix.innerHTML = `<div class="pix-placeholder">Placeholder QR Code...</div>`;
+    containerPix.innerHTML = `
+        <div class="pix-placeholder">Placeholder QR Code</div>
+        <div class="pix-key-section" style="margin-top: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Chave PIX:</p>
+            <p style="font-size: 1rem; font-weight: bold; word-break: break-all;">(placeholderPIX)</p>
+        </div>
+    `;
 
     if (selectPagamento) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
@@ -60,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const metodo = selectPagamento.value.toLowerCase();
             containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
             containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
+            btnFinalizar.style.display = metodo === 'pix' ? 'none' : 'block';
             idBandeiraSelecionada = null;
         });
     }

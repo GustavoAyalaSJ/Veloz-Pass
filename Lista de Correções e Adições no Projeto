@@ -9,10 +9,9 @@ index5.html:
 - Tornar o filtro de tipo de cartão funcional.
 
 index6.html:
-- Arrumar o design e implementar o HTML, CSS e JavaScript da página.
+- Implementar CSS e JavaScript na página.
 
 Nota:
 - Ajustar e melhorar a configuração do MINT;
-- Nova modernização dos layouts das páginas (incluindo Dark - mode);
-- Remover arquivos que ocupam espaços no projeto.
+- Corrigir os métodos de pagamentos.
 
