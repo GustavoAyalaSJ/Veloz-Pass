@@ -345,10 +345,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cpfLimpo.length !== 11) return alert("CPF deve conter 11 dígitos.");
                 if (telefoneLimpo.length !== 11) return alert("Telefone inválido.");
 
+                const codIdentificador = gerarCodIdentificador(telefoneLimpo);
+                if (!codIdentificador) return alert("Seu telefone deve estar nas regiões atendidas de Santa Catarina.");
+
                 const payload = Object.fromEntries(new FormData(formCadastro).entries());
                 payload.cpf = cpfLimpo;
                 payload.telefone = telefoneLimpo;
-                const codIdentificador = gerarCodIdentificador(telefoneLimpo);
                 payload.cod_identificador = codIdentificador;
 
                 const regiao = dddNaturalidade[telefoneLimpo.slice(0, 2)];

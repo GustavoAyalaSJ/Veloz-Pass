@@ -61,7 +61,7 @@ exports.cadastro = async (req, res) => {
     }
 
     if (!cod_identificador || String(cod_identificador).trim().length !== 6) {
-        return res.status(400).json({ message: "Código identificador inválido (6 caracteres)" });
+        return res.status(400).json({ message: "Seu telefone deve estar nas regiões atendidas de Santa Catarina." });
     }
 
     const natId = id_naturalidade ? String(id_naturalidade).trim() : null;

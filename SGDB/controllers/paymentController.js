@@ -107,8 +107,7 @@ exports.processCredit = async (req, res) => {
         'DEBITO': 'Débito',
         'PIX': 'Pix',
         'INTERNACIONAL': 'Internacional',
-        'CARTAO_INTERNACIONAL': 'Internacional',
-        'CARTEIRA_DIGITAL': 'Carteira_Digital'
+        'CARTAO_INTERNACIONAL': 'Internacional'
     };
 
     const metodoParaOBanco = mapaMetodos[metodoBase];
@@ -186,16 +185,14 @@ exports.processRecargaTransporte = async (req, res) => {
         'CARTAO_DE_CREDITO': 'Crédito',
         'PIX': 'Pix',
         'INTERNACIONAL': 'Internacional',
-        'CARTAO_INTERNACIONAL': 'Internacional'
+        'CARTAO_INTERNACIONAL': 'Internacional',
+        'CARTEIRA_DIGITAL': 'Carteira_Digital'
     };
 
     const metodoParaRPC = mapaBancoRecarga[metodoFormatado];
 
     if (!metodoParaRPC) {
-        return res.status(400).json({ error: "Método de pagamento não reconhecido para recarga de transporte. Use Débito, Crédito, Pix ou Internacional." });
-    }
-    if (metodoFormatado === 'CARTEIRA_DIGITAL') {
-        return res.status(400).json({ error: "Carteira Digital não disponível para recarga de transporte." });
+        return res.status(400).json({ error: "Método de pagamento não reconhecido para recarga de transporte. Use Débito, Crédito, Pix, Carteira Digital ou Internacional." });
     }
 
     if (valorNum > 650) {
