@@ -155,12 +155,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (metodo.includes('pix')) {
             containerPagamento.innerHTML = `
                 <div class="pix-container">
-                    <div class="qr-placeholder">QR CODE</div>
+                    <div class="qr-placeholder">Placeholder QR Code</div>
+                    <div class="pix-key-section" style="margin-top: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Chave PIX:</p>
+                        <p style="font-size: 1rem; font-weight: bold; word-break: break-all;">(placeholderPIX)</p>
+                    </div>
                 </div>
             `;
+            btnProsseguir.style.display = 'none';
         }
 
         else if (metodo.includes('cartão') || metodo.includes('credito') || metodo.includes('debito') || metodo.includes('internacional')) {
+            btnProsseguir.style.display = 'block';
             containerPagamento.innerHTML = `
                 <div class="card-inputs-row">
                     <div class="input-group-full">
@@ -180,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             configurarListenerBandeira(document.getElementById('card-num'));
         } else {
+            btnProsseguir.style.display = 'block';
             displayImagem.src = imgDefault;
         }
     }
