@@ -253,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const metodoTexto = selectElement.options[selectElement.selectedIndex].text.split('(')[0].trim();
         const valorInserido = valorStr || inputValor.value;
         const numTransp = document.querySelectorAll('.confirm-card input')[0].value;
-        const tipo = document.getElementById('select-type').value;
         const metodo = selectElement.value;
 
         let modal = document.getElementById('modalRecarga');
@@ -351,17 +350,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.confirm-card input')
         .forEach(i => aplicarMascara(i, "00.00.00000000-0"));
 
-
     if (wrapper) {
         selectElement.addEventListener('focus', () => wrapper.classList.add('active'));
         selectElement.addEventListener('blur', () => wrapper.classList.remove('active'));
-    }
-
-    const selectType = document.getElementById('select-type');
-    const typeCardWrapper = selectType?.closest('.type-card');
-    if (typeCardWrapper) {
-        selectType.addEventListener('focus', () => typeCardWrapper.classList.add('active'));
-        selectType.addEventListener('blur', () => typeCardWrapper.classList.remove('active'));
     }
 
     carregarSaldoCarteira();

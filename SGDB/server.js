@@ -65,7 +65,7 @@ app.get('/introduction', (req, res) => {
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index2.html'));
 });
-app.get('/historico_geral', (req, res) => {
+app.get('/historico', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index3.html'));
 });
 app.get('/carteira_digital', (req, res) => {
