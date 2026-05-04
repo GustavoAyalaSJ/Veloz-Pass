@@ -133,9 +133,15 @@
 - Novas implementações de segurança dentro do site;
 - Inicio do novo Veloz Pass V1.7.
 
-(30-04-2026 - Atual)
+(30-04-2026)
 - Atualização na logotipo Mobile;
 - Adição de um assistente no Veloz Pass chamado MINT;
 - Ajustes no CSS (posições e animações) no site;
 - Remoção do dropdown-content na página Carteira Digital.
+
+(04-05-2026 - Atual)
+- Mais testes no MINT;
+- Remoção do select 'Tipo Cartão' da página Recarga;
+- Alteração no CSS e na URL;
+- Ajustes nos métodos de pagamento.
 
