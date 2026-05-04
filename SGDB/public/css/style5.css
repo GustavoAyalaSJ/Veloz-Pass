@@ -128,10 +128,6 @@ body {
     border: 3px solid #6782ad;
 }
 
-.dark-mode .type-card label {
-    color: #73d4f2;
-}
-
 .dark-mode .select-icon {
     color: #73d4f2;
 }
@@ -178,10 +174,6 @@ body {
     box-shadow: 0 0 8px rgba(115, 212, 242, 0.4);
 }
 
-.dark-mode .type-card .select-icon {
-    color: #73d4f2;
-}
-
 .dark-mode .pix-copy-wrapper {
     background-color: #2f3e53;
     border-color: #4a5a6e;
@@ -198,7 +190,8 @@ body {
     color: #707b89;
 }
 
-.dark-mode .passo.passo-1 {
+.dark-mode .passo-1,
+.dark-mode .passo-2 {
     color: rgb(96, 188, 230)
 }
 
@@ -360,23 +353,6 @@ body {
     z-index: 1;
 }
 
-.type-card .select-icon {
-    position: absolute;
-    right: 12px;
-    top: 55%;
-    transform: translateY(-50%) rotate(0deg);
-    pointer-events: none;
-    color: #7296be;
-    font-size: 1rem;
-    transition: transform 0.2s ease;
-    z-index: 1;
-}
-
-.select-wrapper.active .select-icon,
-.type-card.active .select-icon {
-    transform: translateY(-50%) rotate(180deg);
-}
-
 .top-group.valor {
     padding-right: 550px;
 }
@@ -385,22 +361,6 @@ body {
     padding: 12px 14px;
     font-size: 0.9rem;
     min-width: 200px;
-}
-
-.type-card {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 15px;
-    position: relative;
-    width: auto;
-}
-
-.type-card label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #555;
-    margin-left: 2px;
 }
 
 #select-type {
@@ -480,10 +440,6 @@ body {
     border-radius: 18px;
     border: 4px solid #1a3a5a;
     margin-bottom: 10px;
-}
-
-.filtro-tipo.active .select-icon {
-    transform: translateY(-50%) rotate(180deg);
 }
 
 .confirm-card {

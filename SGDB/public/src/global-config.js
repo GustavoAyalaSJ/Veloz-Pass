@@ -13,7 +13,7 @@ function toggleElement(trigger, content, triggerClass = 'open', contentClass = '
             if (trigger) trigger.classList.remove(triggerClass);
             if (icon) icon.style.transform = 'rotate(0deg)';
         } else {
-            document.querySelectorAll('.select-wrapper.open, .filtro-item.active, .type-card.active').forEach(el => {
+            document.querySelectorAll('.select-wrapper.open, .filtro-item.active').forEach(el => {
                 el.classList.remove('show', 'open', 'active');
             });
             document.querySelectorAll('.select-icon, .icon-button.open i').forEach(i => i.style.transform = 'rotate(0deg)');
@@ -93,17 +93,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-const MINT_KEY = "mint-visto";
+const MINT_KEY_PREFIX = "mint-visto-";
 let stepIndex = 0;
 
 const MINT_SPRITES = {
     'greeting': '../Assets/MINT/placeholder-icon.webp',
     'introduction': '../Assets/MINT/placeholder-icon.webp',
-    'pointing': '#',
-    'happy': '#',
+    'pointing': '../Assets/MINT/placeholder-icon.webp',
+    'happy': '../Assets/MINT/placeholder-icon.webp',
     'thinking': '#',
-    'celebrate': '#'
+    'celebrate': '../Assets/MINT/placeholder-icon.webp'
 };
+
+function getCurrentUserId() {
+    try {
+        const userDataStr = sessionStorage.getItem('user_data');
+        if (userDataStr) {
+            const userData = JSON.parse(userDataStr);
+            return userData.id;
+        }
+    } catch (e) {
+        console.warn("Could not retrieve user ID from auth:", e);
+    }
+    return null;
+}
+
+function getMintCompletionKey(userId) {
+    return MINT_KEY_PREFIX + (userId || 'anonymous');
+}
 
 const mintSteps = [
     {
@@ -112,21 +129,77 @@ const mintSteps = [
         acao: "next"
     },
     {
-        texto: "Eu me chamo <span class='destacarMint'>MINT</span> seu robozinho introdutório.",
+        texto: "Eu me chamo <span class='destacarMint'>MINT</span> seu robozinho introdutório do Veloz Pass.",
         sprite: "introduction",
         acao: "next"
     },
     {
-        texto: "Estou sendo desenvolvido pela equipe do Veloz Pass, então fim dos testes.",
+        texto: "Este é o seu dashboard, o centro de comando. Daqui você acessa sua carteira, faz recargas ou consulta o histórico de transação.",
+        sprite: "pointing",
+        target: ".card-container",
+        acao: "next"
+    },
+    {
+        texto: "No cabeçalho em geral, você poderá alterar entre modo escuro e claro para seu conforto e sair de sua conta.",
+        sprite: "pointing",
+        target: ".cabeçalho",
+        acao: "next"
+    },
+    {
+        texto: "Vamos para página Carteira Digital... clique no botão “Ir para Carteira Digital”.",
+        sprite: "pointing",
+        target: ".btn-carteira",
+        acao: "click"
+    },
+    {
+        texto: "Perfeito! Introduzindo a página Carteira Digital...",
+        sprite: "celebrate",
+        acao: "next"
+    },
+    {
+        texto: "Ela é uma página opcional para suas recargas, onde você insere créditos através de um pagamento de um valor predefinido e definido, podendo ser utilizado nas recargas.",
         sprite: "introduction",
         acao: "next"
     },
+    {
+        texto: "Para inserir créditos, basta clicar em 'Inserir Crédito'. Mas sendo uma página para utilizar em situações de emergência, é totalmente opcional.",
+        sprite: "pointing",
+        target: ".btn-inserir-credito",
+        acao: "next"
+    },
+    {
+        texto: "Para retornar ao dashboard, clique na logotipo do Veloz Pass.",
+        sprite: "pointing",
+        target: ".logotipo",
+        acao: "click"
+    },
+    {
+        texto: "Muito bem! Fim da demonstração (Parte 1 - ainda em desenvolvimento).",
+        sprite: "happy",
+        acao: "next"
+    },
+
 ];
 
 function initMint(force = false) {
-    if (!force && localStorage.getItem(MINT_KEY) === "true") return;
+    const userId = getCurrentUserId();
+    const mintCompletionKey = getMintCompletionKey(userId);
+    const isNewUser = sessionStorage.getItem('user-first-login') === 'true';
+
+    if (!force && localStorage.getItem(mintCompletionKey) === "true") {
+        return;
+    }
+
+    if (!force && !isNewUser) {
+        return;
+    }
 
     if (document.getElementById("mint-ui")) return;
+
+    const savedStep = localStorage.getItem("mint-step");
+    if (savedStep !== null) {
+        stepIndex = parseInt(savedStep);
+    }
 
     if (force) stepIndex = 0;
 
@@ -161,6 +234,8 @@ function executarPasso() {
     const textoEl = document.getElementById('mint-texto');
     const spriteEl = document.getElementById('mint-sprite');
     const ui = document.getElementById('mint-ui');
+    const overlay = document.querySelector('.mint-overlay');
+    const highlight = document.querySelector('.mint-highlight');
 
     textoEl.innerHTML = step.texto;
 
@@ -172,14 +247,69 @@ function executarPasso() {
         spriteEl.style.display = "none";
     }
 
-    ui.style.top = "50%";
-    ui.style.left = "50%";
-    ui.style.transform = "translate(-50%, -50%)";
+    if (step.acao === "click" && step.target) {
+        const targetEl = document.querySelector(step.target);
+
+        if (!targetEl) {
+            console.warn("MINT: Target not found:", step.target);
+            proximoPasso();
+            return;
+        }
+
+        overlay.style.display = "block";
+        overlay.style.pointerEvents = "all";
+        highlight.style.display = "block";
+
+        const rect = targetEl.getBoundingClientRect();
+        highlight.style.top = rect.top + "px";
+        highlight.style.left = rect.left + "px";
+        highlight.style.width = rect.width + "px";
+        highlight.style.height = rect.height + "px";
+
+        targetEl.classList.add("mint-target");
+
+        ui.style.top = (rect.bottom + 15) + "px";
+        ui.style.left = rect.left + "px";
+        ui.style.transform = "none";
+
+        const handleTargetClick = (e) => {
+            const isLink = targetEl.tagName.toLowerCase() === "a";
+
+            if (isLink) {
+                e.preventDefault();
+            }
+
+            targetEl.removeEventListener("click", handleTargetClick);
+
+            stepIndex++;
+            localStorage.setItem("mint-step", stepIndex);
+
+            if (isLink) {
+                window.location.href = targetEl.href;
+            } else {
+                proximoPasso();
+            }
+        };
+
+        targetEl.addEventListener("click", handleTargetClick);
+
+    } else {
+        overlay.style.pointerEvents = "none";
+        highlight.style.display = "none";
+
+        ui.style.top = "50%";
+        ui.style.left = "50%";
+        ui.style.transform = "translate(-50%, -50%)";
+    }
+
     ui.style.display = "block";
 }
 
 function proximoPasso() {
     stepIndex++;
+
+    localStorage.setItem("mint-step", stepIndex);
+
     if (stepIndex >= mintSteps.length) {
         finalizarMint();
     } else {
@@ -188,10 +318,17 @@ function proximoPasso() {
 }
 
 function finalizarMint() {
+    const userId = getCurrentUserId();
+    const mintCompletionKey = getMintCompletionKey(userId);
+
     document.querySelector('.mint-overlay')?.remove();
     document.querySelector('.mint-highlight')?.remove();
     document.getElementById('mint-ui')?.remove();
-    localStorage.setItem(MINT_KEY, "true");
+
+    localStorage.setItem(mintCompletionKey, "true");
+
+    localStorage.removeItem("mint-step");
+    sessionStorage.removeItem('user-first-login');
 }
 
 

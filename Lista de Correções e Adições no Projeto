@@ -5,8 +5,7 @@ index.html:
 - Criar uma tabela para suporte (onde pega a exata data e qual usuário pediu o suporte), arrumar o modal de suporte e tornar ele funcional.
 
 index5.html:
-- Conectar os inputs de N* Cartão com a tabela UniqueCard;
-- Tornar o filtro de tipo de cartão funcional.
+- Conectar os inputs de N* Cartão com a tabela UniqueCard (pensando).
 
 index6.html:
 - Implementar CSS e JavaScript na página.

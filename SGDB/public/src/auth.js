@@ -2,6 +2,7 @@ class AuthManager {
     constructor() {
         this.tokenKey = 'auth_token';
         this.userKey = 'user_data';
+        this.newUserFlag = 'user-first-login';
     }
 
     setToken(token, userData) {
@@ -11,6 +12,11 @@ class AuthManager {
             nome: userData.nome,
             cod_identificador: userData.cod_identificador
         }));
+
+        const completionKey = 'mint-visto-' + userData.id;
+        if (!localStorage.getItem(completionKey)) {
+            sessionStorage.setItem(this.newUserFlag, 'true');
+        }
     }
 
     getToken() {
@@ -74,7 +80,7 @@ document.addEventListener('click', function(e) {
         const url = new URL(href.startsWith('/') ? `${window.location.origin}${href}` : href, window.location.origin);
         const pathname = url.pathname;
 
-        const rotasProtegidas = ['/dashboard', '/Carteira_Digital', '/Recarga', '/historico_geral'];
+        const rotasProtegidas = ['/dashboard', '/Carteira_Digital', '/Recarga', '/historico'];
         const usuarioLogado = !!(auth.getToken() && auth.getUserData());
 
         if (rotasProtegidas.includes(pathname) && !usuarioLogado) {
