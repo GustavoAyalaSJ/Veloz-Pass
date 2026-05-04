@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (filtroRealizadoNo) filtroRealizadoNo.onchange = aplicarFiltros;
 
         } catch (error) {
-            console.error("Erro ao carregar histórico geral:", error);
+            console.error("Erro ao carregar histórico:", error);
         }
     }
 
