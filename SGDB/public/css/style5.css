@@ -409,7 +409,7 @@ body {
 .confirm-card .input-wrapper i {
     position: absolute;
     right: 15px;
-    top: 50%;
+    top: 23px;
     transform: translateY(-50%);
     font-size: 1.3rem;
     pointer-events: none;
