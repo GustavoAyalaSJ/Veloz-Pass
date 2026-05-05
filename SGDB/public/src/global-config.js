@@ -140,48 +140,8 @@ const mintSteps = [
         acao: "next"
     },
     {
-        texto: "Este é o seu dashboard, o centro de comando. Daqui você acessa sua carteira, faz recargas ou consulta o histórico de transação.",
+        texto: "No momento, estou ainda em desenvolvimento, então fim de testes.",
         sprite: "pointing",
-        target: ".card-container",
-        acao: "next"
-    },
-    {
-        texto: "No cabeçalho em geral, você poderá alterar entre modo escuro e claro para seu conforto e sair de sua conta.",
-        sprite: "pointing",
-        target: ".cabeçalho",
-        acao: "next"
-    },
-    {
-        texto: "Vamos para página Carteira Digital... clique no botão “Ir para Carteira Digital”.",
-        sprite: "pointing",
-        target: ".btn-carteira",
-        acao: "click"
-    },
-    {
-        texto: "Perfeito! Introduzindo a página Carteira Digital...",
-        sprite: "celebrate",
-        acao: "next"
-    },
-    {
-        texto: "Ela é uma página opcional para suas recargas, onde você insere créditos através de um pagamento de um valor predefinido e definido, podendo ser utilizado nas recargas.",
-        sprite: "introduction",
-        acao: "next"
-    },
-    {
-        texto: "Para inserir créditos, basta clicar em 'Inserir Crédito'. Mas sendo uma página para utilizar em situações de emergência, é totalmente opcional.",
-        sprite: "pointing",
-        target: ".btn-inserir-credito",
-        acao: "next"
-    },
-    {
-        texto: "Para retornar ao dashboard (nos cabeçalhos em geral), clique na logotipo do Veloz Pass.",
-        sprite: "pointing",
-        target: ".logotipo",
-        acao: "click"
-    },
-    {
-        texto: "Muito bem! Fim da demonstração (Parte 1 - ainda em desenvolvimento).",
-        sprite: "happy",
         acao: "next"
     },
 
