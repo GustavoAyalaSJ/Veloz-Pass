@@ -58,14 +58,12 @@ const recargaTransporteSchema = Joi.object({
         .pattern(/^\d{2}\.\d{2}\.\d{8}-\d{1}$/)
         .required(),
 
-    tipo: Joi.string().required(),
     idBandeira: Joi.number().integer().optional().allow(null),
     situacao: Joi.string().optional()
 });
 
 const registerCardSchema = Joi.object({
-    n_card: Joi.string().min(13).max(19).required(),
-    tipo_card: Joi.string().required()
+    n_card: Joi.string().min(13).max(19).required()
 });
 
 const validateTransfer = (req, res, next) => {

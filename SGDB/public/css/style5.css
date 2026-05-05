@@ -353,6 +353,10 @@ body {
     z-index: 1;
 }
 
+.select-wrapper.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
 .top-group.valor {
     padding-right: 550px;
 }
@@ -422,10 +426,10 @@ body {
     gap: 10px 0;
 }
 
-.passo h3 {
+h3 {
     font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #ffffff;
+    margin-bottom: 15px;
+    color: black;
 }
 
 .passo-1 {
