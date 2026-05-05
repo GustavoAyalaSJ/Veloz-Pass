@@ -67,6 +67,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return parseFloat(limpo) || 0;
     }
 
+    function validarDataCartao(validade) {
+        if (!validade || validade.length < 5) return false;
+
+        const [mes, anoStr] = validade.split('/');
+        const mesDigitado = parseInt(mes);
+        const anoDigitado = parseInt("20" + anoStr);
+        const agora = new Date();
+        const mesAtual = agora.getMonth() + 1;
+        const anoAtual = agora.getFullYear();
+
+        if (mesDigitado < 1 || mesDigitado > 12) return false;
+
+       if (anoDigitado < anoAtual || (anoDigitado === anoAtual && mesDigitado < mesAtual)) {
+          return false;
+       }
+       return true;
+    }
+    
     function validarSaldo() {
         const valorDigitado = getValorSeguro(inputValor.value);
 
@@ -121,16 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function configurarListenerBandeira(inputCartao) {
         if (!inputCartao) return;
-
         inputCartao.addEventListener('input', (e) => {
             const valor = e.target.value.replace(/\D/g, '');
-
             if (valor.length > 0) {
-                const ultimoDigito = parseInt(valor.slice(-1));
-
-                if (mapaBandeiras[ultimoDigito]) {
-                    displayImagem.src = `${pastaBandeiras}${mapaBandeiras[ultimoDigito]}`;
-                    idBandeiraSelecionada = ultimoDigito;
+                const primeiroDigito = parseInt(valor[0]);
+                const idBandeira = mapaBandeiras[primeiroDigito] ? primeiroDigito : null;
+                if (idBandeira) {
+                    displayImagem.src = `${pastaBandeiras}${mapaBandeiras[idBandeira]}`;
+                    idBandeiraSelecionada = idBandeira;
                 } else {
                     displayImagem.src = imgDefault;
                     idBandeiraSelecionada = null;
@@ -353,67 +369,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (btnProsseguir) {
+if (btnProsseguir) {
         btnProsseguir.addEventListener('click', () => {
-
             const valorRaw = getValorSeguro(inputValor.value);
-            const valor = parseFloat(valorRaw) || 0;
-
-            const inputs = document.querySelectorAll('.confirm-card input');
-            const n1 = inputs[0]?.value;
-            const n2 = inputs[1]?.value;
-
-            if (valor < 5.00) return alert("Valor mínimo: R$ 5,00");
-            if (!n1 || n1.length < 15) return alert("Informe o número do cartão de transporte.");
-            if (n1 !== n2) return alert("A confirmação do número do cartão não confere.");
-
-            const metodoRaw = selectElement.value.toUpperCase();
-            const metodoSelecionado = metodoRaw.toLowerCase();
-            const metodoNormalizado = metodoRaw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const metodo = selectElement.value;
+            const inputsTransporte = document.querySelectorAll('.confirm-card input');
+            const n1 = inputsTransporte[0].value;
+            const n2 = inputsTransporte[1].value;
             
-            const requerCartao = ['CREDITO', 'DEBITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoNormalizado);
+            if (!metodo || metodo === "Selecione") return alert("Por favor, selecione um método de pagamento.");
             
-            if (requerCartao) {
-                const cardNum = document.getElementById('card-num')?.value || "";
-                const cardNumLimpo = cardNum.replace(/\s/g, '');
+            if (valorRaw <= 0) return alert("Por favor, informe o valor da recarga.");
+            if (valorRaw < 5) return alert("Valor mínimo: R$ 5,00");
+            if (valorRaw > 650) return alert("Valor muito alto, coloque um valor mais baixo.");
+            
+            if (!n1 || n1.length < 15) return alert("Informe o número completo do cartão de transporte.");
+            if (n1 !== n2) return alert("A confirmação do número do cartão de transporte não confere.");
+
+            if (['CREDITO', 'DEBITO', 'INTERNACIONAL'].includes(metodo)) {
+                const cardNum = document.getElementById('card-num')?.value.replace(/\s/g, '') || "";
+                const cardValid = document.getElementById('card-valid')?.value || "";
+                const cardCvv = document.getElementById('card-cvv')?.value || "";
+
+                if (cardNum.length < 13) return alert("Número do cartão de pagamento incompleto.");
                 
-                if (!cardNumLimpo || cardNumLimpo.length === 0) {
-                    return alert("Por favor, informe o número do cartão.");
+                if (!validarDataCartao(cardValid)) {
+                    return alert("Data de validade inválida ou expirada (Mínimo: 2026).");
                 }
-                if (cardNumLimpo.length < 13) {
-                    return alert("Número do cartão incompleto.");
-                }
-                
-                const cv = document.getElementById('card-valid')?.value || "";
-                if (!cv || cv.trim().length === 0 || cv.length < 5) {
-                    return alert("Data de validação do cartão incompleta (MM/YY).");
-                }
-                
-                const cvv = document.getElementById('card-cvv')?.value || "";
-                if (!cvv || cvv.trim().length === 0 || cvv.length < 3) {
-                    return alert("CVV do cartão incompleto.");
-                }
+
+                if (cardCvv.length < 3) return alert("CVV incompleto.");
             }
 
-            if (valor > 650) {
-                const pixOption = Array.from(selectElement.options).find(opt =>
-                    opt.text.toLowerCase().includes('pix')
-                );
-
-                if (pixOption) pixOption.disabled = true;
-
-                if (selectElement.value.toLowerCase().includes('pix')) {
-                    selectElement.selectedIndex = 0;
-                }
-
-                return alert('Valor muito alto, coloque um valor mais baixo.');
-            }
-
-            if (valor <= 300) {
-                abrirModalFinalizacao(inputValor.value, 'Concluído');
-            } else {
-                abrirModalFinalizacao(inputValor.value, 'Em_Revisão');
-            }
+            const situacao = valorRaw <= 300 ? 'Concluído' : 'Em_Revisão';
+            abrirModalFinalizacao(inputValor.value, situacao);
         });
     }
 
