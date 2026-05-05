@@ -221,7 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <input type="text" id="card-num" maxlength="19">
                     </div>
                     <div class="input-group-half">
+                    <label>Data de Validação</label>
                         <input type="text" id="card-valid" placeholder="MM/YY">
+                        <label>CCV</label>
                         <input type="text" id="card-cvv" placeholder="CVV">
                     </div>
                 </div>
@@ -263,6 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
+            if (modal) modal.classList.remove('active');
+
             if (response.ok && data.success) {
                 btn.textContent = 'Sucesso!';
 
@@ -290,8 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.disabled = false;
                 btn.textContent = 'Concluir';
             });
-        } finally {
-            if (modal) modal.classList.remove('active');
         }
     }
 
@@ -365,16 +367,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!n1 || n1.length < 15) return alert("Informe o número do cartão de transporte.");
             if (n1 !== n2) return alert("A confirmação do número do cartão não confere.");
 
-            const metodoSelecionado = selectElement.value.toLowerCase();
-            if (metodoSelecionado.includes('cartão') || metodoSelecionado.includes('credito') || metodoSelecionado.includes('debito') || metodoSelecionado.includes('internacional')) {
+            const metodoRaw = selectElement.value.toUpperCase();
+            const metodoSelecionado = metodoRaw.toLowerCase();
+            const metodoNormalizado = metodoRaw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            const requerCartao = ['CREDITO', 'DEBITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoNormalizado);
+            
+            if (requerCartao) {
                 const cardNum = document.getElementById('card-num')?.value || "";
-                if (!cardNum || cardNum.replace(/\s/g, '').length === 0) {
+                const cardNumLimpo = cardNum.replace(/\s/g, '');
+                
+                if (!cardNumLimpo || cardNumLimpo.length === 0) {
                     return alert("Por favor, informe o número do cartão.");
                 }
-                const cv = document.getElementById('card-valid')?.value;
-                if (!cv || cv.length < 5) return alert("Validade do cartão incompleta.");
-                const cvv = document.getElementById('card-cvv')?.value;
-                if (!cvv || cvv.length < 3) return alert("CVV do cartão incompleto.");
+                if (cardNumLimpo.length < 13) {
+                    return alert("Número do cartão incompleto.");
+                }
+                
+                const cv = document.getElementById('card-valid')?.value || "";
+                if (!cv || cv.trim().length === 0 || cv.length < 5) {
+                    return alert("Data de validação do cartão incompleta (MM/YY).");
+                }
+                
+                const cvv = document.getElementById('card-cvv')?.value || "";
+                if (!cvv || cvv.trim().length === 0 || cvv.length < 3) {
+                    return alert("CVV do cartão incompleto.");
+                }
             }
 
             if (valor > 650) {
