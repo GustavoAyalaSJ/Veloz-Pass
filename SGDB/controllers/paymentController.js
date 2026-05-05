@@ -203,6 +203,39 @@ exports.processRecargaTransporte = async (req, res) => {
     // DEBUG: console.log('Recarga Non-Wallet - Creating pending tx, user:', idUsuario, 'metodo:', metodoFormatado, 'valor:', valorNum);
 
     try {
+        if (metodoFormatado === 'CARTEIRA_DIGITAL') {
+            const { data: rpcResult, error: rpcError } = await supabase.rpc('rpc_descontar_saldo', {
+                p_id_usuario: idUsuario,
+                p_valor: valorNum,
+                p_metodo_pagamento: 'Carteira_Digital',
+                p_tipo_movimentacao: 'Recarga',
+                p_id_bandeira: idBandeira || null,
+                p_n_protocolo: protocolo
+            });
+
+            if (rpcError) {
+                console.error('[RPC ERROR - Descontar Saldo]', rpcError);
+                return res.status(400).json({ error: rpcError.message || 'Erro ao processar recarga' });
+            }
+
+            if (!rpcResult || !rpcResult.success) {
+                return res.status(400).json({ 
+                    error: rpcResult?.erro || 'Saldo insuficiente para realizar esta recarga',
+                    situacao: 'Recusada'
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                protocolo,
+                valor: valorNum,
+                nCartaoTransporte: numCartaoTransporte,
+                situacao: 'Concluído',
+                novo_saldo: rpcResult.novo_saldo,
+                message: 'Recarga realizada com sucesso!'
+            });
+        }
+
         const { data: carteira } = await supabase
             .from('carteira')
             .select('id_carteira')
