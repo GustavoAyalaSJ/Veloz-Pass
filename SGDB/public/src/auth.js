@@ -23,26 +23,50 @@ class AuthManager {
         return sessionStorage.getItem(this.tokenKey);
     }
 
-    getUserData() {
-        const userData = sessionStorage.getItem(this.userKey);
-        return userData ? JSON.parse(userData) : null;
+getUserData() {
+        const userDataStr = sessionStorage.getItem(this.userKey);
+        return safeParse(userDataStr);
     }
 
     isAuthenticated() {
         return !!this.getToken();
     }
 
+    safeRedirect(path) {
+        const allowedPaths = ['/introduction', '/dashboard', '/recarga', '/carteira_digital', '/historico'];
+        if (allowedPaths.includes(path)) {
+            window.location.href = path;
+        } else {
+            console.error('Unsafe redirect blocked:', path);
+        }
+    }
+
     clear() {
         sessionStorage.clear();
         localStorage.clear();
-        window.location.href = '/introduction';
+        this.safeRedirect('/introduction');
+    }
+
+    async getCsrfToken() {
+        try {
+            const response = await fetch('/csrf-token', { credentials: 'same-origin' });
+            if (response.ok) {
+                const data = await response.json();
+                return data.csrfToken;
+            }
+        } catch (e) {
+            console.warn('CSRF token fetch failed:', e);
+        }
+        return null;
     }
 
     async request(url, options = {}) {
         const token = this.getToken();
+        const csrfToken = await this.getCsrfToken();
 
         const headers = {
             'Content-Type': 'application/json',
+            ...(csrfToken && ['POST', 'PUT', 'DELETE'].includes(options.method) && { 'X-CSRF-Token': csrfToken }),
             ...options.headers
         };
 
@@ -80,7 +104,7 @@ document.addEventListener('click', function(e) {
         const url = new URL(href.startsWith('/') ? `${window.location.origin}${href}` : href, window.location.origin);
         const pathname = url.pathname;
 
-        const rotasProtegidas = ['/dashboard', '/Carteira_Digital', '/Recarga', '/historico'];
+        const rotasProtegidas = ['/dashboard', '/carteira_digital', '/recarga', '/historico'];
         const usuarioLogado = !!(auth.getToken() && auth.getUserData());
 
         if (rotasProtegidas.includes(pathname) && !usuarioLogado) {
