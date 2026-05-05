@@ -216,6 +216,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!metodoRaw) return alert('Selecione um método de pagamento.');
 
             if (metodosComCartaoTexto.includes(metodoRaw.toLowerCase())) {
+                const numCartaoInput = document.getElementById('num-cartao')?.value || "";
+                if (!numCartaoInput || numCartaoInput.trim().length === 0) {
+                    return alert('Por favor, informe o número do cartão.');
+                }
                 const validadeInput = document.getElementById('validade-cartao')?.value;
                 if (!validarDataExpiracao(validadeInput)) return;
             }
