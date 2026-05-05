@@ -5,7 +5,14 @@ index.html:
 - Criar uma tabela para suporte (onde pega a exata data e qual usuário pediu o suporte), arrumar o modal de suporte e tornar ele funcional.
 
 index5.html:
-- Conectar os inputs de N* Cartão com a tabela UniqueCard (pensando).
+- Conectar os inputs de N* Cartão com a tabela UniqueCard (pensando);
+- Arrumar os bloqueios para realizar recarga, caso:
+> Usuário não coloque nada (valido para todos);
+> Usuário apenas selecione apenas um método de pagamento (valido para todos);
+> Usuário apenas seleciona um método de pagamento e o valor (valido para todos);
+> Usuário apenas seleciona um método de pagamento e o valor, e coloca o número do cartão (exceto para Carteira Digital e Pix);
+> Usuário caso o número do cartão, data de validade e CVV esteja incompleto;
+> Quando o usuário coloca uma data errada (abaixo de 2026 e valido para cartão input);
 
 index6.html:
 - Implementar CSS e JavaScript na página.
