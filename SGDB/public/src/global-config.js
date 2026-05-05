@@ -105,15 +105,21 @@ const MINT_SPRITES = {
     'celebrate': '../Assets/MINT/placeholder-icon.webp'
 };
 
-function getCurrentUserId() {
+function safeParse(str) {
+    if (typeof str !== 'string') return null;
     try {
-        const userDataStr = sessionStorage.getItem('user_data');
-        if (userDataStr) {
-            const userData = JSON.parse(userDataStr);
-            return userData.id;
-        }
+        return JSON.parse(str);
     } catch (e) {
-        console.warn("Could not retrieve user ID from auth:", e);
+        console.warn('JSON parse failed:', e);
+        return null;
+    }
+}
+
+function getCurrentUserId() {
+    const userDataStr = sessionStorage.getItem('user_data');
+    if (userDataStr) {
+        const userData = safeParse(userDataStr);
+        return userData ? userData.id : null;
     }
     return null;
 }
