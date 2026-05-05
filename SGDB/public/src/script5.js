@@ -365,9 +365,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!n1 || n1.length < 15) return alert("Informe o número do cartão de transporte.");
             if (n1 !== n2) return alert("A confirmação do número do cartão não confere.");
 
-            if (selectElement.value.toLowerCase().includes('cartão')) {
+            const metodoSelecionado = selectElement.value.toLowerCase();
+            if (metodoSelecionado.includes('cartão') || metodoSelecionado.includes('credito') || metodoSelecionado.includes('debito') || metodoSelecionado.includes('internacional')) {
+                const cardNum = document.getElementById('card-num')?.value || "";
+                if (!cardNum || cardNum.replace(/\s/g, '').length === 0) {
+                    return alert("Por favor, informe o número do cartão.");
+                }
                 const cv = document.getElementById('card-valid')?.value;
                 if (!cv || cv.length < 5) return alert("Validade do cartão incompleta.");
+                const cvv = document.getElementById('card-cvv')?.value;
+                if (!cvv || cvv.length < 3) return alert("CVV do cartão incompleto.");
             }
 
             if (valor > 650) {
