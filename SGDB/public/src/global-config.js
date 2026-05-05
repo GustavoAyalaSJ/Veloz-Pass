@@ -168,7 +168,7 @@ const mintSteps = [
         acao: "next"
     },
     {
-        texto: "Para retornar ao dashboard, clique na logotipo do Veloz Pass.",
+        texto: "Para retornar ao dashboard (nos cabeçalhos em geral), clique na logotipo do Veloz Pass.",
         sprite: "pointing",
         target: ".logotipo",
         acao: "click"
@@ -185,12 +185,13 @@ function initMint(force = false) {
     const userId = getCurrentUserId();
     const mintCompletionKey = getMintCompletionKey(userId);
     const isNewUser = sessionStorage.getItem('user-first-login') === 'true';
+    const hasSavedStep = localStorage.getItem("mint-step") !== null;
 
     if (!force && localStorage.getItem(mintCompletionKey) === "true") {
         return;
     }
 
-    if (!force && !isNewUser) {
+    if (!force && !isNewUser && !hasSavedStep) {
         return;
     }
 
@@ -236,6 +237,7 @@ function executarPasso() {
     const ui = document.getElementById('mint-ui');
     const overlay = document.querySelector('.mint-overlay');
     const highlight = document.querySelector('.mint-highlight');
+    const nextBtn = document.querySelector('.mint-next');
 
     textoEl.innerHTML = step.texto;
 
@@ -247,7 +249,7 @@ function executarPasso() {
         spriteEl.style.display = "none";
     }
 
-    if (step.acao === "click" && step.target) {
+    if (step.target) {
         const targetEl = document.querySelector(step.target);
 
         if (!targetEl) {
@@ -257,7 +259,6 @@ function executarPasso() {
         }
 
         overlay.style.display = "block";
-        overlay.style.pointerEvents = "all";
         highlight.style.display = "block";
 
         const rect = targetEl.getBoundingClientRect();
@@ -272,28 +273,38 @@ function executarPasso() {
         ui.style.left = rect.left + "px";
         ui.style.transform = "none";
 
-        const handleTargetClick = (e) => {
-            const isLink = targetEl.tagName.toLowerCase() === "a";
+        if (step.acao === "click") {
+            nextBtn.style.display = "none";
+            overlay.style.pointerEvents = "all";
 
-            if (isLink) {
-                e.preventDefault();
-            }
+            const handleTargetClick = (e) => {
+                const isLink = targetEl.tagName.toLowerCase() === "a";
 
-            targetEl.removeEventListener("click", handleTargetClick);
+                if (isLink) {
+                    e.preventDefault();
+                }
 
-            stepIndex++;
-            localStorage.setItem("mint-step", stepIndex);
+                targetEl.removeEventListener("click", handleTargetClick);
 
-            if (isLink) {
-                window.location.href = targetEl.href;
-            } else {
-                proximoPasso();
-            }
-        };
+                stepIndex++;
+                localStorage.setItem("mint-step", stepIndex);
 
-        targetEl.addEventListener("click", handleTargetClick);
+                if (isLink) {
+                    window.location.href = targetEl.href;
+                } else {
+                    proximoPasso();
+                }
+            };
+
+            targetEl.addEventListener("click", handleTargetClick);
+
+        } else {
+            nextBtn.style.display = "block";
+            overlay.style.pointerEvents = "none";
+        }
 
     } else {
+        nextBtn.style.display = "block";
         overlay.style.pointerEvents = "none";
         highlight.style.display = "none";
 

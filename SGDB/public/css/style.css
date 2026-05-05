@@ -404,6 +404,7 @@ body {
     position: absolute;
     right: 12px;
     bottom: 7px;
+    margin-bottom: 4px;
     font-size: 1.4rem;
     color: #28a745;
     visibility: hidden;

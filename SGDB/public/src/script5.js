@@ -139,6 +139,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const transInputs = document.querySelectorAll('.confirm-card input');
+
+    if (transInputs.length >= 2) {
+        const n1 = transInputs[0];
+        const n2 = transInputs[1];
+
+        const setupIcons = (input) => {
+            const parent = input.parentElement;
+
+            const check = document.createElement('i');
+            check.className = 'bi bi-check check-icon';
+            check.style.visibility = 'hidden';
+
+            const xIcon = document.createElement('i');
+            xIcon.className = 'bi bi-x-circle error-icon';
+            xIcon.style.visibility = 'hidden';
+
+            parent.appendChild(check);
+            parent.appendChild(xIcon);
+
+            return { check, xIcon };
+        };
+
+        const icons1 = setupIcons(n1);
+        const icons2 = setupIcons(n2);
+
+        const validarCartaoTransp = () => {
+            const val1 = n1.value.trim();
+            const val2 = n2.value.trim();
+
+            [icons1.check, icons1.xIcon, icons2.check, icons2.xIcon].forEach(el => el.style.visibility = 'hidden');
+
+            if (val1.length > 0 && val2.length > 0) {
+                if (val1 === val2) {
+                    icons1.check.style.visibility = 'visible';
+                    icons2.check.style.visibility = 'visible';
+                } else {
+                    icons1.xIcon.style.visibility = 'visible';
+                    icons2.xIcon.style.visibility = 'visible';
+                }
+            }
+        };
+
+        n1.addEventListener('input', validarCartaoTransp);
+        n2.addEventListener('input', validarCartaoTransp);
+    }
+
     function renderizarPasso2() {
         const metodo = selectElement.value.toLowerCase();
         containerPagamento.innerHTML = '';
@@ -191,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function finalizarRecarga(valorStr, situacao, metodo, numCartaoTransp, tipo, modal) {
+    async function finalizarRecarga(valorStr, situacao, metodo, numCartaoTransp, modal) {
         const btn = document.getElementById('btn-finalizar-fake');
 
         btn.disabled = true;
@@ -204,7 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 valor: valorNum,
                 metodo: metodo.trim().toUpperCase().replace(/\s/g, '_'),
                 numCartaoTransporte: numCartaoTransp,
-                tipo: tipo,
                 idBandeira: idBandeiraSelecionada,
                 situacao: situacao
             };
@@ -270,7 +316,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="modal-details">
                 <p><strong>Método:</strong> ${metodoTexto}</p>
                 <p><strong>Valor:</strong> ${valorInserido}</p>
-                <p><strong>Tipo:</strong> ${tipo}</p>
                 <p><strong>Cartão:</strong> ${numTransp}</p>
             </div>
 
@@ -288,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         document.getElementById('btn-finalizar-fake').onclick = () => {
-            finalizarRecarga(valorInserido, situacao, metodo, numTransp, tipo, modal);
+            finalizarRecarga(valorInserido, situacao, metodo, numTransp, modal);
         };
     }
 
