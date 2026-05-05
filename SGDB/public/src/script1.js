@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <label>Nome Completo:</label>
             <input type="text" name="nome_usuario" placeholder="Coloque seu nome completo." maxlength="100" autocomplete="off" required>
             <label>CPF:</label>
-            <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00." maxlength="14" autocomplete="off" required>
+            <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00" maxlength="14" autocomplete="off" required>
             <label>Telefone:</label>
-            <input type="text" name="telefone" id="inputTelefone" placeholder="(xx) xxxxx-xxxx." maxlength="15" autocomplete="off" required>
+            <input type="text" name="telefone" id="inputTelefone" placeholder="(xx) xxxxx-xxxx" maxlength="15" autocomplete="off" required>
             <label>E-mail:</label>
             <input type="email" name="email" placeholder="@email.com.br" maxlength="100" autocomplete="off" required>
 
@@ -256,9 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let sIcon = sInput.parentElement.querySelector('.check-icon');
             let cIcon = cInput.parentElement.querySelector('.check-icon');
             let sXIcon = document.createElement('i');
-            sXIcon.className = '<i class="bi bi-x"></i>';
+            sXIcon.className = 'bi bi-x-circle error-icon';;
             let cXIcon = document.createElement('i');
-            cXIcon.className = '<i class="bi bi-x"></i>';
+            cXIcon.className = 'bi bi-x-circle error-icon';
+
             sInput.parentElement.appendChild(sXIcon);
             cInput.parentElement.appendChild(cXIcon);
 
@@ -266,21 +267,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const valS = sInput.value;
                 const valC = cInput.value;
 
-                if (valS.length > 0 && valS === valC) {
-                    sIcon.style.visibility = 'visible';
-                    cIcon.style.visibility = 'visible';
-                    sXIcon.style.visibility = 'hidden';
-                    cXIcon.style.visibility = 'hidden';
-                } else if (valS.length > 0 || valC.length > 0) {
-                    sIcon.style.visibility = 'hidden';
-                    cIcon.style.visibility = 'hidden';
-                    sXIcon.style.visibility = 'visible';
-                    cXIcon.style.visibility = 'visible';
-                } else {
-                    sIcon.style.visibility = 'hidden';
-                    cIcon.style.visibility = 'hidden';
-                    sXIcon.style.visibility = 'hidden';
-                    cXIcon.style.visibility = 'hidden';
+                sIcon.style.visibility = 'hidden';
+                cIcon.style.visibility = 'hidden';
+                sXIcon.style.visibility = 'hidden';
+                cXIcon.style.visibility = 'hidden';
+
+                if (valS.length > 0 && valC.length > 0) {
+                    if (valS === valC) {
+                        sIcon.style.visibility = 'visible';
+                        cIcon.style.visibility = 'visible';
+                    } else {
+                        sXIcon.style.visibility = 'visible';
+                        cXIcon.style.visibility = 'visible';
+                    }
                 }
             };
 
