@@ -142,6 +142,14 @@ body {
     border: 3px solid rgba(146, 189, 239, 0.691);
 }
 
+.dark-mode .check-icon {
+    color: #4cd137 !important;
+}
+
+.dark-mode .error-icon {
+    color: #ff4d4d !important;
+}
+
 .dark-mode .payment-information {
     background-color: #1e293b;
     border: 3px solid rgb(146, 189, 239);
@@ -391,6 +399,30 @@ body {
 #select-type:focus {
     border-color: #607ba0;
     box-shadow: 0 0 8px rgba(114, 150, 190, 0.4);
+}
+
+.confirm-card .input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.confirm-card .input-wrapper i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: 5;
+}
+
+.check-icon {
+    color: #28a745 !important;
+}
+
+.error-icon {
+    color: #dc3545 !important;
 }
 
 /* Modal */

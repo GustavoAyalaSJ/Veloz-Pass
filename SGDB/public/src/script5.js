@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const idLogado = userData?.id;
 
     if (!idLogado) {
-        window.location.href = "/introduction";
+        auth.safeRedirect("/introduction");
         return;
     }
 
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 showProcessModal(modalStatus, 'recarga', () => {
-                    window.location.href = '/dashboard';
+                    auth.safeRedirect('/dashboard');
                 });
             } else {
                 showProcessModal('rejected', 'recarga', () => {

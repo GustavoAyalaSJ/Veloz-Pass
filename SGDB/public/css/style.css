@@ -411,6 +411,17 @@ body {
     pointer-events: none;
 }
 
+.error-icon {
+    position: absolute;
+    right: 12px;
+    bottom: 7px;
+    margin-bottom: 4px;
+    font-size: 1.4rem;
+    color: #dc3545;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .checkbox label {
     display: inline !important;
     margin: 0px 5px 0px 0px;
