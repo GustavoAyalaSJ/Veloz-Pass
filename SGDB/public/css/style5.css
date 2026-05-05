@@ -352,7 +352,7 @@ body {
 .select-wrapper .select-icon {
     position: absolute;
     right: 12px;
-    top: 50%;
+    top: 22px;
     transform: translateY(-50%) rotate(0deg);
     pointer-events: none;
     color: #7296be;
@@ -418,10 +418,12 @@ body {
 }
 
 .check-icon {
+    top: 23px;
     color: #28a745 !important;
 }
 
 .error-icon {
+    top: 23px;
     color: #dc3545 !important;
 }
 
