@@ -5,9 +5,13 @@ index.html:
 - Criar uma tabela para suporte (onde pega a exata data e qual usuário pediu o suporte), arrumar o modal de suporte e tornar ele funcional.
 
 index5.html:
-- Conectar os inputs de N* Cartão com a tabela UniqueCard (pensando);
-- Ajustar o Placeholder Pix.
+- Conectar os inputs de N* Cartão com a tabela UniqueCard (pensando).
+
+index6.html:
+- Colocar media queries.
 
 Nota:
-- Ajustar e melhorar a configuração do MINT.
+- Ajustar e melhorar a configuração do MINT;
+- Desenhar os sprites do MINT;
+- Criar um outro background para tela pequenas na página APP.
 

@@ -23,7 +23,6 @@ app.use(cors({
     optionsSuccessStatus: 200
 }));
 
-
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100,
@@ -36,16 +35,13 @@ const apiLimiter = rateLimit({
     message: 'Muitas requisições, tente novamente depois'
 });
 
-
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
 
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d',
     etag: false
 }));
-
 
 app.use((req, res, next) => {
     if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
@@ -78,7 +74,6 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index6.html'));
 });
 
-
 app.use('/api/', apiLimiter);
 app.use('/auth', loginLimiter, authRoutes);
 app.use('/api/payments', (req, res, next) => {
@@ -96,7 +91,6 @@ app.use('/api/payments', (req, res, next) => {
 app.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

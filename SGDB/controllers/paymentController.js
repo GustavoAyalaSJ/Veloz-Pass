@@ -219,7 +219,7 @@ exports.processRecargaTransporte = async (req, res) => {
             }
 
             if (!rpcResult || !rpcResult.success) {
-                return res.status(400).json({ 
+                return res.status(400).json({
                     error: rpcResult?.erro || 'Saldo insuficiente para realizar esta recarga',
                     situacao: 'Recusada'
                 });
