@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const anoAtual = new Date().getFullYear() % 100;
 
         if (mes < 1 || mes > 12) return alert("Mês inválido!");
-        if (ano < anoAtual) return alert("Cartão vencido!");
+        if (ano < anoAtual) return alert("Data de validade inválida ou expirada.");
         return true;
     }
 
@@ -215,13 +215,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const metodoRaw = selectPagamento?.value;
             if (!metodoRaw) return alert('Selecione um método de pagamento.');
 
+            if (valorParaInserir <= 0) return alert('Por favor, informe um valor para inserir.');
+            if (valorParaInserir > 650) return alert('Valor muito alto, coloque um valor mais baixo.');
+
             if (metodosComCartaoTexto.includes(metodoRaw.toLowerCase())) {
                 const numCartaoInput = document.getElementById('num-cartao')?.value || "";
                 if (!numCartaoInput || numCartaoInput.trim().length === 0) {
                     return alert('Por favor, informe o número do cartão.');
                 }
+                
+                if (numCartaoInput.length < 13) return alert("Número do cartão de pagamento incompleto.");
+                
                 const validadeInput = document.getElementById('validade-cartao')?.value;
                 if (!validarDataExpiracao(validadeInput)) return;
+                
+                const cvvInput = document.getElementById('cvv-cartao')?.value || "";
+                if (cvvInput.length < 3) return alert("CVV incompleto.");
             }
 
             const numCartaoInput = document.getElementById('num-cartao')?.value || "";
