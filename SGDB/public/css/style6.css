@@ -14,7 +14,7 @@ body {
 
 /* Background */
 .background-container {
-    background-color:  rgb(66, 119, 175); 
+    background-color: rgb(66, 119, 175);
     background-image: url('backgroundapp.webp');
     background-size: cover;
     background-position: center;
@@ -119,12 +119,13 @@ body {
     flex-wrap: wrap;
 }
 
-.download-btn1, .download-btn2 {
+.download-btn1,
+.download-btn2 {
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: #ffffff;
     padding: 12px 25px;
-    min-width: 180px; 
+    min-width: 180px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -144,18 +145,20 @@ body {
 }
 
 
-.download-btn1:hover, .download-btn2:hover {
+.download-btn1:hover,
+.download-btn2:hover {
     background: #ffffff;
     color: #4a6685;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
 .beneficios h2 {
     font-size: 2rem;
     margin-bottom: 10px;
 }
 
-.beneficios > p {
+.beneficios>p {
     margin-bottom: 40px;
     opacity: 0.8;
 }
@@ -225,16 +228,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 15px; 
+    padding: 0 15px;
     box-sizing: border-box;
 }
 
 .carousel-slide img {
-    max-height: 90%; 
+    max-height: 90%;
     max-width: 100%;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    object-fit: contain; 
+    object-fit: contain;
 }
 
 .carousel-track {
@@ -242,7 +245,7 @@ body {
     list-style: none;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     height: 100%;
-    gap: 0px; 
+    gap: 0px;
 }
 
 .carousel-btn {
@@ -264,8 +267,13 @@ body {
     background: rgba(255, 255, 255, 0.4);
 }
 
-.prev { left: 20px; }
-.next { right: 20px; }
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
 
 /* Rodapé */
 .rodapé {
@@ -282,15 +290,8 @@ body {
 }
 
 /* Media Queries */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {}
 
-}
+@media (min-width: 481px) and (max-width: 768px) {}
 
-@media (min-width: 481px) and (max-width: 768px) {
-
-}
-
-@media (max-width: 480px) {
-
-
-}
+@media (max-width: 480px) {}

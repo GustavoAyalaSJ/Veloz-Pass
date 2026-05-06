@@ -49,9 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
     containerPix.style.display = 'none';
     containerPix.innerHTML = `
         <div class="pix-placeholder">Placeholder QR Code</div>
-        <div class="pix-key-section" style="margin-top: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Chave PIX:</p>
-            <p style="font-size: 1rem; font-weight: bold; word-break: break-all;">(placeholderPIX)</p>
+        <div class="pix-key-section">
+            <p class="pix-key-label">Chave PIX:</p>
+            <div class="pix-key-content">
+                <span class="pix-key-value">(placeholderPIX)</span>
+                <button class="pix-copy-btn" aria-label="Copiar chave PIX" title="Copiar">
+                    <i class="bi bi-copy"></i>
+                </button>
+            </div>
         </div>
     `;
 
@@ -223,12 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!numCartaoInput || numCartaoInput.trim().length === 0) {
                     return alert('Por favor, informe o número do cartão.');
                 }
-                
+
                 if (numCartaoInput.length < 13) return alert("Número do cartão de pagamento incompleto.");
-                
+
                 const validadeInput = document.getElementById('validade-cartao')?.value;
                 if (!validarDataExpiracao(validadeInput)) return;
-                
+
                 const cvvInput = document.getElementById('cvv-cartao')?.value || "";
                 if (cvvInput.length < 3) return alert("CVV incompleto.");
             }
@@ -347,6 +352,38 @@ document.addEventListener('DOMContentLoaded', () => {
     function normalizarTexto(txt) {
         return (txt || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     }
+
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.pix-copy-btn')) {
+            const btn = e.target.closest('.pix-copy-btn');
+            const keyValue = btn.parentElement.querySelector('.pix-key-value');
+            const pixKey = keyValue ? keyValue.textContent : '(placeholderPIX)';
+
+            navigator.clipboard.writeText(pixKey).then(() => {
+                btn.classList.add('copied');
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalIcon;
+                }, 2000);
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = pixKey;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                btn.classList.add('copied');
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalIcon;
+                }, 2000);
+            });
+        }
+    });
 
     document.querySelectorAll('.filtro-item').forEach(item => {
         item.addEventListener('click', (e) => {

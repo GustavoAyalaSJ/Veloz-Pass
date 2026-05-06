@@ -384,6 +384,7 @@ body {
 .filtro-item.active .select-icon,
 .select-wrapper-modal.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
+    top: 35px;
 }
 
 .empty-table-message {
