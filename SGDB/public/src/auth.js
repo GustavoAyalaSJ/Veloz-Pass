@@ -23,7 +23,7 @@ class AuthManager {
         return sessionStorage.getItem(this.tokenKey);
     }
 
-getUserData() {
+    getUserData() {
         const userDataStr = sessionStorage.getItem(this.userKey);
         return safeParse(userDataStr);
     }
@@ -90,13 +90,13 @@ getUserData() {
 
 const auth = new AuthManager();
 
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     const target = e.target.closest('a, button, [onclick]');
     if (!target) return;
 
-    let href = target.getAttribute('href') || 
-               target.closest('a')?.getAttribute('href') ||
-               target.getAttribute('data-href');
+    let href = target.getAttribute('href') ||
+        target.closest('a')?.getAttribute('href') ||
+        target.getAttribute('data-href');
 
     if (!href || href.startsWith('http') || href.startsWith('#')) return;
 
@@ -113,6 +113,6 @@ document.addEventListener('click', function(e) {
             window.location.href = '/introduction';
         }
     } catch (err) {
-       
+
     }
 }, true);
