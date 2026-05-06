@@ -489,8 +489,8 @@ body {
     position: absolute;
     margin-top: -2px;
     right: 12px;
-    top: 60px;
-    transform: translateY(-50%) rotate(0deg);
+    top: 50px;
+    transform: rotate(0deg);
     pointer-events: none;
     color: #7296be;
     font-size: 1rem;
@@ -501,7 +501,7 @@ body {
 .select-wrapper-modal.open .select-icon,
 .filtro-item.active .select-icon,
 .select-wrapper.active .select-icon {
-    transform: translateY(-50%) rotate(180deg);
+    transform: rotate(180deg);
     top: 54px;
 }
 
@@ -691,6 +691,25 @@ td.table-bold {
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     transition: all 0.3s ease;
+}
+
+.modal-box .pix-key-section {
+  padding: 12px;
+}
+
+.modal-box .pix-key-content {
+  padding: 12px 16px;
+  gap: 8px;
+}
+
+.modal-box .pix-copy-btn {
+  width: 38px;
+  height: 38px;
+  font-size: 1rem;
+}
+
+.modal-box .pix-key-value {
+  font-size: 0.95rem;
 }
 
 .pix-key-content:hover {
