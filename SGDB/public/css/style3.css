@@ -369,8 +369,8 @@ body {
     position: absolute;
     margin-top: 2px;
     right: 12px;
-    top: 44px;
-    transform: translateY(-50%) rotate(0deg);
+    top: 35px;
+    transform: rotate(0deg);
     pointer-events: none;
     color: #7296be;
     font-size: 1rem;
@@ -383,7 +383,7 @@ body {
 
 .filtro-item.active .select-icon,
 .select-wrapper-modal.active .select-icon {
-    transform: translateY(-50%) rotate(180deg);
+    transform: rotate(180deg);
     top: 35px;
 }
 
