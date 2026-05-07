@@ -290,57 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnGoToCadastro = document.getElementById('btnGoToCadastro');
         if (btnGoToCadastro) btnGoToCadastro.onclick = () => renderView('cadastro');
 
-        const checkboxLogin = document.getElementById('checkbox');
-        if (checkboxLogin) {
-            const label = checkboxLogin.closest('.checkbox')?.querySelector('label');
-            let msg = checkboxLogin.closest('.checkbox')?.querySelector('.checkbox-status');
-            if (!msg && label) {
-                msg = document.createElement('div');
-                msg.className = 'checkbox-status';
-                msg.style.marginTop = '6px';
-                msg.style.fontSize = '0.85rem';
-                msg.style.color = '#7296be';
-                label.insertAdjacentElement('afterend', msg);
-            }
-
-            const update = () => {
-                const checked = checkboxLogin.checked;
-                if (msg) {
-                    msg.textContent = checked ? 'Aceite confirmado ✅' : 'Marque para continuar.';
-                    msg.style.color = checked ? '#2f8f2f' : '#703030';
-                }
-            };
-            checkboxLogin.addEventListener('change', update);
-            update();
-        }
-
-        const checkboxCadastro = document.getElementById('checkboxCadastro');
-        if (checkboxCadastro) {
-            const label = checkboxCadastro.closest('.checkbox')?.querySelector('label');
-            let msg = checkboxCadastro.closest('.checkbox')?.querySelector('.checkbox-status');
-            if (!msg && label) {
-                msg = document.createElement('div');
-                msg.className = 'checkbox-status';
-                msg.style.marginTop = '6px';
-                msg.style.fontSize = '0.85rem';
-                msg.style.color = '#7296be';
-                label.insertAdjacentElement('afterend', msg);
-            }
-
-            const update = () => {
-                const checked = checkboxCadastro.checked;
-                if (msg) {
-                    msg.textContent = checked ? 'Aceite confirmado ✅' : 'Marque para concluir o cadastro.';
-                    msg.style.color = checked ? '#2f8f2f' : '#703030';
-                }
-            };
-            checkboxCadastro.addEventListener('change', update);
-            update();
-        }
-
         const termosLinks = document.querySelectorAll('.abrir-termos');
         termosLinks.forEach(link => { link.onclick = (e) => { e.preventDefault(); openTermsOverlay(); }; });
-
 
         const selectWrappers = document.querySelectorAll('.select-wrapper');
         selectWrappers.forEach(wrapper => {
