@@ -50,7 +50,7 @@ exports.getWalletData = async (req, res) => {
         });
 
     } catch (err) {
-        res.status(500).json({ error: "Erro interno ao buscar dados" });
+        res.status(500).json({ error: "Erro interno no servidor." });
     }
 };
 
@@ -83,7 +83,7 @@ exports.getHistoricoGeral = async (req, res) => {
         res.json({ historico: historico || [] });
 
     } catch (err) {
-        res.status(500).json({ error: "Erro ao buscar histórico" });
+        res.status(500).json({ error: "Erro no histórico." });
     }
 };
 
@@ -93,7 +93,7 @@ exports.processCredit = async (req, res) => {
     const idUsuario = req.userId;
 
     if (isNaN(valorNum) || valorNum <= 0) {
-        return res.status(400).json({ error: "Valor inválido" });
+        return res.status(400).json({ error: "Valor inválido." });
     }
 
     if (!metodo || typeof metodo !== 'string') {
@@ -117,7 +117,7 @@ exports.processCredit = async (req, res) => {
     }
 
     if (['DEBITO', 'CREDITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoBase) && !validarCartao(numCartao)) {
-        return res.status(400).json({ error: "Cartão inválido" });
+        return res.status(400).json({ error: "Cartão inválido." });
     }
 
     try {
@@ -140,7 +140,6 @@ exports.processCredit = async (req, res) => {
             return res.status(400).json({ error: 'Resposta inválida do servidor' });
         }
         if (!rpcResult.success) {
-            // DEBUG: console.log(`[REJECTED CREDIT] User ${idUsuario}, Valor ${valorNum}, Reason: ${rpcResult.erro}`);
             return res.status(200).json({
                 success: false,
                 error: rpcResult.erro || 'Transação rejeitada',
@@ -158,7 +157,7 @@ exports.processCredit = async (req, res) => {
         });
 
     } catch (err) {
-        res.status(500).json({ error: "Erro ao processar crédito" });
+        res.status(500).json({ error: "Erro ao processar crédito." });
     }
 };
 
@@ -167,10 +166,8 @@ exports.processRecargaTransporte = async (req, res) => {
     const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
 
-    // DEBUG: console.log('Recarga Debug - valorRaw:', valorRaw, 'type:', typeof valorRaw, 'valorNum:', valorNum, 'userId:', idUsuario);
-
     if (isNaN(valorNum) || valorNum <= 0) {
-        return res.status(400).json({ error: "Valor inválido" });
+        return res.status(400).json({ error: "Valor inválido." });
     }
 
     const metodoFormatado = metodo?.trim().toUpperCase()
@@ -192,16 +189,14 @@ exports.processRecargaTransporte = async (req, res) => {
     const metodoParaRPC = mapaBancoRecarga[metodoFormatado];
 
     if (!metodoParaRPC) {
-        return res.status(400).json({ error: "Método de pagamento não reconhecido para recarga de transporte. Use Débito, Crédito, Pix, Carteira Digital ou Internacional." });
+        return res.status(400).json({ error: "Método de pagamento não reconhecido para recarga de transporte." });
     }
 
     if (valorNum > 650) {
-        return res.status(400).json({ error: 'Valor muito alto rejeitado' });
+        return res.status(400).json({ error: 'Recarregando um valor muito alto!' });
     }
 
     const protocolo = 'VPT' + Date.now();
-    // DEBUG: console.log('Recarga Non-Wallet - Creating pending tx, user:', idUsuario, 'metodo:', metodoFormatado, 'valor:', valorNum);
-
     try {
         if (metodoFormatado === 'CARTEIRA_DIGITAL') {
             const { data: rpcResult, error: rpcError } = await supabase.rpc('rpc_descontar_saldo', {
@@ -243,7 +238,7 @@ exports.processRecargaTransporte = async (req, res) => {
             .single();
 
         if (!carteira || !carteira.id_carteira) {
-            return res.status(400).json({ error: 'Carteira do usuário não encontrada' });
+            return res.status(400).json({ error: 'Carteira do usuário não encontrada.' });
         }
 
         const idCarteira = carteira.id_carteira;
@@ -264,7 +259,7 @@ exports.processRecargaTransporte = async (req, res) => {
 
         if (insertError) {
             console.error('Insert Movimentacao Error:', insertError);
-            return res.status(400).json({ error: 'Erro ao registrar recarga' });
+            return res.status(400).json({ error: 'Erro ao registrar recarga.' });
         }
 
         return res.status(200).json({
