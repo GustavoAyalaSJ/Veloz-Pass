@@ -503,14 +503,18 @@ body {
     outline: none;
 }
 
-.select-wrapper-modal i {
-    transform: rotate(0deg);
-    top: 35px;
+.select-wrapper-modal .select-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    pointer-events: none;
 }
 
-.select-wrapper-modal.active i {
-    transform: rotate(180deg);
+.select-wrapper-modal.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
 }
+
 
 .btn-proximo,
 .btn-finalizar {
