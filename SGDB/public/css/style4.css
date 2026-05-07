@@ -423,7 +423,7 @@ body {
     background: white;
     padding: 30px;
     border-radius: 30px;
-    border: 5px solid #0b1622;
+    border: 3px solid #13283f;
     width: 500px;
     text-align: center;
     opacity: 0;
@@ -506,7 +506,7 @@ body {
 .select-wrapper-modal .select-icon {
     position: absolute;
     right: 16px;
-    top: 50%;
+    top: 30px;
     transform: translateY(-50%) rotate(0deg);
     pointer-events: none;
 }
@@ -514,7 +514,6 @@ body {
 .select-wrapper-modal.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
 }
-
 
 .btn-proximo,
 .btn-finalizar {
@@ -526,6 +525,13 @@ body {
     cursor: pointer;
 }
 
+.btn-proximo:hover,
+.btn-finalizar:hover {
+    background: linear-gradient(135deg, #218838, #1ea080);
+    color: white;
+    border: 2px solid #436d4d;
+}
+
 .btn-cancelar {
     background: #703030;
     color: white;
@@ -533,6 +539,12 @@ body {
     padding: 10px 40px;
     border-radius: 20px;
     cursor: pointer;
+}
+
+.btn-cancelar:hover{
+    background: linear-gradient(135deg, #c82333, #e86a33);
+    color: white;
+    border: 2px solid #703030;
 }
 
 select {
