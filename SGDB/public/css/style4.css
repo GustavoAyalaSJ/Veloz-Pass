@@ -286,6 +286,24 @@ body {
     transform: translateY(2px);
 }
 
+.filtro-item .select-icon {
+    position: absolute;
+    margin-top: -2px;
+    right: 12px;
+    top: 50px;
+    transform: rotate(0deg);
+    pointer-events: none;
+    color: #7296be;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+    z-index: 1;
+}
+
+.filtro-item.active .select-icon {
+    transform: rotate(180deg);
+    top: 54px;
+}
+
 .histórico-valores {
     border: 3px solid #1a3a5a;
     border-radius: 25px;
@@ -485,24 +503,13 @@ body {
     outline: none;
 }
 
-.select-icon {
-    position: absolute;
-    margin-top: -2px;
-    right: 12px;
-    top: 50px;
+.select-wrapper-modal i {
     transform: rotate(0deg);
-    pointer-events: none;
-    color: #7296be;
-    font-size: 1rem;
-    transition: transform 0.2s ease;
-    z-index: 1;
+    top: 35px;
 }
 
-.select-wrapper-modal.open .select-icon,
-.filtro-item.active .select-icon,
-.select-wrapper.active .select-icon {
+.select-wrapper-modal.active i {
     transform: rotate(180deg);
-    top: 54px;
 }
 
 .btn-proximo,
@@ -694,22 +701,22 @@ td.table-bold {
 }
 
 .modal-box .pix-key-section {
-  padding: 12px;
+    padding: 12px;
 }
 
 .modal-box .pix-key-content {
-  padding: 12px 16px;
-  gap: 8px;
+    padding: 12px 16px;
+    gap: 8px;
 }
 
 .modal-box .pix-copy-btn {
-  width: 38px;
-  height: 38px;
-  font-size: 1rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
 }
 
 .modal-box .pix-key-value {
-  font-size: 0.95rem;
+    font-size: 0.95rem;
 }
 
 .pix-key-content:hover {

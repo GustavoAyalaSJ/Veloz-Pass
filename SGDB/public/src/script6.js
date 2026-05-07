@@ -44,5 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
         moverParaSlide(indexAtual);
     });
 
+    const btnGooglePlay = document.querySelector('.download-btn1');
+    const btnAppleStore = document.querySelector('.download-btn2');
+
+    const mostrarEmDesenvolvimento = () => {
+        alert('Em desenvolvimento.');
+    };
+
+    btnGooglePlay?.addEventListener('click', mostrarEmDesenvolvimento);
+    btnAppleStore?.addEventListener('click', mostrarEmDesenvolvimento);
+
     window.addEventListener('resize', () => moverParaSlide(indexAtual));
 });
+
