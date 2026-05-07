@@ -13,11 +13,11 @@ exports.login = async (req, res) => {
             .single();
 
         if (error || !usuario) {
-            return res.status(401).json({ message: 'Credenciais inválidas' });
+            return res.status(401).json({ message: 'Credenciais não correspondem as registradas.' });
         }
 
         const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
-        if (!senhaValida) return res.status(401).json({ message: 'Credenciais inválidas' });
+        if (!senhaValida) return res.status(401).json({ message: 'Senha incorreta.' });
 
         const token = jwt.sign(
             { id: usuario.id_user, email, nome: usuario.nome_usuario },
@@ -34,7 +34,7 @@ exports.login = async (req, res) => {
         });
 
     } catch (err) {
-        res.status(500).json({ message: 'Erro interno no servidor' });
+        res.status(500).json({ message: 'Erro interno no servidor.' });
     }
 };
 
@@ -42,26 +42,26 @@ exports.cadastro = async (req, res) => {
     const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, cod_identificador, id_naturalidade } = req.body;
 
     if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
-        return res.status(400).json({ message: "Preencha todos os campos" });
+        return res.status(400).json({ message: "Preencha todos os campos!" });
     }
 
     if (senha !== confirmar_senha) {
-        return res.status(400).json({ message: "As senhas não coincidem" });
+        return res.status(400).json({ message: "As senhas não coincidem." });
     }
 
     const cpfLimpo = cpf.replace(/\D/g, '');
     const telLimpo = telefone.replace(/\D/g, '');
 
     if (cpfLimpo.length !== 11) {
-        return res.status(400).json({ message: "CPF inválido (11 dígitos)" });
+        return res.status(400).json({ message: "CPF incompleto ou não corresponde aos requisitos." });
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return res.status(400).json({ message: "Email inválido" });
+        return res.status(400).json({ message: "Email incompleto ou inválido." });
     }
 
     if (!cod_identificador || String(cod_identificador).trim().length !== 6) {
-        return res.status(400).json({ message: "Seu telefone deve estar nas regiões atendidas de Santa Catarina." });
+        return res.status(400).json({ message: "Telefone deve corrensponder as regiões de Santa Catarina." });
     }
 
     const natId = id_naturalidade ? String(id_naturalidade).trim() : null;
@@ -100,7 +100,7 @@ exports.cadastro = async (req, res) => {
         });
 
     } catch (err) {
-        res.status(500).json({ message: "Erro interno ao criar conta" });
+        res.status(500).json({ message: "Erro interno no servidor." });
     }
 };
 
