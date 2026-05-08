@@ -121,12 +121,7 @@ body, div, header, section, article, p, a, button, span {
 
 .dark-mode .card-valor {
     background-color: #000;
-    color: rgb(129, 173, 224);
-}
-
-.dark-mode .histórico-valores {
-    background-color: rgba(9, 9, 9, 0.518);
-    border: 3px solid rgb(148, 184, 225);
+    color: rgb(162, 188, 218);
 }
 
 .dark-mode .btn-inserir-credito {
@@ -141,16 +136,8 @@ body, div, header, section, article, p, a, button, span {
 }
 
 .dark-mode .tabela-movimentacoes thead th {
+    background-color: #0b121a;
     border-bottom: 2px solid #a1d0ff;
-}
-
-.dark-mode .modal-box,
-.dark-mode .opt-valor,
-.dark-mode .modal-box input {
-    background-color: rgba(9, 9, 9, 0.848);
-    border: 3px solid rgb(139, 172, 209);
-    transition: all 0.4s ease;
-    color: rgb(150, 206, 255);
 }
 
 .dark-mode #select-pagamento {
@@ -163,19 +150,21 @@ body, div, header, section, article, p, a, button, span {
     color: #73d4f2;
 }
 
+.dark-mode .histórico-valores,
+.dark-mode .modal-box,
+.dark-mode .opt-valor,
+.dark-mode .modal-box input,
+.dark-mode .modal-box select,
 .dark-mode #num-cartao,
 .dark-mode #validade-cartao,
-.dark-mode #cvv-cartao,
-.dark-mode #select-pagamento {
-    background-color: rgba(9, 9, 9, 0.799);
-    border: 3px solid rgb(139, 172, 209);
+.dark-mode #cvv-cartao {
+    background-color: rgba(9, 9, 9, 0.8) !important;
+    border: 3px solid rgb(139, 172, 209) !important;
     color: rgb(150, 206, 255);
 }
 
-.dark-mode #num-cartao::placeholder,
-.dark-mode #validade-cartao::placeholder,
-.dark-mode #cvv-cartao::placeholder {
-    color: rgba(150, 206, 255, 0.5);
+.dark-mode label {
+    color: #94acda;
 }
 
 .dark-mode .modal-box .campo-personalizado input:focus {
@@ -207,10 +196,6 @@ body, div, header, section, article, p, a, button, span {
 
 .dark-mode #saldo-usuario {
     color: rgb(91, 141, 221);
-}
-
-.dark-mode .tabela-movimentacoes thead th {
-    background-color: #070707;
 }
 
 .dark-mode .pix-key-section {
@@ -361,20 +346,37 @@ body, div, header, section, article, p, a, button, span {
 
 .status-verde td {
     background-color: #a5c3af !important;
-    border: 2px solid #526057;
     color: #1e3a2a;
 }
 
 .status-amarelo td {
     background-color: #c9bc9c !important;
-    border: 2px solid #978e76;
     color: #4a3f21;
 }
 
 .status-vermelho td {
     background-color: #a38d8d !important;
-    border: 2px solid #6e5e5e;
     color: #451a1a;
+}
+
+[class*="status-"] td {
+    border: 2px solid transparent;
+    padding: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[class*="status-"] td:first-child {
+    border-radius: 15px 0 0 15px;
+    border-left-color: currentColor;
+    border-top-color: currentColor;
+    border-bottom-color: currentColor;
+}
+
+[class*="status-"] td:last-child {
+    border-radius: 0 15px 15px 0;
+    border-right-color: currentColor;
+    border-top-color: currentColor;
+    border-bottom-color: currentColor;
 }
 
 .protocolo-texto {
@@ -505,7 +507,7 @@ body, div, header, section, article, p, a, button, span {
 .select-wrapper-modal .select-icon {
     position: absolute;
     right: 16px;
-    top: 40px;
+    top: 35px;
     transform: translateY(-50%) rotate(0deg);
     pointer-events: none;
 }
@@ -818,46 +820,46 @@ td.table-bold {
 /* Media Queries */
 @media screen and (max-width: 480px) {
     .titulo-pagina-externo {
-        padding-right: 1px !important;
+        padding-right: 1px;
     }
 
     .header-carteira-top {
-        margin-bottom: 10px !important;
+        margin-bottom: 10px;
     }
 
     .card-valor {
-        margin-bottom: 20px !important;
+        margin-bottom: 20px;
     }
 
     .btn-inserir-credito {
-        margin-top: 30px !important;
-        margin-bottom: 30px !important;
-        margin-right: -2px !important;
-        padding-top: 15px !important;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        margin-right: -2px;
+        padding-top: 15px;
     }
 
     .filtro-item {
-        margin-bottom: -10px !important;
+        margin-bottom: -10px;
     }
 
     .filtro-item:first-of-type {
-        margin-top: 4px !important;
+        margin-top: 4px;
     }
 
     .filtro-item:nth-of-type(2) {
-        margin-top: -4px !important;
+        margin-top: -4px;
     }
 
     .filtro-item:nth-of-type(3) {
-        margin-top: -10px !important;
+        margin-top: -10px;
     }
 
     .filtro-item label {
-        margin-bottom: -5px !important;
+        margin-bottom: -5px;
     }
 
     .select-icon {
-        margin-top: 7px !important;
+        margin-top: 7px;
     }
 }
 
@@ -899,12 +901,12 @@ td.table-bold {
     }
 
     .filtro-item .filtro-select {
-        margin-top: 15px !important;
+        margin-top: 15px;
         width: 100%;
     }
 
     .filtro-item .select-icon {
-        margin-top: 4px !important;
+        margin-top: 4px;
     }
 
     .filtros-container {
@@ -914,7 +916,7 @@ td.table-bold {
     }
 
     .historico-valores {
-        margin-top: -10px !important;
+        margin-top: -10px;
     }
 
     .tabela-header {
@@ -953,15 +955,15 @@ td.table-bold {
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
     .filtro-item .filtro-select {
-        margin-top: 15px !important;
+        margin-top: 15px;
     }
 
     .filtro-item .select-icon {
-        margin-top: 4px !important;
+        margin-top: 4px;
     }
 
     .historico-valores {
-        margin-top: -11px !important;
+        margin-top: -11px;
     }
 
     .titulo-pagina-externo {

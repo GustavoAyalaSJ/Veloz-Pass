@@ -79,7 +79,6 @@ body, div, header, section, article, p, a, button, span {
 
 .dark-mode .icon-button:hover {
     color: rgb(167, 199, 255);
-    transition: all 0.4s ease;
     cursor: pointer;
 }
 
@@ -123,7 +122,7 @@ body, div, header, section, article, p, a, button, span {
     transform: translateY(-50%) rotate(180deg);
 }
 
-.dark-mode .tabela-linha-item{
+.dark-mode .tabela-linha-item {
     border-bottom: 1px solid #7e99b4;
 }
 
@@ -221,22 +220,8 @@ body, div, header, section, article, p, a, button, span {
     color: #555;
 }
 
-.tabela-linha-item span.col-protocolo {
-    font-weight: 500;
-    color: #375477 !important;
-}
-
-.tabela-linha-item span.col-valor {
-    font-weight: 800;
-    color: #27ae60 !important;
-}
-
 .tabela-linha-item.linha-recusada {
     opacity: 0.75;
-}
-
-.tabela-linha-item span.col-valor.valor-recusado {
-    color: #e74c3c !important;
 }
 
 .btn-imprimir {
@@ -257,12 +242,16 @@ body, div, header, section, article, p, a, button, span {
 
 .col-protocolo {
     font-weight: 500;
-    color: #375477 !important;
+    color: #375477;
 }
 
 .col-valor {
     font-weight: 800;
-    color: #27ae60 !important;
+    color: #27ae60;
+}
+
+.valor-recusado {
+    color: #e74c3c;
 }
 
 /* Filtros */
@@ -306,7 +295,6 @@ body, div, header, section, article, p, a, button, span {
     color: #2c3e50;
     font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.3s ease;
     width: 100%;
 }
 
@@ -330,7 +318,6 @@ body, div, header, section, article, p, a, button, span {
     pointer-events: none;
     color: #7296be;
     font-size: 1rem;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .filtro-item.active .select-icon {
@@ -373,14 +360,6 @@ body, div, header, section, article, p, a, button, span {
 
     .historicoSite {
         font-size: 30px;
-    }
-
-    .main-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 40px 20px;
     }
 
     .card-container {

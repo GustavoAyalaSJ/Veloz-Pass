@@ -36,9 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
     containerCartao.className = 'payment-method-container';
     containerCartao.style.display = 'none';
     containerCartao.innerHTML = `
-        <input type="text" id="num-cartao" placeholder="Número do Cartão" maxlength="16">
+        <label>Número do Cartão</label>
+        <input type="text" id="num-cartao" placeholder="0000 0000 000 0000" maxlength="16">
         <div class="row-cartao">
+            <label>Data de Validade</label>
             <input type="text" id="validade-cartao" placeholder="MM/YY" maxlength="5">
+            <label>CVV</label>
             <input type="text" id="cvv-cartao" placeholder="CVV" maxlength="3">
         </div>
     `;
