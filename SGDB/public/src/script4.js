@@ -65,6 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wrapper) {
             wrapper.parentNode.insertBefore(containerCartao, wrapper.nextSibling);
             wrapper.parentNode.insertBefore(containerPix, wrapper.nextSibling);
+            if (selectPagamento) {
+                selectPagamento.addEventListener('focus', () => wrapper.classList.add('active'));
+                selectPagamento.addEventListener('blur', () => wrapper.classList.remove('active'));
+                selectPagamento.addEventListener('change', () => wrapper.classList.add('active'));
+            }
         }
 
         selectPagamento.addEventListener('change', () => {
@@ -356,8 +361,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => {
         if (e.target.closest('.pix-copy-btn')) {
             const btn = e.target.closest('.pix-copy-btn');
-            const keyValue = btn.parentElement.querySelector('.pix-key-value');
-            const pixKey = keyValue ? keyValue.textContent : '(placeholderPIX)';
+            const input = btn.parentElement.querySelector('.pix-key-input');
+            const pixKey = input ? input.value : '(placeholderPIX)';
+
 
             navigator.clipboard.writeText(pixKey).then(() => {
                 btn.classList.add('copied');

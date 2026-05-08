@@ -306,6 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 select.addEventListener('focus', () => wrapper.classList.add('active'));
+                select.addEventListener('change', () => wrapper.classList.add('active'));
                 select.addEventListener('blur', () => wrapper.classList.remove('active'));
             }
         });
@@ -333,6 +334,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
         }
+
+        const formSuporte = document.getElementById('formSuporte');
+        if (formSuporte) {
+            const submitBtn = formSuporte.querySelector('button[type="submit"], .botao-estilizado[type="submit"], input[type="submit"]');
+            formSuporte.onsubmit = (e) => {
+                e.preventDefault();
+                if (submitBtn && !submitBtn.disabled) {
+                    submitBtn.disabled = true;
+                    setTimeout(() => (submitBtn.disabled = false), 2000);
+                }
+                alert('Seu problema está sendo avaliado pela nossa equipe, aguarde');
+            };
+        }
+
 
         const formCadastro = document.getElementById('formCadastro');
         if (formCadastro) {
