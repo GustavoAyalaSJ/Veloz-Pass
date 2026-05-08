@@ -344,16 +344,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div class="modal-buttons-wrapper">
                 <button id="btn-finalizar-fake" class="btn-prosseguir">Concluir</button>
-                <button id="btn-cancelar-modal">Voltar</button>
+                <button id="btn-cancelar-modal">Cancelar</button>
             </div>
         </div>
     `;
 
         modal.classList.add('active');
 
-        document.getElementById('btn-cancelar-modal').onclick = () => {
+        document.getElementById('btn-cancelar-modal').addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             modal.classList.remove('active');
-        };
+        });
 
         document.getElementById('btn-finalizar-fake').onclick = () => {
             finalizarRecarga(valorInserido, situacao, metodo, numTransp, modal);

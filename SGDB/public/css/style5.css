@@ -198,9 +198,8 @@ body {
     color: #707b89;
 }
 
-.dark-mode .passo-1,
-.dark-mode .passo-2 {
-    color: rgb(96, 188, 230)
+.dark-mode h3 {
+    color: rgb(125, 166, 209);
 }
 
 .dark-mode .warning-box {
@@ -234,10 +233,6 @@ body {
     background-color: rgba(10, 15, 28, 0.939);
     border: 2px solid #6782ad;
     color: #e0e0e0;
-}
-
-.dark-mode .modal-box h3 {
-    color: rgb(125, 166, 209);
 }
 
 .dark-mode .close-btn {
