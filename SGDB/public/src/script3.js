@@ -44,10 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
             const tipoBanco = normalizarTexto(mov.tipo_movimentacao).replace(/_/g, "");
-            const metodoBanco = normalizarTexto(mov.metodo_pagamento).replace(/_/g, "");
+            const metodoBanco = normalizarTexto(mov.metodo_pagamento)
+                .replace(/_/g, "");
+
+            const metodoBancoCompat = metodoBanco === 'carteira digital'
+                ? 'carteira_digital'
+                : metodoBanco;
 
             const bateTipo = !valTipoMov || tipoBanco.includes(valTipoMov);
-            const bateMetodo = !valMetodo || metodoBanco.includes(valMetodo);
+            const bateMetodo = !valMetodo || metodoBancoCompat.includes(valMetodo);
+
 
             return bateTipo && bateMetodo;
         });
