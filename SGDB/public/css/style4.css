@@ -79,7 +79,15 @@ body {
 }
 
 /* Modo Escuro */
-body, div, header, section, article, p, a, button, span {
+body,
+div,
+header,
+section,
+article,
+p,
+a,
+button,
+span {
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -508,6 +516,7 @@ body, div, header, section, article, p, a, button, span {
     position: absolute;
     right: 16px;
     top: 35px;
+    margin-top: 8px;
     transform: translateY(-50%) rotate(0deg);
     pointer-events: none;
 }
@@ -778,8 +787,14 @@ td.table-bold {
 
 .payment-method-container {
     width: 100%;
-    margin-top: 15px;
+    display: block;
+    margin-top: -25px;
+    margin-bottom: 30px;
     text-align: left;
+}
+
+.payment-method-container label{
+    margin-top: 25px;
 }
 
 .row-cartao {

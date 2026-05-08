@@ -110,7 +110,7 @@ body, div, header, section, article, p, a, button, span {
     color: #2ecc71 !important;
 }
 
-.dark-mode .col-valor.valor-recusado {
+.dark-mode .valor-recusado {
     color: #ff6b6b !important;
 }
 
@@ -247,11 +247,11 @@ body, div, header, section, article, p, a, button, span {
 
 .col-valor {
     font-weight: 800;
-    color: #27ae60;
+    color: #27ae60 !important;
 }
 
 .valor-recusado {
-    color: #e74c3c;
+    color: #e74c3c !important;;
 }
 
 /* Filtros */
