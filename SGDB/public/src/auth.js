@@ -25,7 +25,7 @@ class AuthManager {
 
     getUserData() {
         const userDataStr = sessionStorage.getItem(this.userKey);
-        return safeParse(userDataStr);
+        return this.safeParse(userDataStr);
     }
 
     isAuthenticated() {
@@ -45,6 +45,16 @@ class AuthManager {
         sessionStorage.clear();
         localStorage.clear();
         this.safeRedirect('/introduction');
+    }
+
+    safeParse(str) {
+        if (typeof str !== 'string') return null;
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            console.warn('JSON parse failed:', e);
+            return null;
+        }
     }
 
     async getCsrfToken() {
