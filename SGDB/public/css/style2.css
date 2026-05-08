@@ -136,8 +136,8 @@ body, div, header, section, article, p, a, button, span {
     border: 3px solid rgb(139, 172, 209);
 }
 
-.dark-mode h2,
-.dark-mode p{
+.dark-mode .card-title,
+.dark-mode span {
    color: #acc1e0;
 }
 
