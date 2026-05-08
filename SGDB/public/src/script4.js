@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (inputPersonalizado) {
         inputPersonalizado.addEventListener('input', (e) => {
-            optValores.forEach(o => o.classList.remove('ativo'));
+            optValores.forEach(o => o.classList.remove('active'));
             const valorFormatado = formatarMoeda(e.target.value);
             e.target.value = valorFormatado;
             valorParaInserir = parseFloat(valorFormatado.replace("R$ ", "").replace(/\./g, "").replace(",", ".")) || 0;
@@ -122,15 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     optValores.forEach(opt => {
         opt.addEventListener('click', () => {
-            const jaEstaAtivo = opt.classList.contains('ativo');
+            const jaEstaAtivo = opt.classList.contains('active');
 
-            optValores.forEach(o => o.classList.remove('ativo'));
+            optValores.forEach(o => o.classList.remove('active'));
             if (inputPersonalizado) inputPersonalizado.value = '';
 
             if (jaEstaAtivo) {
                 valorParaInserir = 0;
             } else {
-                opt.classList.add('ativo');
+                opt.classList.add('active');
                 valorParaInserir = parseFloat(opt.dataset.valor);
             }
         });
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.btn-cancelar').forEach(btn => btn.addEventListener('click', () => {
         modalValor.classList.remove('active');
         modalPagamento.classList.remove('active');
-        optValores.forEach(o => o.classList.remove('ativo'));
+        optValores.forEach(o => o.classList.remove('active'));
         if (inputPersonalizado) inputPersonalizado.value = '';
         valorParaInserir = 0;
     }));
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalPagamento.classList.remove('active');
                 valorParaInserir = 0;
                 if (inputPersonalizado) inputPersonalizado.value = '';
-                optValores.forEach(o => o.classList.remove('ativo'));
+                optValores.forEach(o => o.classList.remove('active'));
                 carregarDadosIniciais();
             });
         } catch (error) {
@@ -346,9 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const band = normalizarTexto(mov.bandeira_banco?.nome_bandeira || '');
             const sit = normalizarTexto(mov.situacao || '');
 
-            return (!valRealizadoPor || rPor === valRealizadoPor) &&
-                (!valBandeira || band === valBandeira) &&
-                (!valSituacao || sit === valSituacao);
+            return (!valRealizadoPor || rPor.includes(valRealizadoPor)) &&
+                (!valBandeira || band.includes(valBandeira)) &&
+                (!valSituacao || sit.replace('_', ' ').includes(valSituacao));
         });
 
         renderizarTabela(filtrados);

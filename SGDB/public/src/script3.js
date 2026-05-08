@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dados.forEach(mov => {
             const linha = document.createElement('div');
-            linha.className = 'tabela-linha-item linha-historico';
+            linha.className = 'tabela-linha-item';
             if (mov.situacao === 'Recusada') {
                 linha.classList.add('linha-recusada');
             }
