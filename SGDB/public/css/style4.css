@@ -506,7 +506,7 @@ body {
 .select-wrapper-modal .select-icon {
     position: absolute;
     right: 16px;
-    top: 30px;
+    top: 40px;
     transform: translateY(-50%) rotate(0deg);
     pointer-events: none;
 }
