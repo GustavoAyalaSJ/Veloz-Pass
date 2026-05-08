@@ -336,6 +336,28 @@ body {
     cursor: pointer;
 }
 
+.checkbox label {
+    display: inline !important;
+    margin: 0px 5px 0px 0px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #dbdbdb;
+}
+
+.destacarTermos {
+    color: #0056b3;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.destacarTermos:hover {
+    color: #89a4c1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 #formCadastro label {
     display: block;
     font-size: 0.9rem;
@@ -384,28 +406,6 @@ body {
     color: #dc3545;
     visibility: hidden;
     pointer-events: none;
-}
-
-.checkbox label {
-    display: inline !important;
-    margin: 0px 5px 0px 0px;
-    text-align: center;
-    cursor: pointer;
-    line-height: 1.4;
-    color: #dbdbdb;
-}
-
-.destacarTermos {
-    color: #0056b3;
-    cursor: pointer;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.destacarTermos:hover {
-    color: #89a4c1;
-    cursor: pointer;
-    text-decoration: none;
 }
 
 .modal-terms-content {

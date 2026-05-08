@@ -63,19 +63,18 @@ body {
 }
 
 /* Modo Escuro */
-.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
+body, div, header, section, article, p, a, button, span {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .dark-mode body {
-    background-color: #020307;
+    background-color: #0b121a;
 }
 
 .dark-mode .cabeçalho {
-    background-color: #1f2a36;
+    background-color: #182433;
     color: #ffffff;
-    border-bottom: 4px solid #2f3e53;
+    border-bottom: 4px solid #223244;
 }
 
 .dark-mode .icon-button:hover {
@@ -122,6 +121,10 @@ body {
 
 .filtro-item.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
+}
+
+.dark-mode .tabela-linha-item{
+    border-bottom: 1px solid #7e99b4;
 }
 
 .dark-mode .tabela-linha-item:hover {
