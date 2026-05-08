@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-inputs-row">
                     <div class="input-group-full">
                         <label>Número do Cartão</label>
-                        <input type="text" id="card-num" maxlength="19">
+                        <input type="text" id="card-num" placeholder="0000 0000 000 0000" maxlength="19">
                     </div>
                     <div class="input-group-half">
                     <label>Data de Validação</label>

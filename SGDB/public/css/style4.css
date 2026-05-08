@@ -368,23 +368,22 @@ span {
 }
 
 [class*="status-"] td {
-    border: 2px solid transparent;
     padding: 10px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    border-top: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
 }
 
 [class*="status-"] td:first-child {
-    border-radius: 15px 0 0 15px;
-    border-left-color: currentColor;
-    border-top-color: currentColor;
-    border-bottom-color: currentColor;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-left: 2px solid currentColor;
 }
 
 [class*="status-"] td:last-child {
-    border-radius: 0 15px 15px 0;
-    border-right-color: currentColor;
-    border-top-color: currentColor;
-    border-bottom-color: currentColor;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-right: 2px solid currentColor;
 }
 
 .protocolo-texto {
