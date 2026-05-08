@@ -24,13 +24,13 @@
 }
 
 .process-box {
-    background: #ffffff;
+    background: #efefef;
     padding: 30px;
     border-radius: 12px;
     width: 340px;
     max-width: 90vw;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(79, 104, 132, 0.619);
     border: 2.5px solid rgba(114, 150, 190, 0.3);
     display: flex;
     flex-direction: column;
