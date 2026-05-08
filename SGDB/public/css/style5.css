@@ -203,7 +203,8 @@ body, header, section, article, p, a, button {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.dark-mode h3 {
+.dark-mode h3,
+.dark-mode h4 {
     color: rgb(125, 166, 209);
 }
 
