@@ -141,7 +141,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnInserir) btnInserir.addEventListener('click', () => modalValor.classList.add('active'));
 
+    const btnRetornar = document.querySelector('.btn-retornar');
+    if (btnRetornar) {
+        btnRetornar.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalValor.classList.add('active');
+            modalPagamento.classList.remove('active');
+        });
+    }
+
     document.querySelectorAll('.btn-cancelar').forEach(btn => btn.addEventListener('click', () => {
+
         modalValor.classList.remove('active');
         modalPagamento.classList.remove('active');
         optValores.forEach(o => o.classList.remove('active'));
