@@ -185,7 +185,7 @@ body {
     color: rgb(150, 206, 255);
 }
 
-.dark-mode .modal-box .campo-personalizado input:ativo {
+.dark-mode .modal-box .campo-personalizado input:active {
     background-color: rgba(9, 9, 9, 0.518);
     border: 3px solid rgb(139, 172, 209);
     color: rgb(189, 224, 255);
@@ -532,7 +532,8 @@ body {
     border: 2px solid #436d4d;
 }
 
-.btn-cancelar {
+.btn-cancelar,
+.btn-retornar {
     background: #703030;
     color: white;
     border: none;
@@ -541,7 +542,8 @@ body {
     cursor: pointer;
 }
 
-.btn-cancelar:hover{
+.btn-cancelar:hover,
+.btn-retornar:hover {
     background: linear-gradient(135deg, #c82333, #e86a33);
     color: white;
     border: 2px solid #703030;
@@ -552,18 +554,6 @@ select {
     padding: 10px;
     border-radius: 15px;
     margin: 20px 0;
-}
-
-#container-cartao,
-#container-pix {
-    display: none;
-}
-
-#container-cartao p,
-#container-pix p {
-    font-size: 0.8rem;
-    margin-top: 10px;
-    font-weight: bold;
 }
 
 #num-cartao,
@@ -785,6 +775,30 @@ td.table-bold {
     animation: pulse 0.6s ease-out;
 }
 
+.payment-method-container {
+    width: 100%;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.row-cartao {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.pix-placeholder {
+    width: 100%;
+    height: 180px;
+    background: #f0f0f0;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #7296be;
+    margin-bottom: 15px;
+}
+
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -816,7 +830,7 @@ td.table-bold {
         margin-bottom: 20px !important;
     }
 
-    #btn-inserir-credito {
+    .btn-inserir-credito {
         margin-top: 30px !important;
         margin-bottom: 30px !important;
         margin-right: -2px !important;
