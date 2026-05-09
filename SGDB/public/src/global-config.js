@@ -383,17 +383,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const okBtn = document.getElementById('process-modal-ok');
 
         const statusMap = {
+            'success': 'success',
             'concluido': 'success',
             'concluído': 'success',
-            'success': 'success',
-            'em_revisão': 'under-review',
-            'em revisão': 'under-review',
             'under-review': 'under-review',
-            'recusada': 'rejected',
+            'em_revisao': 'under-review',
+            'em_revisão': 'under-review',
             'rejected': 'rejected',
-            'declined': 'rejected'
+            'recusada': 'rejected'
         };
-
+        
         const normalizedStatus = statusMap[(status || '').toLowerCase().replace(/\s/g, '_')] || 'rejected';
 
         const icons = {
