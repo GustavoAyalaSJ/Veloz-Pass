@@ -3,12 +3,8 @@ O que precisa ser arrumado no projeto:
 index.html:
 - Melhorar e dar funcionalidade o modal de atualizar a senha da conta em tempo real (utilizado PATCH).
 
-index4.html:
-- Melhorar o dark-mode (colocar o dark-mode para dropdown do método de pagamento).
-
 index5.html:
 - Conectar os inputs de N* Cartão com a tabela UniqueCard (pensando);
-- Ajustar o dark-mode.
 
 index6.html:
 - Colocar as imagens no carrousel.
