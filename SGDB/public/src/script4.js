@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderizarTabela(dados) {
         if (!dados || !dados.length) {
-            corpoTabela.innerHTML = '<tr><td colspan="5" style="text-align:center;">Sem movimentações encontradas.</td></tr>';
+            corpoTabela.innerHTML = '<tr><td colspan="5" class="mensagem-aviso" style="text-align:center;">Sem movimentações encontradas.</td></tr>';
             return;
         }
 
