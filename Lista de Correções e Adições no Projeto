@@ -3,9 +3,6 @@ O que precisa ser arrumado no projeto:
 index.html:
 - Melhorar e dar funcionalidade o modal de atualizar a senha da conta em tempo real (utilizado PATCH).
 
-index2.html:
-- Alterar um pouco os elementos do dark-mode.
-
 index4.html:
 - Melhorar o dark-mode (colocar o dark-mode para dropdown do método de pagamento).
 
