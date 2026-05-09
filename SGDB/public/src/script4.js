@@ -150,14 +150,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.querySelectorAll('.btn-cancelar').forEach(btn => btn.addEventListener('click', () => {
-
-        modalValor.classList.remove('active');
-        modalPagamento.classList.remove('active');
-        optValores.forEach(o => o.classList.remove('active'));
-        if (inputPersonalizado) inputPersonalizado.value = '';
-        valorParaInserir = 0;
-    }));
+    document.querySelectorAll('.btn-cancelar').forEach(btn => {
+        btn.addEventListener('click', () => {
+            modalValor.classList.remove('active');
+            modalPagamento.classList.remove('active');
+            optValores.forEach(o => o.classList.remove('active'));
+            if (inputPersonalizado) inputPersonalizado.value = '';
+            valorParaInserir = 0;
+        });
+    });
 
     if (btnProximo) {
         btnProximo.addEventListener('click', () => {
@@ -354,6 +355,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const valBandeira = normalizarTexto(filtroBandeira?.value);
         const valSituacao = normalizarTexto(filtroSituacao?.value);
 
+        function situacaoNormalizada(s){
+            let x = (s || '').toLowerCase();
+            x = x.replace(/_/g, ' ');
+            x = x.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+            x = x.trim();
+            if (x.includes('em revisao') || x.includes('em revisao') || x.includes('revisao') || x.includes('under review')) {
+                return 'em revisao';
+            }
+            return x;
+        }
+
+
         const filtrados = dadosHistoricoCompleto.filter(mov => {
             const rPor = normalizarTexto(mov.metodo_pagamento || mov.metodo || 'pix');
             const band = normalizarTexto(mov.bandeira_banco?.nome_bandeira || '');
@@ -361,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return (!valRealizadoPor || rPor.includes(valRealizadoPor)) &&
                 (!valBandeira || band.includes(valBandeira)) &&
-                (!valSituacao || sit.replace('_', ' ').includes(valSituacao));
+                (!valSituacao || situacaoNormalizada(sit).includes(valSituacao));
         });
 
         renderizarTabela(filtrados);
