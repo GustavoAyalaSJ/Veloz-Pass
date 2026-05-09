@@ -210,11 +210,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             let modalStatus = null;
-            if (result.situacao?.includes('Concluido') || result.success) {
+            const situacaoNormalizada = result.situacao?.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            if (situacaoNormalizada?.includes('Concluido') || result.success) {
                 modalStatus = 'success';
-            } else if (result.situacao?.includes('Em_Revisão')) {
+            } else if (situacaoNormalizada?.includes('Em_Revisão')) {
                 modalStatus = 'under-review';
-            } else if (result.situacao?.includes('Recusada')) {
+            } else if (situacaoNormalizada?.includes('Recusada')) {
                 modalStatus = 'rejected';
             } else {
                 showProcessModal('rejected', 'carteira');
@@ -353,24 +354,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function aplicarFiltros() {
         const valRealizadoPor = normalizarTexto(filtroRealizadoPor?.value);
         const valBandeira = normalizarTexto(filtroBandeira?.value);
-        const valSituacao = normalizarTexto(filtroSituacao?.value);
 
-        function situacaoNormalizada(s){
+        let valSituacao = filtroSituacao?.value || '';
+        valSituacao = normalizarTexto(valSituacao).replace(/_/g, ' ');
+
+        function situacaoNormalizada(s) {
             let x = (s || '').toLowerCase();
             x = x.replace(/_/g, ' ');
             x = x.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
             x = x.trim();
-            if (x.includes('em revisao') || x.includes('em revisao') || x.includes('revisao') || x.includes('under review')) {
+
+            if (x.includes('em revisao') || x.includes('under review')) {
                 return 'em revisao';
             }
             return x;
         }
 
-
         const filtrados = dadosHistoricoCompleto.filter(mov => {
             const rPor = normalizarTexto(mov.metodo_pagamento || mov.metodo || 'pix');
             const band = normalizarTexto(mov.bandeira_banco?.nome_bandeira || '');
-            const sit = normalizarTexto(mov.situacao || '');
+            const sit = mov.situacao || '';
 
             return (!valRealizadoPor || rPor.includes(valRealizadoPor)) &&
                 (!valBandeira || band.includes(valBandeira)) &&
