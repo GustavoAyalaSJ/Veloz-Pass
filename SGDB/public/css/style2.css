@@ -68,7 +68,15 @@ body {
 }
 
 /* Modo Escuro */
-body, div, header, section, article, p, a, button, span {
+body,
+div,
+header,
+section,
+article,
+p,
+a,
+button,
+span {
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -80,6 +88,10 @@ body, div, header, section, article, p, a, button, span {
     background-color: #182433;
     color: #ffffff;
     border-bottom: 4px solid #223244;
+}
+
+.dark-mode .termos{
+   color: white;
 }
 
 .dark-mode .termos:hover,
@@ -138,7 +150,7 @@ body, div, header, section, article, p, a, button, span {
 
 .dark-mode .card-title,
 .dark-mode span {
-   color: #acc1e0;
+    color: #acc1e0;
 }
 
 .dark-mode .fonte-info:hover a {
@@ -214,10 +226,6 @@ body, div, header, section, article, p, a, button, span {
     text-align: center;
 }
 
-#codUnique-user {
-    margin-left: 5px;
-}
-
 /* Dashboard - Container */
 .card-container {
     width: 100%;
@@ -277,9 +285,20 @@ body, div, header, section, article, p, a, button, span {
 }
 
 @keyframes recarga-number-up {
-    0% { transform: scale(1.02) translateY(6px); opacity: 0.65; }
-    60% { transform: scale(1.05) translateY(-2px); opacity: 1; }
-    100% { transform: scale(1.05) translateY(0); opacity: 1; }
+    0% {
+        transform: scale(1.02) translateY(6px);
+        opacity: 0.65;
+    }
+
+    60% {
+        transform: scale(1.05) translateY(-2px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.05) translateY(0);
+        opacity: 1;
+    }
 }
 
 .fonte-info {
@@ -401,6 +420,17 @@ body, div, header, section, article, p, a, button, span {
 
 .close-btn:hover {
     opacity: 1;
+}
+
+/* IDs - Java Script */
+
+.dark-mode #codUnique-user {
+    color: black
+}
+
+#codUnique-user {
+    margin-left: 5px;
+    color: black
 }
 
 /* Rodapé */

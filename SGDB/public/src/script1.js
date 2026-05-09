@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <form id="formLogin">
             <label>E-mail:</label>
             <input type="email" name="email" placeholder="Digite o email aqui." autocomplete="off" required />
-            <a href="#" id="btnEsqueceuEmail">Esqueceu o email?</a>
+            <a id="btnEsqueceuEmail">Esqueceu o email?</a>
             <div class="password-input-container">
                 <label>Senha:</label>
                 <div class="password-wrapper">
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <i id="togglePassword" class="toggle-password-icon"></i>
                 </div>
             </div>
-            <a href="#" id="btnEsqueceuSenha">Esqueceu a senha?</a>
+            <a id="btnEsqueceuSenha">Esqueceu a senha?</a>
             <div class="checkbox">
                <input type="checkbox" id="checkbox" name="checar" required />
                <label for="checkbox">

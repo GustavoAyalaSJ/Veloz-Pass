@@ -172,7 +172,7 @@ body {
     box-shadow: 0 6px 20px rgba(126, 162, 201, 0.737);
 }
 
-/* Modais */
+/* Modal de Cadastro e Login */
 .hidden {
     opacity: 0 !important;
     visibility: hidden !important;
@@ -269,18 +269,6 @@ body {
     box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
 }
 
-.modal-content a {
-    color: #007bff;
-    text-decoration: none;
-    font-size: 0.85rem;
-    align-self: flex-end;
-    margin-top: -5px;
-}
-
-.modal-content a:hover {
-    text-decoration: underline;
-}
-
 .modal-content p {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.77);
@@ -293,7 +281,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1px;
-    margin-top: 10px;
+    margin-top: -2px;
 }
 
 .password-input-container {
@@ -333,11 +321,12 @@ body {
     height: 18px;
     flex-shrink: 0;
     margin: 0;
+    margin-top: 2px;       
     cursor: pointer;
 }
 
 .checkbox label {
-    display: inline;
+    display: inline !important;
     margin: 0px 5px 0px 0px;
     text-align: center;
     cursor: pointer;
@@ -428,7 +417,7 @@ body {
     font-size: 1rem;
 }
 
-/* Estilos Universais para elementos para o Modal Suporte */
+/* Modal Suporte */
 .modal-content select,
 .modal-content input,
 .modal-content textarea {
@@ -452,10 +441,6 @@ body {
     border-color: #00d4ff;
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
-}
-
-#formSuporte label {
-    margin-top: 5px;
 }
 
 .modal-content .select-wrapper {
@@ -489,8 +474,8 @@ body {
 
 .close-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 20px;
+    right: 25px;
     background: none;
     border: none;
     opacity: 0.8;
@@ -537,6 +522,24 @@ body {
     font-weight: bold;
     cursor: pointer;
     border: none;
+}
+
+/* IDs - Java Script */
+#btnEsqueceuEmail,
+#btnEsqueceuSenha {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    align-self: flex-end;
+    margin-top: -5px;
+}
+
+#btnEsqueceuEmail:hover {
+    text-decoration: underline;
+}
+
+#formSuporte label {
+    margin-top: 5px;
 }
 
 #btnGoToCadastro,
