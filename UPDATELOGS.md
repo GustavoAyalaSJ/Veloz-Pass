@@ -145,3 +145,13 @@
 - Alteração no CSS e na URL;
 - Ajustes nos métodos de pagamento.
 
+(08-05-2026)
+- Atualização massiva no CSS (removendo conteúdos, ajustando cores do Dark-mode e separando conteúdos JS);
+- Ajustes no HTML e JS.
+
+(11-05-2026 - Atual)
+- Unificação de arquivos CSS;
+- Separação da lógica do MINT da configuração global para ser sua própria;
+- Adição de conteúdos faltantes.
+
+
