@@ -1,0 +1,46 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const qBtn = document.querySelector('.bi.bi-question-circle');
+    if (!qBtn) return;
+
+    const spriteMap = {
+        greeting: '../Assets/MINT/placeholder-icon.webp',
+        pointing: '../Assets/MINT/placeholder-icon.webp',
+        thinking: '#',
+        celebrate: '../Assets/MINT/placeholder-icon.webp'
+    };
+
+    const steps = [
+        {
+            texto: "Bem-vindo à Carteira Digital! Vou te mostrar onde ver seu saldo e inserir crédito.",
+            sprite: "greeting",
+            acao: "next",
+            target: "#saldo-usuario"
+        },
+        {
+            texto: "Clique em “Inserir crédito” para adicionar saldo na sua carteira.",
+            sprite: "pointing",
+            acao: "next",
+            target: "#btn-inserir-credito"
+        },
+        {
+            texto: "Na janela seguinte, escolha um valor (ou personalize) e avance.",
+            sprite: "pointing",
+            acao: "next",
+            target: "#modal-valor"
+        },
+        {
+            texto: "Depois selecione o método de pagamento e finalize a transação.",
+            sprite: "celebrate",
+            acao: "next",
+            target: "#modal-pagamento"
+        }
+    ];
+
+    qBtn.addEventListener('click', () => {
+        window.MintEngine?.startMint?.({
+            steps,
+            spriteMap,
+            force: true
+        });
+    });
+});
