@@ -8,8 +8,7 @@
     <link rel="icon" type="image/png" href="Assets/Favicon.webp">
     <link rel="stylesheet" href="css/style5.css">
     <link rel="stylesheet" href="css/mint-config.css">
-    <link rel="stylesheet" href="css/logout-modal.css">
-    <link rel="stylesheet" href="css/global-process-modal.css">
+    <link rel="stylesheet" href="css/special-global-modal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 </head>
 
@@ -40,7 +39,10 @@
         </header>
 
         <main class="main-content">
-            <h1 class="titulo-pagina-externo">Recarga</h1>
+            <div class="containerTitle">
+                <i class="bi bi-question-circle"></i>
+                <h1 class="titulo-pagina-externo">Recarga</h1>
+            </div>
 
             <div id="mint-root"></div>
 
@@ -119,6 +121,10 @@
     <script src="/src/api.js"></script>
     <script src="/src/auth.js"></script>
     <script src="src/script5.js"></script>
+
+    <script src="src/mint/mint.js"></script>
+    <script src="src/mint/mint-recarga.js"></script>
+
     <script src="src/global-config.js"></script>
 </body>
 

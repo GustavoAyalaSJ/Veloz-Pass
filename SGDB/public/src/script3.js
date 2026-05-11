@@ -95,13 +95,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const tipoExibicao = (mov.tipo_movimentacao || 'Carteira Digital');
             const metodoExibicao = (mov.metodo_pagamento || 'PIX').toUpperCase();
 
+            const podeImprimir = mov.situacao === 'Concluído' || mov.situacao === 'Recusada';
+
             linha.innerHTML = `
                 <span class="col-protocolo">${mov.n_protocolo || '---'}</span>
                 <span class="col-origem">${tipoExibicao}</span>
                 <span class="col-metodo">${metodoExibicao}</span>
                 <span class="col-valor ${mov.situacao === 'Recusada' ? 'valor-recusado' : ''}">${valorFormatado}</span>
                 <span class="col-acao">
-                    <button class="btn-imprimir">IMPRIMIR</button>
+                    ${podeImprimir ? `<button class="btn-imprimir">IMPRIMIR</button>` : ''}
                 </span>
             `;
 
