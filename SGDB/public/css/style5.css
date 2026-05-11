@@ -304,6 +304,10 @@ body, header, section, article, p, a, button {
     margin-top: 20px;
 }
 
+.titulo-pagina-externo i {
+    padding-right: 10px;
+}
+
 .top-recarga {
     display: flex;
     gap: 30px;

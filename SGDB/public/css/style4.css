@@ -261,6 +261,10 @@ span {
     margin-bottom: 20px;
 }
 
+.titulo-pagina-externo i {
+    padding-right: 10px;
+}
+
 .header-carteira-top {
     display: flex;
     gap: 20px;
