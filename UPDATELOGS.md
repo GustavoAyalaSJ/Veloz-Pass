@@ -139,7 +139,7 @@
 - Ajustes no CSS (posições e animações) no site;
 - Remoção do dropdown-content na página Carteira Digital.
 
-(04-05-2026 - Atual)
+(04-05-2026)
 - Mais testes no MINT;
 - Remoção do select 'Tipo Cartão' da página Recarga;
 - Alteração no CSS e na URL;
