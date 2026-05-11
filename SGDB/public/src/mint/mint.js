@@ -93,17 +93,47 @@
         highlight.style.display = "block";
 
         const rect = targetEl.getBoundingClientRect();
-        highlight.style.top = rect.top + "px";
-        highlight.style.left = rect.left + "px";
-        highlight.style.width = rect.width + "px";
-        highlight.style.height = rect.height + "px";
+        const padding = 8;
+
+        const viewportW = window.innerWidth;
+        const viewportH = window.innerHeight;
+
+        const safeLeft = Math.max(padding, rect.left);
+        const safeTop = Math.max(padding, rect.top);
+        const safeRight = Math.min(viewportW - padding, rect.right);
+        const safeBottom = Math.min(viewportH - padding, rect.bottom);
+
+        const safeWidth = Math.max(20, safeRight - safeLeft);
+        const safeHeight = Math.max(20, safeBottom - safeTop);
+
+        highlight.style.top = safeTop + "px";
+        highlight.style.left = safeLeft + "px";
+        highlight.style.width = safeWidth + "px";
+        highlight.style.height = safeHeight + "px";
+
+        try {
+            targetEl.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
+        } catch (e) {
+        }
 
         targetEl.classList.add("mint-target");
 
-        ui.style.top = (rect.bottom + 15) + "px";
-        ui.style.left = rect.left + "px";
         ui.style.transform = "none";
         ui.style.display = "block";
+
+        const bubbleRect = ui.getBoundingClientRect();
+        const bubbleW = bubbleRect.width || ui.offsetWidth || 260;
+        const bubbleH = bubbleRect.height || ui.offsetHeight || 120;
+
+        const desiredLeft = rect.left;
+        const desiredTop = rect.bottom + 15;
+
+        const padding = 8;
+        const safeLeftUI = Math.min(Math.max(padding, desiredLeft), window.innerWidth - bubbleW - padding);
+        const safeTopUI = Math.min(Math.max(padding, desiredTop), window.innerHeight - bubbleH - padding);
+
+        ui.style.left = safeLeftUI + "px";
+        ui.style.top = safeTopUI + "px";
 
         if (step.acao === "click") {
             nextBtn.style.display = "none";

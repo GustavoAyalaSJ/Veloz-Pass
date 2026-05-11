@@ -333,15 +333,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 currency: 'BRL'
             });
 
+            const podeImprimir = !situacao.includes('revis') && !situacao.includes('pend');
+
             linha.innerHTML = `
             <td>${mov.n_protocolo || '---'}</td>
             <td>${metodoExibicao}</td>
             <td>${bandeira}</td>
             <td class="table-bold">${valorFormatado}</td>
             <td>
+                ${podeImprimir ? `
                 <button class="btn-print">
                     <i class="bi bi-printer"></i> IMPRIMIR
-                </button>
+                </button>` : ''}
             </td>
         `;
             fragment.appendChild(linha);
