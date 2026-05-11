@@ -139,11 +139,15 @@ body, div, header, section, article, p, a, button, span {
     padding: 40px 20px;
 }
 
-.historicoSite {
+.titulo-pagina-centro {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 30px;
     color: rgb(91, 148, 187);
+}
+
+.titulo-pagina-centro i {
+    padding-right: 10px;
 }
 
 /* Tabela */
@@ -358,7 +362,7 @@ body, div, header, section, article, p, a, button, span {
         gap: 15px;
     }
 
-    .historicoSite {
+    .titulo-pagina-centro {
         font-size: 30px;
     }
 
