@@ -5,10 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const spriteMap = {
         greeting: '../Assets/MINT/placeholder-icon.webp',
         pointing: '../Assets/MINT/placeholder-icon.webp',
+        happy: '../Assets/MINT/placeholder-icon.webp',
         thinking: '#',
         celebrate: '../Assets/MINT/placeholder-icon.webp'
     };
-
+    
     const steps = [
         {
             texto: "Bem-vindo à Recarga! Vou te mostrar as etapas principais.",
@@ -33,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
             sprite: "celebrate",
             acao: "next",
             target: ".btn-prosseguir"
+        },
+        {
+            texto: "É isso da página Recarga, para retornar ao dashboard, clique na logotipo do Veloz Pass.",
+            sprite: "happy",
+            acao: "next",
+            target: ".logotipo"
         }
     ];
 

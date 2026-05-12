@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const spriteMap = {
         greeting: '../Assets/MINT/placeholder-icon.webp',
         pointing: '../Assets/MINT/placeholder-icon.webp',
+        happy: '../Assets/MINT/placeholder-icon.webp',
         thinking: '#',
         celebrate: '../Assets/MINT/placeholder-icon.webp'
     };
@@ -17,19 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
             target: "#filtro-tipo"
         },
         {
-            texto: "Use o seletor de Tipo para filtrar Carteira Digital ou Recarga.",
+            texto: "Use o seletor 'Tipo' para filtrar os dados entre Carteira Digital ou Recarga.",
             sprite: "pointing",
             acao: "next",
             target: "#filtro-tipo"
         },
         {
-            texto: "Agora use o seletor Realizado no para filtrar por PIX, Débito, Crédito e mais.",
+            texto: "Use o seletor 'Realizado no' para filtrar transações feitas nos métodos de pagamento.",
             sprite: "pointing",
             acao: "next",
             target: "#filtro-realizado-no"
         },
         {
-            texto: "Pronto! Você pode aplicar os filtros e visualizar a lista logo abaixo.",
+            texto: "Pronto! Você poderá visualizar a lista logo abaixo (caso tenha feito alguma transação).",
             sprite: "celebrate",
             acao: "next",
             target: ".tabela-corpoInfo"
