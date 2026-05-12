@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const spriteMap = {
         greeting: '../Assets/MINT/placeholder-icon.webp',
         pointing: '../Assets/MINT/placeholder-icon.webp',
+        happy: '../Assets/MINT/placeholder-icon.webp',
         thinking: '#',
         celebrate: '../Assets/MINT/placeholder-icon.webp'
     };
@@ -30,9 +31,33 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             texto: "Depois selecione o método de pagamento e finalize a transação.",
-            sprite: "celebrate",
+            sprite: "pointing",
             acao: "next",
             target: "#modal-pagamento"
+        },
+        {
+            texto: "Porém sendo uma introdução, clique em cancelar.",
+            sprite: "pointing",
+            acao: "next",
+            target: ".btn-cancelar"
+        },
+        {
+            texto: "Você pode visualizar suas transação na carteira digtal pela tabela abaixo.",
+            sprite: "pointing",
+            acao: "next",
+            target: ".histórico-valores"
+        },
+        {
+            texto: "É utilizar dos filtros acima para visualizar suas transações de forma dinâmica.",
+            sprite: "pointing",
+            acao: "next",
+            target: ".filtros-container"
+        },
+        {
+            texto: "É isso da página Carteira Digital, para retornar ao dashboard, clique na logotipo do Veloz Pass.",
+            sprite: "happy",
+            acao: "next",
+            target: ".logotipo"
         }
     ];
 
