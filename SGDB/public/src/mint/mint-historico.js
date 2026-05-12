@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
             texto: "Bem-vindo ao Histórico! Vou te mostrar como usar os filtros.",
             sprite: "greeting",
             acao: "next",
-            target: "#filtro-tipo"
         },
         {
             texto: "Use o seletor 'Tipo' para filtrar os dados entre Carteira Digital ou Recarga.",

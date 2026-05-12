@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
             texto: "Bem-vindo à Recarga! Vou te mostrar as etapas principais.",
             sprite: "greeting",
             acao: "next",
-            target: ".container-recarga"
         },
         {
             texto: "Primeiro selecione a forma de pagamento em “Selecione”.",
