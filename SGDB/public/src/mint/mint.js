@@ -128,7 +128,6 @@
         const desiredLeft = rect.left;
         const desiredTop = rect.bottom + 15;
 
-        const padding = 8;
         const safeLeftUI = Math.min(Math.max(padding, desiredLeft), window.innerWidth - bubbleW - padding);
         const safeTopUI = Math.min(Math.max(padding, desiredTop), window.innerHeight - bubbleH - padding);
 
