@@ -12,10 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const steps = [
         {
-            texto: "Bem-vindo à Carteira Digital! Vou te mostrar onde ver seu saldo e inserir crédito.",
+            texto: "Bem-vindo à Carteira Digital! Vou te mostrar como você inserir créditos através da sua carteira virtual.",
             sprite: "greeting",
-            acao: "next",
-            target: "#saldo-usuario"
+            acao: "next"
         },
         {
             texto: "Clique em “Inserir crédito” para adicionar saldo na sua carteira.",
