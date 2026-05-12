@@ -21,11 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="close-btn">X</button>
         <h2>Login</h2>
         <form id="formLogin">
-            <label>E-mail:</label>
+            <label class="emailLabel">E-mail:</label>
             <input type="email" name="email" placeholder="Digite o email aqui." autocomplete="off" required />
-            <a id="btnEsqueceuEmail">Esqueceu o email?</a>
             <div class="password-input-container">
-                <label>Senha:</label>
+                <label class="senhaLabel">Senha:</label>
                 <div class="password-wrapper">
                     <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" autocomplete="off" required>
                     <i id="togglePassword" class="toggle-password-icon"></i>
@@ -33,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <a id="btnEsqueceuSenha">Esqueceu a senha?</a>
             <div class="checkbox">
-               <input type="checkbox" id="checkbox" name="checar" required />
                <label for="checkbox">
-                  Ao conectar-se com o site, você estará concordando com nossos termos de <span class="destacarTermos abrir-termos">Políticas de Privacidade</span>.
+               <input type="checkbox" id="checkbox" name="checar" required />
+                   Ao conectar-se com o site, você estará concordando com nossos termos de <span class="destacarTermos abrir-termos">Políticas de Privacidade</span>.
                </label>
             </div>
             <button type="submit" class="botao-estilizado">Entrar</button>
@@ -69,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div class="checkbox">
-             <input type="checkbox" id="checkboxCadastro" name="aceite_termos" required />
               <label for="checkboxCadastro">
+              <input type="checkbox" id="checkboxCadastro" name="aceite_termos" required />
                 Eu li e concordo com as <span class="destacarTermos abrir-termos">Políticas de Privacidade</span> do Veloz Pass.
               </label>
             </div>
@@ -136,17 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </form>
     `;
 
-    const esqueceuEmailTemplate = `
-        <button class="close-btn">X</button>
-        <h2>Recuperar Conta</h2>
-        <form id="formEsqueceuEmail">
-            <label>Informe o CPF cadastrado:</label>
-            <input type="text" id="inputCPF" maxlength="14" required>
-            <button type="submit">Enviar SMS</button>
-            <button type="button" id="btnBackToLogin">Voltar ao Login</button>
-        </form>
-    `;
-
     const dddNaturalidade = {
         '47': { id: 'A', nome: 'Joinville e Região' },
         '48': { id: 'B', nome: 'Florianópolis e Região' },
@@ -177,8 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modalContentContainer.classList.add('scrollable');
         } else if (viewName === 'esqueceuSenha') {
             modalContentContainer.innerHTML = esqueceuSenhaTemplate;
-        } else if (viewName === 'esqueceuEmail') {
-            modalContentContainer.innerHTML = esqueceuEmailTemplate;
         }
         setupDynamicEvents();
     }
@@ -204,11 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnEsqueceuSenha = document.getElementById('btnEsqueceuSenha');
         if (btnEsqueceuSenha) {
             btnEsqueceuSenha.onclick = (e) => { e.preventDefault(); renderView('esqueceuSenha'); };
-        }
-
-        const btnEsqueceuEmail = document.getElementById('btnEsqueceuEmail');
-        if (btnEsqueceuEmail) {
-            btnEsqueceuEmail.onclick = (e) => { e.preventDefault(); renderView('esqueceuEmail'); };
         }
 
         const btnBackToLogin = document.getElementById('btnBackToLogin');
