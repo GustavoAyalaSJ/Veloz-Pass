@@ -1,9 +1,9 @@
-/* First MINT - Test */
+/* Second MINT - Test */
 .mint-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.7);
-    z-index: 9998;
+    z-index: 99997 !important;
     pointer-events: none;
 }
 
@@ -11,23 +11,25 @@
     position: fixed;
     border-radius: 12px;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
-    z-index: 9999;
+    z-index: 99998 !important;
     pointer-events: none;
     transition: all 0.4s ease;
 }
 
 .mint-ui {
     position: fixed;
-    z-index: 10000;
+    z-index: 1000000 !important;
     max-width: 260px;
     font-family: sans-serif;
+    isolation: isolate;
+    pointer-events: auto;
 }
 
 .mint-balao {
-    background: white;
+    background: rgb(231, 231, 231);
     padding: 14px;
     border-radius: 12px;
-    border: 2px solid #6366f1;
+    border: 2px solid #2b6850;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -46,7 +48,8 @@
 }
 
 .mint-next {
-    background: #6366f1;
+    background: #3f8a70;
+    border: 2px solid #214639;
     color: white;
 }
 
@@ -77,8 +80,9 @@
 
 .mint-target {
     position: relative;
-    z-index: 10001 !important;
+    z-index: 99999 !important;
     pointer-events: auto !important;
+    isolation: auto;
 }
 
 /* Sprite System */
@@ -91,6 +95,8 @@
 }
 
 .mint-sprite {
+    position: relative;
+    z-index: 10001;
     max-width: 100%;
     max-height: 150px;
     width: auto;

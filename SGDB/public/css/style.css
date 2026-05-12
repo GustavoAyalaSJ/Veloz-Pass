@@ -100,7 +100,7 @@ body {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background-image: url('FundoRight.webp');
+    background-image: url('background/FundoRight.webp');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
@@ -677,7 +677,7 @@ body {
     }
 
     .right {
-        background-image: url("768x1024.webp");
+        background-image: url("background/768x1024.webp");
         background-size: cover;
         background-position: center;
         width: 100%;
@@ -717,7 +717,7 @@ body {
     }
 
     .right {
-        background-image: url("375x667.webp");
+        background-image: url("background/375x667.webp");
     }
 
     .containerLeft {
