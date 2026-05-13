@@ -13,6 +13,8 @@ body {
 /* Background */
 .background-container {
     min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
 }
@@ -487,6 +489,8 @@ span {
 @media (max-width: 768px) and (orientation: portrait) {
     .background-container {
         min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
         display: flex;
         flex-direction: column;
     }
@@ -525,13 +529,14 @@ span {
         padding-right: 20px;
     }
 
-    .logotipo {
+    .logotipo img {
         height: 40px;
     }
 
     .header-actions {
         display: flex;
         align-items: center;
+        gap: 12px;
     }
 
     .termos {
@@ -558,9 +563,15 @@ span {
     .header-actions {
         display: flex;
         align-items: center;
+        gap: 12px;
+    }
+
+    .logotipo img {
+        height: 32px;
     }
 
     .rodapé {
-        margin-left: 10px;
+        margin-left: 0;
+        padding: 15px;
     }
 }
