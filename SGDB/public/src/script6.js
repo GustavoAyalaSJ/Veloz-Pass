@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.carousel-photos');
 
     const imagens = [
-        'Assets/placeholder.webp',
-        'Assets/placeholder.webp',
+        'Assets/Carrousel/imagem1.webp',
+        'Assets/Carrousel/imagem2.webp',
         'Assets/placeholder.webp'
     ];
 
