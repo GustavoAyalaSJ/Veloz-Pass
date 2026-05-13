@@ -336,6 +336,33 @@ body, div, header, section, article, p, a, button, span {
 }
 
 /* Media Queries */
+@media (max-width: 480px) and (orientation: portrait) {
+    .filtros-container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 12px;
+        margin-bottom: 15px;
+        padding: 10px 0;
+        align-items: flex-start;
+    }
+
+    .filtro-item {
+        flex: 1 1 0;
+        min-width: 0;
+        gap: 6px;
+    }
+
+    .filtro-select {
+        padding: 10px 30px 10px 10px;
+        font-size: 0.85rem;
+    }
+
+    .select-icon {
+        top: 30px;
+        right: 10px;
+    }
+}
+
 @media (max-width: 600px) and (orientation: portrait) {
     .background-container {
         min-height: 100vh;

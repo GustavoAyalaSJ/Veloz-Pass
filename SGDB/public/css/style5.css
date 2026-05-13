@@ -86,7 +86,13 @@ body {
 }
 
 /* Modo Escuro */
-body, header, section, article, p, a, button {
+body,
+header,
+section,
+article,
+p,
+a,
+button {
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -1074,23 +1080,70 @@ select {
 }
 
 @media (max-width: 480px) {
-    .main-content {
-        padding-top: 20px;
-        padding-bottom: 30px;
-        padding-right: 10px;
-        padding-left: 10px;
+    .background-container {
+        min-height: 100dvh;
     }
 
-    .container-recarga {
-        padding-top: 15px;
+    .cabeçalho {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .header-link{
+        padding-left: 0px;
+        margin-left: 20px;
+    }
+
+    .icon-button{
+        padding-left: 0px;
+    }
+
+    span{
+        text-align: right;
+    }
+
+    .bi-credit-card{
+       padding-left: 14px;
+    }
+
+    .logotipo img {
+        height: 35px;
+    }
+
+    .main-content {
+        padding: 20px 10px 30px;
+        overflow-x: hidden;
     }
 
     .titulo-pagina-externo {
-        font-size: 1.4rem;
-        margin-right: 0;
-        text-align: center;
-        padding-bottom: 20px;
-        margin: 20px 0;
+        padding-right: 1px;
+        font-size: 1.55rem;
+        margin-bottom: 15px;
+    }
+
+    .top-recarga {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .top-group.valor {
+        padding-right: 0;
+    }
+
+    .top-group,
+    .passo-1,
+    .passo-2,
+    .payment-information,
+    .pix-key-content,
+    .input-group-half > div {
+        min-width: 0;
+    }
+
+    #select-pagamento,
+    #select-type,
+    .top-group.valor input {
+        width: 100%;
+        min-width: 0;
     }
 
     .card-recarga {
@@ -1100,52 +1153,35 @@ select {
         gap: 10px;
     }
 
+    .buscard-image {
+        display: flex;
+        justify-content: center;
+    }
+
     .buscard-image img {
         width: 160px;
-        border-width: 3px;
     }
 
     .divider {
         height: 30px;
         margin: 5px 0;
-        padding-left: 0px;
+        padding-left: 0;
     }
 
     .divider::before {
-        font-size: 1.4rem;
         writing-mode: horizontal-tb;
         content: "« »";
     }
 
     .payment-information {
         padding: 12px;
+        margin-right: 15px;
         min-height: auto;
     }
 
-    .card-inputs-row input,
-    .input-group-full input {
-        padding: 10px;
-        font-size: 0.85rem;
-        border-radius: 8px;
-    }
-
     .input-group-half {
-        gap: 8px;
-    }
-
-    .pix-copy-wrapper {
-        height: 42px;
-        max-width: 100%;
-        padding-left: 10px;
-    }
-
-    #pix-input {
-        font-size: 0.7rem;
-    }
-
-    .btn-copy {
-        padding: 0 10px;
-        font-size: 0.8rem;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .warning-box {
@@ -1154,27 +1190,27 @@ select {
         gap: 10px;
     }
 
-    .warning-box i {
-        font-size: 1.8rem;
-    }
-
-    .warning-box p {
-        font-size: 0.8rem;
-    }
-
     .btn-prosseguir {
         width: 100%;
         padding: 15px;
-        font-size: 0.95rem;
-        border-radius: 12px;
     }
 
-    .top-recarga {
-        gap: 10px;
+    .pix-key-content {
+        flex-direction: column;
+        text-align: center;
     }
 
-    .top-group h4 {
-        font-size: 0.9rem;
-        margin-left: 5px;
+    .pix-key-value {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .modal-content {
+        width: 100%;
+        padding: 20px;
+    }
+
+    body {
+        overflow-x: hidden;
     }
 }
