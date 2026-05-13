@@ -182,13 +182,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const icons2 = setupIcons(n2);
 
         const validarCartaoTransp = () => {
-            const val1 = n1.value.trim();
-            const val2 = n2.value.trim();
+            const val1 = (n1.value || '').trim();
+            const val2 = (n2.value || '').trim();
+
+            const d1 = val1.replace(/\D/g, '');
+            const d2 = val2.replace(/\D/g, '');
 
             [icons1.check, icons1.xIcon, icons2.check, icons2.xIcon].forEach(el => el.style.visibility = 'hidden');
 
-            if (val1.length > 0 && val2.length > 0) {
-                if (val1 === val2) {
+            if (d1.length > 0 && d2.length > 0) {
+                if (d1 === d2) {
                     icons1.check.style.visibility = 'visible';
                     icons2.check.style.visibility = 'visible';
                 } else {

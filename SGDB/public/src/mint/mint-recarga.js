@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         thinking: '#',
         celebrate: '../Assets/MINT/placeholder-icon.webp'
     };
-    
+
     const steps = [
         {
             texto: "Bem-vindo à Recarga! Vou te mostrar as etapas principais.",

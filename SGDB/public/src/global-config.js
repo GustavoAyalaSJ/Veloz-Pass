@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'rejected': 'rejected',
             'recusada': 'rejected'
         };
-        
+
         const normalizedStatus = statusMap[(status || '').toLowerCase().replace(/\s/g, '_')] || 'rejected';
 
         const icons = {

@@ -104,4 +104,44 @@ exports.cadastro = async (req, res) => {
     }
 };
 
+/*
+exports.updatePasswordPatch = async (req, res) => {
+    const { email, senha_nova, confirmar_senha } = req.body;
+
+    if (!email || !senha_nova || !confirmar_senha) {
+        return res.status(400).json({ message: 'Preencha todos os campos.' });
+    }
+
+    if (senha_nova !== confirmar_senha) {
+        return res.status(400).json({ message: 'As senhas não coincidem.' });
+    }
+
+    try {
+        const { data: usuario, error } = await supabase
+            .from('usuario')
+            .select('id_user')
+            .eq('email', email)
+            .single();
+
+        if (error || !usuario) {
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
+        }
+
+        const senhaHash = await bcrypt.hash(String(senha_nova), 10);
+
+        const { error: updateError } = await supabase
+            .from('usuario')
+            .update({ senha_hash: senhaHash })
+            .eq('id_user', usuario.id_user);
+
+        if (updateError) {
+            return res.status(500).json({ message: 'Erro interno ao atualizar a senha.' });
+        }
+
+        return res.json({ message: 'Senha atualizada com sucesso!' });
+    } catch (err) {
+        return res.status(500).json({ message: 'Erro interno no servidor.' });
+    }
+};*/
+
 module.exports = exports;
