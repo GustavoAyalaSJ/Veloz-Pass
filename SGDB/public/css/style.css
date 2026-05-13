@@ -19,6 +19,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
     background-color: #f4f7f6;
 }
 
@@ -79,6 +81,7 @@ body {
     width: 100%;
     max-width: none;
     min-height: calc(100vh - 140px);
+    min-height: calc(100dvh - 140px);
     display: flex;
     align-items: center;
     margin: 0 auto;
@@ -244,14 +247,14 @@ body {
     gap: 15px;
 }
 
-.emailLabel{
+.emailLabel {
     padding-bottom: 5px;
     font-size: 0.9rem;
     font-weight: 600;
     color: #e5e7eb;
 }
 
-.senhaLabel{
+.senhaLabel {
     padding-top: 10px;
     padding-bottom: 20px;
     font-size: 0.9rem;
@@ -323,7 +326,7 @@ body {
     color: #007bff;
 }
 
-.password-wrapper{
+.password-wrapper {
     margin-top: 10px;
 }
 
@@ -648,6 +651,8 @@ body {
 @media (max-width: 768px) {
     .background-container {
         min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
         display: flex;
         flex-direction: column;
     }
@@ -677,10 +682,14 @@ body {
     }
 
     .right {
+        /* prevent absolute layer from overflowing/cropping on mobile */
+        position: relative;
+        inset: auto;
+        width: 100%;
         background-image: url("background/768x1024.webp");
         background-size: cover;
         background-position: center;
-        width: 100%;
+        background-repeat: no-repeat;
         min-height: 200px;
     }
 
@@ -731,6 +740,10 @@ body {
 
     .modal-content h2 {
         font-size: 1.1rem;
+    }
+
+    .checkbox label {
+        text-align: justify;
     }
 
     .rodapé {

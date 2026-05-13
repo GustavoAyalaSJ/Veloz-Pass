@@ -20,6 +20,8 @@ body {
     background-position: center;
     background-attachment: fixed;
     min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
 }
@@ -383,7 +385,9 @@ body {
         padding: 0;
     }
 
-    .card-item {
+    .card-item-1,
+    .card-item-2,
+    .card-item-3 {
         padding: 30px 20px;
     }
 
