@@ -126,11 +126,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const esqueceuSenhaTemplate = `
         <button class="close-btn">X</button>
-        <h2>Recuperar Senha</h2>
+        <h2>Recuperar Senha (Simulação)</h2>
         <form id="formEsqueceuSenha">
             <label>E-mail cadastrado:</label>
-            <input type="email" required>
-            <button type="submit">Enviar Link</button>
+            <input type="email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="off" />
+
+            <label>Nova senha:</label>
+            <input type="password" name="senha_nova" required placeholder="Digite a nova senha" autocomplete="off" />
+
+            <label>Confirmar nova senha:</label>
+            <input type="password" name="confirmar_senha" required placeholder="Confirme a nova senha" autocomplete="off" />
+
+            <button type="submit">Atualizar Senha</button>
+
+            <div id="senhaStatus" style="margin-top: 10px; min-height: 20px;"></div>
+
             <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
     `;
@@ -325,10 +335,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     submitBtn.disabled = true;
                     setTimeout(() => (submitBtn.disabled = false), 2000);
                 }
-                alert('Seu problema está sendo avaliado pela nossa equipe, aguarde');
+                alert('Seu problema está sendo avaliado pela nossa equipe, aguarde.');
             };
         }
-
 
         const formCadastro = document.getElementById('formCadastro');
         if (formCadastro) {
@@ -366,6 +375,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } catch (error) {
                     alert("Erro no servidor.");
+                }
+            };
+        }
+
+        const formEsqueceuSenha = document.getElementById('formEsqueceuSenha');
+        if (formEsqueceuSenha) {
+            formEsqueceuSenha.onsubmit = async (e) => {
+                e.preventDefault();
+
+                const statusEl = document.getElementById('senhaStatus');
+                // PATCH /auth/password.
+                if (statusEl) {
+                    statusEl.textContent = 'Atenção: Atualização de senha desabilitada temporariamente.';
                 }
             };
         }

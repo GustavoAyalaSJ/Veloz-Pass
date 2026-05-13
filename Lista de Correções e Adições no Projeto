@@ -1,14 +1,13 @@
 O que precisa ser arrumado no projeto:
 
-index.html:
-- Melhorar e dar funcionalidade o modal de atualizar a senha da conta em tempo real (utilizado PATCH).
-
-index5.html:
-- Conectar os inputs de N* Cartão com a tabela UniqueCard (pensando);
-
 index6.html:
 - Colocar as imagens no carrousel.
 
 Nota:
 - Ajustar a configuração do MINT;
 - Desenhar os sprites do MINT.
+
+Planos futuros:
+- Fazer o modal de atualizar senha funcional;
+- Adicionar uma tabela que registra apenas um cartão de passagem por usuário (Uniquecard) e coloque o número do cartão automáticamente;
+- Ampliar o suporte.

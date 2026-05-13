@@ -63,7 +63,15 @@ body {
 }
 
 /* Modo Escuro */
-body, div, header, section, article, p, a, button, span {
+body,
+div,
+header,
+section,
+article,
+p,
+a,
+button,
+span {
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -255,7 +263,8 @@ body, div, header, section, article, p, a, button, span {
 }
 
 .valor-recusado {
-    color: #e74c3c !important;;
+    color: #e74c3c !important;
+    ;
 }
 
 /* Filtros */

@@ -1089,21 +1089,21 @@ select {
         padding-right: 20px;
     }
 
-    .header-link{
+    .header-link {
         padding-left: 0px;
         margin-left: 20px;
     }
 
-    .icon-button{
+    .icon-button {
         padding-left: 0px;
     }
 
-    span{
+    span {
         text-align: right;
     }
 
-    .bi-credit-card{
-       padding-left: 14px;
+    .bi-credit-card {
+        padding-left: 14px;
     }
 
     .logotipo img {
@@ -1135,7 +1135,7 @@ select {
     .passo-2,
     .payment-information,
     .pix-key-content,
-    .input-group-half > div {
+    .input-group-half>div {
         min-width: 0;
     }
 
