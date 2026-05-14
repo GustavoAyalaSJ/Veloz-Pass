@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 const helmet = require('helmet');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
@@ -91,7 +92,27 @@ app.use('/api/payments', (req, res, next) => {
     }
     next();
 }, paymentRoutes);
-app.use('/Assets', express.static('public/Assets'));
+app.use('/Assets', express.static(path.join(__dirname, 'public', 'Assets')));
+
+app.get('/debug/asset-exists', (req, res) => {
+    // Example:
+    //   /debug/asset-exists?file=Mint/sprite1.webp
+    // Note: This checks against: public/Assets/<file>
+    const file = (req.query.file || '').toString();
+    if (!file || file.includes('..')) {
+        return res.status(400).json({ error: 'Invalid file query. Provide something like Mint/sprite1.webp' });
+    }
+
+    const absPath = path.join(__dirname, 'public', 'Assets', file);
+    const exists = fs.existsSync(absPath);
+
+    res.json({
+        exists,
+        file,
+        absPath,
+        urlRequested: `${req.protocol}://${req.get('host')}/Assets/${file}`
+    });
+});
 
 app.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
