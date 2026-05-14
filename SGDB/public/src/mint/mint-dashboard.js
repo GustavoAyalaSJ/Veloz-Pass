@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btnReplay) return;
 
     const spriteMap = {
-        greeting: '../Assets/MINT/placeholder-icon.webp',
+        greeting: '../Assets/Mint/sprite1.webp',
         pointing: '../Assets/MINT/placeholder-icon.webp',
         happy: '../Assets/MINT/placeholder-icon.webp',
-        thinking: '#',
-        celebrate: '../Assets/MINT/placeholder-icon.webp'
+        thinking: '../Assets/Mint/sprite4.webp',
+        celebrate: '../Assets/Mint/sprite5.webp'
     };
 
     btnReplay.addEventListener('click', () => {
