@@ -3,15 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btnReplay) return;
 
     const spriteMap = {
-        greeting: 'Assets/Mint/sprite1.webp',
-        'pointing-left': 'Assets/Mint/placeholder-icon.webp',
-        'pointing-right': 'Assets/Mint/sprite2.webp',
-        'pointing-up': 'Assets/Mint/placeholder-icon.webp',
-        'pointing-down': 'Assets/Mint/placeholder-icon.webp',
-        introduction: 'Assets/Mint/placeholder-icon.webp',
-        warning: 'Assets/Mint/placeholder-icon.webp',
-        happy: 'Assets/Mint/sprite4.webp',
-        thinking: 'Assets/Mint/sprite3.webp',
+        greeting: '/Assets/Mint/sprite1.webp',
+        'pointing-left': '/Assets/Mint/placeholder-icon.webp',
+        'pointing-right': '/Assets/Mint/sprite2.webp',
+        'pointing-up': '/Assets/Mint/placeholder-icon.webp',
+        'pointing-down': '/Assets/Mint/placeholder-icon.webp',
+        introduction: '/Assets/Mint/placeholder-icon.webp',
+        warning: '/Assets/Mint/placeholder-icon.webp',
+        happy: '/Assets/Mint/sprite4.webp',
+        thinking: '/Assets/Mint/sprite3.webp',
         celebrate: '/Assets/Mint/sprite4.webp'
     };
 
