@@ -650,9 +650,6 @@ body {
 
 @media (max-width: 768px) {
     .background-container {
-        min-height: 100vh;
-        min-height: 100svh;
-        min-height: 100dvh;
         display: flex;
         flex-direction: column;
     }
@@ -682,10 +679,6 @@ body {
     }
 
     .right {
-        /* prevent absolute layer from overflowing/cropping on mobile */
-        position: relative;
-        inset: auto;
-        width: 100%;
         background-image: url("background/768x1024.webp");
         background-size: cover;
         background-position: center;
@@ -727,6 +720,10 @@ body {
 
     .right {
         background-image: url("background/375x667.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 200px;
     }
 
     .containerLeft {
