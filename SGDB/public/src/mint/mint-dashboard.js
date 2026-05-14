@@ -3,13 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btnReplay) return;
 
     const spriteMap = {
-        greeting: '/Assets/Mint/sprite1.webp',
-        'pointing-left': '/Assets/Mint/placeholder-icon.webp',
-        'pointing-right': '/Assets/Mint/placeholder-icon.webp',
-        'pointing-up': '/Assets/Mint/placeholder-icon.webp',
-        'pointing-down': '/Assets/Mint/placeholder-icon.webp',
-        happy: '/Assets/Mint/sprite4.webp',
-        thinking: '/Assets/Mint/sprite3.webp',
+        greeting: 'Assets/Mint/sprite1.webp',
+        'pointing-left': 'Assets/Mint/placeholder-icon.webp',
+        'pointing-right': 'Assets/Mint/sprite2.webp',
+        'pointing-up': 'Assets/Mint/placeholder-icon.webp',
+        'pointing-down': 'Assets/Mint/placeholder-icon.webp',
+        introduction: 'Assets/Mint/placeholder-icon.webp',
+        warning: 'Assets/Mint/placeholder-icon.webp',
+        happy: 'Assets/Mint/sprite4.webp',
+        thinking: 'Assets/Mint/sprite3.webp',
         celebrate: '/Assets/Mint/sprite4.webp'
     };
 
@@ -27,19 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 texto: "Pelo dashboard, você tem acesso as principais páginas do site.",
-                sprite: "happy",
+                sprite: "introduction",
                 acao: "next",
                 target: ".card-container"
             },
             {
                 texto: "Carteira Digital, você pode visualizar os créditos disponíveis e acessar a página, clicando no botão logo abaixo.",
-                sprite: "pointing-right",
+                sprite: "pointing-up",
                 acao: "next",
                 target: ".card-carteira"
             },
             {
                 texto: "Recarga onde irá realizar as recargas do seu cartão.",
-                sprite: "pointing-right",
+                sprite: "pointing-up",
                 acao: "next",
                 target: ".card-recarga"
             },
@@ -51,18 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 texto: "Além de obter atualizações sobre o valor da passagem do transporte coletivo.",
-                sprite: "pointing-right",
+                sprite: "pointing-up",
                 acao: "next",
                 target: ".card-info"
             },
             {
                 texto: "A interface é bem simples, então você saberá manusear caso necessário.",
-                sprite: "pointing-right",
+                sprite: "introduction",
                 acao: "next"
             },
             {
                 texto: "Só um lembrete, quando você for para outra página, procure o botão de interrogação ( ? ) para aprender como cada página funciona por mim.",
-                sprite: "happy",
+                sprite: "warning",
                 acao: "next"
             },
             {
