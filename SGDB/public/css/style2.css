@@ -328,6 +328,8 @@ span {
     border-radius: 25px;
     text-decoration: none;
     font-size: .85rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
 }
 
 .btn-carteira:hover,
@@ -449,7 +451,7 @@ span {
 }
 
 /* Media Queries */
-@media (max-width: 1200px) {
+@media (max-width: 1440px) {
     .main-content {
         display: flex;
         flex-direction: column;
@@ -458,8 +460,17 @@ span {
         min-height: auto;
     }
 
+    .register-id-container {
+        margin-top: 10px;
+    }
+
+    .welcome-text{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
     .card-container {
-        margin-bottom: 30px;
+        margin-top: 40px;
         padding: 30px;
     }
 
@@ -502,7 +513,6 @@ span {
         justify-content: flex-start;
         flex: 1;
         padding-top: 40px;
-        padding-bottom: 0;
     }
 
     .welcome-text {
@@ -516,10 +526,23 @@ span {
         padding: 35px;
     }
 
+    .mint-replay {
+        position: relative !important;
+        top: 0;
+        left: 280px;
+        margin: 20px auto 20px 250px !important;
+        width: auto;
+        min-width: 120px;
+        height: auto !important;
+        padding: 12px 24px !important;
+        display: inline-block !important;
+        box-sizing: border-box;
+    }
+
     .rodapé {
         margin-top: 0;
         padding-top: 10px;
-        padding-bottom: 35px;
+        padding-bottom: 50px;
     }
 }
 
@@ -553,25 +576,69 @@ span {
         text-align: center;
     }
 
+    .main-content {
+        height: auto !important;
+        display: flex;
+        flex-direction: column;
+    }
+
     .card-container {
         grid-template-columns: 1fr;
         padding: 20px;
     }
+
+    .mint-replay {
+        position: static !important;
+        display: block !important;
+        margin: 10px auto;
+        width: fit-content;
+        bottom: unset;
+        right: unset;
+        left: unset;
+    }
 }
 
-@media (max-width: 600px) and (orientation: landscape) {
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
+@media (max-height: 500px) and (orientation: landscape) {
+    .cabeçalho {
+        height: 70px;
     }
 
     .logotipo img {
-        height: 32px;
+        height: 40px;
+    }
+
+    .main-content {
+        padding-top: 10px;
+        padding-bottom: 25px;
+    }
+
+    .register-id-container {
+        margin-top: 20px;
+    }
+
+    .card-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 95%;
+        margin-bottom: 0px;
+    }
+
+    .carteira-valor {
+        font-size: 1rem;
+    }
+
+    .mint-replay {
+        position: relative !important;
+        top: 20px;
+        left: 250px !important;
+        z-index: 9999;
+        transform: scale(0.8);
+        position: -webkit-fixed;
     }
 
     .rodapé {
-        margin-left: 0;
-        padding: 15px;
+        padding: 20px;
+        font-size: 0.75rem;
     }
 }
