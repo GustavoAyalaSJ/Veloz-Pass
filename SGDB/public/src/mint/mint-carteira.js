@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const spriteMap = {
         greeting: '../Assets/Mint/sprite1.webp',
-        pointing: '../Assets/MINT/placeholder-icon.webp',
-        happy: '../Assets/MINT/placeholder-icon.webp',
-        thinking: '../Assets/Mint/sprite4.webp',
-        celebrate: '../Assets/Mint/sprite5.webp'
+        'pointing-left': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-right': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-up': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-down': '../Assets/Mint/placeholder-icon.webp',
+        happy: '../Assets/Mint/sprite4.webp',
+        thinking: '../Assets/Mint/sprite3.webp',
+        celebrate: '../Assets/Mint/sprite4.webp'
     };
 
     const steps = [
@@ -18,37 +21,37 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             texto: "Clique em “Inserir crédito” para adicionar saldo na sua carteira.",
-            sprite: "pointing",
+            sprite: "pointing-right",
             acao: "next",
             target: "#btn-inserir-credito"
         },
         {
             texto: "Na janela seguinte, escolha um valor (ou personalize) e avance.",
-            sprite: "pointing",
+            sprite: "pointing-right",
             acao: "next",
             target: "#modal-valor"
         },
         {
             texto: "Depois selecione o método de pagamento e finalize a transação.",
-            sprite: "pointing",
+            sprite: "pointing-right",
             acao: "next",
             target: "#modal-pagamento"
         },
         {
             texto: "Porém sendo uma introdução, clique em cancelar.",
-            sprite: "pointing",
+            sprite: "pointing-right",
             acao: "next",
             target: ".btn-cancelar"
         },
         {
             texto: "Você pode visualizar suas transação na carteira digtal pela tabela abaixo.",
-            sprite: "pointing",
+            sprite: "pointing-right",
             acao: "next",
             target: ".histórico-valores"
         },
         {
             texto: "É utilizar dos filtros acima para visualizar suas transações de forma dinâmica.",
-            sprite: "pointing",
+            sprite: "pointing-right",
             acao: "next",
             target: ".filtros-container"
         },
