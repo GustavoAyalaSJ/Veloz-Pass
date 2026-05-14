@@ -347,28 +347,32 @@ span {
 /* Media Queries */
 @media (max-width: 480px) and (orientation: portrait) {
     .filtros-container {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        gap: 12px;
-        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column; 
+        gap: 15px; 
+        margin-bottom: 20px;
         padding: 10px 0;
-        align-items: flex-start;
+        width: 100%;
     }
 
     .filtro-item {
-        flex: 1 1 0;
-        min-width: 0;
+        width: 100%; 
+        display: flex;
+        flex-direction: column;
         gap: 6px;
+        position: relative;
     }
 
     .filtro-select {
-        padding: 10px 30px 10px 10px;
-        font-size: 0.85rem;
+        width: 100%;
+        padding: 12px 35px 12px 12px;
+        font-size: 0.9rem;
     }
 
     .select-icon {
-        top: 30px;
-        right: 10px;
+        position: absolute;
+        top: 38px;
+        right: 15px;
     }
 }
 
