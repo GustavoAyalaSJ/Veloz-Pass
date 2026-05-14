@@ -91,6 +91,7 @@ app.use('/api/payments', (req, res, next) => {
     }
     next();
 }, paymentRoutes);
+app.use('/Assets', express.static('public/Assets'));
 
 app.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
