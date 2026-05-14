@@ -3,14 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!qBtn) return;
 
     const spriteMap = {
-        greeting: '/Assets/Mint/sprite1.webp',
-        'pointing-left': '/Assets/Mint/placeholder-icon.webp',
-        'pointing-right': '/Assets/Mint/placeholder-icon.webp',
-        'pointing-up': '/Assets/Mint/placeholder-icon.webp',
-        'pointing-down': '/Assets/Mint/placeholder-icon.webp',
-        happy: '/Assets/Mint/sprite4.webp',
-        thinking: '/Assets/Mint/sprite3.webp',
-        celebrate: '/Assets/Mint/sprite4.webp'
+        greeting: 'Assets/Mint/sprite1.webp',
+        'pointing-left': 'Assets/Mint/placeholder-icon.webp',
+        'pointing-right': 'Assets/Mint/sprite2.webp',
+        'pointing-up': 'Assets/Mint/placeholder-icon.webp',
+        'pointing-down': 'Assets/Mint/placeholder-icon.webp',
+        introduction: 'Assets/Mint/placeholder-icon.webp',
+        warning: 'Assets/Mint/placeholder-icon.webp',
+        happy: 'Assets/Mint/sprite4.webp',
+        thinking: 'Assets/Mint/sprite3.webp'
     };
 
     const steps = [
@@ -21,19 +22,19 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             texto: "Use o seletor 'Tipo' para filtrar os dados entre Carteira Digital ou Recarga.",
-            sprite: "pointing-right",
+            sprite: "pointing-up",
             acao: "next",
             target: "#filtro-tipo"
         },
         {
             texto: "Use o seletor 'Realizado no' para filtrar transações feitas nos métodos de pagamento.",
-            sprite: "pointing-right",
+            sprite: "pointing-up",
             acao: "next",
             target: "#filtro-realizado-no"
         },
         {
             texto: "Pronto! Você poderá visualizar a lista logo abaixo (caso tenha feito alguma transação).",
-            sprite: "celebrate",
+            sprite: "introduction",
             acao: "next",
             target: ".tabela-corpoInfo"
         }

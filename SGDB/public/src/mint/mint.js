@@ -3,10 +3,10 @@
 
     function safeParse(str) {
         if (typeof str !== 'string') return null;
+
         try {
             return JSON.parse(str);
-        } catch (e) {
-            console.warn('MINT: JSON parse failed', e);
+        } catch {
             return null;
         }
     }
@@ -23,16 +23,19 @@
     }
 
     function removeMintUI() {
-        document.querySelector('.mint-overlay')?.remove();
         document.querySelector('.mint-highlight')?.remove();
         document.getElementById('mint-ui')?.remove();
+        document.body.classList.remove('mint-active');
+
+        document.querySelectorAll('.mint-target')
+            .forEach(el => el.classList.remove('mint-target'));
+
+        document.body.style.overflow = "";
     }
 
     function createMintUI() {
         if (document.getElementById("mint-ui")) return;
-
         document.body.insertAdjacentHTML('beforeend', `
-            <div class="mint-overlay"></div>
             <div class="mint-highlight"></div>
             <div class="mint-ui" id="mint-ui">
                 <div class="mint-sprite-container">
@@ -52,15 +55,18 @@
         const textoEl = document.getElementById('mint-texto');
         const spriteEl = document.getElementById('mint-sprite');
         const ui = document.getElementById('mint-ui');
-        const overlay = document.querySelector('.mint-overlay');
         const highlight = document.querySelector('.mint-highlight');
         const nextBtn = document.querySelector('.mint-next');
 
-        if (!textoEl || !spriteEl || !ui || !overlay || !highlight || !nextBtn) return;
+        if (!textoEl || !spriteEl || !ui || !highlight || !nextBtn) return;
 
         textoEl.innerHTML = step.texto || '';
 
-        if (step.sprite && spriteMap[step.sprite] && spriteMap[step.sprite] !== "#") {
+        if (
+            step.sprite &&
+            spriteMap[step.sprite] &&
+            spriteMap[step.sprite] !== "#"
+        ) {
             spriteEl.src = spriteMap[step.sprite];
             spriteEl.classList.add('active');
             spriteEl.style.display = "block";
@@ -69,96 +75,146 @@
         }
 
         nextBtn.style.display = "block";
-        overlay.style.pointerEvents = "none";
-        highlight.style.display = "none";
+
+        document.querySelectorAll('.mint-target')
+            .forEach(el => el.classList.remove('mint-target'));
 
         if (!step.target) {
             highlight.style.display = "none";
-            overlay.style.display = "none";
             ui.style.top = "50%";
             ui.style.left = "50%";
             ui.style.transform = "translate(-50%, -50%)";
             ui.style.display = "block";
+
             return;
         }
 
         const targetEl = getTargetEl(step.target);
+
         if (!targetEl) {
-            console.warn("MINT: Target not found:", step.target);
             onStepComplete?.({ skipped: true });
             return;
         }
 
-        overlay.style.display = "block";
+        targetEl.classList.add("mint-target");
+
         highlight.style.display = "block";
-
-        const rect = targetEl.getBoundingClientRect();
-        const padding = 8;
-
-        const viewportW = window.innerWidth;
-        const viewportH = window.innerHeight;
-
-        const safeLeft = Math.max(padding, rect.left);
-        const safeTop = Math.max(padding, rect.top);
-        const safeRight = Math.min(viewportW - padding, rect.right);
-        const safeBottom = Math.min(viewportH - padding, rect.bottom);
-
-        const safeWidth = Math.max(20, safeRight - safeLeft);
-        const safeHeight = Math.max(20, safeBottom - safeTop);
-
-        highlight.style.top = safeTop + "px";
-        highlight.style.left = safeLeft + "px";
-        highlight.style.width = safeWidth + "px";
-        highlight.style.height = safeHeight + "px";
-
-        try {
-            targetEl.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
-        } catch (e) {
-        }
 
         targetEl.classList.add("mint-target");
 
-        ui.style.transform = "none";
-        ui.style.display = "block";
+        highlight.style.display = "block";
 
-        const bubbleRect = ui.getBoundingClientRect();
-        const bubbleW = bubbleRect.width || ui.offsetWidth || 260;
-        const bubbleH = bubbleRect.height || ui.offsetHeight || 120;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
 
-        const desiredLeft = rect.left;
-        const desiredTop = rect.bottom + 15;
+                const rect = targetEl.getBoundingClientRect();
+                const padding = 8;
 
-        const safeLeftUI = Math.min(Math.max(padding, desiredLeft), window.innerWidth - bubbleW - padding);
-        const safeTopUI = Math.min(Math.max(padding, desiredTop), window.innerHeight - bubbleH - padding);
+                const viewportW = window.innerWidth;
+                const viewportH = window.innerHeight;
 
-        ui.style.left = safeLeftUI + "px";
-        ui.style.top = safeTopUI + "px";
+                const safeLeft = Math.max(padding, rect.left);
+                const safeTop = Math.max(padding, rect.top);
+                const safeRight = Math.min(viewportW - padding, rect.right);
+                const safeBottom = Math.min(viewportH - padding, rect.bottom);
 
+                const safeWidth = Math.max(20, safeRight - safeLeft);
+                const safeHeight = Math.max(20, safeBottom - safeTop);
+
+                highlight.style.top = safeTop + "px";
+                highlight.style.left = safeLeft + "px";
+                highlight.style.width = safeWidth + "px";
+                highlight.style.height = safeHeight + "px";
+
+                try {
+                    targetEl.scrollIntoView({
+                        block: 'nearest',
+                        inline: 'nearest',
+                        behavior: 'instant'
+                    });
+                } catch { }
+
+                ui.style.transform = "none";
+                ui.style.display = "block";
+
+                const bubbleRect = ui.getBoundingClientRect();
+
+                const bubbleW =
+                    bubbleRect.width ||
+                    ui.offsetWidth ||
+                    260;
+
+                const bubbleH =
+                    bubbleRect.height ||
+                    ui.offsetHeight ||
+                    120;
+
+                const desiredLeft = rect.left;
+                const desiredTop = rect.bottom + 15;
+
+                const safeLeftUI = Math.min(
+                    Math.max(padding, desiredLeft),
+                    window.innerWidth - bubbleW - padding
+                );
+
+                const safeTopUI = Math.min(
+                    Math.max(padding, desiredTop),
+                    window.innerHeight - bubbleH - padding
+                );
+
+                ui.style.left = safeLeftUI + "px";
+                ui.style.top = safeTopUI + "px";
+
+            });
+        });
+        
         if (step.acao === "click") {
             nextBtn.style.display = "none";
-            overlay.style.pointerEvents = "all";
 
             const handleTargetClick = (e) => {
-                const isLink = targetEl.tagName?.toLowerCase() === "a";
-                if (isLink) e.preventDefault();
+                const isLink =
+                    targetEl.tagName?.toLowerCase() === "a";
 
-                targetEl.removeEventListener("click", handleTargetClick);
+                if (isLink) {
+                    e.preventDefault();
+                }
 
-                onStepComplete?.({ clicked: true, isLink });
-                if (isLink) window.location.href = targetEl.href;
+                targetEl.removeEventListener(
+                    "click",
+                    handleTargetClick
+                );
+
+                onStepComplete?.({
+                    clicked: true,
+                    isLink
+                });
+
+                if (isLink) {
+                    window.location.href = targetEl.href;
+                }
             };
 
-            targetEl.addEventListener("click", handleTargetClick, { once: true });
-        } else {
-            overlay.style.pointerEvents = "none";
+            targetEl.addEventListener(
+                "click",
+                handleTargetClick,
+                { once: true }
+            );
         }
     }
 
     function finalizeMint({ userId }) {
         removeMintUI();
-        const mintCompletionKey = getMintCompletionKey(userId);
-        localStorage.setItem(mintCompletionKey, "true");
+
+        const mintCompletionKey =
+            getMintCompletionKey(userId);
+
+        localStorage.setItem(
+            mintCompletionKey,
+            "true"
+        );
+
         localStorage.removeItem("mint-step");
+
         sessionStorage.removeItem('user-first-login');
     }
 
@@ -167,37 +223,62 @@
         spriteMap,
         force = false,
         replay = false,
-        getTargetEl = (selector) => document.querySelector(selector),
+        getTargetEl = (selector) =>
+            document.querySelector(selector),
         replayButton
     }) {
         const userId = getCurrentUserId();
-        const mintCompletionKey = getMintCompletionKey(userId);
 
-        const hasCompleted = !force && localStorage.getItem(mintCompletionKey) === "true";
+        const mintCompletionKey =
+            getMintCompletionKey(userId);
+
+        const hasCompleted =
+            !force &&
+            localStorage.getItem(mintCompletionKey) === "true";
+
         if (hasCompleted) return;
 
-        const hasSavedStep = localStorage.getItem("mint-step") !== null;
+        const hasSavedStep =
+            localStorage.getItem("mint-step") !== null;
 
         if (!force && !hasSavedStep) return;
 
         createMintUI();
 
+        document.body.classList.add('mint-active');
+        document.body.style.overflow = "hidden";
+
         let stepIndex = 0;
-        const savedStep = localStorage.getItem("mint-step");
+
+        const savedStep =
+            localStorage.getItem("mint-step");
+
         if (savedStep !== null && !force) {
             const parsed = parseInt(savedStep);
-            stepIndex = Number.isFinite(parsed) ? parsed : 0;
-        }
-        if (force) stepIndex = 0;
 
-        const nextBtn = document.querySelector('.mint-next');
-        const highlight = document.querySelector('.mint-highlight');
+            stepIndex =
+                Number.isFinite(parsed)
+                    ? parsed
+                    : 0;
+        }
+
+        if (force) {
+            stepIndex = 0;
+        }
+
+        const nextBtn =
+            document.querySelector('.mint-next');
 
         if (nextBtn) {
             nextBtn.onclick = null;
+
             nextBtn.addEventListener('click', () => {
                 stepIndex++;
-                localStorage.setItem("mint-step", stepIndex);
+
+                localStorage.setItem(
+                    "mint-step",
+                    stepIndex
+                );
 
                 if (stepIndex >= steps.length) {
                     finalizeMint({ userId });
@@ -205,6 +286,7 @@
                 }
 
                 const step = steps[stepIndex];
+
                 setMintStepUI(step, {
                     getTargetEl,
                     spriteMap,
@@ -215,12 +297,18 @@
 
         const renderCurrentStep = () => {
             const step = steps[stepIndex];
+
             setMintStepUI(step, {
                 getTargetEl,
                 spriteMap,
+
                 onStepComplete: () => {
                     stepIndex++;
-                    localStorage.setItem("mint-step", stepIndex);
+
+                    localStorage.setItem(
+                        "mint-step",
+                        stepIndex
+                    );
 
                     if (stepIndex >= steps.length) {
                         finalizeMint({ userId });
@@ -232,13 +320,14 @@
             });
         };
 
-        if (replayButton && typeof replayButton === "function") {
+        if (
+            replayButton &&
+            typeof replayButton === "function"
+        ) {
             replayButton();
         }
 
         renderCurrentStep();
-
-        if (highlight) highlight.style.display = "none";
     }
 
     window.MintEngine = {
