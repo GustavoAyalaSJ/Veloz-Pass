@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const spriteMap = {
         greeting: '../Assets/Mint/sprite1.webp',
-        pointing: '../Assets/MINT/placeholder-icon.webp',
-        happy: '../Assets/MINT/placeholder-icon.webp',
-        thinking: '../Assets/Mint/sprite4.webp',
-        celebrate: '../Assets/Mint/sprite5.webp'
+        'pointing-left': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-right': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-up': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-down': '../Assets/Mint/placeholder-icon.webp',
+        happy: '../Assets/Mint/sprite4.webp',
+        thinking: '../Assets/Mint/sprite3.webp',
+        celebrate: '../Assets/Mint/sprite4.webp'
     };
 
     btnReplay.addEventListener('click', () => {
@@ -30,32 +33,32 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 texto: "Carteira Digital, você pode visualizar os créditos disponíveis e acessar a página, clicando no botão logo abaixo.",
-                sprite: "pointing",
+                sprite: "pointing-right",
                 acao: "next",
                 target: ".card-carteira"
             },
             {
                 texto: "Recarga onde irá realizar as recargas do seu cartão.",
-                sprite: "pointing",
+                sprite: "pointing-right",
                 acao: "next",
                 target: ".card-recarga"
             },
             {
                 texto: "Histórico onde verá suas transações aprovadas e recusadas, acessando clicando no botão logo abaixo.",
-                sprite: "pointing",
+                sprite: "pointing-right",
                 acao: "next",
                 target: ".card-historico"
             },
             {
                 texto: "Além de obter atualizações sobre o valor da passagem do transporte coletivo.",
-                sprite: "pointing",
+                sprite: "pointing-right",
                 acao: "next",
                 target: ".card-info"
             },
             {
                 texto: "A interface é bem simples, então você saberá manusear caso necessário.",
-                sprite: "pointing",
-                acao: "next",
+                sprite: "pointing-right",
+                acao: "next"
             },
             {
                 texto: "Só um lembrete, quando você for para outra página, procure o botão de interrogação ( ? ) para aprender como cada página funciona por mim.",
@@ -68,12 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 acao: "next"
             }
         ];
-
-        const spriteMap = {
-            greeting: '../Assets/MINT/placeholder-icon.webp',
-            thinking: '#',
-            celebrate: '../Assets/MINT/placeholder-icon.webp',
-        };
 
         window.MintEngine?.startMint?.({
             steps,

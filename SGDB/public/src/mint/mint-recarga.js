@@ -4,12 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const spriteMap = {
         greeting: '../Assets/Mint/sprite1.webp',
-        pointing: '../Assets/MINT/placeholder-icon.webp',
-        happy: '../Assets/MINT/placeholder-icon.webp',
-        thinking: '../Assets/Mint/sprite4.webp',
-        celebrate: '../Assets/Mint/sprite5.webp'
+        'pointing-left': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-right': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-up': '../Assets/Mint/placeholder-icon.webp',
+        'pointing-down': '../Assets/Mint/placeholder-icon.webp',
+        happy: '../Assets/Mint/sprite4.webp',
+        thinking: '../Assets/Mint/sprite3.webp',
+        celebrate: '../Assets/Mint/sprite4.webp'
     };
-
     const steps = [
         {
             texto: "Bem-vindo à Recarga! Vou te mostrar as etapas principais.",
@@ -18,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             texto: "Primeiro selecione a forma de pagamento em “Selecione”.",
-            sprite: "pointing",
+            sprite: "pointing-right",
             acao: "next",
             target: "#select-pagamento"
         },
         {
             texto: "Depois informe o valor no campo de valor.",
-            sprite: "pointing",
+            sprite: "pointing-right",
             acao: "next",
             target: ".top-group.valor input"
         },
