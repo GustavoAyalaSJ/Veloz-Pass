@@ -4,20 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const spriteMap = {
         greeting: '/Assets/Mint/sprite1.webp',
-        'pointing-left': '/Assets/Mint/placeholder-icon.webp',
+        'pointing-left': '/Assets/Mint/sprite7.webp',
         'pointing-right': '/Assets/Mint/sprite2.webp',
         'pointing-up': '/Assets/Mint/placeholder-icon.webp',
         'pointing-down': '/Assets/Mint/placeholder-icon.webp',
-        introduction: '/Assets/Mint/placeholder-icon.webp',
-        warning: '/Assets/Mint/placeholder-icon.webp',
+        introduction: '/Assets/Mint/sprite5.webp',
+        warning: '/Assets/Mint/sprite6.webp',
         happy: '/Assets/Mint/sprite4.webp',
-        thinking: '/Assets/Mint/sprite3.webp'
+        thinking: '/Assets/Mint/sprite3.webp',
     };
 
     const steps = [
         {
             texto: "Bem-vindo ao Histórico! Vou te mostrar como usar os filtros.",
-            sprite: "greeting",
+            sprite: "introduction",
             acao: "next",
         },
         {
@@ -33,10 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
             target: "#filtro-realizado-no"
         },
         {
-            texto: "Pronto! Você poderá visualizar a lista logo abaixo (caso tenha feito alguma transação).",
+            texto: "Para visualizar as suas transações, você verá uma tabela logo abaixo.",
             sprite: "introduction",
             acao: "next",
             target: ".tabela-corpoInfo"
+        },
+        {
+            texto: "É isto sobre a página Histórico, bem simples e espero que te ajude..",
+            sprite: "happy",
+            acao: "next",
         }
     ];
 

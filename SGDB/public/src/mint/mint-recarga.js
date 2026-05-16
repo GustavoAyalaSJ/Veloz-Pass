@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const spriteMap = {
         greeting: '/Assets/Mint/sprite1.webp',
-        'pointing-left': '/Assets/Mint/placeholder-icon.webp',
+        'pointing-left': '/Assets/Mint/sprite7.webp',
         'pointing-right': '/Assets/Mint/sprite2.webp',
         'pointing-up': '/Assets/Mint/placeholder-icon.webp',
         'pointing-down': '/Assets/Mint/placeholder-icon.webp',
-        introduction: '/Assets/Mint/placeholder-icon.webp',
-        warning: '/Assets/Mint/placeholder-icon.webp',
+        introduction: '/Assets/Mint/sprite5.webp',
+        warning: '/Assets/Mint/sprite6.webp',
         happy: '/Assets/Mint/sprite4.webp',
-        thinking: '/Assets/Mint/sprite3.webp'
+        thinking: '/Assets/Mint/sprite3.webp',
     };
 
     const steps = [
@@ -21,19 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
             acao: "next",
         },
         {
-            texto: "Primeiro selecione a forma de pagamento em “Selecione”.",
+            texto: "Primeiro, selecione a forma de pagamento nesta seção.",
             sprite: "pointing-up",
             acao: "next",
             target: "#select-pagamento"
         },
         {
-            texto: "Depois informe o valor no campo de valor.",
+            texto: "Após isso você ira informar um valor neste campo para realizar uma recarga.",
             sprite: "pointing-up",
             acao: "next",
             target: ".top-group.valor input"
         },
         {
-            texto: "Nesta seção, você colocará seu número do cartão de passagem para localizar o cartão no registro do sistema da empresa de ônibus",
+            texto: "Aqui você terá que colocar o número do cartão de passagem para localizar o cartão no sistema da empresa de ônibus",
             sprite: "pointing-down",
             acao: "next",
             target: ".confirm-card"
