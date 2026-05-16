@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const spriteMap = {
         greeting: '/Assets/Mint/sprite1.webp',
-        'pointing-left': '/Assets/Mint/placeholder-icon.webp',
+        'pointing-left': '/Assets/Mint/sprite7.webp',
         'pointing-right': '/Assets/Mint/sprite2.webp',
         'pointing-up': '/Assets/Mint/placeholder-icon.webp',
         'pointing-down': '/Assets/Mint/placeholder-icon.webp',
-        introduction: '/Assets/Mint/placeholder-icon.webp',
-        warning: '/Assets/Mint/placeholder-icon.webp',
+        introduction: '/Assets/Mint/sprite5.webp',
+        warning: '/Assets/Mint/sprite6.webp',
         happy: '/Assets/Mint/sprite4.webp',
-        thinking: '/Assets/Mint/sprite3.webp'
+        thinking: '/Assets/Mint/sprite3.webp',
     };
 
     const steps = [
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target: "#btn-inserir-credito"
         },
         {
-            texto: "Na janela seguinte, escolha um valor (ou personalize) e avance.",
+            texto: "Na janela seguinte, escolha um valor (ou personalize) para avançar.",
             sprite: "introduction",
             acao: "next",
             target: "#modal-valor .modal-box"
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target: ".btn-cancelar"
         },
         {
-            texto: "Você pode visualizar suas transação na carteira digtal pela tabela abaixo.",
+            texto: "Você pode visualizar suas transações feitas na Carteira Digital pela tabela abaixo.",
             sprite: "pointing-down",
             acao: "next",
             target: ".histórico-valores"
