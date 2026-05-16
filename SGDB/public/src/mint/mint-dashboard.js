@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const spriteMap = {
         greeting: '/Assets/Mint/sprite1.webp',
-        'pointing-left': '/Assets/Mint/placeholder-icon.webp',
+        'pointing-left': '/Assets/Mint/sprite7.webp',
         'pointing-right': '/Assets/Mint/sprite2.webp',
         'pointing-up': '/Assets/Mint/placeholder-icon.webp',
         'pointing-down': '/Assets/Mint/placeholder-icon.webp',
-        introduction: '/Assets/Mint/placeholder-icon.webp',
-        warning: '/Assets/Mint/placeholder-icon.webp',
+        introduction: '/Assets/Mint/sprite5.webp',
+        warning: '/Assets/Mint/sprite6.webp',
         happy: '/Assets/Mint/sprite4.webp',
         thinking: '/Assets/Mint/sprite3.webp',
         celebrate: '/Assets/Mint/sprite4.webp'
@@ -23,12 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 acao: "next"
             },
             {
-                texto: "Eu irei introduzir ao dashboard, caso não esteja familiarizado.",
+                texto: "Eu irei te introduzir a interface do chat, caso não esteja familiarizado.",
                 sprite: "thinking",
                 acao: "next"
             },
             {
-                texto: "Pelo dashboard, você tem acesso as principais páginas do site.",
+                texto: "Começando pelo Dashboard, aqui você tem acesso as principais páginas do site.",
                 sprite: "introduction",
                 acao: "next",
                 target: ".card-container"
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 target: ".card-recarga"
             },
             {
-                texto: "Histórico onde verá suas transações aprovadas e recusadas, acessando clicando no botão logo abaixo.",
+                texto: "Histórico onde verá suas transações, acessando clicando no botão logo abaixo.",
                 sprite: "pointing-right",
                 acao: "next",
                 target: ".card-historico"
