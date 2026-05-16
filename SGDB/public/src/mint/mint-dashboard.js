@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 acao: "next"
             },
             {
-                texto: "Eu irei te introduzir a interface do chat, caso não esteja familiarizado.",
+                texto: "Eu irei te introduzir a interface, caso não esteja familiarizado.",
                 sprite: "thinking",
                 acao: "next"
             },
