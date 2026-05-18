@@ -205,63 +205,71 @@ document.addEventListener('DOMContentLoaded', () => {
         n2.addEventListener('input', validarCartaoTransp);
     }
 
-    function renderizarPasso2() {
-        const metodo = selectElement.value.toLowerCase();
-        containerPagamento.innerHTML = '';
-
+    function gerenciarAvisoBandeira(metodo) {
         const warningBox = document.querySelector('.warning-box');
-        if (warningBox) {
-            if (metodo.includes('credito') || metodo.includes('debito') || metodo.includes('internacional')) {
-                warningBox.classList.remove('hidden');
-            } else {
-                warningBox.classList.add('hidden');
-            }
-        }
+        if (!warningBox) return;
+
+        const precisaAviso = ['credito', 'debito', 'internacional'].some(tipo => metodo.includes(tipo));
+        warningBox.classList.toggle('hidden', !precisaAviso);
+    }
+
+    function alternarVisibilidadeComponentes(metodo) {
+        const blocoPix = document.querySelector('.pix-container');
+        const blocoCartao = document.querySelector('.card-inputs-row');
 
         if (metodo.includes('pix')) {
-            containerPagamento.innerHTML = `
-                <div class="pix-container">
-                    <div class="qr-placeholder">Placeholder QR Code</div>
-                    <div class="pix-key-section">
-                        <p class="pix-key-label">Chave PIX:</p>
-                        <div class="pix-key-content">
-                            <span class="pix-key-value">(placeholderPIX)</span>
-                            <button class="pix-copy-btn" aria-label="Copiar chave PIX" title="Copiar">
-                                <i class="bi bi-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
+            containerPagamento.innerHTML = obterHtmlPix();
             btnProsseguir.style.display = 'none';
+
+            configurarCopiaPix();
         }
-
-        else if (metodo.includes('cartão') || metodo.includes('credito') || metodo.includes('debito') || metodo.includes('internacional')) {
+        else if (['cartão', 'credito', 'debito', 'internacional'].some(tipo => metodo.includes(tipo))) {
             btnProsseguir.style.display = 'block';
-            containerPagamento.innerHTML = `
-                <div class="card-inputs-row">
-                    <div class="input-group-full">
-                        <label>Número do Cartão</label>
-                        <input type="text" id="card-num" placeholder="0000 0000 000 0000" maxlength="19">
-                    </div>
-                    <div class="input-group-half">
-                    <label>Data de Validação</label>
-                        <input type="text" id="card-valid" placeholder="MM/YY">
-                        <label>CCV</label>
-                        <input type="text" id="card-cvv" placeholder="CVV">
-                    </div>
-                </div>
-            `;
+            containerPagamento.innerHTML = obterHtmlCartao();
 
-            aplicarMascara(document.getElementById('card-num'), "0000 0000 0000 0000");
-            aplicarMascara(document.getElementById('card-valid'), "00/00");
-            aplicarMascara(document.getElementById('card-cvv'), "000");
-
-            configurarListenerBandeira(document.getElementById('card-num'));
-        } else {
+            inicializarComportamentosCartao();
+        }
+        else {
+            containerPagamento.innerHTML = '';
             btnProsseguir.style.display = 'block';
             displayImagem.src = imgDefault;
         }
+    }
+
+    function obterHtmlPix() {
+        return `
+        <div class="pix-container">
+            <div class="qr-placeholder">Placeholder QR Code</div>
+            <div class="pix-key-section">
+                <p class="pix-key-label">Chave PIX:</p>
+                <div class="pix-key-content">
+                    <span class="pix-key-value">placeholder@test02</span>
+                    <button class="pix-copy-btn" aria-label="Copiar chave PIX" title="Copiar">
+                        <i class="bi bi-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    }
+
+    function inicializarComportamentosCartao() {
+        const cardNum = document.getElementById('card-num');
+        const cardValid = document.getElementById('card-valid');
+        const cardCvv = document.getElementById('card-cvv');
+
+        aplicarMascara(cardNum, "0000 0000 0000 0000");
+        aplicarMascara(cardValid, "00/00");
+        aplicarMascara(cardCvv, "000");
+
+        configurarListenerBandeira(cardNum);
+    }
+
+    function renderizarPasso2() {
+        const metodo = selectElement.value.toLowerCase();
+
+        gerenciarAvisoBandeira(metodo);
+        alternarVisibilidadeComponentes(metodo);
     }
 
     async function finalizarRecarga(valorStr, situacao, metodo, numCartaoTransp, modal) {
@@ -321,48 +329,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function abrirModalFinalizacao(valorStr, situacao) {
-        const metodoTexto = selectElement.options[selectElement.selectedIndex].text.split('(')[0].trim();
+    function obterDadosFormulario(valorStr) {
+        const selectOptions = selectElement.options;
+        const metodoTexto = selectOptions[selectElement.selectedIndex].text.split('(')[0].trim();
         const valorInserido = valorStr || inputValor.value;
-        const numTransp = document.querySelectorAll('.confirm-card input')[0].value;
+        const inputNumTransp = document.querySelectorAll('.confirm-card input')[0];
+        const numTransp = inputNumTransp ? inputNumTransp.value : '';
         const metodo = selectElement.value;
 
-        let modal = document.getElementById('modalRecarga');
+        return { metodoTexto, valorInserido, numTransp, metodo };
+    }
 
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'modalRecarga';
-            document.body.appendChild(modal);
+    function preencherDadosModal(dados) {
+        const modal = document.getElementById('modalRecarga');
+        if (!modal) return;
+
+        const detalhes = modal.querySelector('.modal-details');
+        if (detalhes) {
+            detalhes.innerHTML = `
+            <p><strong>Método:</strong> ${dados.metodoTexto}</p>
+            <p><strong>Valor:</strong> ${dados.valorInserido}</p>
+            <p><strong>Cartão:</strong> ${dados.numTransp}</p>
+        `;
+        }
+    }
+
+    function configurarEventosModal() {
+        const btnCancelar = document.getElementById('btn-cancelar-modal');
+        const btnFinalizar = document.getElementById('btn-finalizar-fake');
+        const modal = document.getElementById('modalRecarga');
+
+        if (btnCancelar && modal) {
+            btnCancelar.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.classList.remove('active');
+            });
         }
 
-        modal.innerHTML = `
-        <div class="modal-content">
-            <h2>Confirmação de Recarga</h2>
+        if (btnFinalizar) {
+            btnFinalizar.onclick = () => {
+                const modalContexto = btnFinalizar.dataset;
+                finalizarRecarga(
+                    modalContexto.valor,
+                    modalContexto.situacao,
+                    modalContexto.metodo,
+                    modalContexto.cartao,
+                    modal
+                );
+            };
+        }
+    }
 
-            <div class="modal-details">
-                <p><strong>Método:</strong> ${metodoTexto}</p>
-                <p><strong>Valor:</strong> ${valorInserido}</p>
-                <p><strong>Cartão:</strong> ${numTransp}</p>
-            </div>
+    function abrirModalFinalizacao(valorStr, situacao) {
+        const modal = document.getElementById('modalRecarga');
+        if (!modal) return;
 
-            <div class="modal-buttons-wrapper">
-                <button id="btn-finalizar-fake" class="btn-prosseguir">Concluir</button>
-                <button id="btn-cancelar-modal">Cancelar</button>
-            </div>
-        </div>
-    `;
+        const dadosForm = obterDadosFormulario(valorStr);
+
+        preencherDadosModal(dadosForm);
+
+        const btnFinalizar = document.getElementById('btn-finalizar-fake');
+        if (btnFinalizar) {
+            btnFinalizar.dataset.valor = dadosForm.valorInserido;
+            btnFinalizar.dataset.situacao = situacao;
+            btnFinalizar.dataset.metodo = dadosForm.metodo;
+            btnFinalizar.dataset.cartao = dadosForm.numTransp;
+        }
 
         modal.classList.add('active');
-
-        document.getElementById('btn-cancelar-modal').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            modal.classList.remove('active');
-        });
-
-        document.getElementById('btn-finalizar-fake').onclick = () => {
-            finalizarRecarga(valorInserido, situacao, metodo, numTransp, modal);
-        };
     }
 
     if (inputValor) {
@@ -418,37 +452,48 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.confirm-card input')
         .forEach(i => aplicarMascara(i, "00.00.00000000-0"));
 
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('.pix-copy-btn')) {
-            const btn = e.target.closest('.pix-copy-btn');
-            const keyValue = btn.parentElement.querySelector('.pix-key-value');
-            const pixKey = keyValue ? keyValue.textContent : '(placeholderPIX)';
+    function dispararFeedbackCopia(botao) {
+        if (botao.classList.contains('copied')) return;
 
-            navigator.clipboard.writeText(pixKey).then(() => {
-                btn.classList.add('copied');
-                const originalIcon = btn.innerHTML;
-                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = originalIcon;
-                }, 2000);
-            }).catch(() => {
+        botao.classList.add('copied');
+        const originalIcon = botao.innerHTML;
+        botao.innerHTML = '<i class="bi bi-check-lg"></i>';
+
+        setTimeout(() => {
+            botao.classList.remove('copied');
+            botao.innerHTML = originalIcon;
+        }, 2000);
+    }
+
+    function configurarCopiaPix() {
+        const containerPix = document.querySelector('.pix-container');
+        if (!containerPix) return;
+
+        const btnCopiar = containerPix.querySelector('.pix-copy-btn');
+        if (!btnCopiar) return;
+
+        btnCopiar.addEventListener('click', () => {
+            const textoParaCopiar = btnCopiar.dataset.chave;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textoParaCopiar)
+                    .then(() => dispararFeedbackCopia(btnCopiar))
+                    .catch(err => console.error("Erro ao copiar", err));
+            } else {
                 const textArea = document.createElement('textarea');
-                textArea.value = pixKey;
+                textArea.value = textoParaCopiar;
                 document.body.appendChild(textArea);
                 textArea.select();
-                document.execCommand('copy');
+                try {
+                    document.execCommand('copy');
+                    dispararFeedbackCopia(btnCopiar);
+                } catch (err) {
+                    console.error(err);
+                }
                 document.body.removeChild(textArea);
-                btn.classList.add('copied');
-                const originalIcon = btn.innerHTML;
-                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = originalIcon;
-                }, 2000);
-            });
-        }
-    });
+            }
+        });
+    }
 
     if (wrapper) {
         selectElement.addEventListener('focus', () => wrapper.classList.add('active'));
