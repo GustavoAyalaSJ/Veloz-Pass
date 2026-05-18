@@ -626,11 +626,12 @@ span {
     }
 
     .termos {
+        margin-left: 2px;
         padding-left: 25px;
         text-align: center;
     }
 
-    .header-actions .termos {
+    .header-actions {
         margin-left: 40px;
     }
 
@@ -642,12 +643,14 @@ span {
     .main-content {
         height: auto !important;
         display: flex;
+        padding-top: 30px;
         flex-direction: column;
     }
 
     .card-container {
         grid-template-columns: 1fr;
         padding: 20px;
+        margin-top: 5px;
     }
 
     .mint-replay {
@@ -658,6 +661,10 @@ span {
         bottom: unset;
         right: unset;
         left: unset;
+    }
+
+    .rodapé p{
+        margin-top: 10px;
     }
 }
 
