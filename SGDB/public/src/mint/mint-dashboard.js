@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btnReplay.addEventListener('click', () => {
         const steps = [
             {
-                texto: "Olá, seja bem vindo ao Veloz Pass. Eu me chamo MINT, seu assistente de ajuda no site",
+                texto: "Olá, seja bem-vindo ao Veloz Pass. Eu me chamo MINT, seu assistente de ajuda no site",
                 sprite: "greeting",
                 acao: "next"
             },
             {
-                texto: "Eu irei te introduzir a interface, caso não esteja familiarizado.",
+                texto: "Meu obejtivo é introduzir a interface de cada página, caso não esteja familiarizado.",
                 sprite: "thinking",
                 acao: "next"
             },
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 target: ".card-container"
             },
             {
-                texto: "Carteira Digital, você pode visualizar os créditos disponíveis e acessar a página, clicando no botão logo abaixo.",
+                texto: "A Carteira Digital, você pode visualizar os créditos disponíveis e acessar a página, clicando no botão logo abaixo.",
                 sprite: "pointing-up",
                 acao: "next",
                 target: ".card-carteira"
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 acao: "next"
             },
             {
-                texto: "Só um lembrete, quando você for para outra página, procure o botão de interrogação ( ? ) para aprender como cada página funciona por mim.",
+                texto: "Um lembrete, caso você for para outra página, procure um botão de interrogação <b>(?)</b> para aprender como a página funciona por mim.",
                 sprite: "warning",
                 acao: "next"
             },

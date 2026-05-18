@@ -31,60 +31,36 @@ document.addEventListener('DOMContentLoaded', () => {
     let idBandeiraSelecionada = null;
     const metodosComCartaoTexto = ['débito', 'crédito', 'internacional'];
 
-    const containerCartao = document.createElement('div');
-    containerCartao.id = 'container-cartao';
-    containerCartao.className = 'payment-method-container';
-    containerCartao.style.display = 'none';
-    containerCartao.innerHTML = `
-        <label>Número do Cartão</label>
-        <input type="text" id="num-cartao" placeholder="0000 0000 000 0000" maxlength="16">
-        <div class="row-cartao">
-            <label>Data de Validade</label>
-            <input type="text" id="validade-cartao" placeholder="MM/YY" maxlength="5">
-            <label>CVV</label>
-            <input type="text" id="cvv-cartao" placeholder="CVV" maxlength="3">
-        </div>
-    `;
+    const containerCartao = document.getElementById('container-cartao');
+    const containerPix = document.getElementById('container-pix');
 
-    const containerPix = document.createElement('div');
-    containerPix.id = 'container-pix';
-    containerPix.className = 'payment-method-container';
-    containerPix.style.display = 'none';
-    containerPix.innerHTML = `
-        <div class="pix-placeholder">Placeholder QR Code</div>
-        <div class="pix-key-section">
-            <p class="pix-key-label">Chave PIX:</p>
-            <div class="pix-key-content">
-                <span class="pix-key-value">(placeholderPIX)</span>
-                <button class="pix-copy-btn" aria-label="Copiar chave PIX" title="Copiar">
-                    <i class="bi bi-copy"></i>
-                </button>
-            </div>
-        </div>
-    `;
+    const metodosComCartaoTexto = ['débito', 'crédito', 'internacional'];
 
-    if (selectPagamento) {
+    if (selectPagamento && containerCartao && containerPix) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
-        if (wrapper) {
-            wrapper.parentNode.insertBefore(containerCartao, wrapper.nextSibling);
-            wrapper.parentNode.insertBefore(containerPix, wrapper.nextSibling);
-            if (selectPagamento) {
-                selectPagamento.addEventListener('focus', () => wrapper.classList.add('active'));
-                selectPagamento.addEventListener('blur', () => wrapper.classList.remove('active'));
-                selectPagamento.addEventListener('change', () => wrapper.classList.add('active'));
-            }
-        }
+
+        selectPagamento.addEventListener('focus', () => wrapper?.classList.add('active'));
+        selectPagamento.addEventListener('blur', () => wrapper?.classList.remove('active'));
 
         selectPagamento.addEventListener('change', () => {
             const metodo = selectPagamento.value.toLowerCase();
-            containerCartao.style.display = metodosComCartaoTexto.includes(metodo) ? 'block' : 'none';
-            containerPix.style.display = metodo === 'pix' ? 'block' : 'none';
-            btnFinalizar.style.display = metodo === 'pix' ? 'none' : 'block';
+            wrapper?.classList.add('active');
+
+            const exibeCartao = metodosComCartaoTexto.includes(metodo);
+            const exibePix = (metodo === 'pix');
+
+            containerCartao.classList.toggle('hidden', !exibeCartao);
+            containerPix.classList.toggle('hidden', !exibePix);
+
+            if (btnFinalizar) {
+                btnFinalizar.classList.toggle('hidden', exibePix);
+            }
+
             idBandeiraSelecionada = null;
         });
     }
 
-    const inputCartao = containerCartao.querySelector('#num-cartao');
+    const inputCartao = document.getElementById('num-cartao');
     if (inputCartao) {
         inputCartao.addEventListener('input', (e) => {
             let num = e.target.value.replace(/\D/g, '');
@@ -286,6 +262,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 saldoDisplay.innerText = `R$ ${parseFloat(data.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
             }
 
+            const chavePix = data.chavePix || "placeholder@test01";
+
+            const pixValueSpan = document.querySelector('#container-pix .pix-key-value');
+            const pixBtnCopia = document.querySelector('#container-pix .pix-copy-btn');
+
+            if (pixValueSpan) pixValueSpan.innerText = chavePix;
+            if (pixBtnCopia) pixBtnCopia.dataset.chave = chavePix;
+
             dadosHistoricoCompleto = data.historico || [];
 
             const historicoFiltrado = dadosHistoricoCompleto.filter(mov =>
@@ -303,6 +287,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function mapearClasseStatus(situacaoRaw) {
+        const situacao = (situacaoRaw || '').toLowerCase();
+
+        if (situacao.includes('concl')) {
+            return 'status-verde';
+        }
+        if (situacao.includes('revis') || situacao.includes('pend')) {
+            return 'status-amarelo';
+        }
+        return 'status-vermelho';
+    }
+
+    function processarLinhaMovimentacao(mov) {
+        const situacao = (mov.situacao || '').toLowerCase();
+
+        return {
+            protocolo: mov.n_protocolo || '---',
+            metodo: (mov.metodo_pagamento || mov.metodo || 'PIX').toUpperCase(),
+            bandeira: (mov.bandeira_banco?.nome_bandeira || '---').toUpperCase(),
+            classeCss: mapearClasseStatus(mov.situacao),
+            podeImprimir: !situacao.includes('revis') && !situacao.includes('pend'),
+            valorFormatado: parseFloat(mov.valor).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            })
+        };
+    }
+
     function renderizarTabela(dados) {
         if (!dados || !dados.length) {
             corpoTabela.innerHTML = '<tr><td colspan="5" class="mensagem-aviso" style="text-align:center;">Sem movimentações encontradas.</td></tr>';
@@ -312,36 +324,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const fragment = document.createDocumentFragment();
 
         dados.forEach(mov => {
-            const situacao = (mov.situacao || '').toLowerCase();
-
-            let classe = 'status-vermelho';
-
-            if (situacao.includes('concl')) {
-                classe = 'status-verde';
-            } else if (situacao.includes('revis') || situacao.includes('pend')) {
-                classe = 'status-amarelo';
-            }
+            const info = processarLinhaMovimentacao(mov);
 
             const linha = document.createElement('tr');
-            linha.className = classe;
-
-            const metodoExibicao = (mov.metodo_pagamento || mov.metodo || 'PIX').toUpperCase();
-            const bandeira = (mov.bandeira_banco?.nome_bandeira || '---').toUpperCase();
-
-            const valorFormatado = parseFloat(mov.valor).toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            });
-
-            const podeImprimir = !situacao.includes('revis') && !situacao.includes('pend');
+            linha.className = info.classeCss;
 
             linha.innerHTML = `
-            <td>${mov.n_protocolo || '---'}</td>
-            <td>${metodoExibicao}</td>
-            <td>${bandeira}</td>
-            <td class="table-bold">${valorFormatado}</td>
+            <td>${info.protocolo}</td>
+            <td>${info.metodo}</td>
+            <td>${info.bandeira}</td>
+            <td class="table-bold">${info.valorFormatado}</td>
             <td>
-                ${podeImprimir ? `
+                ${info.podeImprimir ? `
                 <button class="btn-print">
                     <i class="bi bi-printer"></i> IMPRIMIR
                 </button>` : ''}
@@ -390,38 +384,43 @@ document.addEventListener('DOMContentLoaded', () => {
         return (txt || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     }
 
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('.pix-copy-btn')) {
-            const btn = e.target.closest('.pix-copy-btn');
-            const input = btn.parentElement.querySelector('.pix-key-input');
-            const pixKey = input ? input.value : '(placeholderPIX)';
+    function dispararFeedbackCopia(botao) {
+        if (botao.classList.contains('copied')) return;
 
+        botao.classList.add('copied');
+        const originalIcon = botao.innerHTML;
+        botao.innerHTML = '<i class="bi bi-check-lg"></i>';
 
-            navigator.clipboard.writeText(pixKey).then(() => {
-                btn.classList.add('copied');
-                const originalIcon = btn.innerHTML;
-                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = originalIcon;
-                }, 2000);
-            }).catch(() => {
+        setTimeout(() => {
+            botao.classList.remove('copied');
+            botao.innerHTML = originalIcon;
+        }, 2000);
+    }
+
+    const btnCopiarPix = document.querySelector('#container-pix .pix-copy-btn');
+    if (btnCopiarPix) {
+        btnCopiarPix.addEventListener('click', () => {
+            const textoParaCopiar = btnCopiarPix.dataset.chave || '(placeholderPIX)';
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textoParaCopiar)
+                    .then(() => dispararFeedbackCopia(btnCopiarPix))
+                    .catch(err => console.error("Erro ao copiar PIX:", err));
+            } else {
                 const textArea = document.createElement('textarea');
-                textArea.value = pixKey;
+                textArea.value = textoParaCopiar;
                 document.body.appendChild(textArea);
                 textArea.select();
-                document.execCommand('copy');
+                try {
+                    document.execCommand('copy');
+                    dispararFeedbackCopia(btnCopiarPix);
+                } catch (err) {
+                    console.error(err);
+                }
                 document.body.removeChild(textArea);
-                btn.classList.add('copied');
-                const originalIcon = btn.innerHTML;
-                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = originalIcon;
-                }, 2000);
-            });
-        }
-    });
+            }
+        });
+    }
 
     document.querySelectorAll('.filtro-item').forEach(item => {
         item.addEventListener('click', (e) => {

@@ -17,43 +17,42 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await obterDadosCarteira(idLogado);
 
             if (!data || !data.historico) {
-                corpoTabelaInfo.innerHTML = '<div class="empty-table-message">Nenhum registro encontrado.</div>';
+                exibirMensagemVazia("Nenhum registro encontrado.");
                 return;
             }
 
-            dadosHistoricoCompleto = data.historico.filter(mov => mov.situacao === 'Concluído' || mov.situacao === 'Recusada');
+            dadosHistoricoCompleto = data.historico.filter(mov =>
+                mov.situacao === 'Concluído' || mov.situacao === 'Recusada'
+            );
 
             if (dadosHistoricoCompleto.length === 0) {
-                corpoTabelaInfo.innerHTML = '<div class="empty-table-message">Sem movimentações.</div>';
+                exibirMensagemVazia("Sem movimentações registradas.");
                 return;
             }
 
             renderizarTabela(dadosHistoricoCompleto);
 
-            if (filtroTipo) filtroTipo.onchange = aplicarFiltros;
-            if (filtroRealizadoNo) filtroRealizadoNo.onchange = aplicarFiltros;
+            filtroTipo?.addEventListener('change', aplicarFiltros);
+            filtroRealizadoNo?.addEventListener('change', aplicarFiltros);
 
         } catch (error) {
-            console.error("Erro ao carregar histórico:", error);
+            console.error("Erro ao inicializar histórico:", error);
+            exibirMensagemVazia("Erro ao carregar dados do histórico.");
         }
     }
 
     function aplicarFiltros() {
-        const valTipoMov = normalizarTexto(filtroTipo?.value).replace(/_/g, "");
-        const valMetodo = normalizarTexto(filtroRealizadoNo?.value).replace(/_/g, "");
+        const valTipoMov = normalizarBuscar(filtroTipo?.value);
+        const valMetodo = normalizarBuscar(filtroRealizadoNo?.value);
 
         const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
-            const tipoBanco = normalizarTexto(mov.tipo_movimentacao).replace(/_/g, "");
-            const metodoBanco = normalizarTexto(mov.metodo_pagamento)
-                .replace(/_/g, "");
+            const tipoBanco = normalizarBuscar(mov.tipo_movimentacao);
 
-            const metodoBancoCompat = metodoBanco === 'carteira digital'
-                ? 'carteira_digital'
-                : metodoBanco;
+            let metodoBanco = normalizarBuscar(mov.metodo_pagamento);
+            if (metodoBanco === 'carteiradigital') metodoBanco = 'carteira_digital';
 
             const bateTipo = !valTipoMov || tipoBanco.includes(valTipoMov);
-            const bateMetodo = !valMetodo || metodoBancoCompat.includes(valMetodo);
-
+            const bateMetodo = !valMetodo || metodoBanco.includes(valMetodo.replace(/_/g, ""));
 
             return bateTipo && bateMetodo;
         });
@@ -64,37 +63,39 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.filtro-item').forEach(item => {
         item.addEventListener('click', (e) => {
             e.stopPropagation();
-            const select = item.querySelector('.filtro-select');
-            const icon = item.querySelector('.select-icon');
-            if (select && icon) {
-                toggleElement(item, item, 'active', 'active', icon);
+
+            const estaAtivo = item.classList.contains('active');
+
+            document.querySelectorAll('.filtro-item.active').forEach(el => el.classList.remove('active'));
+
+            if (!estaAtivo) {
+                item.classList.add('active');
             }
         });
     });
 
-    function renderizarTabela(dados) {
-        if (!dados || dados.length === 0) {
-            corpoTabelaInfo.innerHTML = '<div class="empty-table-message">Sem movimentações confirmadas.</div>';
-            return;
-        }
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.filtro-item.active').forEach(el => el.classList.remove('active'));
+    });
 
+    function renderizarTabela(dados) {
         const fragment = document.createDocumentFragment();
 
         dados.forEach(mov => {
             const linha = document.createElement('div');
             linha.className = 'tabela-linha-item';
+
             if (mov.situacao === 'Recusada') {
                 linha.classList.add('linha-recusada');
             }
 
-            const valorFormatado = parseFloat(mov.valor).toLocaleString('pt-BR', {
+            const valorFormatado = parseFloat(mov.valor || 0).toLocaleString('pt-BR', {
                 style: 'currency',
                 currency: 'BRL'
             });
 
-            const tipoExibicao = (mov.tipo_movimentacao || 'Carteira Digital');
+            const tipoExibicao = mov.tipo_movimentacao || 'Carteira Digital';
             const metodoExibicao = (mov.metodo_pagamento || 'PIX').toUpperCase();
-
             const podeImprimir = mov.situacao === 'Concluído' || mov.situacao === 'Recusada';
 
             linha.innerHTML = `
@@ -103,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="col-metodo">${metodoExibicao}</span>
                 <span class="col-valor ${mov.situacao === 'Recusada' ? 'valor-recusado' : ''}">${valorFormatado}</span>
                 <span class="col-acao">
-                    ${podeImprimir ? `<button class="btn-imprimir">IMPRIMIR</button>` : ''}
+                    ${podeImprimir ? `<button class="btn-imprimir" data-protocolo="${mov.n_protocolo}">IMPRIMIR</button>` : ''}
                 </span>
             `;
 
@@ -114,51 +115,31 @@ document.addEventListener('DOMContentLoaded', () => {
         corpoTabelaInfo.appendChild(fragment);
     }
 
-    function toggleElement(trigger, content, triggerClass = 'open', contentClass = 'show', icon = null) {
-        const debounce = (func, delay) => {
-            let timeoutId;
-            return (...args) => {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => func(...args), delay);
-            };
-        };
-        const debouncedToggle = debounce(() => {
-            const isOpen = content.classList.contains(contentClass);
-            if (isOpen) {
-                content.classList.remove(contentClass);
-                if (trigger) trigger.classList.remove(triggerClass);
-                if (icon) icon.style.transform = 'rotate(0deg)';
-            } else {
-                document.querySelectorAll('.filtro-item.active').forEach(el => el.classList.remove('active'));
-                document.querySelectorAll('.select-icon').forEach(i => i.style.transform = 'rotate(0deg)');
-                content.classList.add(contentClass);
-                if (trigger) trigger.classList.add(triggerClass);
-                if (icon) icon.style.transform = 'rotate(180deg)';
-            }
-        }, 50);
-        debouncedToggle();
-    }
-
-    function normalizarTexto(txt) {
+    function normalizarBuscar(txt) {
         return (txt || '')
             .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[\s_]/g, "")
             .trim();
+    }
+
+    function exibirMensagemVazia(mensagem) {
+        corpoTabelaInfo.innerHTML = `<div class="empty-table-message">${mensagem}</div>`;
     }
 
     async function obterDadosCarteira(idUsuario) {
         try {
             if (typeof auth !== 'undefined') {
                 const response = await auth.request(`/api/payments/historico-geral/${idUsuario}`);
-                if (!response || !response.ok) return null;
-                return await response.json();
+                if (response && response.ok) {
+                    return await response.json();
+                }
             }
         } catch (error) {
-            console.error("Erro ao obter dados da carteira:");
-            return null;
+            console.error(error);
         }
+        return null;
     }
-
     carregarHistoricoGeral();
 });
