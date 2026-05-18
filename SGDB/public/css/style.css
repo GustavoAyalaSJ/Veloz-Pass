@@ -54,22 +54,14 @@ body {
     width: auto;
 }
 
-.termos {
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.termos:hover {
-    color: #c0e1f8;
-}
-
+.termos,
 .suporte {
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
+.termos:hover,
 .suporte:hover {
     color: #c0e1f8;
 }
@@ -247,13 +239,6 @@ body {
     gap: 15px;
 }
 
-.emailLabel {
-    padding-bottom: 5px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #e5e7eb;
-}
-
 .senhaLabel {
     padding-top: 10px;
     padding-bottom: 20px;
@@ -262,7 +247,23 @@ body {
     color: #e5e7eb;
 }
 
-.modal-content label {
+.termosLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.cadastrarLabel {
+    margin-bottom: -5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.emailLabel,
+.recuperarLabel,
+.suporteLabel {
+    padding-bottom: 5px;
     font-size: 0.9rem;
     font-weight: 600;
     color: #e5e7eb;
@@ -407,6 +408,8 @@ body {
     visibility: hidden;
     pointer-events: none;
 }
+
+/* Modal - Termos */
 
 .modal-terms-content {
     display: flex;
@@ -689,11 +692,6 @@ body {
     .modal-terms-content {
         max-height: calc(90vh - 140px);
         overflow-y: auto;
-    }
-
-    .destacarLogin:hover {
-        color: #c0e1f8;
-        transition: 0.2s ease;
     }
 
     .rodapé {

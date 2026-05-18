@@ -375,6 +375,15 @@ span {
     font-size: 0.8rem;
 }
 
+/* IDs - Java Script */
+
+#notification-dropdown.dropdown-content {
+    display: none;
+}
+#notification-dropdown.dropdown-content.show {
+    display: block;
+}
+
 /* Media Queries */
 @media (max-width: 480px) and (orientation: portrait) {
     .filtros-container {
