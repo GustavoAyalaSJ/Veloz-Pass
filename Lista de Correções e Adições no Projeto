@@ -1,11 +1,14 @@
 O que precisa ser arrumado no projeto:
 
+index4.hml:
+- Modificar os processos para serem em_revisão (no default), porém, o JS tem como objetivo definir se o processo será atualizado para 'Concluído' ou 'Recusado'.
+
 index6.html:
 - Colocar as imagens no carrousel.
 
 Nota:
-- Ajustar a configuração do MINT;
-- Desenhar os sprites do MINT.
+- Ajustar CSS em algumas páginas;
+- Desenhar os últimos sprites do MINT.
 
 Planos futuros:
 - Fazer o modal de atualizar senha funcional;
