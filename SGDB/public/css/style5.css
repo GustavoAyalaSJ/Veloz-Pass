@@ -509,7 +509,10 @@ h3 {
     border-radius: 15px;
     border: 2.5px solid #a3a3a3;
     min-height: 250px;
-    padding: 20px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .card-inputs-row {
@@ -518,11 +521,27 @@ h3 {
     gap: 15px;
 }
 
-.card-inputs-row label {
+.num-card {
     display: block;
     font-size: 0.85rem;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: -5px;
+    color: #333;
+}
+
+.date-card {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.ccv-card {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 10px;
     color: #333;
 }
 
