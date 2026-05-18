@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <a id="btnEsqueceuSenha">Esqueceu a senha?</a>
             <div class="checkbox">
-               <label for="checkbox">
+               <label class="termosLabel" for="checkbox">
                <input type="checkbox" id="checkbox" name="checar" required />
                    Ao conectar-se com o site, você estará concordando com nossos termos de <span class="destacarTermos abrir-termos">Políticas de Privacidade</span>.
                </label>
@@ -46,22 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="close-btn">X</button>
         <h2>Crie sua conta</h2>
         <form id="formCadastro">
-            <label>Nome Completo:</label>
+            <label class="cadastrarLabel" >Nome Completo:</label>
             <input type="text" name="nome_usuario" placeholder="Coloque seu nome completo." maxlength="100" autocomplete="off" required>
-            <label>CPF:</label>
+            <label class="cadastrarLabel" >CPF:</label>
             <input type="text" name="cpf" id="inputCPF" placeholder="000.000.000-00" maxlength="14" autocomplete="off" required>
-            <label>Telefone:</label>
+            <label class="cadastrarLabel" >Telefone:</label>
             <input type="text" name="telefone" id="inputTelefone" placeholder="(xx) xxxxx-xxxx" maxlength="15" autocomplete="off" required>
-            <label>E-mail:</label>
+            <label class="cadastrarLabel" >E-mail:</label>
             <input type="email" name="email" placeholder="@email.com.br" maxlength="100" autocomplete="off" required>
 
-            <label>Senha:</label>
+            <label class="cadastrarLabel">Senha:</label>
             <div class="input-wrapper">
               <input type="password" name="senha" id="reg-senha" placeholder="Digite uma senha aqui." autocomplete="off" required>
               <i class="bi bi-check check-icon"></i>
             </div>
 
-            <label>Confirmar Senha:</label>
+            <label class="cadastrarLabel">Confirmar Senha:</label>
             <div class="input-wrapper">
                <input type="password" name="confirmar_senha" id="reg-confirma" placeholder="Confirme a senha." autocomplete="off" required>
                <i class="bi bi-check check-icon"></i>
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="close-btn">X</button>
         <h2>Suporte</h2>
         <form id="formSuporte">
-            <label>Selecione o problema:</label>
+            <label class="suporteLabel" >Selecione o problema:</label>
             <div class="select-wrapper">
                 <select required>
                     <option value="" disabled selected>Selecione</option>
@@ -114,11 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 </select>
                 <i class="bi bi-chevron-down select-icon"></i>
             </div>
-            <label>Email Cadastrado:</label>
+            <label class="suporteLabel" >Email Cadastrado:</label>
             <input type="email" placeholder="@email.com.br" required/>
-            <label>Telefone Cadastrado:</label>
+            <label class="suporteLabel" >Telefone Cadastrado:</label>
             <input type="text" id="inputTelefoneSuporte" placeholder="(xx) xxxxx-xxxx" maxlength="15" required/>
-            <label>Detalhes:</label>
+            <label class="suporteLabel" >Detalhes:</label>
             <textarea rows="4" maxlength="500"></textarea>
             <button type="submit" class="botao-estilizado">Enviar</button>
         </form>
@@ -126,21 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const esqueceuSenhaTemplate = `
         <button class="close-btn">X</button>
-        <h2>Recuperar Senha (Simulação)</h2>
+        <h2>Recuperar Senha</h2>
         <form id="formEsqueceuSenha">
-            <label>E-mail cadastrado:</label>
+            <label class="recuperarLabel">E-mail cadastrado:</label>
             <input type="email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="off" />
 
-            <label>Nova senha:</label>
+            <label class="recuperarLabel">Nova senha:</label>
             <input type="password" name="senha_nova" required placeholder="Digite a nova senha" autocomplete="off" />
 
-            <label>Confirmar nova senha:</label>
+            <label class="recuperarLabel">Confirmar nova senha:</label>
             <input type="password" name="confirmar_senha" required placeholder="Confirme a nova senha" autocomplete="off" />
 
-            <button type="submit">Atualizar Senha</button>
-
-            <div id="senhaStatus" style="margin-top: 10px; min-height: 20px;"></div>
-
+            <button class="botao-estilizado" type="submit">Atualizar Senha</button>
             <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
     `;

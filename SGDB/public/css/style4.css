@@ -74,8 +74,10 @@ body {
     transition: all 0.2s ease;
 }
 
-.icon-button.open i {
-    transform: rotate(180deg);
+.icon-button:hover {
+    color: rgb(235, 235, 235);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .dropdown-content {
@@ -877,6 +879,12 @@ td.table-bold {
     -moz-appearance: textfield;
 }
 
+#notification-dropdown.dropdown-content {
+    display: none;
+}
+#notification-dropdown.dropdown-content.show {
+    display: block;
+}
 
 /* Media Queries */
 @media screen and (max-width: 480px) {
