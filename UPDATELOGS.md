@@ -149,9 +149,21 @@
 - Atualização massiva no CSS (removendo conteúdos, ajustando cores do Dark-mode e separando conteúdos JS);
 - Ajustes no HTML e JS.
 
-(11-05-2026 - Atual)
+(11-05-2026)
 - Unificação de arquivos CSS;
 - Separação da lógica do MINT da configuração global para ser sua própria;
 - Adição de conteúdos faltantes.
+
+(12-05-2026)
+- Remoção do EsqueceuEmail;
+- Ajustes no MINT e Mobile Media Queries.
+
+(13-05-2026)
+- Reestruturação das frases do MINT e adição de conteúdo faltante.
+
+(18-05-2026 - Atual)
+- Adição de botão de notificações;
+- Arrumando a lógica de códigos no back-end;
+- Ajuste no CSS.
 
 
