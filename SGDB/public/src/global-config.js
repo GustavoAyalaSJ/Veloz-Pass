@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function criarModalLogout() {
-        if (modalLogout) return;
+        if (logoutModal) return;
 
-        modalLogout = document.createElement('div');
-        modalLogout.id = 'logoutModal';
-        modalLogout.className = 'logout-overlay';
-        modalLogout.innerHTML = `
+        logoutModal = document.createElement('div');
+        logoutModal.id = 'logoutModal';
+        logoutModal.className = 'logout-overlay';
+        logoutModal.innerHTML = `
             <div class="logout-box">
                 <h3>Deseja sair da sua conta?</h3>
                 <div class="logout-buttons">
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-        document.body.appendChild(modalLogout);
+        document.body.appendChild(logoutModal);
 
         document.getElementById('btn-sim-logout').onclick = () => {
             if (typeof auth !== 'undefined') {
@@ -54,29 +54,44 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        const closeModal = () => modalLogout.classList.remove('active');
+        const closeModal = () => logoutModal.classList.remove('active');
         document.getElementById('btn-nao-logout').onclick = closeModal;
-        modalLogout.onclick = (e) => { if (e.target === modalLogout) closeModal(); };
+        logoutModal.onclick = (e) => { if (e.target === logoutModal) closeModal(); };
     }
 
     document.addEventListener('click', (e) => {
         if (e.target.closest('.exit-link')) {
             e.preventDefault();
             criarModalLogout();
-            modalLogout.classList.add('active');
+            logoutModal.classList.add('active');
         }
     });
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            modalLogout?.classList.remove('active');
+            logoutModal?.classList.remove('active');
             document.getElementById('notification-dropdown')?.classList.remove('show');
             document.getElementById('notification-button')?.classList.remove('open');
         }
     });
 
     const botaoNotificacao = document.getElementById('notification-button');
-    const dropdownNotificacao = document.getElementById('notification-dropdown');
+
+    let dropdownNotificacao = document.getElementById('notification-dropdown');
+    if (botaoNotificacao && !dropdownNotificacao) {
+        dropdownNotificacao = document.createElement('div');
+        dropdownNotificacao.id = 'notification-dropdown';
+        dropdownNotificacao.className = 'dropdown-content';
+
+        dropdownNotificacao.innerHTML = `
+            <section class="lista-avisos">
+                Você não possui nenhuma notificação no momento.
+            </section>
+        `;
+
+        const headerActions = botaoNotificacao.closest('.user-actions') || botaoNotificacao.parentElement;
+        headerActions.appendChild(dropdownNotificacao);
+    }
 
     if (botaoNotificacao && dropdownNotificacao) {
         botaoNotificacao.addEventListener('click', (e) => {
