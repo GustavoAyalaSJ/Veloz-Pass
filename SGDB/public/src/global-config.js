@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (changeTheme) {
         const atualizarIconeTema = () => {
             const isDark = document.documentElement.classList.contains('dark-mode');
-            botaoAlternarTema.innerHTML = isDark
+            changeTheme.innerHTML = isDark
                 ? '<i class="bi bi-moon-fill"></i>'
                 : '<i class="bi bi-brightness-high-fill"></i>';
         };

@@ -253,6 +253,25 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     }
 
+    function obterHtmlCartao() {
+        return `
+        <div class="card-inputs-row">
+            <div class="card-inputs-row">
+                <label for="card-num">Número do Cartão</label>
+                <input type="text" id="card-num" placeholder="0000 0000 0000 0000">
+
+                <div class="row-cartao">
+                    <label for="card-valid">Data de Validade</label>
+                    <input type="text" id="card-valid" placeholder="00/00">
+
+                    <label for="card-cvv">CCV</label>
+                    <input type="text" id="card-cvv" placeholder="000">
+                </div>
+            </div>
+        </div>
+        `;
+    }
+
     function inicializarComportamentosCartao() {
         const cardNum = document.getElementById('card-num');
         const cardValid = document.getElementById('card-valid');
