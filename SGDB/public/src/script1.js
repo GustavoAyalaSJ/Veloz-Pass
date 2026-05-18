@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const esqueceuSenhaTemplate = `
         <button class="close-btn">X</button>
-        <h2>Recuperar Senha</h2>
+        <h2>Atualizar Senha</h2>
         <form id="formEsqueceuSenha">
             <label class="recuperarLabel">E-mail cadastrado:</label>
             <input type="email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="off" />
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <label class="recuperarLabel">Confirmar nova senha:</label>
             <input type="password" name="confirmar_senha" required placeholder="Confirme a nova senha" autocomplete="off" />
 
-            <button class="botao-estilizado" type="submit">Atualizar Senha</button>
+            <button class="botao-estilizado" type="submit">Atualizar</button>
             <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
     `;
