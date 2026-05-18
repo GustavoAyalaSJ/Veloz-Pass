@@ -80,9 +80,14 @@ body {
     transition: all 0.3s ease;
 }
 
+.notification-container {
+    position: relative;
+    display: inline-block;
+}
+
 .dropdown-content {
     position: absolute;
-    top: calc(100% + 10px);
+    top: 100%;
     right: 0;
     min-width: 320px;
     max-width: 90vw;
