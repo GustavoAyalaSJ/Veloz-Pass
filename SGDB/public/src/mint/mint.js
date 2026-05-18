@@ -1,14 +1,9 @@
-(function () {
+(() => {
     const MINT_KEY_PREFIX = "mint-visto-";
 
     function safeParse(str) {
         if (typeof str !== 'string') return null;
-
-        try {
-            return JSON.parse(str);
-        } catch {
-            return null;
-        }
+        try { return JSON.parse(str); } catch { return null; }
     }
 
     function getCurrentUserId() {
@@ -26,10 +21,7 @@
         document.querySelector('.mint-highlight')?.remove();
         document.getElementById('mint-ui')?.remove();
         document.body.classList.remove('mint-active');
-
-        document.querySelectorAll('.mint-target')
-            .forEach(el => el.classList.remove('mint-target'));
-
+        document.querySelectorAll('.mint-target').forEach(el => el.classList.remove('mint-target'));
         document.body.style.overflow = "";
     }
 
@@ -59,14 +51,9 @@
         const nextBtn = document.querySelector('.mint-next');
 
         if (!textoEl || !spriteEl || !ui || !highlight || !nextBtn) return;
-
         textoEl.innerHTML = step.texto || '';
 
-        if (
-            step.sprite &&
-            spriteMap[step.sprite] &&
-            spriteMap[step.sprite] !== "#"
-        ) {
+        if (step.sprite && spriteMap[step.sprite] && spriteMap[step.sprite] !== "#") {
             spriteEl.src = spriteMap[step.sprite];
             spriteEl.classList.add('active');
             spriteEl.style.display = "block";
@@ -74,10 +61,8 @@
             spriteEl.style.display = "none";
         }
 
+        document.querySelectorAll('.mint-target').forEach(el => el.classList.remove('mint-target'));
         nextBtn.style.display = "block";
-
-        document.querySelectorAll('.mint-target')
-            .forEach(el => el.classList.remove('mint-target'));
 
         if (!step.target) {
             highlight.style.display = "none";
@@ -85,136 +70,73 @@
             ui.style.left = "50%";
             ui.style.transform = "translate(-50%, -50%)";
             ui.style.display = "block";
-
             return;
         }
 
         const targetEl = getTargetEl(step.target);
-
         if (!targetEl) {
-            onStepComplete?.({ skipped: true });
+            onStepComplete?.();
             return;
         }
 
         targetEl.classList.add("mint-target");
-
-        highlight.style.display = "block";
-
-        targetEl.classList.add("mint-target");
-
         highlight.style.display = "block";
 
         requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
+            const rect = targetEl.getBoundingClientRect();
+            const padding = 8;
+            const viewportW = window.innerWidth;
+            const viewportH = window.innerHeight;
 
-                const rect = targetEl.getBoundingClientRect();
-                const padding = 8;
+            const safeLeft = Math.max(padding, rect.left);
+            const safeTop = Math.max(padding, rect.top);
+            const safeWidth = Math.max(20, Math.min(viewportW - padding, rect.right) - safeLeft);
+            const safeHeight = Math.max(20, Math.min(viewportH - padding, rect.bottom) - safeTop);
 
-                const viewportW = window.innerWidth;
-                const viewportH = window.innerHeight;
+            highlight.style.top = `${safeTop}px`;
+            highlight.style.left = `${safeLeft}px`;
+            highlight.style.width = `${safeWidth}px`;
+            highlight.style.height = `${safeHeight}px`;
 
-                const safeLeft = Math.max(padding, rect.left);
-                const safeTop = Math.max(padding, rect.top);
-                const safeRight = Math.min(viewportW - padding, rect.right);
-                const safeBottom = Math.min(viewportH - padding, rect.bottom);
+            try {
+                targetEl.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
+            } catch { /* Fallback para navegadores antigos */ }
 
-                const safeWidth = Math.max(20, safeRight - safeLeft);
-                const safeHeight = Math.max(20, safeBottom - safeTop);
+            ui.style.transform = "none";
+            ui.style.display = "block";
 
-                highlight.style.top = safeTop + "px";
-                highlight.style.left = safeLeft + "px";
-                highlight.style.width = safeWidth + "px";
-                highlight.style.height = safeHeight + "px";
+            const bubbleW = ui.offsetWidth || 260;
+            const bubbleH = ui.offsetHeight || 120;
 
-                try {
-                    targetEl.scrollIntoView({
-                        block: 'nearest',
-                        inline: 'nearest',
-                        behavior: 'instant'
-                    });
-                } catch { }
+            const safeLeftUI = Math.min(Math.max(padding, rect.left), viewportW - bubbleW - padding);
+            const safeTopUI = Math.min(Math.max(padding, rect.bottom + 15), viewportH - bubbleH - padding);
 
-                ui.style.transform = "none";
-                ui.style.display = "block";
-
-                const bubbleRect = ui.getBoundingClientRect();
-
-                const bubbleW =
-                    bubbleRect.width ||
-                    ui.offsetWidth ||
-                    260;
-
-                const bubbleH =
-                    bubbleRect.height ||
-                    ui.offsetHeight ||
-                    120;
-
-                const desiredLeft = rect.left;
-                const desiredTop = rect.bottom + 15;
-
-                const safeLeftUI = Math.min(
-                    Math.max(padding, desiredLeft),
-                    window.innerWidth - bubbleW - padding
-                );
-
-                const safeTopUI = Math.min(
-                    Math.max(padding, desiredTop),
-                    window.innerHeight - bubbleH - padding
-                );
-
-                ui.style.left = safeLeftUI + "px";
-                ui.style.top = safeTopUI + "px";
-
-            });
+            ui.style.left = `${safeLeftUI}px`;
+            ui.style.top = `${safeTopUI}px`;
         });
-        
+
         if (step.acao === "click") {
             nextBtn.style.display = "none";
 
             const handleTargetClick = (e) => {
-                const isLink =
-                    targetEl.tagName?.toLowerCase() === "a";
+                const isLink = targetEl.tagName?.toLowerCase() === "a";
+                if (isLink) e.preventDefault();
 
-                if (isLink) {
-                    e.preventDefault();
-                }
-
-                targetEl.removeEventListener(
-                    "click",
-                    handleTargetClick
-                );
-
-                onStepComplete?.({
-                    clicked: true,
-                    isLink
-                });
+                onStepComplete?.();
 
                 if (isLink) {
                     window.location.href = targetEl.href;
                 }
             };
 
-            targetEl.addEventListener(
-                "click",
-                handleTargetClick,
-                { once: true }
-            );
+            targetEl.addEventListener("click", handleTargetClick, { once: true });
         }
     }
 
     function finalizeMint({ userId }) {
         removeMintUI();
-
-        const mintCompletionKey =
-            getMintCompletionKey(userId);
-
-        localStorage.setItem(
-            mintCompletionKey,
-            "true"
-        );
-
+        localStorage.setItem(getMintCompletionKey(userId), "true");
         localStorage.removeItem("mint-step");
-
         sessionStorage.removeItem('user-first-login');
     }
 
@@ -223,112 +145,56 @@
         spriteMap,
         force = false,
         replay = false,
-        getTargetEl = (selector) =>
-            document.querySelector(selector),
+        getTargetEl = (selector) => document.querySelector(selector),
         replayButton
     }) {
         const userId = getCurrentUserId();
+        const mintCompletionKey = getMintCompletionKey(userId);
 
-        const mintCompletionKey =
-            getMintCompletionKey(userId);
-
-        const hasCompleted =
-            !force &&
-            localStorage.getItem(mintCompletionKey) === "true";
-
-        if (hasCompleted) return;
-
-        const hasSavedStep =
-            localStorage.getItem("mint-step") !== null;
-
-        if (!force && !hasSavedStep) return;
+        if (!force && localStorage.getItem(mintCompletionKey) === "true") return;
+        if (!force && localStorage.getItem("mint-step") === null) return;
 
         createMintUI();
-
         document.body.classList.add('mint-active');
         document.body.style.overflow = "hidden";
 
-        let stepIndex = 0;
+        let stepIndex = force ? 0 : (parseInt(localStorage.getItem("mint-step")) || 0);
 
-        const savedStep =
-            localStorage.getItem("mint-step");
-
-        if (savedStep !== null && !force) {
-            const parsed = parseInt(savedStep);
-
-            stepIndex =
-                Number.isFinite(parsed)
-                    ? parsed
-                    : 0;
-        }
-
-        if (force) {
-            stepIndex = 0;
-        }
-
-        const nextBtn =
-            document.querySelector('.mint-next');
-
-        if (nextBtn) {
-            nextBtn.onclick = null;
-
-            nextBtn.addEventListener('click', () => {
-                stepIndex++;
-
-                localStorage.setItem(
-                    "mint-step",
-                    stepIndex
-                );
-
-                if (stepIndex >= steps.length) {
-                    finalizeMint({ userId });
-                    return;
-                }
-
-                const step = steps[stepIndex];
-
-                setMintStepUI(step, {
-                    getTargetEl,
-                    spriteMap,
-                    onStepComplete: null
-                });
-            });
-        }
+        const nextBtn = document.querySelector('.mint-next');
 
         const renderCurrentStep = () => {
-            const step = steps[stepIndex];
+            if (stepIndex >= steps.length) {
+                finalizeMint({ userId });
+                return;
+            }
 
-            setMintStepUI(step, {
+            localStorage.setItem("mint-step", stepIndex);
+            const currentStep = steps[stepIndex];
+
+            setMintStepUI(currentStep, {
                 getTargetEl,
                 spriteMap,
-
                 onStepComplete: () => {
                     stepIndex++;
-
-                    localStorage.setItem(
-                        "mint-step",
-                        stepIndex
-                    );
-
-                    if (stepIndex >= steps.length) {
-                        finalizeMint({ userId });
-                        return;
-                    }
-
                     renderCurrentStep();
                 }
             });
         };
 
-        if (
-            replayButton &&
-            typeof replayButton === "function"
-        ) {
+        if (nextBtn) {
+            nextBtn.onclick = () => {
+                stepIndex++;
+                renderCurrentStep();
+            };
+        }
+
+        if (replayButton && typeof replayButton === "function") {
             replayButton();
         }
 
         renderCurrentStep();
     }
+
 
     window.MintEngine = {
         startMint: start
