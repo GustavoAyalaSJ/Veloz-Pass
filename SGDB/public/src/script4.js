@@ -34,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const containerCartao = document.getElementById('container-cartao');
     const containerPix = document.getElementById('container-pix');
 
-    const metodosComCartaoTexto = ['débito', 'crédito', 'internacional'];
-
     if (selectPagamento && containerCartao && containerPix) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
 
