@@ -996,6 +996,14 @@ select {
     transform: scale(1) translateY(0);
 }
 
+#notification-dropdown.dropdown-content {
+    display: none;
+}
+
+#notification-dropdown.dropdown-content.show {
+    display: block;
+}
+
 /* Media Queries */
 @media (min-width: 769px) and (max-width: 1024px) {
     .top-recarga {

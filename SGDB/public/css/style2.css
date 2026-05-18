@@ -67,6 +67,7 @@ body {
 .icon-button:hover {
     color: rgb(235, 235, 235);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .dropdown-content {
