@@ -76,22 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const botaoNotificacao = document.getElementById('notification-button');
-
-    let dropdownNotificacao = document.getElementById('notification-dropdown');
-    if (botaoNotificacao && !dropdownNotificacao) {
-        dropdownNotificacao = document.createElement('div');
-        dropdownNotificacao.id = 'notification-dropdown';
-        dropdownNotificacao.className = 'dropdown-content';
-
-        dropdownNotificacao.innerHTML = `
-            <section class="lista-avisos">
-                Você não possui nenhuma notificação no momento.
-            </section>
-        `;
-
-        const headerActions = botaoNotificacao.closest('.user-actions') || botaoNotificacao.parentElement;
-        headerActions.appendChild(dropdownNotificacao);
-    }
+    const dropdownNotificacao = document.getElementById('notification-dropdown');
 
     if (botaoNotificacao && dropdownNotificacao) {
         botaoNotificacao.addEventListener('click', (e) => {
