@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnReplay.addEventListener('click', () => {
         const steps = [
             {
-                texto: "Olá, seja bem-vindo ao Veloz Pass. Eu me chamo MINT, seu assistente de ajuda no site",
+                texto: "Olá, seja bem-vindo ao Veloz Pass. Eu me chamo MINT, seu assistente do site",
                 sprite: "greeting",
                 acao: "next"
             },
