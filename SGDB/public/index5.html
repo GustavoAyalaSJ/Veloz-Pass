@@ -21,36 +21,36 @@
                 </div>
             </a>
             <div class="header-actions">
-                    <a href="/carteira_digital" class="header-link">
-                        <i class="bi bi-credit-card"></i>
-                        <span>Carteira Digital</span>
-                    </a>
+                <a href="/carteira_digital" class="header-link">
+                    <i class="bi bi-credit-card"></i>
+                    <span>Carteira Digital</span>
+                </a>
 
-                    <button id="change-button" class="icon-button">
-                        <i class="bi bi-brightness-high-fill"></i>
+                <button id="change-button" class="icon-button">
+                    <i class="bi bi-brightness-high-fill"></i>
+                </button>
+
+                <div class="notification-container">
+                    <button id="notification-button" class="icon-button">
+                        <i class="bi bi-bell"></i>
                     </button>
 
-                    <div class="notification-container">
-                        <button id="notification-button" class="icon-button">
-                            <i class="bi bi-bell"></i>
-                        </button>
+                    <div id="notification-dropdown" class="dropdown-content">
+                        <label class="notificationLabel">Notificações</label>
 
-                        <div id="notification-dropdown" class="dropdown-content">
-                            <label class="notificationLabel">Notificações</label>
+                        <section class="notificationWarning">
+                            Você não possui nenhuma notificação no momento.
+                        </section>
 
-                            <section class="notificationWarning">
-                                Você não possui nenhuma notificação no momento.
-                            </section>
-
-                            <div class="notificationFooter">
-                                <p>Aviso: As notificações apagarão sozinhas no prazo de 30 dias.</p>
-                            </div>
+                        <div class="notificationFooter">
+                            <p>Aviso: As notificações apagarão sozinhas no prazo de 30 dias.</p>
                         </div>
                     </div>
+                </div>
 
-                    <a class="icon-button exit-link">
-                        <i class="bi bi-box-arrow-left"></i>
-                    </a>
+                <a class="icon-button exit-link">
+                    <i class="bi bi-box-arrow-left"></i>
+                </a>
             </div>
         </header>
 
@@ -119,10 +119,18 @@
                             próximas seções.
                         </p>
                     </section>
+
+                    <section class="info-box hidden">
+                        <i class="bi bi-info-circle"></i>
+                        <p>
+                            Caro usuário, ao selecionar Carteira Digital, basta apenas colocar o valor e o número do cartão e aguardar
+                            pela resposta de sua recarga no nosso sistema.
+                        </p>
+                    </section>
                 </div>
 
                 <div class="action-area">
-                    <button class="btn-prosseguir">PROSSEGUIR</button>
+                    <button id="btn-prosseguir" class="btn-prosseguir">PROSSEGUIR</button>
                 </div>
             </div>
 
