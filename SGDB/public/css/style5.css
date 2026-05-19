@@ -36,12 +36,6 @@ body {
     text-decoration: none;
 }
 
-.user-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
 .header-actions {
     display: flex;
     align-items: center;
@@ -104,7 +98,7 @@ body {
     border-radius: 14px;
     padding: 10px;
     box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.12);
-    display: none;  
+    display: none;
     z-index: 10000;
 }
 
@@ -1186,12 +1180,13 @@ select {
         height: 35px;
     }
 
-    .user-actions{
-        margin-left: -2px;
+    .header-actions {
+        margin-left: 2px;
     }
 
     .header-link {
-       padding-right: 10px;
+        padding-left: 0px;
+        padding-right: 15px;
     }
 
     span {
@@ -1200,6 +1195,16 @@ select {
 
     .bi-credit-card {
         padding-left: 14px;
+    }
+
+    .icon-button {
+        margin-left: -8px;
+    }
+
+    .dropdown-content {
+        margin-top: 10px;
+        min-width: 270px;
+        left: -210px;
     }
 
     .main-content {
