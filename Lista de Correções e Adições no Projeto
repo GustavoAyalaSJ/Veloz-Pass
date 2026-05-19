@@ -1,16 +1,12 @@
 O que precisa ser arrumado no projeto:
 
 index4.hml:
-- Modificar os processos para serem em_revisão (no default), porém, o JS tem como objetivo definir se o processo será atualizado para 'Concluído' ou 'Recusado'.
+- Modificar os processos de em_revisão (para default), e o JS tem como objetivo definir se o processo será atualizado para 'Concluído' ou 'Recusado' (isso dará funcionalidade para as notificações).
 
 index6.html:
-- Colocar as imagens no carrousel.
+- Colocar as últimas imagens no carrousel.
 
-Nota:
-- Ajustar CSS em algumas páginas;
-- Desenhar os últimos sprites do MINT.
-
-Planos futuros:
-- Fazer o modal de atualizar senha funcional;
-- Adicionar uma tabela que registra apenas um cartão de passagem por usuário (Uniquecard) e coloque o número do cartão automáticamente;
-- Ampliar o suporte.
+Nota (Planos futuros):
+- Fazer o modal de atualizar senha ser totalmente funcional;
+- Adicionar uma tabela que registra apenas um cartão de passagem por usuário (Uniquecard) e coloque o número do cartão automaticamente;
+- Ampliar o suporte para ser totalmente funcional também.

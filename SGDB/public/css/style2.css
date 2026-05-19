@@ -37,7 +37,7 @@ body {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
 }
 
 .termos {
@@ -48,12 +48,6 @@ body {
     color: rgb(235, 235, 235);
     cursor: pointer;
     font-size: 0.9rem;
-}
-
-.user-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
 }
 
 .icon-button {
@@ -89,7 +83,7 @@ body {
     border-radius: 14px;
     padding: 10px;
     box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.12);
-    display: none;  
+    display: none;
     z-index: 10000;
 }
 
@@ -586,17 +580,18 @@ span {
         grid-template-columns: 1fr;
         width: 90%;
         margin-bottom: 10px;
+        margin-top: 0;
         padding: 35px;
     }
 
     .mint-replay {
         position: relative !important;
-        top: 0;
-        left: 280px;
-        margin: 20px auto 20px 250px !important;
+        top: 10px;
+        left: 65px;
+        margin: 20px auto 20px 250px;
         width: auto;
         min-width: 120px;
-        height: auto !important;
+        height: auto;
         padding: 12px 24px !important;
         display: inline-block !important;
         box-sizing: border-box;
@@ -605,7 +600,11 @@ span {
     .rodapé {
         margin-top: 0;
         padding-top: 10px;
-        padding-bottom: 50px;
+        padding-bottom: 30px;
+    }
+
+    .rodapé p{
+        margin-left: 50px;
     }
 }
 
@@ -631,8 +630,10 @@ span {
         text-align: center;
     }
 
-    .header-actions {
-        margin-left: 40px;
+    .dropdown-content {
+        margin-top: 10px;
+        min-width: 270px;
+        left: -190px;
     }
 
     .welcome-text {
@@ -654,16 +655,21 @@ span {
     }
 
     .mint-replay {
-        position: static !important;
-        display: block !important;
+        position: static;
+        display: block;
         margin: 10px auto;
         width: fit-content;
         bottom: unset;
         right: unset;
-        left: unset;
+        left: -140px;
     }
 
-    .rodapé p{
+    .politicas-overlay {
+        padding-right: 30px;
+        padding-left: 20px;
+    }
+
+    .rodapé p {
         margin-top: 10px;
     }
 }

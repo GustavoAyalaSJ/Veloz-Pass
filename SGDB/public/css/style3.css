@@ -42,12 +42,6 @@ body {
     gap: 18px;
 }
 
-.user-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
 .icon-button {
     background: none;
     border: none;
@@ -81,7 +75,7 @@ body {
     border-radius: 14px;
     padding: 10px;
     box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.12);
-    display: none;  
+    display: none;
     z-index: 10000;
 }
 
@@ -407,12 +401,19 @@ span {
 #notification-dropdown.dropdown-content {
     display: none;
 }
+
 #notification-dropdown.dropdown-content.show {
     display: block;
 }
 
 /* Media Queries */
 @media (max-width: 480px) and (orientation: portrait) {
+    .dropdown-content {
+        margin-top: 10px;
+        min-width: 270px;
+        left: -190px;
+    }
+
     .filtros-container {
         display: flex;
         flex-direction: column;
@@ -438,7 +439,7 @@ span {
 
     .select-icon {
         position: absolute;
-        top: 38px;
+        top: 35px;
         right: 15px;
     }
 }
