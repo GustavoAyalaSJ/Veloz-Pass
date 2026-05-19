@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const steps = [
         {
             texto: "Bem-vindo ao Histórico! Vou te mostrar como utilizar os filtros para visualizar os processos.",
-            sprite: "introduction",
+            sprite: "greeting",
             acao: "next",
         },
         {
