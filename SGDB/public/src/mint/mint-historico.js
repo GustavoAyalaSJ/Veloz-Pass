@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target: ".tabela-corpoInfo"
         },
         {
-            texto: "É isto sobre a página Histórico, bem simples e espero que te ajude..",
+            texto: "É isto sobre a página Histórico, bem simples e espero que te ajude.",
             sprite: "happy",
             acao: "next",
         }
