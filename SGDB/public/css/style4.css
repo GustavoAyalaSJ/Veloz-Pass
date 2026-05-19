@@ -497,6 +497,10 @@ span {
 }
 
 /* Modal */
+.hidden {
+    display: none !important;
+}
+
 .modal-wrapper {
     position: fixed;
     top: 0;
