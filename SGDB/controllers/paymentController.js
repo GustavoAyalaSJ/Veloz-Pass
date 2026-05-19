@@ -1,5 +1,7 @@
 const { supabase } = require('../config/supabase');
 
+const notificationsController = require('./notificationsController');
+
 const METODOS_PERMITIDOS = [
     'DEBITO', 'DÉBITO',
     'CREDITO', 'CRÉDITO',
@@ -77,7 +79,6 @@ exports.getHistoricoGeral = async (req, res) => {
             .from('movimentacao')
             .select('*, bandeira_banco(nome_bandeira)')
             .eq('id_carteira', carteira.id_carteira)
-            .neq('situacao', 'Em_Revisão')
             .order('id_move', { ascending: false });
 
         res.json({ historico: historico || [] });
@@ -121,7 +122,7 @@ exports.processCredit = async (req, res) => {
     }
 
     try {
-        const protocolo = 'VP' + Date.now();
+        const protocol = 'VP' + Date.now();
 
         const { data: rpcResult, error: rpcError } = await supabase.rpc('rpc_adicionar_credito', {
             p_id_usuario: idUsuario,
@@ -129,7 +130,7 @@ exports.processCredit = async (req, res) => {
             p_metodo_pagamento: metodoParaOBanco,
             p_tipo_movimentacao: 'Carteira_Digital',
             p_id_bandeira: idBandeira || null,
-            p_n_protocolo: protocolo
+            p_n_protocolo: protocol
         });
 
         if (rpcError) {
@@ -148,12 +149,16 @@ exports.processCredit = async (req, res) => {
             });
         }
 
+        if (rpcResult.situacao === 'Concluído' || rpcResult.situacao === 'Recusada') {
+            await notificationsController.registrarNotificacaoAgora(idUsuario, rpcResult.protocolo, rpcResult.situacao);
+        }
+
         res.status(200).json({
             success: true,
             situacao: rpcResult.situacao,
             protocolo: rpcResult.protocolo,
             valor: valorNum,
-            novo_saldo: rpcResult.novo_saldo
+            message: rpcResult.mensagem || "Processamento iniciado."
         });
 
     } catch (err) {
@@ -162,7 +167,7 @@ exports.processCredit = async (req, res) => {
 };
 
 exports.processRecargaTransporte = async (req, res) => {
-    const { valor: valorRaw, metodo, numCartaoTransporte, idBandeira, situacao, tipo } = req.body;
+    const { valor: valorRaw, metodo, numCartaoTransporte, idBandeira } = req.body;
     const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
 
@@ -220,6 +225,8 @@ exports.processRecargaTransporte = async (req, res) => {
                 });
             }
 
+            await notificationsController.registrarNotificacaoAgora(idUsuario, protocolo, 'Concluído');
+
             return res.status(200).json({
                 success: true,
                 protocolo,
@@ -243,16 +250,14 @@ exports.processRecargaTransporte = async (req, res) => {
 
         const idCarteira = carteira.id_carteira;
 
-        const situacaoValida = situacao === 'Em_Revisão' ? 'Em_Revisão' : 'Concluído';
-
         const { error: insertError } = await supabase
             .from('movimentacao')
             .insert({
                 id_carteira: idCarteira,
                 valor: valorNum,
                 metodo_pagamento: mapaBancoRecarga[metodoFormatado],
-                tipo_movimentacao: 'Recarga',
-                situacao: situacaoValida,
+                tipo_movimentacao: 'Recarga', 
+                situacao: 'Concluído', 
                 n_protocolo: protocolo,
                 id_bandeira: idBandeira ? parseInt(idBandeira) : null
             });
@@ -262,13 +267,15 @@ exports.processRecargaTransporte = async (req, res) => {
             return res.status(400).json({ error: 'Erro ao registrar recarga.' });
         }
 
+        await notificationsController.registrarNotificacaoAgora(idUsuario, protocolo, 'Concluído');
+
         return res.status(200).json({
             success: true,
             protocolo,
             valor: valorNum,
             nCartaoTransporte: numCartaoTransporte,
-            situacao: situacaoValida,
-            message: 'Recarga registrada com sucesso! Aguarde processamento.'
+            situacao: 'Concluído',
+            message: 'Recarga realizada com sucesso!'
         });
 
     } catch (err) {

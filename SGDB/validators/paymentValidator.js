@@ -8,7 +8,7 @@ const criarTransferSchema = Joi.object({
         .required()
         .messages({
             'number.min': 'Valor mínimo R$5',
-            'number.max': 'Valor máximo R$5000 (R$5-250: auto-aprovado, R$251-500: revisão, acima: rejeitado pelo banco)',
+            'number.max': 'Valor máximo R$5000 (R$5-350: aprovação em 2 min, R$351-750: revisão manual, acima de R$751: recusado)',
             'number.base': 'Valor deve ser numérico positivo'
         }),
 
@@ -34,8 +34,7 @@ const criarTransferSchema = Joi.object({
         }),
 
     idBandeira: Joi.number().integer().optional().allow(null),
-    origem: Joi.string().optional(),
-    situacao: Joi.string().optional()
+    origem: Joi.string().optional()
 });
 
 const recargaTransporteSchema = Joi.object({
@@ -58,8 +57,7 @@ const recargaTransporteSchema = Joi.object({
         .pattern(/^\d{2}\.\d{2}\.\d{8}-\d{1}$/)
         .required(),
 
-    idBandeira: Joi.number().integer().optional().allow(null),
-    situacao: Joi.string().optional()
+    idBandeira: Joi.number().integer().optional().allow(null)
 });
 
 const registerCardSchema = Joi.object({

@@ -132,6 +132,20 @@ body {
     text-align: center;
 }
 
+.notification-list {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 2px;
+}
+
+.notification-item {
+    display: inline-flex;
+    flex: 0 0 auto;
+    min-width: 280px;
+    max-width: 320px;
+    border-radius: 12px;
+}
+
 /* Modo Escuro */
 body,
 header,
@@ -1023,6 +1037,17 @@ select {
 
 #notification-dropdown.dropdown-content.show {
     display: block;
+}
+
+#notification-dropdown .notification-list {
+    overflow-x: visible;
+    overflow-y: hidden;
+}
+
+#notification-dropdown .notification-list.enable-overflow-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
 
 /* Media Queries */
