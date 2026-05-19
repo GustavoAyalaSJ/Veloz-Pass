@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (valorRaw > 5000) return alert("Valor incábivel para recarga! Tente colocar um valor menor.");
 
             if (!n1 || n1.length < 15) return alert("Informe o número completo do cartão de transporte.");
-            if (n1 !== n2) return alert("A confirmação do número do cartão de transporte não confere.");
+            if (n1 !== n2) return alert("A confirmação do número do cartão de transporte não estão iguais.");
 
             if (['CREDITO', 'DEBITO', 'INTERNACIONAL'].includes(metodo)) {
                 const cardNum = document.getElementById('card-num')?.value.replace(/\s/g, '') || "";
