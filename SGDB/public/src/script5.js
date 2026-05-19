@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function obtenerDadosFormulario(valorStr) {
+    function obterDadosFormulario(valorStr) {
         const selectOptions = selectElement.options;
         const metodoTexto = selectOptions[selectElement.selectedIndex].text.split('(')[0].trim();
         const valorInserido = valorStr || inputValor.value;
