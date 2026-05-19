@@ -395,7 +395,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function abrirModalFinalizacao(valorStr) {
         const modal = document.getElementById('modalRecarga');
-        if (!modal) return;
+        if (!modal) {
+            alert('Erro ao gerar o modal de finalizar recarga.');
+            return;
+        }
 
         const dadosForm = obterDadosFormulario(valorStr);
         preencherDadosModal(dadosForm);
@@ -408,6 +411,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         modal.classList.add('active');
+        modal.style.display = 'block';
+        modal.style.opacity = '1';
+        modal.style.visibility = 'visible';
+        modal.style.pointerEvents = 'auto';
+
         configurarEventosModal();
     }
 
