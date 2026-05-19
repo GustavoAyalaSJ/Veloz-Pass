@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
             target: "#modal-pagamento .modal-box"
         },
         {
-            texto: "Entretando sendo uma introdução, clique em cancelar.",
+            texto: "Entretanto sendo uma introdução, clique em cancelar.",
             sprite: "pointing-down",
             acao: "next",
             target: ".btn-cancelar"
         },
         {
             texto: "Após cada transação na Carteira Digital, você poderá visualiza-las na tabela abaixo.",
-            sprite: "pointing-down",
+            sprite: "pointing-right",
             acao: "next",
             target: ".histórico-valores"
         },
