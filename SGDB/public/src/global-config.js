@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 (() => {
     let modalProcesso = null;
-    let temporizadorFechamentoAuto = null;
+    let intervaloRelogio = null;
 
     function createProcessModal() {
         if (modalProcesso) return;
@@ -130,56 +130,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeModalProcesso() {
-        if (temporizadorFechamentoAuto) {
-            clearTimeout(temporizadorFechamentoAuto);
-            temporizadorFechamentoAuto = null;
+        if (intervaloRelogio) {
+            clearInterval(intervaloRelogio);
+            intervaloRelogio = null;
         }
         modalProcesso?.classList.remove('active');
     }
 
     window.showProcessModal = function (status, tipoPagina, acaoAoConfirmar) {
         createProcessModal();
-        closeModalProcesso();
+        closeModalProcesso(); 
 
         const elementoTitulo = document.getElementById('process-modal-title');
         const elementoCorpo = document.getElementById('process-modal-body');
         const elementoMensagem = document.getElementById('process-modal-message');
         const botaoOk = document.getElementById('process-modal-ok');
 
-        const mapaStatus = {
-            'success': 'success', 'concluido': 'success', 'concluído': 'success',
-            'under-review': 'under-review', 'em_revisao': 'under-review', 'em_revisão': 'under-review',
-            'rejected': 'rejected', 'recusada': 'rejected'
-        };
+        const statusNormalizado = ['success', 'concluido', 'concluído', 'under-review', 'em_revisao', 'em_revisão']
+            .includes((status || '').toLowerCase().trim()) ? 'under-review' : 'rejected';
 
-        const statusNormalizado = mapaStatus[(status || '').toLowerCase().trim()] || 'rejected';
+        if (statusNormalizado === 'under-review') {
+            elementoTitulo.textContent = 'Processo em Revisão';
+            
+            elementoCorpo.innerHTML = `
+                <div class="timer-container" style="text-align: center; margin: 15px 0;">
+                    <i class="bi bi-clock-history" style="font-size: 3rem; color: #f39c12;"></i>
+                    <div id="countdown-clock" style="font-size: 1.8rem; font-weight: bold; margin-top: 10px; color: #333;">02:00</div>
+                </div>
+            `;
 
-        const titulos = {
-            'success': 'Resultado: Sucesso',
-            'under-review': 'Resultado: Em Revisão',
-            'rejected': 'Resultado: Recusado'
-        };
+            elementoMensagem.textContent = 'Aguarde uma resposta do nosso sistema, pode levar alguns minutos.';
 
-        const icones = {
-            'success': '<i class="bi bi-check-circle icon-success"></i>',
-            'under-review': '<i class="bi bi-question-circle icon-review"></i>',
-            'rejected': '<i class="bi bi-x-circle icon-rejected"></i>'
-        };
+            let tempoRestante = 120;
+            
+            intervaloRelogio = setInterval(() => {
+                tempoRestante--;
+                
+                const minutos = Math.floor(tempoRestante / 60).toString().padStart(2, '0');
+                const segundos = (tempoRestante % 60).toString().padStart(2, '0');
+                
+                const relogioDisplay = document.getElementById('countdown-clock');
+                if (relogioDisplay) {
+                    relogioDisplay.textContent = `${minutos}:${segundos}`;
+                }
 
-        const mensagens = {
-            'success': {
-                'carteira': 'Crédito inserido na carteira com sucesso. Aguarde alguns segundos para atualizar o valor da sua carteira.',
-                'recarga': 'Recarga realizada com sucesso. Aguarde algumas horas para o saldo ser creditado em seu cartão de transporte.'
-            },
-            'under-review': 'Processo em revisão! Aguarde uma resposta do nosso sistema, pode levar alguns minutos.',
-            'rejected': 'Processo recusado pelo provedor ou falha no sistema. Em caso de dúvidas, contate o suporte.'
-        };
+                if (tempoRestante <= 0) {
+                    closeModalProcesso();
+                    if (typeof acaoAoConfirmar === 'function') acaoAoConfirmar();
+                }
+            }, 1000);
 
-        elementoTitulo.textContent = titulos[statusNormalizado];
-        elementoCorpo.innerHTML = icones[statusNormalizado];
-        elementoMensagem.textContent = statusNormalizado === 'success' && tipoPagina
-            ? (mensagens.success[tipoPagina] || mensagens.success['carteira'])
-            : mensagens[statusNormalizado];
+        } else {
+            elementoTitulo.textContent = 'Resultado: Recusado';
+            elementoCorpo.innerHTML = '<i class="bi bi-x-circle" style="font-size: 3rem; color: #e74c3c;"></i>';
+            elementoMensagem.textContent = 'Processo recusado pelo provedor ou falha no sistema. Em caso de dúvidas, contate o suporte.';
+        }
 
         botaoOk.onclick = () => {
             closeModalProcesso();
@@ -187,10 +192,5 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         modalProcesso.classList.add('active');
-
-        temporizadorFechamentoAuto = setTimeout(() => {
-            closeModalProcesso();
-            if (typeof acaoAoConfirmar === 'function') acaoAoConfirmar();
-        }, 2500);
     };
 })();

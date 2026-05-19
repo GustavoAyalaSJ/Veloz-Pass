@@ -1,8 +1,5 @@
 O que precisa ser arrumado no projeto:
 
-index4.hml:
-- Modificar os processos de em_revisão (para default), e o JS tem como objetivo definir se o processo será atualizado para 'Concluído' ou 'Recusado' (isso dará funcionalidade para as notificações).
-
 index6.html:
 - Colocar as últimas imagens no carrousel.
 

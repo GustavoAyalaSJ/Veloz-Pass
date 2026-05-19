@@ -10,6 +10,7 @@ require('dotenv').config();
 const { supabase } = require('./config/supabase.js');
 const authRoutes = require('./routes/auth');
 const paymentRoutes = require('./routes/payment');
+const notificationRoutes = require('./routes/notifications');
 
 const app = express();
 
@@ -92,6 +93,8 @@ app.use('/api/payments', (req, res, next) => {
     }
     next();
 }, paymentRoutes);
+
+app.use('/api', notificationRoutes);
 app.use('/Assets', express.static(path.join(__dirname, 'public', 'Assets')));
 
 app.get('/health', (req, res) => {

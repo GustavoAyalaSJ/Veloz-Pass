@@ -214,19 +214,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function alternarVisibilidadeComponentes(metodo) {
-        const blocoPix = document.querySelector('.pix-container');
-        const blocoCartao = document.querySelector('.card-inputs-row');
-
         if (metodo.includes('pix')) {
             containerPagamento.innerHTML = obterHtmlPix();
             btnProsseguir.style.display = 'none';
-
             configurarCopiaPix();
         }
-        else if (['cartão', 'credito', 'debito', 'internacional'].some(tipo => metodo.includes(tipo))) {
+        else if (['cartao', 'credito', 'debito', 'internacional'].some(tipo => metodo.includes(tipo))) {
             btnProsseguir.style.display = 'block';
             containerPagamento.innerHTML = obterHtmlCartao();
-
             inicializarComportamentosCartao();
         }
         else {
@@ -286,12 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderizarPasso2() {
         const metodo = selectElement.value.toLowerCase();
-
         gerenciarAvisoBandeira(metodo);
         alternarVisibilidadeComponentes(metodo);
     }
 
-    async function finalizarRecarga(valorStr, situacao, metodo, numCartaoTransp, modal) {
+    async function finalizarRecarga(valorStr, metodo, numCartaoTransp, modal) {
         const btn = document.getElementById('btn-finalizar-fake');
 
         btn.disabled = true;
@@ -304,8 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 valor: valorNum,
                 metodo: metodo.trim().toUpperCase().replace(/\s/g, '_'),
                 numCartaoTransporte: numCartaoTransp,
-                idBandeira: idBandeiraSelecionada,
-                situacao: situacao
+                idBandeira: idBandeiraSelecionada
             };
 
             const response = await auth.request('/api/payments/recarga-transporte', {
@@ -322,11 +315,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.textContent = 'Sucesso!';
 
                 let modalStatus;
-                if (situacao === 'Concluído') {
+                const situacaoNormalizada = data.situacao?.normalize("NFD").replace(/[\u0300-\u036f]/g, "") || "";
+                
+                if (situacaoNormalizada.includes('Concluido')) {
                     modalStatus = 'success';
-                } else if (situacao === 'Em_Revisão') {
+                } else if (situacaoNormalizada.includes('Em_Revisao')) {
                     modalStatus = 'under-review';
-                } else if (situacao === 'Recusada') {
+                } else {
                     modalStatus = 'rejected';
                 }
 
@@ -348,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function obterDadosFormulario(valorStr) {
+    function obtenerDadosFormulario(valorStr) {
         const selectOptions = selectElement.options;
         const metodoTexto = selectOptions[selectElement.selectedIndex].text.split('(')[0].trim();
         const valorInserido = valorStr || inputValor.value;
@@ -390,7 +385,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const modalContexto = btnFinalizar.dataset;
                 finalizarRecarga(
                     modalContexto.valor,
-                    modalContexto.situacao,
                     modalContexto.metodo,
                     modalContexto.cartao,
                     modal
@@ -399,23 +393,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function abrirModalFinalizacao(valorStr, situacao) {
+    function abrirModalFinalizacao(valorStr) {
         const modal = document.getElementById('modalRecarga');
         if (!modal) return;
 
         const dadosForm = obterDadosFormulario(valorStr);
-
         preencherDadosModal(dadosForm);
 
         const btnFinalizar = document.getElementById('btn-finalizar-fake');
         if (btnFinalizar) {
             btnFinalizar.dataset.valor = dadosForm.valorInserido;
-            btnFinalizar.dataset.situacao = situacao;
             btnFinalizar.dataset.metodo = dadosForm.metodo;
             btnFinalizar.dataset.cartao = dadosForm.numTransp;
         }
 
         modal.classList.add('active');
+        configurarEventosModal();
     }
 
     if (inputValor) {
@@ -444,7 +437,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (valorRaw <= 0) return alert("Por favor, informe o valor da recarga.");
             if (valorRaw < 5) return alert("Valor mínimo: R$ 5,00");
-            if (valorRaw > 650) return alert("Valor muito alto, coloque um valor mais baixo.");
+            
+            if (valorRaw > 5000) return alert("Valor incábivel para recarga! Tente colocar um valor menor.");
 
             if (!n1 || n1.length < 15) return alert("Informe o número completo do cartão de transporte.");
             if (n1 !== n2) return alert("A confirmação do número do cartão de transporte não confere.");
@@ -457,14 +451,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cardNum.length < 13) return alert("Número do cartão de pagamento incompleto.");
 
                 if (!validarDataCartao(cardValid)) {
-                    return alert("Data de validade inválida ou expirada (Mínimo: 2026).");
+                    return alert("Data de validade inválida ou expirada.");
                 }
 
                 if (cardCvv.length < 3) return alert("CVV incompleto.");
             }
 
-            const situacao = valorRaw <= 300 ? 'Concluído' : 'Em_Revisão';
-            abrirModalFinalizacao(inputValor.value, situacao);
+            abrirModalFinalizacao(inputValor.value);
         });
     }
 
@@ -492,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!btnCopiar) return;
 
         btnCopiar.addEventListener('click', () => {
-            const textoParaCopiar = btnCopiar.dataset.chave;
+            const textoParaCopiar = btnCopiar.dataset.chave || "placeholder@test02";
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textoParaCopiar)

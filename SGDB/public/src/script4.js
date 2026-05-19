@@ -185,11 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let modalStatus = null;
             const situacaoNormalizada = result.situacao?.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            if (situacaoNormalizada?.includes('Concluido') || result.success) {
+
+            if (situacaoNormalizada?.includes('Concluido')) {
                 modalStatus = 'success';
-            } else if (situacaoNormalizada?.includes('Em_Revisão')) {
+            } else if (situacaoNormalizada?.includes('Em_Revisao')) {
                 modalStatus = 'under-review';
-            } else if (situacaoNormalizada?.includes('Recusada')) {
+            } else if (situacaoNormalizada?.includes('Recusada') || !result.success) {
                 modalStatus = 'rejected';
             } else {
                 showProcessModal('rejected', 'carteira');
@@ -215,7 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!metodoRaw) return alert('Selecione um método de pagamento.');
 
             if (valorParaInserir <= 0) return alert('Por favor, informe um valor para inserir.');
-            if (valorParaInserir > 650) return alert('Valor muito alto, coloque um valor mais baixo.');
+
+            if (valorParaInserir > 5000) return alert('Valor incábivel para recarga! Tente colocar um valor menor.');
 
             if (metodosComCartaoTexto.includes(metodoRaw.toLowerCase())) {
                 const numCartaoInput = document.getElementById('num-cartao')?.value || "";
