@@ -22,12 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 acao: "next"
             },
             {
-                texto: "Meu obejtivo é introduzir a interface de cada página, caso não esteja familiarizado.",
+                texto: "Meu objetivo é introduzir a interface de cada página, caso não esteja familiarizado.",
+                sprite: "introduction",
+                acao: "next"
+            },
+            {
+                texto: "Vamos começar.",
                 sprite: "thinking",
                 acao: "next"
             },
             {
-                texto: "Começando pelo Dashboard, aqui você tem acesso as principais páginas do site.",
+                texto: "Conheça o Dashboard, aqui você tem acesso as principais páginas do site.",
                 sprite: "introduction",
                 acao: "next",
                 target: ".card-container"
@@ -51,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 target: ".card-historico"
             },
             {
-                texto: "Além de obter atualizações sobre o valor da passagem do transporte coletivo.",
+                texto: "Além disso, você poderá obter atualizações sobre o valor da passagem do transporte coletivo.",
                 sprite: "pointing-up",
                 acao: "next",
                 target: ".card-info"
