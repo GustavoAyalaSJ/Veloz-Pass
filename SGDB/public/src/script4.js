@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.filtro-item').forEach(item => {
         item.addEventListener('click', (e) => {
             e.stopPropagation();
-            const select = item.querySelector('.filtro-select');
+            const select = item.querySelector('.filtro-select') || item.querySelector('select');
             const icon = item.querySelector('.select-icon');
             if (select && icon) {
                 toggleElement(item, item, 'active', 'active', icon);
