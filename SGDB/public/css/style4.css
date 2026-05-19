@@ -36,12 +36,6 @@ body {
     gap: 18px;
 }
 
-.user-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
 .header-link {
     text-decoration: none;
     color: white;
@@ -99,7 +93,7 @@ body {
     border-radius: 14px;
     padding: 10px;
     box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.12);
-    display: none;  
+    display: none;
     z-index: 10000;
 }
 
@@ -909,6 +903,7 @@ td.table-bold {
 #notification-dropdown.dropdown-content {
     display: none;
 }
+
 #notification-dropdown.dropdown-content.show {
     display: block;
 }
@@ -921,13 +916,34 @@ td.table-bold {
     }
 
     .logotipo img {
-        height: 35px;
+        height: 40px;
+        margin-left: -15px;
+    }
+
+    .header-link {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+    .header-actions{
+        gap: 23px;
+    }
+
+    .dropdown-content {
+        margin-top: 10px;
+        min-width: 270px;
+        left: -210px;
+    }
+
+    .icon-button {
+        margin-left: -10px;
     }
 
     .titulo-pagina-externo {
         padding-right: 1px;
         font-size: 1.55rem;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        margin-top: -10px;
     }
 
     .header-carteira-top {
@@ -982,18 +998,29 @@ td.table-bold {
         font-size: 0.82rem;
     }
 
+    .filtro-item .select-icon {
+        top: 45px;
+    }
+
     .filtro-select {
-        padding: 10px 10px 10px 10px;
+        padding-left: 11px;
+        padding-top: 11px;
+        padding-bottom: 10px;
+        padding-right: 11px;
         min-width: 0;
         font-size: 0.85rem;
     }
 
     .select-icon {
         margin-top: 7px;
-        top: 44px;
         padding-right: 15px;
         right: 10px;
         font-size: 0.95rem;
+    }
+
+    .histórico-valores {
+        margin-top: -10px;
+        padding-bottom: 20px;
     }
 }
 
@@ -1002,17 +1029,12 @@ td.table-bold {
         padding: 10px 15px;
     }
 
-    .header-link span {
-        display: none;
-    }
-
     .header-link {
-        padding: 8px;
-        background: none;
+        padding: 10px;
     }
 
     .logotipo img {
-        height: 30px;
+        height: 40px;
     }
 
     .header-actions {
@@ -1055,7 +1077,7 @@ td.table-bold {
         margin-bottom: 15px;
     }
 
-    .historico-valores {
+    .histórico-valores {
         margin-top: -10px;
     }
 
@@ -1102,7 +1124,7 @@ td.table-bold {
         margin-top: 4px;
     }
 
-    .historico-valores {
+    .histórico-valores {
         margin-top: -11px;
     }
 
