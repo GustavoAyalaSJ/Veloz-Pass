@@ -675,7 +675,7 @@ select {
 }
 
 .warning-box {
-    background-color: #b5965a;
+    background-color: #a18754;
     border: 2px solid #9a7f49;
     grid-area: warning;
     border-radius: 15px;
@@ -693,7 +693,7 @@ select {
 }
 
 .info-box {
-    background-color: #6b94ab;
+    background-color: #587688;
     border: 2px solid #2a3860;
     grid-area: warning;
     border-radius: 15px;
@@ -713,13 +713,13 @@ select {
 .warning-box i,
 .info-box i {
     font-size: 2.5rem;
-    color: #676767;
+    color: #dcdcdc;
     flex-shrink: 0;
 }
 
 .warning-box p,
 .info-box p {
-    color: #575757;
+    color: #dcdcdc;
     font-size: 0.95rem;
     font-weight: 500;
     line-height: 1.4;
