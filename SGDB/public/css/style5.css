@@ -278,6 +278,21 @@ button {
     color: #ffffff;
 }
 
+.dark-mode .info-box {
+    background-color: #5476a576;
+    border: 1px solid #403a5c;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode .info-box i {
+    color: #8a8cb4;
+}
+
+.dark-mode .info-box p {
+    font-weight: 550;
+    color: #ffffff;
+}
+
 .dark-mode .btn-prosseguir {
     background-color: #4e7f5c;
     border: 4px solid rgb(44, 68, 44);
@@ -431,6 +446,11 @@ button {
     min-width: 200px;
 }
 
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
 .confirm-card .input-wrapper {
     position: relative;
     width: 100%;
@@ -438,23 +458,19 @@ button {
 
 .confirm-card .input-wrapper i {
     position: absolute;
-    right: 15px;
-    top: 23px;
+    right: 18px;
+    top: 50%;
     transform: translateY(-50%);
-    font-size: 1.3rem;
-    pointer-events: none;
-    opacity: 0;
-    transform: scale(0.8);
-    z-index: 5;
+    font-size: 1.2rem;
+    z-index: 10;
+    visibility: hidden;
 }
 
 .check-icon {
-    top: 23px;
     color: #28a745 !important;
 }
 
 .error-icon {
-    top: 23px;
     color: #dc3545 !important;
 }
 
@@ -654,6 +670,13 @@ select {
     margin-top: 25px;
 }
 
+.warning-box.hidden,
+.info-box.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .warning-box {
     background-color: #d4b16a;
     border: 2px solid #9a7f49;
@@ -672,19 +695,33 @@ select {
     will-change: opacity, visibility;
 }
 
-.warning-box i {
+.info-box {
+    background-color: #6b94ab;
+    border: 2px solid #2a3860;
+    grid-area: warning;
+    border-radius: 15px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    margin-left: 20px;
+    align-self: start;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, visibility;
+}
+
+.warning-box i,
+.info-box i {
     font-size: 2.5rem;
     color: #4a4a4a;
     flex-shrink: 0;
 }
 
-.warning-box.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.warning-box p {
+.warning-box p,
+.info-box p {
     color: #333;
     font-size: 0.95rem;
     font-weight: 500;
@@ -1001,19 +1038,21 @@ select {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 99999;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: opacity, visibility;
     pointer-events: none;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
 #modalRecarga.active {
+    display: flex;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -1143,7 +1182,8 @@ select {
         font-size: 1.8rem;
     }
 
-    .warning-box {
+    .warning-box,
+    .info-box {
         margin-left: 1px;
         align-self: stretch;
         margin-top: 10px;
@@ -1306,7 +1346,8 @@ select {
         gap: 10px;
     }
 
-    .warning-box {
+    .warning-box,
+    .info-box {
         margin-left: 0;
         padding: 10px;
         gap: 10px;

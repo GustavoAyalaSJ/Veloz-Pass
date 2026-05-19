@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const selectElement = document.getElementById('select-pagamento');
     const inputValor = document.querySelector('.top-group.valor input');
-    const btnProsseguir = document.querySelector('.btn-prosseguir');
+    const btnProsseguir = document.getElementById('btn-prosseguir');
     const displayImagem = document.querySelector('.buscard-image img');
     const containerPagamento = document.querySelector('.payment-information');
     const wrapper = selectElement?.parentElement;
@@ -205,12 +205,24 @@ document.addEventListener('DOMContentLoaded', () => {
         n2.addEventListener('input', validarCartaoTransp);
     }
 
-    function gerenciarAvisoBandeira(metodo) {
+    function gerenciarAvisos(metodo) {
         const warningBox = document.querySelector('.warning-box');
-        if (!warningBox) return;
+        const infoBox = document.querySelector('.info-box');
 
-        const precisaAviso = ['credito', 'debito', 'internacional'].some(tipo => metodo.includes(tipo));
-        warningBox.classList.toggle('hidden', !precisaAviso);
+        if (!warningBox || !infoBox) return;
+
+        const metodoNormalizado = metodo.toLowerCase();
+
+        const mostrarWarning = [
+            'credito',
+            'debito',
+            'internacional'
+        ].some(tipo => metodoNormalizado.includes(tipo));
+
+        const mostrarInfo = metodoNormalizado.includes('carteira');
+
+        warningBox.classList.toggle('hidden', !mostrarWarning);
+        infoBox.classList.toggle('hidden', !mostrarInfo);
     }
 
     function alternarVisibilidadeComponentes(metodo) {
@@ -281,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderizarPasso2() {
         const metodo = selectElement.value.toLowerCase();
-        gerenciarAvisoBandeira(metodo);
+        gerenciarAvisos(metodo);
         alternarVisibilidadeComponentes(metodo);
     }
 
@@ -316,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let modalStatus;
                 const situacaoNormalizada = data.situacao?.normalize("NFD").replace(/[\u0300-\u036f]/g, "") || "";
-                
+
                 if (situacaoNormalizada.includes('Concluido')) {
                     modalStatus = 'success';
                 } else if (situacaoNormalizada.includes('Em_Revisao')) {
@@ -377,6 +389,10 @@ document.addEventListener('DOMContentLoaded', () => {
             btnCancelar.addEventListener('click', (e) => {
                 e.preventDefault();
                 modal.classList.remove('active');
+
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
             });
         }
 
@@ -411,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         modal.classList.add('active');
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
         modal.style.opacity = '1';
         modal.style.visibility = 'visible';
         modal.style.pointerEvents = 'auto';
@@ -445,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (valorRaw <= 0) return alert("Por favor, informe o valor da recarga.");
             if (valorRaw < 5) return alert("Valor mínimo: R$ 5,00");
-            
+
             if (valorRaw > 5000) return alert("Valor incábivel para recarga! Tente colocar um valor menor.");
 
             if (!n1 || n1.length < 15) return alert("Informe o número completo do cartão de transporte.");
