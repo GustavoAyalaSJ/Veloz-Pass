@@ -37,25 +37,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (selectPagamento && containerCartao && containerPix) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
 
-        selectPagamento.addEventListener('focus', () => wrapper?.classList.add('active'));
-        selectPagamento.addEventListener('blur', () => wrapper?.classList.remove('active'));
+        function atualizarVisibilidadePagamento() {
+            const metodo = (selectPagamento.value || '').toLowerCase();
 
-        selectPagamento.addEventListener('change', () => {
-            const metodo = selectPagamento.value.toLowerCase();
-            wrapper?.classList.add('active');
+            const selecionado = !!metodo;
 
-            const exibeCartao = metodosComCartaoTexto.includes(metodo);
-            const exibePix = (metodo === 'pix');
+            const exibeCartao = selecionado && metodosComCartaoTexto.includes(metodo);
+            const exibePix = selecionado && (metodo === 'pix');
 
             containerCartao.classList.toggle('hidden', !exibeCartao);
             containerPix.classList.toggle('hidden', !exibePix);
 
             if (btnFinalizar) {
-                btnFinalizar.classList.toggle('hidden', exibePix);
+                btnFinalizar.classList.toggle('hidden', !selecionado);
             }
 
             idBandeiraSelecionada = null;
+        }
+
+        selectPagamento.addEventListener('focus', () => wrapper?.classList.add('active'));
+        selectPagamento.addEventListener('blur', () => wrapper?.classList.remove('active'));
+
+        selectPagamento.addEventListener('change', () => {
+            wrapper?.classList.add('active');
+            atualizarVisibilidadePagamento();
         });
+
+        atualizarVisibilidadePagamento();
     }
 
     const inputCartao = document.getElementById('num-cartao');
@@ -113,7 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (btnInserir) btnInserir.addEventListener('click', () => modalValor.classList.add('active'));
+    if (btnInserir) {
+        btnInserir.addEventListener('click', () => {
+            modalValor.classList.add('active');
+
+        });
+    }
 
     const btnRetornar = document.querySelector('.btn-retornar');
     if (btnRetornar) {
@@ -146,6 +159,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             modalValor.classList.remove('active');
             modalPagamento.classList.add('active');
+
+            if (selectPagamento && containerCartao && containerPix) {
+                const metodo = (selectPagamento.value || '').toLowerCase();
+                const selecionado = !!metodo;
+
+                const exibeCartao = selecionado && metodosComCartaoTexto.includes(metodo);
+                const exibePix = selecionado && (metodo === 'pix');
+
+                containerCartao.classList.toggle('hidden', !exibeCartao);
+                containerPix.classList.toggle('hidden', !exibePix);
+
+                if (btnFinalizar) btnFinalizar.classList.toggle('hidden', !selecionado);
+                idBandeiraSelecionada = null;
+            }
         });
     }
 
