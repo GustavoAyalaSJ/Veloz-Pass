@@ -16,11 +16,13 @@ exports.listarNotificacoes = async (req, res) => {
     }
 
     try {
+        const agoraIso = new Date().toISOString();
+
         const { data, error } = await supabase
             .from('notificacoes')
-            .select('id_notificacao, protocolo, situacao, mensagem, data_envio, expires_at')
+            .select('id_notificacao, protocolo, situacao, data_envio, expires_at')
             .eq('id_user', idUsuario)
-            .gt('expires_at', new Date().toISOString())
+            .gt('expires_at', agoraIso)
             .order('data_envio', { ascending: false })
             .limit(20);
 
