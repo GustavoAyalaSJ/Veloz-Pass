@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target: "#select-pagamento"
         },
         {
-            texto: "Então, você ira informar um valor neste campo para realizar uma recarga.",
+            texto: "Então, você irá informar um valor neste campo para realizar uma recarga.",
             sprite: "pointing-up",
             acao: "next",
             target: ".top-group.valor input"
