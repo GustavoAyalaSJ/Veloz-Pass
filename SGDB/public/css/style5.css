@@ -284,13 +284,10 @@ button {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.dark-mode .info-box i {
-    color: #8a8cb4;
-}
-
+.dark-mode .info-box i,
 .dark-mode .info-box p {
     font-weight: 550;
-    color: #ffffff;
+    color: #c9ccff;
 }
 
 .dark-mode .btn-prosseguir {
@@ -459,7 +456,7 @@ button {
 .confirm-card .input-wrapper i {
     position: absolute;
     right: 18px;
-    top: 50%;
+    top: 25px;
     transform: translateY(-50%);
     font-size: 1.2rem;
     z-index: 10;
@@ -678,7 +675,7 @@ select {
 }
 
 .warning-box {
-    background-color: #d4b16a;
+    background-color: #b5965a;
     border: 2px solid #9a7f49;
     grid-area: warning;
     border-radius: 15px;
@@ -716,13 +713,13 @@ select {
 .warning-box i,
 .info-box i {
     font-size: 2.5rem;
-    color: #4a4a4a;
+    color: #676767;
     flex-shrink: 0;
 }
 
 .warning-box p,
 .info-box p {
-    color: #333;
+    color: #575757;
     font-size: 0.95rem;
     font-weight: 500;
     line-height: 1.4;
