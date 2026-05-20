@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const steps = [
         {
-            texto: "Bem-vindo à Carteira Digital! Aqui irei te mostrar como você inserir créditos através da sua carteira virtual.",
+            texto: "Bem-vindo à Carteira Digital! Aqui irei te mostrar como você insere créditos para sua carteira.",
             sprite: "greeting",
             acao: "next"
         },
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target: "#modal-valor .modal-box"
         },
         {
-            texto: "Depois selecione o método de pagamento e finalize a transação.",
+            texto: "Depois selecione o método de pagamento, coloque as informações do seu cartão e finalize a transação.",
             sprite: "pointing-up",
             acao: "next",
             target: "#modal-pagamento .modal-box"
@@ -45,13 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
             target: ".btn-cancelar"
         },
         {
-            texto: "Após cada transação na Carteira Digital, você poderá visualiza-las na tabela abaixo.",
+            texto: "Lembrete: Após cada transação na Carteira Digital, você poderá visualiza-las na tabela abaixo.",
             sprite: "pointing-right",
             acao: "next",
             target: ".histórico-valores"
         },
         {
-            texto: "É utilizar dos filtros acima para visualizar suas transações de forma dinâmica.",
+            texto: "Você pode utilizar dos filtros acima para visualizar suas transações de forma dinâmica.",
             sprite: "pointing-up",
             acao: "next",
             target: ".filtros-container"

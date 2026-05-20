@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnReplay.addEventListener('click', () => {
         const steps = [
             {
-                texto: "Olá, seja bem-vindo ao Veloz Pass. Eu me chamo MINT, seu assistente do site",
+                texto: "Olá, seja bem-vindo ao Veloz Pass. Eu me chamo MINT, seu assistente do site.",
                 sprite: "greeting",
                 acao: "next"
             },
@@ -27,30 +27,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 acao: "next"
             },
             {
-                texto: "Vamos começar.",
+                texto: "Vamos começar?",
                 sprite: "thinking",
                 acao: "next"
             },
             {
-                texto: "Conheça o Dashboard, aqui você tem acesso as principais páginas do site.",
+                texto: "Então, conheça o Dashboard, aqui você tem acesso as principais páginas do site.",
                 sprite: "introduction",
                 acao: "next",
                 target: ".card-container"
             },
             {
-                texto: "A Carteira Digital, você pode visualizar os créditos disponíveis e acessar a página, clicando no botão logo abaixo.",
+                texto: "A carteira digital é onde você pode visualizar os créditos disponíveis, para acessar a página, clique no botão logo abaixo.",
                 sprite: "pointing-up",
                 acao: "next",
                 target: ".card-carteira"
             },
             {
-                texto: "Recarga onde irá realizar as recargas do seu cartão.",
+                texto: "A recarga é onde será realizada as recargas do seu cartão de transporte.",
                 sprite: "pointing-up",
                 acao: "next",
                 target: ".card-recarga"
             },
             {
-                texto: "Histórico onde verá suas transações, acessando clicando no botão logo abaixo.",
+                texto: "O histórico é onde quaisquer transação será registrada, para acessar a página, basta clicar no botão logo abaixo.",
                 sprite: "pointing-right",
                 acao: "next",
                 target: ".card-historico"

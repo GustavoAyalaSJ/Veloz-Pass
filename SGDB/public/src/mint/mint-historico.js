@@ -27,19 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
             target: "#filtro-tipo"
         },
         {
-            texto: "Use o seletor 'Realizado no' para filtrar transações feitas nos métodos de pagamento.",
+            texto: "Use o seletor 'Realizado no' para filtrar transações feitas nos métodos de pagamento disponíveis.",
             sprite: "pointing-up",
             acao: "next",
             target: "#filtro-realizado-no"
         },
         {
-            texto: "Para visualizar as suas transações, você verá uma tabela logo abaixo.",
+            texto: "Para visualizar as transações realizadas, basta olhar na tabela logo abaixo.",
             sprite: "introduction",
             acao: "next",
             target: ".tabela-corpoInfo"
         },
         {
-            texto: "É isto sobre a página Histórico, bem simples e espero que te ajude.",
+            texto: "É isto sobre a página histórico, espero que eu tenha ajudado a entender esta interface.",
             sprite: "happy",
             acao: "next",
         }
