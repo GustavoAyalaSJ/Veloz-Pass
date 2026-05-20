@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <label class="date-card" for="card-valid">Data de Validade</label>
                     <input type="text" id="card-valid" placeholder="00/00">
 
-                    <label class="cvv-card" for="card-cvv">CCV</label>
+                    <label class="cvv-card" for="card-cvv">CVV</label>
                     <input type="text" id="card-cvv" placeholder="000">
                 </div>
             </div>
