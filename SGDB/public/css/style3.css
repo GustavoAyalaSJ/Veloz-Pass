@@ -504,9 +504,7 @@ span {
         width: 95%;
         max-width: 900px;
         padding: 20px 10px;
-        display: block;
         margin: 0 auto;
-        overflow: hidden;
     }
 
     .tabela-header,
@@ -534,22 +532,24 @@ span {
         word-wrap: break-word;
     }
 
+    .tabela-header,
     .tabela-corpoInfo {
-        min-width: 550px;
+        min-width: 800px;
+    }
+
+    .tabela-corpoInfo {
+        width: 100%;
         display: flex;
+        min-width: 320px;
         flex-direction: column;
         max-height: 320px;
         overflow-y: auto;
-        overflow-x: hidden;
-        flex-grow: 1;
+        overflow-x: auto;
     }
 
     .tabela-wrapper-scroll {
         width: 100%;
         overflow-x: auto;
-        display: flex;
-        flex-direction: column;
-        -webkit-overflow-scrolling: touch;
     }
 
     .tabela-linha-item span {
