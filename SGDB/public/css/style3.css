@@ -432,140 +432,221 @@ span {
 }
 
 /* Media Queries */
-@media (min-width: 480px) and (max-width: 600px) and (orientation: portrait) {
-    .dropdown-content {
-        margin-top: 10px;
-        min-width: 270px;
-        left: -190px;
-    }
-
-    .background-container {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
+@media (max-width: 480px) and (orientation: portrait) {
     .cabeçalho {
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        padding: 15px 15px;
         width: 100%;
-        box-sizing: border-box;
     }
 
     .logotipo img {
-        height: 35px;
+        height: 32px;
     }
 
     .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 15px;
+        gap: 12px;
+    }
+
+    .icon-button {
+        font-size: 1.6rem;
     }
 
     .titulo-pagina-centro {
-        font-size: 30px;
-    }
-
-    .card-container {
-        border-radius: 20px;
-        width: 95%;
-        max-width: 900px;
-        padding: 20px 10px;
-        margin: 0 auto;
-    }
-
-    .tabela-header,
-    .tabela-linha-item {
-        min-width: 550px;
-        display: flex;
-        width: 100%;
-    }
-
-    .tabela-header {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding-bottom: 14px;
-        flex-shrink: 0;
-    }
-
-    .tabela-header span {
-        flex: 1;
+        font-size: 1.8rem;
         text-align: center;
-        font-size: 0.55rem;
-        font-weight: 750;
-        padding: 0 2px;
-        color: #2c3e50;
-        word-wrap: break-word;
-    }
-
-    .tabela-header,
-    .tabela-corpoInfo {
-        min-width: 800px;
-    }
-
-    .tabela-corpoInfo {
-        width: 100%;
-        display: flex;
-        min-width: 320px;
-        flex-direction: column;
-        max-height: 320px;
-        overflow-y: auto;
-        overflow-x: auto;
-    }
-
-    .tabela-wrapper-scroll {
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    .tabela-linha-item span {
-        flex: 1;
-        text-align: center;
-        font-size: 0.65rem;
-        padding: 0 2px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .btn-imprimir {
-        padding: 4px 8px;
-        font-size: 0.55rem;
     }
 
     .main-content>.filtros-container {
-        padding: 0 15px;
+        width: 100%;
+        padding: 0;
     }
 
     .filtros-container {
         display: flex;
         flex-direction: column;
         gap: 15px;
-        margin-bottom: 20px;
-        padding: 10px 0;
         width: 100%;
     }
 
     .filtro-item {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        position: relative;
     }
 
     .filtro-select {
         width: 100%;
-        padding: 12px 35px 12px 12px;
         font-size: 0.9rem;
+        padding: 12px 35px 12px 12px;
     }
 
     .select-icon {
-        position: absolute;
-        top: 35px;
-        right: 15px;
+        top: 38px;
+        right: 14px;
+    }
+
+    .card-container {
+        width: 100%;
+        padding: 15px 8px;
+        border-radius: 22px;
+        overflow: hidden;
+    }
+
+    .tabela-wrapper-scroll {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tabela-header,
+    .tabela-corpoInfo,
+    .tabela-linha-item {
+        min-width: 520px;
+    }
+
+    .tabela-header,
+    .tabela-linha-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .tabela-header {
+        padding-bottom: 12px;
+    }
+
+    .tabela-header span {
+        flex: 1;
+        font-size: 0.58rem;
+        padding: 0 4px;
+        text-align: center;
+        word-break: break-word;
+    }
+
+    .tabela-corpoInfo {
+        max-height: 320px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .tabela-linha-item {
+        padding: 12px 0;
+    }
+
+    .tabela-linha-item span {
+        flex: 1;
+        font-size: 0.60rem;
+        padding: 0 4px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .btn-imprimir {
+        font-size: 0.50rem;
+        padding: 4px 6px;
+    }
+
+    .dropdown-content {
+        min-width: 260px;
+        left: -190px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) and (orientation: portrait) {
+    .cabeçalho {
+        padding: 15px 20px;
+        width: 100%;
+    }
+
+    .logotipo img {
+        height: 36px;
+    }
+
+    .header-actions {
+        gap: 15px;
+    }
+
+    .titulo-pagina-centro {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .main-content>.filtros-container {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .filtros-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filtro-item {
+        width: 100%;
+    }
+
+    .filtro-select {
+        width: 100%;
+    }
+
+    .card-container {
+        width: 95%;
+        padding: 20px 15px;
+        border-radius: 28px;
+        overflow: hidden;
+    }
+
+    .tabela-wrapper-scroll {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tabela-header,
+    .tabela-corpoInfo,
+    .tabela-linha-item {
+        min-width: 650px;
+    }
+
+    .tabela-header,
+    .tabela-linha-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .tabela-header {
+        padding-bottom: 15px;
+    }
+
+    .tabela-header span {
+        flex: 1;
+        text-align: center;
+        font-size: 0.72rem;
+        padding: 0 6px;
+    }
+
+    .tabela-corpoInfo {
+        max-height: 320px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .tabela-linha-item {
+        padding: 14px 0;
+    }
+
+    .tabela-linha-item span {
+        flex: 1;
+        text-align: center;
+        font-size: 0.72rem;
+        padding: 0 6px;
+        white-space: nowrap;
+    }
+
+    /* Botão */
+    .btn-imprimir {
+        font-size: 0.62rem;
+        padding: 5px 8px;
     }
 }
