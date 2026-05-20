@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagens = [
         'Assets/Carrousel/imagem1.webp',
         'Assets/Carrousel/imagem2.webp',
-        'Assets/placeholder.webp'
+        'Assets/Carrousel/imagem3.webp'
     ];
 
     let indexAtual = 0;
