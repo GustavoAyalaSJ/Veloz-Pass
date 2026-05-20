@@ -102,8 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 (() => {
     let modalProcesso = null;
-    let intervaloRelogio = null;
-
     function createProcessModal() {
         if (modalProcesso) return;
 
@@ -130,8 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(modalProcesso);
 
         modalProcesso.onclick = (e) => {
-            const emRevisao = modalProcesso.classList.contains('processing');
-            if (emRevisao) return;
             if (e.target === modalProcesso) {
                 closeModalProcesso();
             }
@@ -139,13 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeModalProcesso() {
-        if (intervaloRelogio) {
-            clearInterval(intervaloRelogio);
-            intervaloRelogio = null;
-        }
-
         modalProcesso?.classList.remove('processing');
-        modalProcesso.classList.add('active');
+        modalProcesso?.classList.remove('active');
     }
 
     window.showProcessModal = function (
@@ -161,11 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const elementoMensagem = document.getElementById('process-modal-message');
         const botaoOk = document.getElementById('process-modal-ok');
 
-        if (intervaloRelogio) {
-            clearInterval(intervaloRelogio);
-            intervaloRelogio = null;
-        }
-
         const statusNormalizado = (status || '')
             .toString()
             .toLowerCase()
@@ -178,74 +164,92 @@ document.addEventListener('DOMContentLoaded', () => {
             statusNormalizado.includes('under-review') ||
             statusNormalizado.includes('em-revisao');
 
-        if (emRevisao) {
+        const concluido =
+            statusNormalizado.includes('success') ||
+            statusNormalizado.includes('concluido');
 
+        const recusado =
+            statusNormalizado.includes('rejected') ||
+            statusNormalizado.includes('recusado') ||
+            statusNormalizado.includes('recusada');
+
+        if (emRevisao) {
             elementoTitulo.textContent = 'Atualizando Informações';
             elementoCorpo.innerHTML = `
                 <div class="timer-container">
                     <i class="bi bi-arrow-repeat process-spin"></i>
-                    <div id="countdown-clock">
-                        02:00
-                    </div>
                 </div>
             `;
 
-            elementoMensagem.textContent = 'Aguarde enquanto nosso sistema processa sua solicitação.';
+            elementoMensagem.textContent = 'Sua solicitação foi enviada para análise do sistema.';
 
-            botaoOk.style.display = 'none';
+            botaoOk.style.display = 'inline-flex';
+            botaoOk.textContent = 'Continuar Navegando';
+            botaoOk.onclick = () => {
 
-            let tempoRestante = 120;
-
-            intervaloRelogio = setInterval(() => {
-
-                tempoRestante--;
-
-                const minutos = Math.floor(
-                    tempoRestante / 60
-                ).toString().padStart(2, '0');
-
-                const segundos = (
-                    tempoRestante % 60
-                ).toString().padStart(2, '0');
-
-                const relogio =
-                    document.getElementById('countdown-clock');
-
-                if (relogio) {
-                    relogio.textContent = `${minutos}:${segundos}`;
+                closeModalProcesso();
+                if (typeof acaoAoConfirmar === 'function') {
+                    acaoAoConfirmar();
                 }
 
-                if (tempoRestante <= 0) {
-                    clearInterval(intervaloRelogio);
+            };
 
-                    intervaloRelogio = null;
-
-                    closeModalProcesso();
-                    if (typeof acaoAoConfirmar === 'function') {
-                        acaoAoConfirmar();
-                    }
-                }
-            }, 1000);
-        } else {
+        } else if (concluido) {
 
             elementoTitulo.textContent = 'Processo Finalizado';
 
             elementoCorpo.innerHTML = `
-                <i class="bi bi-check-circle"></i>
+                <i class="bi bi-check-circle success-icon"></i>
             `;
 
             elementoMensagem.textContent = 'Operação concluída.';
-
             botaoOk.style.display = 'inline-flex';
-
+            botaoOk.textContent = 'OK';
             botaoOk.onclick = () => {
-                closeModalProcesso();
 
+                closeModalProcesso();
                 if (typeof acaoAoConfirmar === 'function') {
                     acaoAoConfirmar();
                 }
+
+            };
+
+        } else if (recusado) {
+            elementoTitulo.textContent = 'Processo Recusado';
+            elementoCorpo.innerHTML = `
+                <i class="bi bi-x-circle rejected-icon"></i>
+            `;
+
+            elementoMensagem.textContent = 'O processo foi recusado pelo sistema.';
+
+            botaoOk.style.display = 'inline-flex';
+            botaoOk.textContent = 'Fechar';
+            botaoOk.onclick = () => {
+
+                closeModalProcesso();
+                if (typeof acaoAoConfirmar === 'function') {
+                    acaoAoConfirmar();
+                }
+
+            };
+
+        } else {
+
+            elementoTitulo.textContent = 'Processando';
+            elementoCorpo.innerHTML = `
+                <div class="timer-container">
+                    <i class="bi bi-arrow-repeat process-spin"></i>
+                </div>
+            `;
+
+            elementoMensagem.textContent = 'Seu processo está sendo analisado.';
+            botaoOk.style.display = 'inline-flex';
+            botaoOk.textContent = 'OK';
+            botaoOk.onclick = () => {
+                closeModalProcesso();
             };
         }
+
         modalProcesso.classList.add('active');
 
         if (emRevisao) {
