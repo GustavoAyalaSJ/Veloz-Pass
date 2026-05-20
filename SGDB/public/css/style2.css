@@ -534,214 +534,184 @@ span {
 }
 
 /* Media Queries */
-@media (max-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
     .main-content {
-        display: flex;
-        flex-direction: column;
         justify-content: flex-start;
-        padding-bottom: 0px;
-        min-height: auto;
-    }
-
-    .register-id-container {
-        margin-top: 10px;
-    }
-
-    .welcome-text {
-        margin-top: 10px;
-        margin-bottom: 10px;
+        padding-top: 40px;
+        padding-bottom: 20px;
     }
 
     .card-container {
-        margin-top: 40px;
-        padding: 30px;
+        margin-top: 20px;
+    }
+
+    .mint-replay {
+        margin-top: 25px;
+        margin-bottom: 10px;
+        align-self: center;
     }
 
     .rodapé {
-        margin-top: 0;
-        padding: 20px 0;
+        padding-top: 10px;
     }
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
     .main-content {
-        padding-top: 30px;
+        justify-content: flex-start;
+        padding-top: 35px;
+    }
+
+    .welcome-text {
+        text-align: center;
     }
 
     .card-container {
-        padding: 30px;
+        width: 85%;
         grid-template-columns: 1fr;
-        width: 80%;
+        gap: 18px;
+    }
+
+    .mint-replay {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        align-self: center;
+    }
+
+    .rodapé {
+        padding-top: 15px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) and (orientation: portrait) {
+    .cabeçalho {
+        padding: 15px 20px;
+    }
+
+    .main-content {
+        justify-content: flex-start;
+        padding-top: 35px;
+        padding-bottom: 20px;
+    }
+
+    .welcome-text {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .card-container {
+        width: 92%;
+        grid-template-columns: 1fr;
+        padding: 28px;
         gap: 15px;
     }
 
-    .welcome-text {
-        text-align: center;
-    }
-}
-
-@media (max-width: 768px) and (orientation: portrait) {
-    .background-container {
-        min-height: 100vh;
-        min-height: 100svh;
-        min-height: 100dvh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .main-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        flex: 1;
-        padding-top: 40px;
-    }
-
-    .welcome-text {
-        margin-bottom: 40px;
-    }
-
-    .card-container {
-        grid-template-columns: 1fr;
-        width: 90%;
-        margin-bottom: 10px;
-        margin-top: 0;
-        padding: 35px;
-    }
-
     .mint-replay {
-        position: relative !important;
-        top: 10px;
-        left: 65px;
-        margin: 20px auto 20px 250px;
-        width: auto;
-        min-width: 120px;
-        height: auto;
-        padding: 12px 24px !important;
-        display: inline-block !important;
-        box-sizing: border-box;
+        display: block;
+        margin: 25px auto 15px auto;
+        position: static;
     }
 
     .rodapé {
-        margin-top: 0;
         padding-top: 10px;
-        padding-bottom: 30px;
-    }
-
-    .rodapé p{
-        margin-left: 30px;
-    }
-}
-
-@media (max-width: 600px) and (orientation: portrait) {
-    .cabeçalho {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .logotipo img {
-        height: 40px;
-    }
-
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .termos {
-        margin-left: 2px;
-        padding-left: 25px;
+        padding-bottom: 25px;
         text-align: center;
-    }
-
-    .dropdown-content {
-        margin-top: 10px;
-        min-width: 270px;
-        left: -190px;
-    }
-
-    .welcome-text {
-        font-size: 1.6rem;
-        text-align: center;
-    }
-
-    .main-content {
-        height: auto !important;
-        display: flex;
-        padding-top: 30px;
-        flex-direction: column;
-    }
-
-    .card-container {
-        grid-template-columns: 1fr;
-        padding: 20px;
-        margin-top: 5px;
-    }
-
-    .mint-replay {
-        position: static;
-        display: block;
-        margin: 10px auto;
-        width: fit-content;
-        bottom: unset;
-        right: unset;
-        left: 0;
-    }
-
-    .politicas-overlay {
-        padding-right: 30px;
-        padding-left: 20px;
     }
 
     .rodapé p {
-        margin-top: 10px;
-        margin-left: 0px;
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+    .cabeçalho {
+        padding: 14px 16px;
+    }
+
+    .logotipo img {
+        height: 36px;
+    }
+
+    .header-actions {
+        gap: 10px;
+    }
+
+    .dropdown-content {
+        min-width: 260px;
+        left: -190px;
+    }
+
+    .main-content {
+        justify-content: flex-start;
+        padding-top: 25px;
+        padding-bottom: 20px;
+    }
+
+    .welcome-text {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .register-id-container {
+        font-size: 0.8rem;
+    }
+
+    .card-container {
+        width: 95%;
+        grid-template-columns: 1fr;
+        padding: 18px;
+        gap: 14px;
+        border-radius: 25px;
+    }
+
+    .card-carteira,
+    .card-recarga,
+    .card-info,
+    .card-historico {
+        padding: 16px;
+    }
+
+    .mint-replay {
+        display: block;
+        position: static;
+        margin: 20px auto 10px auto;
+        width: fit-content;
+    }
+
+    .rodapé {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        text-align: center;
+    }
+
+    .rodapé p {
+        margin: 0;
+        font-size: 0.72rem;
     }
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-    .cabeçalho {
-        height: 70px;
-    }
-
-    .logotipo img {
-        height: 40px;
-    }
 
     .main-content {
-        padding-top: 10px;
-        padding-bottom: 25px;
-    }
-
-    .register-id-container {
-        margin-top: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 
     .card-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
         width: 95%;
-        margin-bottom: 0px;
-    }
-
-    .carteira-valor {
-        font-size: 1rem;
+        grid-template-columns: 1fr 1fr;
     }
 
     .mint-replay {
-        position: relative !important;
-        top: 20px;
-        left: 250px !important;
-        z-index: 9999;
-        transform: scale(0.8);
-        position: -webkit-fixed;
+        display: block;
+        position: static;
+        margin: 20px auto;
+        transform: scale(0.9);
     }
 
     .rodapé {
-        padding: 20px;
-        font-size: 0.75rem;
+        padding: 15px;
     }
 }
