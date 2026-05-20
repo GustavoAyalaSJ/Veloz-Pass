@@ -469,7 +469,7 @@ span {
     }
 }
 
-@media (max-width: 600px) and (orientation: portrait) {
+@media (min-width: 481px) and (max-width: 600px) and (orientation: portrait) {
     .background-container {
         min-height: 100vh;
         display: flex;
@@ -512,6 +512,8 @@ span {
     .tabela-header,
     .tabela-linha-item {
         min-width: 550px;
+        display: flex;
+        width: 100%;
     }
 
     .tabela-header {
@@ -525,7 +527,7 @@ span {
     .tabela-header span {
         flex: 1;
         text-align: center;
-        font-size: 0.45rem;
+        font-size: 0.55rem;
         font-weight: 750;
         padding: 0 2px;
         color: #2c3e50;
@@ -533,7 +535,7 @@ span {
     }
 
     .tabela-corpoInfo {
-        width: 100%;
+        min-width: 550px;
         display: flex;
         flex-direction: column;
         max-height: 320px;
@@ -547,15 +549,17 @@ span {
         overflow-x: auto;
         display: flex;
         flex-direction: column;
-    }
-
-    .tabela-header span {
-        font-size: 0.55rem;
+        -webkit-overflow-scrolling: touch;
     }
 
     .tabela-linha-item span {
+        flex: 1;
+        text-align: center;
         font-size: 0.65rem;
         padding: 0 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .btn-imprimir {
@@ -568,6 +572,7 @@ span {
     }
 
     .filtros-container {
+        display: flex;
         flex-direction: column;
         gap: 15px;
         margin-bottom: 15px;

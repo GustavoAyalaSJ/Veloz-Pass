@@ -630,7 +630,7 @@ span {
     }
 
     .rodapé p{
-        margin-left: 50px;
+        margin-left: 30px;
     }
 }
 
@@ -687,7 +687,7 @@ span {
         width: fit-content;
         bottom: unset;
         right: unset;
-        left: -140px;
+        left: 0;
     }
 
     .politicas-overlay {
@@ -697,6 +697,7 @@ span {
 
     .rodapé p {
         margin-top: 10px;
+        margin-left: 0px;
     }
 }
 
