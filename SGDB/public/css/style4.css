@@ -938,240 +938,421 @@ td.table-bold {
 }
 
 /* Media Queries */
-@media screen and (max-width: 480px) {
-    .cabeçalho {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .logotipo img {
-        height: 40px;
-        margin-left: -15px;
-    }
-
-    .header-link {
-        padding-left: 11px;
-        padding-right: 11px;
-    }
-
-    .header-actions{
-        gap: 23px;
-    }
-
-    .dropdown-content {
-        margin-top: 10px;
-        min-width: 270px;
-        left: -210px;
-    }
-
-    .icon-button {
-        margin-left: -10px;
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    .main-content {
+        padding: 35px;
     }
 
     .titulo-pagina-externo {
-        padding-right: 1px;
-        font-size: 1.55rem;
-        margin-bottom: 20px;
-        margin-top: -10px;
+        font-size: 2rem;
+        margin-bottom: 25px;
     }
 
     .header-carteira-top {
-        margin-bottom: 10px;
-        gap: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 18px;
+        flex-wrap: wrap;
+        width: fit-content;
+        max-width: 100%;
     }
 
     .card-valor {
-        margin-bottom: 10px;
-        margin-right: 20px;
-        padding-right: 10px;
-        padding-left: 16px;
-        padding-top: 12px;
-        padding-bottom: 12px;
-        border-radius: 12px;
-        font-size: 0.95rem;
+        flex: 1;
+        min-width: 260px;
     }
 
     .btn-inserir-credito {
-        margin-bottom: 20px;
-        margin-top: 20px;
-        padding: 12px 16px;
-        border-radius: 12px;
-        font-size: 0.95rem;
-        width: auto;
-        white-space: nowrap;
-    }
-
-    .btn-inserir-credito:hover {
-        border: 1.7px solid rgb(30, 47, 30);
-        padding: 15px 16px;
-        border-radius: 15px;
-        transform: translateY(2px);
-    }
-
-    .filtros-container {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        gap: 12px;
-        margin-bottom: 10px;
-        padding: 0;
-    }
-
-    .filtro-item {
-        flex: 1 1 0;
-        min-width: 0;
-        margin-bottom: 0;
-    }
-
-    .filtro-item label {
-        margin-bottom: -5px;
-        font-size: 0.82rem;
-    }
-
-    .filtro-item .select-icon {
-        top: 45px;
-    }
-
-    .filtro-select {
-        padding-left: 11px;
-        padding-top: 11px;
-        padding-bottom: 10px;
-        padding-right: 11px;
-        min-width: 0;
-        font-size: 0.85rem;
-    }
-
-    .select-icon {
-        margin-top: 7px;
-        padding-right: 15px;
-        right: 10px;
-        font-size: 0.95rem;
+        min-width: 220px;
     }
 
     .histórico-valores {
-        margin-top: -10px;
-        padding-bottom: 20px;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .tabela-movimentacoes {
+        min-width: 900px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .cabeçalho {
+        padding: 14px 24px;
+    }
+
+    .main-content {
+        padding: 25px;
+    }
+
+    .titulo-pagina-externo {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        text-align: left;
+        align-self: left;
+    }
+
+    .header-carteira-top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 15px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .card-valor {
+        width: auto;
+        min-width: 260px;
+        padding: 14px 22px;
+        font-size: 1rem;
+    }
+
+    .btn-inserir-credito {
+        width: auto;
+        min-width: 220px;
+        padding: 14px 22px;
+        white-space: nowrap;
+    }
+
+    .filtros-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 18px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .filtro-item {
+        width: auto;
+        min-width: 190px;
+        max-width: 220px;
+    }
+
+    .filtro-item label {
+        margin-bottom: 6px;
+        font-size: 0.82rem;
+    }
+
+    .filtro-select {
+        width: 100%;
+        min-width: 190px;
+        padding: 11px 38px 11px 12px;
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
+
+    .filtro-item .select-icon {
+        top: 44px;
+        right: 14px;
+        margin-top: 0;
+    }
+
+    .card-container>.filtros-container {
+        margin-top: -20px;
+        margin-bottom: 5px;
+        margin-left: -10px;
+        margin-right: -40px;
+        padding: 20px 30px;
+    }
+
+    .histórico-valores {
+        width: 100%;
+        overflow-x: auto;
+        padding: 15px;
+    }
+
+    .tabela-movimentacoes {
+        min-width: 850px;
+    }
+
+    .modal-box {
+        width: 90%;
+        max-width: 600px;
     }
 }
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
     .cabeçalho {
-        padding: 10px 15px;
-    }
-
-    .header-link {
-        padding: 10px;
-    }
-
-    .logotipo img {
-        height: 40px;
+        padding: 14px 18px;
     }
 
     .header-actions {
-        gap: 17px;
+        gap: 12px;
+    }
+
+    .header-link {
+        padding: 10px 12px;
+    }
+
+    .dropdown-content {
+        right: 0;
+        left: auto;
+        min-width: 280px;
+    }
+
+    .main-content {
+        padding: 20px;
     }
 
     .titulo-pagina-externo {
-        height: 25px;
-        padding-bottom: 50px;
-        padding-left: 4px;
-        padding-right: 22px;
-        font-size: 1.8rem;
+        width: 100%;
+        text-align: right;
+        align-self: right;
+        font-size: 1.7rem;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .header-carteira-top {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
     }
 
     .card-valor {
-        width: 60%;
-        margin-left: auto;
-        margin-right: auto;
+        width: 100%;
+        text-align: center;
+        margin: 0;
     }
 
     .btn-inserir-credito {
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .filtro-item .filtro-select {
-        margin-top: 15px;
         width: 100%;
-    }
-
-    .filtro-item .select-icon {
-        margin-top: 4px;
-        top: 40px;
-    }
-
-    .filtros-container {
-        flex-direction: column;
-        gap: 15px;
-        margin-bottom: 15px;
-    }
-
-    .histórico-valores {
-        margin-top: -10px;
-    }
-
-    .tabela-header {
-        font-size: 0.58rem;
-        text-align: center;
-    }
-
-    .modal-box {
-        width: 90%;
-        border-radius: 25px;
-    }
-
-    .modal-footer {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .btn-proximo,
-    .btn-retornar,
-    .btn-finalizar,
-    .btn-cancelar {
-        width: 100%;
-        font-size: 0.9rem;
-    }
-
-    .pix-key-content {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-    }
-
-    .pix-key-value {
-        font-size: 1rem;
-    }
-}
-
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-    .filtro-item .filtro-select {
-        margin-top: 15px;
-    }
-
-    .filtro-item .select-icon {
-        margin-top: 4px;
-    }
-
-    .histórico-valores {
-        margin-top: -11px;
-    }
-
-    .titulo-pagina-externo {
-        font-size: 2rem;
-        padding-bottom: 30px;
+        margin: 0;
+        padding: 14px;
     }
 
     .filtros-container {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filtro-item {
+        width: 100%;
+    }
+
+    .filtro-select {
+        width: 100%;
     }
 
     .filtro-item .select-icon {
-        margin-top: 4px;
-        top: 40px;
+        top: 47px;
+        right: 14px;
+    }
+
+    .histórico-valores {
+        width: 100%;
+        overflow-x: auto;
+        padding: 12px;
+    }
+
+    .tabela-movimentacoes {
+        min-width: 760px;
+    }
+
+    .modal-box {
+        width: 92%;
+        padding: 25px;
+        border-radius: 25px;
+    }
+
+    .grid-predefinidos {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-proximo,
+    .btn-finalizar,
+    .btn-cancelar,
+    .btn-retornar {
+        width: 100%;
+    }
+
+    .row-cartao {
+        flex-direction: column;
+    }
+
+    .pix-key-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pix-key-value {
+        white-space: normal;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .cabeçalho {
+        padding: 14px 15px;
+    }
+
+    .logotipo img {
+        height: 36px;
+        margin: 0;
+    }
+
+    .header-actions {
+        gap: 10px;
+    }
+
+    .header-link {
+        padding: 9px 11px;
+    }
+
+    .icon-button {
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    .dropdown-content {
+        right: -10px;
+        left: auto;
+        min-width: 260px;
+        max-width: 90vw;
+    }
+
+    .main-content {
+        padding: 16px;
+    }
+
+    .titulo-pagina-externo {
+        width: 100%;
+        text-align: right;
+        align-self: right;
+        font-size: 1.45rem;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    .titulo-pagina-externo i {
+        padding-right: 6px;
+    }
+
+    .header-carteira-top {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .card-valor {
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+        font-size: 0.92rem;
+        text-align: center;
+    }
+
+    .btn-inserir-credito {
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+
+    .btn-inserir-credito:hover {
+        padding: 14px;
+    }
+
+    .filtros-container {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .filtro-item {
+        width: 100%;
+    }
+
+    .filtro-item label {
+        margin-bottom: 5px;
+        font-size: 0.82rem;
+    }
+
+    .filtro-select {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        min-width: 0;
+        font-size: 0.85rem;
+    }
+
+    .filtro-item .select-icon {
+        top: 46px;
+        right: 14px;
+    }
+
+    .histórico-valores {
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px;
+        border-radius: 18px;
+    }
+
+    .tabela-movimentacoes {
+        min-width: 720px;
+    }
+
+    .tabela-movimentacoes th,
+    .tabela-movimentacoes td {
+        font-size: 0.82rem;
+        padding: 12px;
+    }
+
+    .modal-box {
+        width: 94%;
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .grid-predefinidos {
+        grid-template-columns: 1fr;
+    }
+
+    .opt-valor {
+        width: 100%;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-proximo,
+    .btn-finalizar,
+    .btn-cancelar,
+    .btn-retornar {
+        width: 100%;
+    }
+
+    .row-cartao {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pix-key-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .pix-key-value {
+        white-space: normal;
+        font-size: 0.9rem;
+    }
+
+    .pix-copy-btn {
+        width: 100%;
     }
 }
