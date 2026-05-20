@@ -146,10 +146,38 @@ document.addEventListener('DOMContentLoaded', () => {
         const elementoMensagem = document.getElementById('process-modal-message');
         const botaoOk = document.getElementById('process-modal-ok');
 
-        const statusNormalizado = ['success', 'concluido', 'concluído', 'under-review', 'em_revisao', 'em_revisão']
-            .includes((status || '').toLowerCase().trim()) ? 'under-review' : 'rejected';
+        const statusRaw = (status || '').toString().toLowerCase().trim();
+        const statusNormalizado = statusRaw
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/_/g, '-');
 
-        if (statusNormalizado === 'under-review') {
+        const isUnderReview = [
+            'under-review',
+            'em-revisao',
+            'em-revisao-',
+            'em-revisao '
+        ].some(s => statusNormalizado === s || statusNormalizado.includes(s));
+
+        const isConcluido = [
+            'concluido',
+            'concluido ',
+            'success',
+            'concluido-success'
+        ].some(s => statusNormalizado === s || statusNormalizado.includes(s));
+
+        const isRecusado = [
+            'recusada',
+            'recusado',
+            'rejected'
+        ].some(s => statusNormalizado === s || statusNormalizado.includes(s));
+
+        let modo = 'rejected';
+        if (isUnderReview) modo = 'under-review';
+        else if (isConcluido) modo = 'success';
+        else if (isRecusado) modo = 'rejected';
+
+        if (modo === 'under-review') {
             elementoTitulo.textContent = 'Processo em Revisão';
             
             elementoCorpo.innerHTML = `
@@ -179,6 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (typeof acaoAoConfirmar === 'function') acaoAoConfirmar();
                 }
             }, 1000);
+
+        } else if (modo === 'success') {
+            elementoTitulo.textContent = 'Resultado: Concluído';
+            elementoCorpo.innerHTML = '<i class="bi bi-check-circle" style="font-size: 3rem; color: #2ecc71;"></i>';
+            elementoMensagem.textContent = 'Seu saldo foi confirmado e atualizado.';
 
         } else {
             elementoTitulo.textContent = 'Resultado: Recusado';
