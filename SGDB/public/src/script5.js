@@ -298,6 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function finalizarRecarga(valorStr, metodo, numCartaoTransp, modal) {
+
         const btn = document.getElementById('btn-finalizar-fake');
 
         btn.disabled = true;
@@ -306,6 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const valorNum = getValorSeguro(valorStr);
 
         try {
+
             const payload = {
                 valor: valorNum,
                 metodo: metodo.trim().toUpperCase().replace(/\s/g, '_'),
@@ -321,40 +323,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            if (modal) modal.classList.remove('active');
-
-            if (response.ok && data.success) {
-                btn.textContent = 'Sucesso!';
-
-                let modalStatus;
-                const situacaoNormalizada = data.situacao?.normalize("NFD").replace(/[\u0300-\u036f]/g, "") || "";
-
-                if (situacaoNormalizada.includes('Concluido')) {
-                    modalStatus = 'success';
-                } else if (situacaoNormalizada.includes('Em_Revisao')) {
-                    modalStatus = 'under-review';
-                } else {
-                    modalStatus = 'rejected';
-                }
-
-                showProcessModal(modalStatus, 'recarga', () => {
-                    auth.safeRedirect('/dashboard');
-                });
-            } else {
-                showProcessModal('rejected', 'recarga', () => {
-                    btn.disabled = false;
-                    btn.textContent = 'Concluir';
-                });
+            if (modal) {
+                modal.classList.remove('active');
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
             }
 
+            if (!response.ok || !data.success) {
+                showProcessModal('under-review', 'recarga', () => {
+                    auth.safeRedirect('/dashboard');
+                });
+                return;
+            }
+
+            showProcessModal('under-review', 'recarga', () => {
+                auth.safeRedirect('/dashboard');
+            });
+
         } catch (err) {
-            showProcessModal('rejected', 'recarga', () => {
-                btn.disabled = false;
-                btn.textContent = 'Concluir';
+
+            console.error("Erro ao finalizar recarga:", err);
+            showProcessModal('under-review', 'recarga', () => {
+                auth.safeRedirect('/dashboard');
             });
         }
     }
-
     function obterDadosFormulario(valorStr) {
         const selectOptions = selectElement.options;
         const metodoTexto = selectOptions[selectElement.selectedIndex].text.split('(')[0].trim();
