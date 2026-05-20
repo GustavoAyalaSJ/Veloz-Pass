@@ -112,20 +112,29 @@ document.addEventListener('DOMContentLoaded', () => {
         modalProcesso.className = 'process-overlay';
         modalProcesso.innerHTML = `
             <div class="process-box">
+
                 <div class="process-header">
                     <h3 id="process-modal-title">Resultado</h3>
                 </div>
+
                 <div class="process-body" id="process-modal-body"></div>
+
                 <div class="process-footer">
                     <p id="process-modal-message">Mensagem</p>
                     <button id="process-modal-ok" class="btn-ok">OK</button>
                 </div>
+
             </div>
         `;
+
         document.body.appendChild(modalProcesso);
 
         modalProcesso.onclick = (e) => {
-            if (e.target === modalProcesso) closeModalProcesso();
+            const emRevisao = modalProcesso.classList.contains('processing');
+            if (emRevisao) return;
+            if (e.target === modalProcesso) {
+                closeModalProcesso();
+            }
         };
     }
 
@@ -134,96 +143,115 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(intervaloRelogio);
             intervaloRelogio = null;
         }
-        modalProcesso?.classList.remove('active');
+
+        modalProcesso?.classList.remove('processing');
+        modalProcesso.classList.add('active');
     }
 
-    window.showProcessModal = function (status, tipoPagina, acaoAoConfirmar) {
+    window.showProcessModal = function (
+        status,
+        tipoPagina,
+        acaoAoConfirmar
+    ) {
+
         createProcessModal();
-        closeModalProcesso(); 
 
         const elementoTitulo = document.getElementById('process-modal-title');
         const elementoCorpo = document.getElementById('process-modal-body');
         const elementoMensagem = document.getElementById('process-modal-message');
         const botaoOk = document.getElementById('process-modal-ok');
 
-        const statusRaw = (status || '').toString().toLowerCase().trim();
-        const statusNormalizado = statusRaw
+        if (intervaloRelogio) {
+            clearInterval(intervaloRelogio);
+            intervaloRelogio = null;
+        }
+
+        const statusNormalizado = (status || '')
+            .toString()
+            .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, '')
-            .replace(/_/g, '-');
+            .replace(/_/g, '-')
+            .trim();
 
-        const isUnderReview = [
-            'under-review',
-            'em-revisao',
-            'em-revisao-',
-            'em-revisao '
-        ].some(s => statusNormalizado === s || statusNormalizado.includes(s));
+        const emRevisao =
+            statusNormalizado.includes('under-review') ||
+            statusNormalizado.includes('em-revisao');
 
-        const isConcluido = [
-            'concluido',
-            'concluido ',
-            'success',
-            'concluido-success'
-        ].some(s => statusNormalizado === s || statusNormalizado.includes(s));
+        if (emRevisao) {
 
-        const isRecusado = [
-            'recusada',
-            'recusado',
-            'rejected'
-        ].some(s => statusNormalizado === s || statusNormalizado.includes(s));
-
-        let modo = 'rejected';
-        if (isUnderReview) modo = 'under-review';
-        else if (isConcluido) modo = 'success';
-        else if (isRecusado) modo = 'rejected';
-
-        if (modo === 'under-review') {
-            elementoTitulo.textContent = 'Processo em Revisão';
-            
+            elementoTitulo.textContent = 'Atualizando Informações';
             elementoCorpo.innerHTML = `
-                <div class="timer-container" style="text-align: center; margin: 15px 0;">
-                    <i class="bi bi-clock-history" style="font-size: 3rem; color: #f39c12;"></i>
-                    <div id="countdown-clock" style="font-size: 1.8rem; font-weight: bold; margin-top: 10px; color: #333;">02:00</div>
+                <div class="timer-container">
+                    <i class="bi bi-arrow-repeat process-spin"></i>
+                    <div id="countdown-clock">
+                        02:00
+                    </div>
                 </div>
             `;
 
-            elementoMensagem.textContent = 'Aguarde uma resposta do nosso sistema, pode levar alguns minutos.';
+            elementoMensagem.textContent = 'Aguarde enquanto nosso sistema processa sua solicitação.';
+
+            botaoOk.style.display = 'none';
 
             let tempoRestante = 120;
-            
+
             intervaloRelogio = setInterval(() => {
+
                 tempoRestante--;
-                
-                const minutos = Math.floor(tempoRestante / 60).toString().padStart(2, '0');
-                const segundos = (tempoRestante % 60).toString().padStart(2, '0');
-                
-                const relogioDisplay = document.getElementById('countdown-clock');
-                if (relogioDisplay) {
-                    relogioDisplay.textContent = `${minutos}:${segundos}`;
+
+                const minutos = Math.floor(
+                    tempoRestante / 60
+                ).toString().padStart(2, '0');
+
+                const segundos = (
+                    tempoRestante % 60
+                ).toString().padStart(2, '0');
+
+                const relogio =
+                    document.getElementById('countdown-clock');
+
+                if (relogio) {
+                    relogio.textContent = `${minutos}:${segundos}`;
                 }
 
                 if (tempoRestante <= 0) {
+                    clearInterval(intervaloRelogio);
+
+                    intervaloRelogio = null;
+
                     closeModalProcesso();
-                    if (typeof acaoAoConfirmar === 'function') acaoAoConfirmar();
+                    if (typeof acaoAoConfirmar === 'function') {
+                        acaoAoConfirmar();
+                    }
                 }
             }, 1000);
-
-        } else if (modo === 'success') {
-            elementoTitulo.textContent = 'Resultado: Concluído';
-            elementoCorpo.innerHTML = '<i class="bi bi-check-circle" style="font-size: 3rem; color: #2ecc71;"></i>';
-            elementoMensagem.textContent = 'Seu saldo foi confirmado e atualizado.';
-
         } else {
-            elementoTitulo.textContent = 'Resultado: Recusado';
-            elementoCorpo.innerHTML = '<i class="bi bi-x-circle" style="font-size: 3rem; color: #e74c3c;"></i>';
-            elementoMensagem.textContent = 'Processo recusado pelo provedor ou falha no sistema. Em caso de dúvidas, contate o suporte.';
+
+            elementoTitulo.textContent = 'Processo Finalizado';
+
+            elementoCorpo.innerHTML = `
+                <i class="bi bi-check-circle"></i>
+            `;
+
+            elementoMensagem.textContent = 'Operação concluída.';
+
+            botaoOk.style.display = 'inline-flex';
+
+            botaoOk.onclick = () => {
+                closeModalProcesso();
+
+                if (typeof acaoAoConfirmar === 'function') {
+                    acaoAoConfirmar();
+                }
+            };
         }
-
-        botaoOk.onclick = () => {
-            closeModalProcesso();
-            if (typeof acaoAoConfirmar === 'function') acaoAoConfirmar();
-        };
-
         modalProcesso.classList.add('active');
+
+        if (emRevisao) {
+            modalProcesso.classList.add('processing');
+        } else {
+            modalProcesso.classList.remove('processing');
+        }
     };
 })();
