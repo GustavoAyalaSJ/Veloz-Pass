@@ -1171,6 +1171,18 @@ td.table-bold {
         gap: 12px;
     }
 
+    .row-cartao input{
+        margin-top: 0px;
+    }
+
+    .row-cartao label {
+        margin-top: 10px;
+    }
+
+    #num-cartao {
+        margin-top: 10px;
+    }
+
     .btn-proximo,
     .btn-finalizar,
     .btn-cancelar,
@@ -1194,7 +1206,10 @@ td.table-bold {
 
 @media screen and (max-width: 480px) {
     .cabeçalho {
-        padding: 14px 15px;
+        padding-top: 14px;
+        padding-bottom: 15px;
+        padding-right: 15px;
+        padding-left: 15px;
     }
 
     .logotipo img {
@@ -1208,6 +1223,7 @@ td.table-bold {
 
     .header-link {
         padding: 9px 11px;
+        margin-right: 2px;
     }
 
     .icon-button {
@@ -1311,7 +1327,7 @@ td.table-bold {
     }
 
     .modal-box {
-        width: 94%;
+        width: 90%;
         padding: 20px;
         margin-right: 20px;
         border-radius: 22px;
