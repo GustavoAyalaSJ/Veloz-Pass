@@ -195,7 +195,7 @@ span {
     border: 3px solid #6782ad;
 }
 
-.dark-mode .filtro-item label {
+.dark-mode .select-item label {
     color: rgb(167, 199, 255);
 }
 
@@ -372,7 +372,7 @@ span {
     transform: translateY(2px);
 }
 
-.filtro-item .select-icon {
+.select-item .select-icon {
     position: absolute;
     margin-top: -2px;
     right: 12px;
@@ -385,7 +385,7 @@ span {
     z-index: 1;
 }
 
-.filtro-item.active .select-icon {
+.select-item.active .select-icon {
     transform: translateY(-50%) rotate(180deg);
     top: 54px;
 }
@@ -693,13 +693,13 @@ td.table-bold {
     flex-wrap: wrap;
 }
 
-.filtro-item {
+.select-item {
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-.filtro-item label {
+.select-item label {
     font-weight: 600;
     color: #2c3e50;
     font-size: 0.9rem;
@@ -1027,13 +1027,13 @@ td.table-bold {
         margin-top: 10px;
     }
 
-    .filtro-item {
+    .select-item {
         width: auto;
         min-width: 190px;
         max-width: 220px;
     }
 
-    .filtro-item label {
+    .select-item label {
         margin-bottom: 6px;
         font-size: 0.82rem;
     }
@@ -1046,7 +1046,7 @@ td.table-bold {
         margin-top: 10px;
     }
 
-    .filtro-item .select-icon {
+    .select-item .select-icon {
         top: 44px;
         right: 14px;
         margin-top: 0;
@@ -1133,7 +1133,7 @@ td.table-bold {
         gap: 15px;
     }
 
-    .filtro-item {
+    .select-item {
         width: 100%;
     }
 
@@ -1141,7 +1141,7 @@ td.table-bold {
         width: 100%;
     }
 
-    .filtro-item .select-icon {
+    .select-item .select-icon {
         top: 47px;
         right: 14px;
     }
@@ -1271,11 +1271,11 @@ td.table-bold {
         gap: 14px;
     }
 
-    .filtro-item {
+    .select-item {
         width: 100%;
     }
 
-    .filtro-item label {
+    .select-item label {
         margin-bottom: 5px;
         font-size: 0.82rem;
     }
@@ -1288,7 +1288,7 @@ td.table-bold {
         font-size: 0.85rem;
     }
 
-    .filtro-item .select-icon {
+    .select-item .select-icon {
         top: 46px;
         right: 14px;
     }
@@ -1313,6 +1313,7 @@ td.table-bold {
     .modal-box {
         width: 94%;
         padding: 20px;
+        margin-right: 20px;
         border-radius: 22px;
     }
 
@@ -1322,6 +1323,19 @@ td.table-bold {
 
     .opt-valor {
         width: 100%;
+    }
+
+    .select-wrapper-modal {
+        margin-bottom: 30px;
+    }
+
+    #num-cartao {
+        margin-top: 10px;
+    }
+
+    .row-cartao label {
+        margin-top: 10px;
+        margin-bottom: -10px;
     }
 
     .modal-footer {

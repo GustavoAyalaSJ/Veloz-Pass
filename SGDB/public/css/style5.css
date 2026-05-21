@@ -1286,6 +1286,10 @@ select {
         gap: 10px;
     }
 
+    .top-group h4{
+        margin-bottom: 10px;
+    }
+
     .top-group.valor {
         padding-right: 0;
     }
@@ -1333,7 +1337,8 @@ select {
 
     .divider {
         height: 30px;
-        margin: 5px 0;
+        margin-top: -10px;
+        margin-bottom: -5px;
         padding-left: 0;
     }
 
@@ -1356,8 +1361,8 @@ select {
     .warning-box,
     .info-box {
         margin-left: 0;
-        margin-top: 20px;
-        margin-bottom: -100px;
+        margin-top: 10px;
+        margin-bottom: -40px;
         padding: 10px;
         gap: 10px;
     }
