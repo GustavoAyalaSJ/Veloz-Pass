@@ -676,7 +676,7 @@ select {
 
 .warning-box {
     background-color: #a18754;
-    border: 2px solid #9a7f49;
+    border: 2px solid #5f4e2c;
     grid-area: warning;
     border-radius: 15px;
     padding: 15px 20px;
@@ -1286,7 +1286,7 @@ select {
         gap: 10px;
     }
 
-    .top-group h4{
+    .top-group h4 {
         margin-bottom: 10px;
     }
 
@@ -1358,14 +1358,22 @@ select {
         gap: 10px;
     }
 
-    .warning-box,
-    .info-box {
+    .warning-box {
         margin-left: 0;
         margin-top: 10px;
         margin-bottom: -40px;
         padding: 10px;
         gap: 10px;
     }
+
+    .info-box {
+        margin-left: 0;
+        margin-top: -50px;
+        margin-bottom: 10px;
+        padding: 10px;
+        gap: 10px;
+    }
+
 
     .btn-prosseguir {
         width: 100%;

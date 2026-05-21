@@ -301,7 +301,10 @@
 /* Media Queries */
 @media (max-width: 480px) {
     .logout-box {
-        margin: 1rem;
+        margin-left: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        margin-right: 40px;
         width: calc(100% - 2rem);
         padding: 2rem 1.5rem;
     }
