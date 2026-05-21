@@ -161,9 +161,18 @@
 (13-05-2026)
 - Reestruturação das frases do MINT e adição de conteúdo faltante.
 
-(18-05-2026 - Atual)
+(18-05-2026)
 - Adição de botão de notificações;
 - Arrumando a lógica de códigos no back-end;
 - Ajuste no CSS.
+
+(19-05-2026)
+- Atualizando os processos da Carteira Digital para serem dinâmicos, invês de estáticos;
+- Adicionando um info-card para pagamento 'Carteira Digital' na página Recarga;
+- Atualizando frases do MINT;
+- Ajustes no CSS.
+
+(20 / 21-05-2026 - Atual)
+- Ajustes na interface da versão web no media queries.
 
 
