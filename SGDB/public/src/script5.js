@@ -331,21 +331,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 300);
             }
 
+            const situacao = data.situacao || (response.ok && data.success ? 'Concluído' : 'Recusada');
+            
             if (!response.ok || !data.success) {
-                showProcessModal('under-review', 'recarga', () => {
+                showProcessModal(situacao === 'Recusada' ? 'rejected' : 'under-review', 'recarga', () => {
                     auth.safeRedirect('/dashboard');
                 });
                 return;
             }
 
-            showProcessModal('under-review', 'recarga', () => {
+            showProcessModal(situacao === 'Concluído' ? 'approved' : 'under-review', 'recarga', () => {
                 auth.safeRedirect('/dashboard');
             });
 
         } catch (err) {
 
             console.error("Erro ao finalizar recarga:", err);
-            showProcessModal('under-review', 'recarga', () => {
+            showProcessModal('rejected', 'recarga', () => {
                 auth.safeRedirect('/dashboard');
             });
         }
