@@ -10,4 +10,10 @@ router.get(
     notificationsController.listarNotificacoes
 );
 
+router.post(
+    '/notifications',
+    verificarToken,
+    notificationsController.criarNotificacao
+);
+
 module.exports = router;
