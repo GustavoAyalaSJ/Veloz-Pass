@@ -39,9 +39,39 @@ exports.listarNotificacoes = async (req, res) => {
 exports.registrarNotificacaoAgora = async (idUsuario, protocolo, situacao) => {
     if (!idUsuario || !protocolo || !situacao) return;
 
-    await supabase.rpc('rpc_registrar_notificacao', {
-        p_id_user: idUsuario,
-        p_protocolo: protocolo,
-        p_situacao: situacao
-    }).catch(() => {});
+    const expiracaoData = new Date();
+    expiracaoData.setDate(expiracaoData.getDate() + 30);
+    const expiresAtISO = expiracaoData.toISOString();
+
+    try {
+        const { error } = await supabase.rpc('rpc_registrar_notificacao', {
+            p_id_user: idUsuario,
+            p_protocolo: protocolo,
+            p_situacao: situacao,
+            p_expires_at: expiresAtISO
+        });
+
+        if (error) {
+            console.error('[Notificação RPC Error]', error);
+        }
+    } catch (err) {
+        console.error('[Notificação Error]', err);
+    }
+};
+
+exports.criarNotificacao = async (req, res) => {
+    const { protocolo, situacao } = req.body;
+    const idUsuario = req.userId;
+
+    if (!protocolo || !situacao) {
+        return res.status(400).json({ error: 'Protocolo e situação são obrigatórios.' });
+    }
+
+    try {
+        await exports.registrarNotificacaoAgora(idUsuario, protocolo, situacao);
+        res.json({ success: true, message: 'Notificação registrada.' });
+    } catch (err) {
+        console.error('[Criar Notificação Error]', err);
+        res.status(500).json({ error: 'Erro ao registrar notificação.' });
+    }
 };
