@@ -61,9 +61,6 @@ app.get('/introduction', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.get('/csrf-token', (req, res) => {
-    res.json({ csrfToken: 'placeholder-csrf-token' });
-});
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index2.html'));
 });

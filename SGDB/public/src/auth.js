@@ -57,26 +57,11 @@ class AuthManager {
         }
     }
 
-    async getCsrfToken() {
-        try {
-            const response = await fetch('/csrf-token', { credentials: 'same-origin' });
-            if (response.ok) {
-                const data = await response.json();
-                return data.csrfToken;
-            }
-        } catch (e) {
-            console.warn('CSRF token fetch failed:', e);
-        }
-        return null;
-    }
-
     async request(url, options = {}) {
         const token = this.getToken();
-        const csrfToken = await this.getCsrfToken();
 
         const headers = {
             'Content-Type': 'application/json',
-            ...(csrfToken && ['POST', 'PUT', 'DELETE'].includes(options.method) && { 'X-CSRF-Token': csrfToken }),
             ...options.headers
         };
 
