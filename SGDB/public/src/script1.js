@@ -382,7 +382,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
 
                 const statusEl = document.getElementById('senhaStatus');
-                // PATCH /auth/password.
                 if (statusEl) {
                     statusEl.textContent = 'Atenção: Atualização de senha desabilitada temporariamente.';
                 }

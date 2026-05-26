@@ -53,8 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     qBtn.addEventListener('click', () => {
+        const stepsComTargetExistente = steps.filter((s) => {
+            if (!s.target) return true;
+            return !!document.querySelector(s.target);
+        });
+
         window.MintEngine?.startMint?.({
-            steps,
+            steps: stepsComTargetExistente,
             spriteMap,
             force: true
         });

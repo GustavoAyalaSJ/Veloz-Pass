@@ -520,6 +520,7 @@ span {
 }
 
 .modal-wrapper.active {
+    display: flex;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -836,6 +837,14 @@ td.table-bold {
     margin-top: -25px;
     margin-bottom: 30px;
     text-align: left;
+}
+
+.payment-method-container.hidden {
+    display: none !important;
+}
+
+.payment-method-container.hidden * {
+    pointer-events: none;
 }
 
 .payment-method-container label {

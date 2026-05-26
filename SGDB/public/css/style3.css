@@ -404,6 +404,7 @@ span {
     top: 35px;
 }
 
+div.empty-table-message,
 .empty-table-message {
     text-align: center;
     padding: 20px;
@@ -411,7 +412,6 @@ span {
 }
 
 /* IDs - Java Script */
-
 #notification-dropdown.dropdown-content {
     display: none;
 }
