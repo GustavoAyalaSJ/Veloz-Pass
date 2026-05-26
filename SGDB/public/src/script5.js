@@ -528,71 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (wrapper) {
-        selectElement.addEventListener('focus', () => wrapper.classList.add('active'));
-        selectElement.addEventListener('blur', () => wrapper.classList.remove('active'));
-    }
-
-    async function salvarCartaoTransporte(numeroCartao) {
-        if (!numeroCartao || numeroCartao.length < 15) {
-            return false;
-        }
-
-        try {
-            const response = await auth.request('/api/payments/save-card', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ n_card: numeroCartao })
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.success) {
-                console.log('Cartão salvo com sucesso:', data);
-                return true;
-            } else if (response.status === 409) {
-                console.log('Cartão já foi registrado:', data.error);
-                return false;
-            } else {
-                console.error('Erro ao salvar cartão:', data.error);
-                return false;
-            }
-        } catch (err) {
-            console.error('Erro na requisição de salvar cartão:', err);
-            return false;
-        }
-    }
-
-    const transInputs = document.querySelectorAll('.confirm-card input');
-    if (transInputs.length >= 1) {
-        const inputPrimeiro = transInputs[0];
-        const inputSegundo = transInputs[1];
-
-        let ultimoValorSalvo = '';
-
-        inputPrimeiro.addEventListener('blur', async (e) => {
-            const valorAtual = e.target.value.trim();
-
-            if (valorAtual.length >= 15 && valorAtual !== ultimoValorSalvo) {
-                const resultado = await salvarCartaoTransporte(valorAtual);
-                
-                if (resultado) {
-                    ultimoValorSalvo = valorAtual;
-                    inputPrimeiro.style.borderColor = '#4CAF50';
-                    setTimeout(() => {
-                        inputPrimeiro.style.borderColor = '';
-                    }, 2000);
-                }
-            }
-        });
-
-        inputSegundo.addEventListener('input', () => {
-            // Apenas validação visual de confirmação
-            const val1 = inputPrimeiro.value.replace(/\D/g, '');
-            const val2 = inputSegundo.value.replace(/\D/g, '');
-
-        });
-    }
+    document.querySelectorAll('.confirm-card input').forEach(i => aplicarMascara(i, "00.00.00000000-0"));
 
     carregarSaldoCarteira();
 });
