@@ -100,21 +100,22 @@ class AuthManager {
 
 const auth = new AuthManager();
 
+const rotasProtegidas = ['/dashboard', '/carteira_digital', '/recarga', '/historico'];
+
 document.addEventListener('click', function (e) {
-    const target = e.target.closest('a, button, [onclick]');
-    if (!target) return;
+    const targetAnchor = e.target.closest('a[href]');
+    if (!targetAnchor) return;
 
-    let href = target.getAttribute('href') ||
-        target.closest('a')?.getAttribute('href') ||
-        target.getAttribute('data-href');
-
+    const href = targetAnchor.getAttribute('href');
     if (!href || href.startsWith('http') || href.startsWith('#')) return;
 
     try {
-        const url = new URL(href.startsWith('/') ? `${window.location.origin}${href}` : href, window.location.origin);
+        const url = new URL(
+            href.startsWith('/') ? `${window.location.origin}${href}` : href,
+            window.location.origin
+        );
         const pathname = url.pathname;
 
-        const rotasProtegidas = ['/dashboard', '/carteira_digital', '/recarga', '/historico'];
         const usuarioLogado = !!(auth.getToken() && auth.getUserData());
 
         if (rotasProtegidas.includes(pathname) && !usuarioLogado) {
@@ -123,6 +124,5 @@ document.addEventListener('click', function (e) {
             window.location.href = '/introduction';
         }
     } catch (err) {
-
     }
-}, true);
+});

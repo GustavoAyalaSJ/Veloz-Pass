@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const userData = auth.getUserData();
     const idLogado = userData?.id;
+    const idUsuario = idLogado;
 
     if (!idLogado) {
         auth.safeRedirect("/introduction");
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function carregarSaldoCarteira() {
         try {
-            const response = await auth.request(`/api/payments/wallet-data/${idLogado}`);
+            const response = await auth.request(`/api/payments/wallet-data/${idUsuario}`);
             if (!response || !response.ok) return;
 
             const data = await response.json();
@@ -263,7 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function obterHtmlCartao() {
         return `
         <div class="card-inputs-row">
-            <div class="card-inputs-row">
                 <label class="num-card" for="card-num">Número do Cartão</label>
                 <input type="text" id="card-num" placeholder="0000 0000 0000 0000">
 
@@ -274,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <label class="cvv-card" for="card-cvv">CVV</label>
                     <input type="text" id="card-cvv" placeholder="000">
                 </div>
-            </div>
         </div>
         `;
     }
@@ -325,14 +324,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (modal) {
                 modal.classList.remove('active');
-                
+
                 setTimeout(() => {
                     modal.style.display = 'none';
                 }, 300);
             }
 
             const situacao = data.situacao || (response.ok && data.success ? 'Concluído' : 'Recusada');
-            
+
             if (!response.ok || !data.success) {
                 showProcessModal(situacao === 'Recusada' ? 'rejected' : 'under-review', 'recarga', () => {
                     auth.safeRedirect('/dashboard');
@@ -485,19 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.confirm-card input')
         .forEach(i => aplicarMascara(i, "00.00.00000000-0"));
 
-    function dispararFeedbackCopia(botao) {
-        if (botao.classList.contains('copied')) return;
-
-        botao.classList.add('copied');
-        const originalIcon = botao.innerHTML;
-        botao.innerHTML = '<i class="bi bi-check-lg"></i>';
-
-        setTimeout(() => {
-            botao.classList.remove('copied');
-            botao.innerHTML = originalIcon;
-        }, 2000);
-    }
-
     function configurarCopiaPix() {
         const containerPix = document.querySelector('.pix-container');
         if (!containerPix) return;
@@ -505,24 +491,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnCopiar = containerPix.querySelector('.pix-copy-btn');
         if (!btnCopiar) return;
 
-        btnCopiar.addEventListener('click', () => {
+        btnCopiar.addEventListener('click', async () => {
             const textoParaCopiar = btnCopiar.dataset.chave || "placeholder@test02";
 
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textoParaCopiar)
-                    .then(() => dispararFeedbackCopia(btnCopiar))
-                    .catch(err => console.error("Erro ao copiar", err));
-            } else {
-                const textArea = document.createElement('textarea');
-                textArea.value = textoParaCopiar;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    dispararFeedbackCopia(btnCopiar);
-                } catch (err) {
-                    console.error(err);
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(textoParaCopiar);
+                    return;
                 }
+            } catch (err) {
+                // fallback abaixo
+            }
+
+            const textArea = document.createElement('textarea');
+            textArea.value = textoParaCopiar;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.error(err);
+            } finally {
                 document.body.removeChild(textArea);
             }
         });
@@ -572,7 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (valorAtual.length >= 15 && valorAtual !== ultimoValorSalvo) {
                 const resultado = await salvarCartaoTransporte(valorAtual);
-                
+
                 if (resultado) {
                     ultimoValorSalvo = valorAtual;
                     // Feedback visual
