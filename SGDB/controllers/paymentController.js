@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { supabase } = require('../config/supabase');
 
 const notificationsController = require('./notificationsController');
@@ -289,5 +290,137 @@ function validarCartao(numCartao) {
     const limpo = numCartao.replace(/\D/g, '');
     return limpo.length >= 13 && limpo.length <= 16;
 }
+
+exports.saveCard = async (req, res) => {
+    const { n_card } = req.body;
+    const idUsuario = req.userId;
+
+    if (!n_card) {
+        return res.status(400).json({ error: "Número do cartão é obrigatório." });
+    }
+
+    const cartaoLimpo = n_card.replace(/\D/g, '');
+
+    if (!validarCartao(n_card)) {
+        return res.status(400).json({ error: "Número do cartão inválido." });
+    }
+
+    try {
+        const cartaoHash = await bcrypt.hash(cartaoLimpo, 10);
+
+        const { data, error } = await supabase
+            .from('uniquecard')
+            .insert([{ id_user: idUsuario, n_card: cartaoHash }])
+            .select();
+
+        if (error) {
+            if (error.code === '23505') {
+                return res.status(409).json({ 
+                    error: "Este cartão já foi registrado em sua conta.",
+                    code: 'CARD_ALREADY_EXISTS'
+                });
+            }
+            throw error;
+        }
+
+        res.status(201).json({
+            success: true,
+            message: "Cartão registrado com sucesso!",
+            card: {
+                id: data[0].id_card,
+                ultimosDígitos: cartaoLimpo.slice(-4)
+            }
+        });
+
+    } catch (err) {
+        console.error('Erro ao salvar cartão:', err);
+        res.status(500).json({ error: "Erro ao registrar cartão." });
+    }
+};
+
+exports.getUserCards = async (req, res) => {
+    const idUsuario = req.params.idUsuario;
+    const idUsuarioAutenticado = req.userId;
+
+    if (String(idUsuario) !== String(idUsuarioAutenticado)) {
+        return res.status(403).json({ error: "Acesso negado." });
+    }
+
+    try {
+        const { data: cartoes, error } = await supabase
+            .from('uniquecard')
+            .select('id_card')
+            .eq('id_user', idUsuario);
+
+        if (error) {
+            throw error;
+        }
+
+        const cartoesSeguro = cartoes.map(cartao => ({
+            id: cartao.id_card
+        }));
+
+        res.json({
+            success: true,
+            cartoes: cartoesSeguro,
+            total: cartoesSeguro.length
+        });
+
+    } catch (err) {
+        console.error('Erro ao recuperar cartões:', err);
+        res.status(500).json({ error: "Erro ao recuperar cartões." });
+    }
+};
+
+exports.verifyCard = async (req, res) => {
+    const { n_card } = req.body;
+    const idUsuario = req.userId;
+
+    if (!n_card) {
+        return res.status(400).json({ error: "Número do cartão é obrigatório." });
+    }
+
+    const cartaoLimpo = n_card.replace(/\D/g, '');
+
+    if (!validarCartao(n_card)) {
+        return res.status(400).json({ error: "Número do cartão inválido." });
+    }
+
+    try {
+        const { data: cartoes, error } = await supabase
+            .from('uniquecard')
+            .select('n_card')
+            .eq('id_user', idUsuario);
+
+        if (error) {
+            throw error;
+        }
+
+        if (!cartoes || cartoes.length === 0) {
+            return res.json({
+                verified: false,
+                message: "Nenhum cartão registrado."
+            });
+        }
+
+        let cartaoVerificado = false;
+        for (const cartao of cartoes) {
+            const match = await bcrypt.compare(cartaoLimpo, cartao.n_card);
+            if (match) {
+                cartaoVerificado = true;
+                break;
+            }
+        }
+
+        res.json({
+            verified: cartaoVerificado,
+            message: cartaoVerificado ? "Cartão verificado com sucesso!" : "Cartão não encontrado nos registros."
+        });
+
+    } catch (err) {
+        console.error('Erro ao verificar cartão:', err);
+        res.status(500).json({ error: "Erro ao verificar cartão." });
+    }
+};
 
 module.exports = exports;
