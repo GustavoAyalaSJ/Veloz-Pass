@@ -26,4 +26,19 @@ router.post('/recarga-transporte',
     paymentController.processRecargaTransporte
 );
 
+router.post('/save-card',
+    verificarToken,
+    paymentController.saveCard
+);
+
+router.get('/user-cards/:idUsuario',
+    verificarToken,
+    paymentController.getUserCards
+);
+
+router.post('/verify-card',
+    verificarToken,
+    paymentController.verifyCard
+);
+
 module.exports = router;
