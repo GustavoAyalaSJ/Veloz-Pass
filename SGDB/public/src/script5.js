@@ -204,6 +204,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         n1.addEventListener('input', validarCartaoTransp);
         n2.addEventListener('input', validarCartaoTransp);
+
+        let ultimoValorSalvo = '';
+
+        n1.addEventListener('blur', async (e) => {
+            const valorAtual = e.target.value.trim();
+            if (valorAtual.length >= 15 && valorAtual !== ultimoValorSalvo) {
+                const resultado = await salvarCartaoTransporte(valorAtual);
+                if (resultado) {
+                    ultimoValorSalvo = valorAtual;
+                    n1.style.borderColor = '#4CAF50';
+                    setTimeout(() => { n1.style.borderColor = ''; }, 2000);
+                }
+            }
+        });
     }
 
     function gerenciarAvisos(metodo) {
@@ -547,37 +561,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro na requisição de salvar cartão:', err);
             return false;
         }
-    }
-
-    const transInputs = document.querySelectorAll('.confirm-card input');
-    if (transInputs.length >= 1) {
-        const inputPrimeiro = transInputs[0];
-        const inputSegundo = transInputs[1];
-
-        let ultimoValorSalvo = '';
-
-        inputPrimeiro.addEventListener('blur', async (e) => {
-            const valorAtual = e.target.value.trim();
-
-            if (valorAtual.length >= 15 && valorAtual !== ultimoValorSalvo) {
-                const resultado = await salvarCartaoTransporte(valorAtual);
-
-                if (resultado) {
-                    ultimoValorSalvo = valorAtual;
-                    // Feedback visual
-                    inputPrimeiro.style.borderColor = '#4CAF50';
-                    setTimeout(() => {
-                        inputPrimeiro.style.borderColor = '';
-                    }, 2000);
-                }
-            }
-        });
-
-        inputSegundo.addEventListener('input', () => {
-            const val1 = inputPrimeiro.value.replace(/\D/g, '');
-            const val2 = inputSegundo.value.replace(/\D/g, '');
-
-        });
     }
 
     carregarSaldoCarteira();
