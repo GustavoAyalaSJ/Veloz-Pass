@@ -142,7 +142,7 @@ exports.processCredit = async (req, res) => {
             return res.status(400).json({ error: 'Resposta inválida do servidor' });
         }
         if (!rpcResult.success) {
-            return res.status(200).json({
+            return res.status(422).json({
                 success: false,
                 error: rpcResult.erro || 'Transação rejeitada',
                 situacao: rpcResult.situacao,
@@ -163,6 +163,7 @@ exports.processCredit = async (req, res) => {
         });
 
     } catch (err) {
+        console.error('Process Credit Error:', err);
         res.status(500).json({ error: "Erro ao processar crédito." });
     }
 };
@@ -257,8 +258,8 @@ exports.processRecargaTransporte = async (req, res) => {
                 id_carteira: idCarteira,
                 valor: valorNum,
                 metodo_pagamento: mapaBancoRecarga[metodoFormatado],
-                tipo_movimentacao: 'Recarga', 
-                situacao: 'Concluído', 
+                tipo_movimentacao: 'Recarga',
+                situacao: 'Concluído',
                 n_protocolo: protocolo,
                 id_bandeira: idBandeira ? parseInt(idBandeira) : null
             });
@@ -287,8 +288,25 @@ exports.processRecargaTransporte = async (req, res) => {
 
 function validarCartao(numCartao) {
     if (!numCartao) return false;
-    const limpo = numCartao.replace(/\D/g, '');
-    return limpo.length >= 13 && limpo.length <= 16;
+    const limpo = String(numCartao).replace(/\D/g, '');
+    if (limpo.length < 13 || limpo.length > 16) return false;
+
+    let soma = 0;
+    let alternar = false;
+
+    for (let i = limpo.length - 1; i >= 0; i--) {
+        let n = parseInt(limpo[i], 10);
+
+        if (alternar) {
+            n *= 2;
+            if (n > 9) n -= 9;
+        }
+
+        soma += n;
+        alternar = !alternar;
+    }
+
+    return (soma % 10) === 0;
 }
 
 exports.saveCard = async (req, res) => {
@@ -315,7 +333,7 @@ exports.saveCard = async (req, res) => {
 
         if (error) {
             if (error.code === '23505') {
-                return res.status(409).json({ 
+                return res.status(409).json({
                     error: "Este cartão já foi registrado em sua conta.",
                     code: 'CARD_ALREADY_EXISTS'
                 });
