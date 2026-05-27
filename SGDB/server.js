@@ -43,7 +43,6 @@ const apiLimiter = rateLimit({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Servir arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d',
     etag: false
@@ -84,7 +83,7 @@ app.get('/carteira_digital', sendVanillaIndex);
 app.get('/recarga', sendVanillaIndex);
 app.get('/app', sendVanillaIndex);
 
-app.get('/:any*', (req, res, next) => {
+app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/Assets')) {
         return next();
     }
