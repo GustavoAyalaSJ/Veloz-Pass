@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return;
 
     const imagens = [
-        './assets/Carrousel/imagem1.webp',
-        './assets/Carrousel/imagem2.webp',
-        './assets/Carrousel/imagem3.webp'
+        '../assets/Carrousel/imagem1.webp',
+        '../assets/Carrousel/imagem2.webp',
+        '../assets/Carrousel/imagem3.webp'
     ];
 
     let indexAtual = 0;

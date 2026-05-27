@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let saldoAtualCarteira = 0;
     let idBandeiraSelecionada = null;
 
-    const imgDefault = "./assets/Cartão-ideal.webp";
-    const pastaBandeiras = "./assets/Bandeira/";
+    const imgDefault = "../assets/Cartão-ideal.webp";
+    const pastaBandeiras = "../assets/Bandeira/";
 
     const mapaBandeiras = {
         1: "Visa.webp",
