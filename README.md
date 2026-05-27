@@ -4,6 +4,22 @@ Todo o histórico de desenvolvimento, melhorias, correções e atualizações do
 
 ---
 
+## [1.7.2] - 2026-05-27
+### 🚀 Adicionado
+- **Pasta Services:** Atualizações sobre a pasta no futuros.
+- **React (Temporário):** Foi adicionado React para converter a aplicação, mas, foi considerado um período de testes.
+
+### 🔄 Modificado
+- **Estrutura do Projeto:** Veloz Pass está passando por uma modificação na estrutura do projeto, incluindo novas pastas para separar arquivos corretamente e modificação nos nomes dos arquivos
+- **Design Prototype:** Alteração na demonstração do layout das páginas da aplicação.
+
+### 🔧 Arrumado
+- **Server.js:** Problemas do server.js que impossibilitavam do Deploy.
+
+### 🗑️ Removido
+- **Planos Futuros:** Arquivo removido temporariamente até a conclusão do projeto.
+- **React:** Foi adicionado React para converter a aplicação, mas, foi considerado um período de testes.
+
 ## [1.7.1] - 2026-05-22 / 2026-05-27
 ### 🚀 Adicionado
 - **CSRF:** Implementação de rotas protegidas (/login, /register e /payments).
