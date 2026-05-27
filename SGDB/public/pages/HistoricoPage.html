@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - Veloz Pass</title>
+    <link rel="icon" type="image/png" href="./assets/Favicon.webp">
+    <link rel="stylesheet" href="./css/Historico.css">
+    <link rel="stylesheet" href="./css/mint-config.css">
+    <link rel="stylesheet" href="./css/special-global-modal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+</head>
+
+<body>
+    <div class="background-container">
+        <header class="cabeçalho">
+            <a href="/dashboard" class="logo-link">
+                <div class="logotipo">
+                    <img src="./assets/LogoWeb.webp" alt="VelozPassLogo">
+                </div>
+            </a>
+            <div class="header-actions">
+                    <button id="change-button" class="icon-button">
+                        <i class="bi bi-brightness-high-fill"></i>
+                    </button>
+
+                    <div class="notification-container">
+                        <button id="notification-button" class="icon-button">
+                            <i class="bi bi-bell"></i>
+                        </button>
+
+                        <div id="notification-dropdown" class="dropdown-content">
+                            <label class="notificationLabel">Notificações</label>
+
+                            <section class="notificationWarning">
+                                Você não possui nenhuma notificação no momento.
+                            </section>
+
+                            <div class="notificationFooter">
+                                <p>Aviso: As notificações apagarão sozinhas no prazo de 30 dias.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a class="icon-button exit-link">
+                        <i class="bi bi-box-arrow-left"></i>
+                    </a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h1 class="titulo-pagina-centro"><i class="bi bi-question-circle"></i>Histórico</h1>
+
+            <div class="filtros-container">
+                <div class="filtro-item">
+                    <label for="filtro-tipo">Tipo:</label>
+                    <select id="filtro-tipo" class="filtro-select">
+                        <option value="">Todos</option>
+                        <option value="carteira_digital">Carteira Digital</option>
+                        <option value="recarga">Recarga</option>
+                    </select>
+                    <i class="bi bi-chevron-down select-icon"></i>
+                </div>
+                <div class="filtro-item">
+                    <label for="filtro-realizado-no">Realizado no:</label>
+                    <select id="filtro-realizado-no" class="filtro-select">
+                        <option value="">Todos</option>
+                        <option value="debito">Débito</option>
+                        <option value="credito">Crédito</option>
+                        <option value="internacional">Internacional</option>
+                        <option value="pix">PIX</option>
+                        <option value="carteira_digital">Carteira Digital</option>
+                    </select>
+                    <i class="bi bi-chevron-down select-icon"></i>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="tabela-wrapper-scroll">
+                    <div class="tabela-header">
+                        <span>PROTOCOLO</span>
+                        <span>TIPO</span> <!-- Recarga ou Carteira Digital -->
+                        <span>REALIZADO NO</span> <!-- Cartão Débito, Pix, etc. -->
+                        <span>VALOR</span>
+                        <span>IMPRIMIR PROTOCOLO</span>
+                    </div>
+                    <div class="tabela-corpoInfo">
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="./src/hooks/api.js"></script>
+    <script src="./src/hooks/auth.js"></script>
+    <script src="./src/script3.js"></script>
+    <script src="./src/mint/mint.js"></script>
+    <script src="./src/mint/mint-historico.js"></script>
+    <script src="./src/notifications.js"></script>
+    <script src="./src/global-config.js"></script>
+</body>
+</html>
