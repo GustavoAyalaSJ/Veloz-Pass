@@ -8,7 +8,8 @@ async function obterDadosCarteira(idUsuario) {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include'
         });
 
         if (!response.ok) return null;
@@ -56,12 +57,21 @@ async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
 
     try {
         const token = auth.getToken();
+        const csrfToken = auth.getCsrfToken();
+        
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        };
+
+        if (csrfToken) {
+            headers['x-csrf-token'] = csrfToken;
+        }
+
         const response = await fetch('/api/payments/add-credit', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
+            headers,
+            credentials: 'include',
             body: JSON.stringify(payload)
         });
 

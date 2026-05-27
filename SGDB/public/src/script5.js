@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            showProcessModal(situacao === 'Concluído' ? 'approved' : 'under-review', 'recarga', () => {
+            showProcessModal(situacao === 'Concluído' ? 'success' : 'under-review', 'recarga', () => {
                 auth.safeRedirect('/dashboard');
             });
 

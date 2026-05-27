@@ -3,6 +3,34 @@ class AuthManager {
         this.tokenKey = 'auth_token';
         this.userKey = 'user_data';
         this.newUserFlag = 'user-first-login';
+        this.csrfTokenKey = 'csrf_token';
+        this.csrfTokenFetched = false;
+    }
+
+    async initializeCsrfToken() {
+        if (this.csrfTokenFetched) return;
+        
+        try {
+            const response = await fetch('/csrf-token', {
+                method: 'GET',
+                credentials: 'include', // Important: send cookies
+                headers: { 'Content-Type': 'application/json' }
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                if (data.csrfToken) {
+                    sessionStorage.setItem(this.csrfTokenKey, data.csrfToken);
+                    this.csrfTokenFetched = true;
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to fetch CSRF token:', error);
+        }
+    }
+
+    getCsrfToken() {
+        return sessionStorage.getItem(this.csrfTokenKey);
     }
 
     setToken(token, userData) {
@@ -42,8 +70,15 @@ class AuthManager {
     }
 
     clear() {
-        sessionStorage.clear();
-        localStorage.clear();
+        try {
+            sessionStorage.removeItem(this.tokenKey);
+            sessionStorage.removeItem(this.userKey);
+            sessionStorage.removeItem(this.newUserFlag);
+            sessionStorage.removeItem(this.csrfTokenKey);
+        } catch (e) {
+            console.warn('Falha ao limpar sessionStorage:', e);
+        }
+
         this.safeRedirect('/introduction');
     }
 
@@ -59,6 +94,7 @@ class AuthManager {
 
     async request(url, options = {}) {
         const token = this.getToken();
+        const csrfToken = this.getCsrfToken();
 
         const headers = {
             'Content-Type': 'application/json',
@@ -69,9 +105,14 @@ class AuthManager {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
+        if (csrfToken && ['POST', 'PUT', 'DELETE', 'PATCH'].includes((options.method || 'GET').toUpperCase())) {
+            headers['x-csrf-token'] = csrfToken;
+        }
+
         const response = await fetch(url, {
             ...options,
-            headers
+            headers,
+            credentials: 'include'
         });
 
         if (response.status === 401) {
@@ -84,6 +125,10 @@ class AuthManager {
 }
 
 const auth = new AuthManager();
+
+document.addEventListener('DOMContentLoaded', () => {
+    auth.initializeCsrfToken();
+});
 
 const rotasProtegidas = ['/dashboard', '/carteira_digital', '/recarga', '/historico'];
 

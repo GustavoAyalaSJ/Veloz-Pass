@@ -5,6 +5,8 @@ const fs = require('fs');
 const helmet = require('helmet');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
+const cookieParser = require('cookie-parser');
+const csrf = require('csurf');
 require('dotenv').config();
 
 const { supabase } = require('./config/supabase.js');
@@ -16,6 +18,7 @@ const app = express();
 
 app.use(helmet());
 app.use(compression());
+app.use(cookieParser());
 
 app.use(cors({
     origin: process.env.NODE_ENV === 'production'
@@ -44,6 +47,18 @@ app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d',
     etag: false
 }));
+
+const csrfProtection = csrf({
+    cookie: {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production'
+    }
+});
+
+app.get('/csrf-token', csrfProtection, (req, res) => {
+    return res.json({ csrfToken: req.csrfToken() });
+});
 
 app.use((req, res, next) => {
     if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
@@ -78,8 +93,10 @@ app.get('/app', (req, res) => {
 });
 
 app.use('/api/', apiLimiter);
-app.use('/auth', loginLimiter, authRoutes);
-app.use('/api/payments', (req, res, next) => {
+
+app.use('/auth', loginLimiter, csrfProtection, authRoutes);
+
+app.use('/api/payments', csrfProtection, (req, res, next) => {
     if (req.method === 'POST' && (req.path === '/add-credit' || req.path.includes('add-credit'))) {
         const sanitizedBody = { ...req.body };
         if (sanitizedBody.numCartao) {
@@ -91,7 +108,7 @@ app.use('/api/payments', (req, res, next) => {
     next();
 }, paymentRoutes);
 
-app.use('/api', notificationRoutes);
+app.use('/api/notifications', csrfProtection, notificationRoutes);
 app.use('/Assets', express.static(path.join(__dirname, 'public', 'Assets')));
 
 app.get('/health', (req, res) => {
