@@ -83,7 +83,7 @@ app.get('/carteira_digital', sendVanillaIndex);
 app.get('/recarga', sendVanillaIndex);
 app.get('/app', sendVanillaIndex);
 
-app.get('*', (req, res, next) => {
+app.get('(.*)', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/Assets')) {
         return next();
     }
