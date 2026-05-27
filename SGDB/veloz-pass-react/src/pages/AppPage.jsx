@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from '../components/App/Carousel';
 import { toast } from 'react-toastify';
-import '../../styles/AppPage.css';
+import '../styles/AppPage.css';
 
 const images = [
   '/Assets/Carrousel/imagem1.webp',

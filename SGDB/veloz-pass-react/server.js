@@ -72,24 +72,23 @@ app.get('/', (req, res) => {
     res.redirect('/introduction');
 });
 
-app.get('/introduction', (req, res) => {
+const sendReactIndex = (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+};
 
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index2.html'));
-});
-app.get('/historico', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index3.html'));
-});
-app.get('/carteira_digital', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index4.html'));
-});
-app.get('/recarga', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index5.html'));
-});
-app.get('/app', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index6.html'));
+app.get('/introduction', sendReactIndex);
+app.get('/dashboard', sendReactIndex);
+app.get('/historico', sendReactIndex);
+app.get('/carteira_digital', sendReactIndex);
+app.get('/recarga', sendReactIndex);
+app.get('/app', sendReactIndex);
+
+app.get('*', (req, res, next) => {
+    // Não interfere em rotas de API / assets
+    if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/Assets')) {
+        return next();
+    }
+    return sendReactIndex(req, res);
 });
 
 app.use('/api/', apiLimiter);

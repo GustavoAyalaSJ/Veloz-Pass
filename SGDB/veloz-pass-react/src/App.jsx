@@ -5,8 +5,7 @@ import { NotificationProvider } from './contexts/NotificationContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 // Pages
-import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
+import { IntroducedPage } from './pages/IntroducedPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { CarteiraPage } from './pages/CarteiraPage';
 import { RecargaPage } from './pages/RecargaPage';
@@ -20,8 +19,8 @@ function App() {
       <AuthProvider>
         <NotificationProvider>
           <Routes>
-            <Route path="/introduction" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/introduction" element={<IntroducedPage />} />
+            <Route path="/register" element={<IntroducedPage />} />
 
             {/* Rotas Protegidas */}
             <Route element={<ProtectedRoute />}>
