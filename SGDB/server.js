@@ -73,7 +73,7 @@ app.get('/', (req, res) => {
 });
 
 const sendVanillaIndex = (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'IntroducedPage.html'));
 };
 
 app.get('/introduction', sendVanillaIndex);
@@ -84,7 +84,6 @@ app.get('/recarga', sendVanillaIndex);
 app.get('/app', sendVanillaIndex);
 
 app.get('*', (req, res, next) => {
-    // Não interfere em rotas de API / assets
     if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/Assets')) {
         return next();
     }
