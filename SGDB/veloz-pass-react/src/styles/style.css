@@ -1,0 +1,749 @@
+/* Estrutura Geral */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #f4f7f6;
+    overflow-x: hidden;
+}
+
+/* Layout Geral */
+.background-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    background-color: #f4f7f6;
+}
+
+/* Cabeçalho */
+.cabeçalho {
+    background-color: #3b5f80;
+    border-bottom: 3.5px solid;
+    border-image-source: linear-gradient(to right, #8e9cb4 0%, #3b557a 30%, #24344d 100%);
+    border-image-slice: 1;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    color: white;
+    font-weight: 600;
+    flex-shrink: 0;
+    z-index: 10;
+    position: relative;
+}
+
+.link-headers {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.logotipo img {
+    height: 55px;
+    width: auto;
+}
+
+.termos,
+.suporte {
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.termos:hover,
+.suporte:hover {
+    color: #c0e1f8;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    max-width: none;
+    min-height: calc(100vh - 140px);
+    min-height: calc(100dvh - 140px);
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.left {
+    position: relative;
+    z-index: 2;
+    width: 450px;
+    margin-left: 7%;
+    margin-top: 2%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.right {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url('background/FundoRight.webp');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+
+/* Card Lateral */
+.containerLeft {
+    background-color: #24344d;
+    color: white;
+    width: 100%;
+    padding: 2rem 1.1rem;
+    border-radius: 15px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: -5px;
+    margin-bottom: 20px;
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    border: 12px solid rgba(27, 36, 58, 0.79);
+}
+
+.sobre-left h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 0.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.sobre-left h2 {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.sobre-left p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+.destacar {
+    color: #a1cdff;
+}
+
+.ButtonBottomText {
+    background-color: #2060a3;
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.ButtonBottomText:hover {
+    transform: translateY(-3px);
+    background-color: #5d87b3;
+    box-shadow: 0 6px 20px rgba(126, 162, 201, 0.737);
+}
+
+/* Modal de Cadastro e Login */
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, visibility;
+    pointer-events: auto;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.modal-overlay .modal-content {
+    background-color: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    padding: 2.2rem 2rem;
+    border-radius: 12px;
+    position: relative;
+    box-sizing: border-box;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 2px solid #7496c6;
+    box-shadow: 0 0 20px #7090bdcc, 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+    transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, transform;
+}
+
+.modal-overlay:not(.hidden) .modal-content {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #7689a5;
+    padding-bottom: 15px;
+    font-weight: 650;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.senhaLabel {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.termosLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.cadastrarLabel {
+    margin-bottom: -5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.emailLabel,
+.recuperarLabel,
+.suporteLabel {
+    padding-bottom: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.modal-content label:not(.checkbox label) {
+    display: block;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-top: -10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.modal-content input:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+.modal-content p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.77);
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modal-content form div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-top: -2px;
+}
+
+.password-input-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-container input {
+    padding-right: 45px;
+}
+
+.password-input-container i {
+    position: absolute;
+    top: 74%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.password-input-container i:hover {
+    color: #007bff;
+}
+
+.password-wrapper {
+    margin-top: 10px;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-right: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.checkbox label {
+    display: block !important;
+    margin: 0;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #dbdbdb;
+    text-align: center;
+}
+
+.destacarTermos {
+    color: #0056b3;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.destacarTermos:hover {
+    color: #89a4c1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.input-wrapper {
+    margin-bottom: 15px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding-right: 20px;
+}
+
+.check-icon {
+    position: absolute;
+    right: 12px;
+    bottom: 7px;
+    margin-bottom: 4px;
+    font-size: 1.4rem;
+    color: #28a745;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.error-icon {
+    position: absolute;
+    right: 12px;
+    bottom: 7px;
+    margin-bottom: 4px;
+    font-size: 1.4rem;
+    color: #dc3545;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Modal - Termos */
+
+.modal-terms-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: calc(85vh - 150px);
+    padding-right: 10px;
+}
+
+.modal-terms-content p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #ffffff;
+    margin: 0;
+}
+
+.modal-terms-content strong {
+    color: #6ba6da;
+    font-size: 1rem;
+}
+
+/* Modal Suporte */
+.modal-content select,
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.modal-content textarea {
+    resize: none;
+}
+
+.modal-content select:focus,
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: #00d4ff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+.modal-content .select-wrapper {
+    position: relative;
+    margin-top: -7px;
+    width: 100%;
+}
+
+.modal-content .select-wrapper select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.modal-content .select-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+    font-size: 1rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-content .select-wrapper.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    opacity: 0.8;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #dbdbdb;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    opacity: 1;
+}
+
+.botao-estilizado {
+    display: block;
+    width: 100%;
+    background-color: #007bff;
+    color: rgb(250, 250, 250);
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.botao-estilizado:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    transform: translateY(-2px);
+    color: rgb(250, 250, 250);
+}
+
+.modal-content button:not(.close-btn) {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+/* IDs - Java Script */
+#btnEsqueceuSenha {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    align-self: flex-end;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+#formSuporte label {
+    margin-top: 5px;
+    padding-bottom: 5px;
+}
+
+#btnGoToCadastro,
+#btnBackToLogin {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+#btnGoToCadastro:hover,
+#btnBackToLogin:hover {
+    background-color: #e2e6ea;
+}
+
+#formCadastro label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#formCadastro input,
+#formCadastro .input-wrapper {
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+/* Rodapé */
+.rodapé {
+    background-color: #485f78;
+    border-top: 3px solid #24344d;
+    border-image-source: linear-gradient(to right, #8e9cb4, #3b557a, #24344d);
+    border-image-slice: 1;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    width: 100%;
+    font-size: 0.85rem;
+    z-index: 10;
+}
+
+.destacarAPP {
+    color: #aaddff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.destacarAPP:hover {
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Media Queries */
+@media (max-width: 1440px) {
+    .background-container {
+        background-color: #92b7e9;
+    }
+
+    .logotipo img {
+        height: 45px;
+    }
+
+    .main-content {
+        min-height: auto;
+        padding: 2rem 1rem;
+        align-items: flex-start;
+        display: flex;
+    }
+
+    .containerLeft {
+        padding-bottom: 30px;
+        padding-top: 25px;
+        border: 12px solid rgba(27, 36, 58, 0.79);
+    }
+
+    .sobre-left p {
+        text-align: center;
+    }
+
+    .modal-content {
+        overflow-y: auto;
+    }
+
+    .modal-terms-content p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.776);
+    }
+
+    .modal-terms-content strong {
+        font-size: 0.9rem;
+        color: rgba(162, 185, 222, 0.709);
+    }
+}
+
+@media (max-width: 1024px) {
+    .left {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .background-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cabeçalho {
+        height: 62px;
+        padding: 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        padding: 40px 20px;
+        position: relative;
+    }
+
+    .left {
+        width: 90%;
+        max-width: 450px;
+        margin-left: 0;
+        z-index: 2;
+    }
+
+    .right {
+        background-image: url("background/768x1024.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 200px;
+    }
+
+    .modal-terms-content {
+        max-height: calc(90vh - 140px);
+        overflow-y: auto;
+    }
+
+    .rodapé {
+        position: relative;
+        z-index: 10;
+        margin-top: auto;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .cabeçalho {
+        border-bottom: 3px solid #24344d;
+    }
+
+    .logotipo img {
+        height: 36px;
+    }
+
+    .link-headers {
+        margin-left: 20px;
+        gap: 10px;
+    }
+
+    .right {
+        background-image: url("background/375x667.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 200px;
+    }
+
+    .containerLeft {
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
+    }
+
+    .sobre-left h1 {
+        font-size: 1.8rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .checkbox label {
+        text-align: justify;
+    }
+
+    .rodapé {
+        border-top: 3px solid #24344d;
+        font-size: 0.81rem;
+        padding: 1.4rem;
+    }
+}

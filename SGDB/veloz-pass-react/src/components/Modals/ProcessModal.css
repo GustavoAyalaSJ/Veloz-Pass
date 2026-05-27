@@ -1,0 +1,111 @@
+/* Process Modal Styles */
+
+.process-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10002;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.process-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.process-modal-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.process-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.modal-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.process-modal-content.success .modal-icon {
+  color: #28a745;
+}
+
+.process-modal-content.rejected .modal-icon {
+  color: #dc3545;
+}
+
+.process-modal-content.review .modal-icon {
+  color: #f0ad4e;
+}
+
+.process-modal-content.processing .modal-icon {
+  color: #667eea;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.process-modal-content h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.process-modal-content p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.btn-close {
+  padding: 10px 30px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-close:hover {
+  background: #764ba2;
+}
+
+/* Dark Mode */
+.dark-mode .process-modal-box {
+  background: rgba(31, 41, 55, 0.98);
+  color: #e2e8f0;
+}
+
+.dark-mode .process-modal-content h3 {
+  color: #e2e8f0;
+}
+
+.dark-mode .process-modal-content p {
+  color: #cbd5e1;
+}
