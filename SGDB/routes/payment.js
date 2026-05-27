@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const verificarToken = require('../middleware/auth');
 const paymentController = require('../controllers/paymentController');
-const { validateTransfer, validateRecargaTransporte } = require('../utils/paymentValidator');
+const { validateTransfer, validateRecargaTransporte } = require('../public/pages/src/utils/paymentValidator');
 
 router.get('/wallet-data/:idUsuario',
     verificarToken,
