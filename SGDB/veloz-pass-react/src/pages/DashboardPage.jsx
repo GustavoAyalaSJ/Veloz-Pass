@@ -4,6 +4,7 @@ import { useApi } from '../hooks/useApi';
 import WalletCard from '../components/Dashboard/WalletCard';
 import PoliticasModal from '../components/Modals/PoliticasModal';
 import { formatCurrency } from '../utils/formatters';
+import '../styles/Dashboard.css';
 
 export const DashboardPage = () => {
   const { user } = useAuth();

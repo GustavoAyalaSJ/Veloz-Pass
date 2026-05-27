@@ -4,6 +4,7 @@ import { useApi } from '../../hooks/useApi';
 import { formatCurrency } from '../../utils/formatters';
 import CreditForm from '../../components/Carteira/CreditForm';
 import { toast } from 'react-toastify';
+import '../styles/Carteira.css';
 
 export const CarteiraPage = () => {
   const { user } = useAuth();

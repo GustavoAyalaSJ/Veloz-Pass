@@ -5,7 +5,7 @@ import { formatCurrency, getSafeNumericValue, formatCardNumber, formatCardDate }
 import { validateCardDate, validateCardNumberLuhn } from '../../utils/validators';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ProcessModal from '../Modals/ProcessModal';
+import { ProcessModal } from '../Modals/ProcessModal';
 
 const mapaBandeiras = {
     1: "Visa.webp",
@@ -275,7 +275,7 @@ function RechargeForm() {
                         id="numCartaoTransporte"
                         value={numCartaoTransporte}
                         onChange={(e) => setNumCartaoTransporte(e.target.value.replace(/\D/g, ''))}
-                        placeholder="Somente números"
+                        placeholder="00.00.000000000-0"
                         maxLength="16"
                     />
                 </div>
@@ -287,7 +287,7 @@ function RechargeForm() {
                         id="confirmNumCartaoTransporte"
                         value={confirmNumCartaoTransporte}
                         onChange={(e) => setConfirmNumCartaoTransporte(e.target.value.replace(/\D/g, ''))}
-                        placeholder="Confirme o número"
+                        placeholder="00.00.000000000-0"
                         maxLength="16"
                     />
                 </div>

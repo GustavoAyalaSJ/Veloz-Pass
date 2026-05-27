@@ -7,7 +7,7 @@ import {
   isValidCPF,
   isValidPhone,
 } from '../../utils/validators';
-import './Auth.css';
+import '../../styles/Auth.css';
 
 export const Register = ({ onSwitchToLogin }) => {
   const navigate = useNavigate();

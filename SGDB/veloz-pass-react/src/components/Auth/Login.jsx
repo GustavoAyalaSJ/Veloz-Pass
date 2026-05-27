@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { isValidEmail, isValidPassword } from '../../utils/validators';
-import './Auth.css';
+import '../../styles/Auth.css';
 
 export const Login = ({ onSwitchToRegister }) => {
   const navigate = useNavigate();

@@ -3,6 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useApi } from '../../hooks/useApi';
 import TransactionTable from '../../components/Historico/TransactionTable';
 import { toast } from 'react-toastify';
+import '../styles/Historico.css';
 
 function normalizarBuscar(txt) {
   return (txt || '')
