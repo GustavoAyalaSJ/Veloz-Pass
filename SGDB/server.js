@@ -76,23 +76,36 @@ const sendVanillaIndex = (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages', 'IntroducedPage.html'));
 };
 
-app.get('/introduction', sendVanillaIndex);
-app.get('/dashboard', sendVanillaIndex);
-app.get('/historico', sendVanillaIndex);
-app.get('/carteira_digital', sendVanillaIndex);
-app.get('/recarga', sendVanillaIndex);
-app.get('/app', sendVanillaIndex);
+app.get('/introduction', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'IntroducedPage.html'));
+});
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'DashboardPage.html'));
+});
+
+app.get('/historico', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'HistoricoPage.html'));
+});
+
+app.get('/carteira_digital', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'CarteiraPage.html'));
+});
+
+app.get('/recarga', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'RecargaPage.html'));
+});
+
+app.get('/app', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'AppPage.html'));
+});
 
 app.use((req, res, next) => {
-    if (
-        req.path.startsWith('/api') ||
-        req.path.startsWith('/auth') ||
-        req.path.startsWith('/assets')
-    ) {
+    if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/assets') || req.path.startsWith('/Assets')) {
         return next();
     }
 
-    return sendVanillaIndex(req, res);
+    return res.sendFile(path.join(__dirname, 'public', 'pages', 'IntroducedPage.html'));
 });
 
 app.use('/api/', apiLimiter);
