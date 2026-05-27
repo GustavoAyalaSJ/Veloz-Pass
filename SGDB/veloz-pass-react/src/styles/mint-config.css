@@ -1,0 +1,119 @@
+/* Third MINT - Test */
+.mint-highlight {
+    position: fixed;
+    border-radius: 12px;
+    box-shadow:
+        0 0 0 9999px rgba(0, 0, 0, 0.7);
+    z-index: 1000000 !important;
+    pointer-events: none;
+    transition:
+        top 0.4s ease,
+        left 0.4s ease,
+        width 0.4s ease,
+        height 0.4s ease;
+}
+
+.mint-ui {
+    position: fixed;
+    z-index: 1000003 !important;
+    max-width: 260px;
+    font-family: sans-serif;
+    isolation: isolate;
+    pointer-events: auto;
+}
+
+.mint-balao {
+    background: rgb(231, 231, 231);
+    padding: 14px;
+    border-radius: 12px;
+    border: 2px solid #2b6850;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mint-actions {
+    margin-top: 10px;
+    margin-left: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mint-btn {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.mint-next {
+    background: #3f8a70;
+    border: 2px solid #214639;
+    color: white;
+}
+
+.mint-replay {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 998;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.destacarMint {
+    color: #116a31;
+    font-weight: bold;
+}
+
+.mint-replay:hover {
+    transform: scale(1.05);
+}
+
+.mint-target {
+    position: relative !important;
+    z-index: 1000002 !important;
+    pointer-events: auto !important;
+}
+
+/* Sprite System */
+.mint-sprite-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 10px;
+    min-height: 100px;
+}
+
+.mint-sprite {
+    position: relative;
+    z-index: 10001;
+    max-width: 100%;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: none;
+    animation: mint-sprite-appear 0.3s ease-out;
+}
+
+@keyframes mint-sprite-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.mint-sprite.active {
+    display: block;
+}
