@@ -100,8 +100,12 @@ app.get('/app', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'pages', 'AppPage.html'));
 });
 
+app.use('/css', express.static(path.join(__dirname, 'public', 'pages', 'css')));
+app.use('/src', express.static(path.join(__dirname, 'public', 'pages', 'src')));
+app.use('/assets', express.static(path.join(__dirname, 'public', 'pages', 'assets')));
+
 app.use((req, res, next) => {
-    if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/assets') || req.path.startsWith('/Assets')) {
+    if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/assets') || req.path.startsWith('/Assets') || req.path.startsWith('/css') || req.path.startsWith('/src')) {
         return next();
     }
 

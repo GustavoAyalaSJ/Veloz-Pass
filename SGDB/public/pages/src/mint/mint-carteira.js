@@ -3,15 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!qBtn) return;
 
     const spriteMap = {
-        greeting: '../assets/Mint/sprite1.webp',
-        'pointing-left': '../assets/Mint/sprite7.webp',
-        'pointing-right': '../assets/Mint/sprite2.webp',
-        'pointing-up': '../assets/Mint/sprite9.webp',
-        'pointing-down': '../assets/Mint/sprite8.webp',
-        introduction: '../assets/Mint/sprite5.webp',
-        warning: '../assets/Mint/sprite6.webp',
-        happy: '../assets/Mint/sprite4.webp',
-        thinking: '../assets/Mint/sprite3.webp',
+        greeting: '/assets/Mint/sprite1.webp',
+        'pointing-left': '/assets/Mint/sprite7.webp',
+        'pointing-right': '/assets/Mint/sprite2.webp',
+        'pointing-up': '/assets/Mint/sprite9.webp',
+        'pointing-down': '/assets/Mint/sprite8.webp',
+        introduction: '/assets/Mint/sprite5.webp',
+        warning: '/assets/Mint/sprite6.webp',
+        happy: '/assets/Mint/sprite4.webp',
+        thinking: '/assets/Mint/sprite3.webp',
     };
 
     const steps = [
