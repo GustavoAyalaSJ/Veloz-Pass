@@ -1,10 +1,10 @@
 import React from 'react';
+import RechargeForm from '../components/Recarga/RechargeForm';
 
 export const RecargaPage = () => {
   return (
     <div className="recarga-page">
-      <h1>Recarga de Transporte</h1>
-      <p>Página de Recarga - Em desenvolvimento</p>
+      <RechargeForm />
     </div>
   );
 };

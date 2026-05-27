@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { isValidEmail, isValidPassword } from '../../utils/validators';
 import './Auth.css';
 
-export const Login = () => {
+export const Login = ({ onSwitchToRegister }) => {
   const navigate = useNavigate();
   const { login, loading } = useAuth();
   const [email, setEmail] = useState('');
@@ -66,6 +66,10 @@ export const Login = () => {
         <button type="submit" disabled={loading} className="btn-submit">
           {loading ? 'Entrando...' : 'Entrar'}
         </button>
+
+        <p className="switch-auth-link">
+          Não tem conta? <a href="#" onClick={onSwitchToRegister}>Cadastre-se</a>
+        </p>
       </form>
     </div>
   );
