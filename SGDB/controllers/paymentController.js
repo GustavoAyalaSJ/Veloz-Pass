@@ -53,6 +53,7 @@ exports.getWalletData = async (req, res) => {
         });
 
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: "Erro interno no servidor." });
     }
 };
@@ -85,6 +86,7 @@ exports.getHistoricoGeral = async (req, res) => {
         res.json({ historico: historico || [] });
 
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: "Erro no histórico." });
     }
 };

@@ -347,13 +347,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const situacao = data.situacao || (response.ok && data.success ? 'Concluído' : 'Recusada');
 
             if (!response.ok || !data.success) {
-                showProcessModal(situacao === 'Recusada' ? 'rejected' : 'under-review', 'recarga', () => {
+                const statusModal = situacao === 'Recusada' ? 'rejected' : 'under-review';
+                showProcessModal(statusModal, 'recarga', () => {
                     auth.safeRedirect('/dashboard');
                 });
                 return;
             }
 
-            showProcessModal(situacao === 'Concluído' ? 'success' : 'under-review', 'recarga', () => {
+            showProcessModal('success', 'recarga', () => {
                 auth.safeRedirect('/dashboard');
             });
 
