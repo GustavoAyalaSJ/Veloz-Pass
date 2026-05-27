@@ -4,6 +4,19 @@ Todo o histórico de desenvolvimento, melhorias, correções e atualizações do
 
 ---
 
+## [1.7.1] - 2026-05-22 / 2026-05-27
+### 🚀 Adicionado
+- **CSRF:** Implementação de rotas protegidas (/login, /register e /payments).
+- **Salvar N° do Cartão de Transporte (Teste):** Uma forma automática para gerar os números do cartão de passagem sem precisar de digitação manual.
+
+### 🔄 Modificado
+- **BRModelo:** Atualização no mapa conceitual do banco de dados do Veloz Pass.
+- **UI:** Redução do tamanho (MBs) das imagens na estrutura do projeto e alteração em textos
+em algumas páginas do site.
+
+### 🔧 Arrumado
+- **Duplicidade:** Remoção de códigos duplicados no back-end.
+
 ## [1.7.0] - 2026-05-20 / 2026-05-21
 ### 🔄 Modificado
 - **UI/UX:** Ajustes finos na interface da versão Web via Media Queries para aprimorar a responsividade.

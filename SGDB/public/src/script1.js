@@ -305,10 +305,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const email = formLogin.querySelector('[name="email"]').value;
                 const senha = formLogin.querySelector('[name="senha"]').value;
+                
+                const csrfToken = auth.getCsrfToken();
+                
                 try {
+                    const headers = {
+                        'Content-Type': 'application/json'
+                    };
+
+                    if (csrfToken) {
+                        headers['x-csrf-token'] = csrfToken;
+                    }
+
                     const response = await fetch('/auth/login', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers,
+                        credentials: 'include',
                         body: JSON.stringify({ email, senha })
                     });
                     const data = await response.json();
@@ -357,10 +369,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const regiao = dddNaturalidade[telefoneLimpo.slice(0, 2)];
                 payload.id_naturalidade = regiao ? regiao.id : null;
 
+                const csrfToken = auth.getCsrfToken();
+
                 try {
+                    const headers = {
+                        'Content-Type': 'application/json'
+                    };
+
+                    if (csrfToken) {
+                        headers['x-csrf-token'] = csrfToken;
+                    }
+
                     const response = await fetch('/auth/register', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers,
+                        credentials: 'include',
                         body: JSON.stringify(payload)
                     });
                     const data = await response.json();

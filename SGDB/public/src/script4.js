@@ -196,14 +196,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function adicionarCredito(valor, metodo, numCartao) {
         const token = auth.getToken();
+        const csrfToken = auth.getCsrfToken();
 
         try {
+            const headers = {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            };
+
+            if (csrfToken) {
+                headers['x-csrf-token'] = csrfToken;
+            }
+
             const response = await fetch(`${window.location.origin}/api/payments/add-credit`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
+                headers,
+                credentials: 'include',
                 body: JSON.stringify({
                     valor,
                     metodo: metodo.toUpperCase(),
@@ -284,7 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`${window.location.origin}/api/payments/wallet-data/${idLogado}`, {
                 method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}` }
+                headers: { 'Authorization': `Bearer ${token}` },
+                credentials: 'include'
             });
 
             if (!response.ok) return;
