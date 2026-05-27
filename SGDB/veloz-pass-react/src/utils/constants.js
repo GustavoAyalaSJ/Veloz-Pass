@@ -1,4 +1,3 @@
-// URLs e Endpoints
 export const API_ENDPOINTS = {
   AUTH: {
     LOGIN: '/auth/login',
@@ -20,7 +19,6 @@ export const API_ENDPOINTS = {
   },
 };
 
-// Status de Transação
 export const TRANSACTION_STATUS = {
   SUCCESS: 'success',
   PENDING: 'under-review',
@@ -28,7 +26,6 @@ export const TRANSACTION_STATUS = {
   PROCESSING: 'processing',
 };
 
-// Métodos de Pagamento
 export const PAYMENT_METHODS = {
   DEBIT: 'DEBITO',
   CREDIT: 'CREDITO',
@@ -37,7 +34,6 @@ export const PAYMENT_METHODS = {
   DIGITAL_WALLET: 'CARTEIRA_DIGITAL',
 };
 
-// Tipos de Movimento
 export const MOVEMENT_TYPES = {
   CREDIT: 'credito',
   DEBIT: 'debito',
@@ -45,14 +41,11 @@ export const MOVEMENT_TYPES = {
   RECHARGE: 'recarga',
 };
 
-// Temas
 export const THEMES = {
   LIGHT: 'light',
   DARK: 'dark',
 };
 
-// Rotas Públicas
 export const PUBLIC_ROUTES = ['/introduction', '/register'];
 
-// Rotas Protegidas
 export const PROTECTED_ROUTES = ['/dashboard', '/carteira_digital', '/recarga', '/historico'];

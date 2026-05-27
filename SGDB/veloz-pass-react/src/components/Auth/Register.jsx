@@ -9,7 +9,7 @@ import {
 } from '../../utils/validators';
 import './Auth.css';
 
-export const Register = () => {
+export const Register = ({ onSwitchToLogin }) => {
   const navigate = useNavigate();
   const { register, loading } = useAuth();
   const [formData, setFormData] = useState({
@@ -160,8 +160,8 @@ export const Register = () => {
           {loading ? 'Criando conta...' : 'Criar Conta'}
         </button>
 
-        <p className="login-link">
-          Já tem conta? <a href="/introduction">Faça login</a>
+        <p className="switch-auth-link">
+          Já tem conta? <a href="#" onClick={onSwitchToLogin}>Faça login</a>
         </p>
       </form>
     </div>

@@ -1,51 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { paymentService } from '../services/paymentService';
+import { useApi } from '../hooks/useApi';
+import WalletCard from '../components/Dashboard/WalletCard';
+import PoliticasModal from '../components/Modals/PoliticasModal';
 import { formatCurrency } from '../utils/formatters';
 
 export const DashboardPage = () => {
-  const { user, token, csrfToken } = useAuth();
+  const { user } = useAuth();
+  const { request, loading, error } = useApi();
   const [walletData, setWalletData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isPoliticasModalOpen, setIsPoliticasModalOpen] = useState(false);
+
+  const userId = user?.id;
 
   useEffect(() => {
     const loadWalletData = async () => {
-      if (!user?.id) return;
+      if (!userId) return;
 
-      try {
-        const data = await paymentService.obterCarteira(user.id, token, csrfToken);
+      const { success, data } = await request(`/api/payments/wallet-data/${userId}`);
+      if (success && data) {
         setWalletData(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      } else {
+        console.error("Erro ao carregar dados da carteira:", error);
       }
     };
 
     loadWalletData();
-  }, [user?.id, token, csrfToken]);
+  }, [userId, request, error]);
+
+  const openPoliticasModal = () => setIsPoliticasModalOpen(true);
+  const closePoliticasModal = () => setIsPoliticasModalOpen(false);
 
   return (
     <div className="dashboard-page">
-      <h1>Bem-vindo, {user?.nome}!</h1>
+      <div className="dashboard-header">
+        <h1>Bem-vindo, {user?.nome?.split(' ')[0]}!</h1>
+        <p>Código Único: {user?.cod_identificador || '---'}</p>
+        <button onClick={openPoliticasModal} className="btn-politicas-header">
+          Termos de Política
+        </button>
+      </div>
 
-      {loading && <p>Carregando...</p>}
-      {error && <p className="error">{error}</p>}
+      {loading && <p>Carregando dados da carteira...</p>}
+      {error && <p className="error-message">Erro: {error}</p>}
 
       {walletData && (
-        <div className="wallet-info">
-          <div className="wallet-card">
-            <h2>Saldo</h2>
-            <p className="balance">{formatCurrency(walletData.saldo)}</p>
-          </div>
-
-          <div className="wallet-card">
-            <h2>Chave PIX</h2>
-            <p>{walletData.chavePix}</p>
-          </div>
-        </div>
+        <WalletCard
+          saldo={walletData.saldo || 0}
+          chavePix={walletData.chavePix || 'Não disponível'}
+        />
       )}
+
+      <PoliticasModal isOpen={isPoliticasModalOpen} onClose={closePoliticasModal} />
     </div>
   );
 };
