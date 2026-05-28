@@ -223,6 +223,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (v.length > 11) v = v.slice(0, 11);
                 v = v.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d{1,2})$/, "$1-$2");
                 e.target.value = v;
+                
+                const cpfLimpo = e.target.value.replace(/\D/g, "");
+                if (cpfLimpo.length === 11 && cpfLimpo[8] !== '9') {
+                    e.target.style.borderColor = '#ff6b6b';
+                    e.target.title = 'CPF não é referente a Região de Santa Catarina';
+                } else if (cpfLimpo.length === 11) {
+                    e.target.style.borderColor = '#51cf66';
+                    e.target.title = 'CPF válido';
+                } else {
+                    e.target.style.borderColor = '';
+                    e.target.title = '';
+                }
             });
         }
 
@@ -356,6 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const telefoneLimpo = document.getElementById('inputTelefone').value.replace(/\D/g, '');
 
                 if (cpfLimpo.length !== 11) return alert("CPF deve conter 11 dígitos.");
+                if (cpfLimpo[8] !== '9') return alert("CPF inválido: o nono dígito deve ser 9.");
                 if (telefoneLimpo.length !== 11) return alert("Telefone inválido.");
 
                 const codIdentificador = gerarCodIdentificador(telefoneLimpo);
