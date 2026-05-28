@@ -47,9 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dadosFiltrados = dadosHistoricoCompleto.filter(mov => {
             const tipoBanco = normalizarBuscar(mov.tipo_movimentacao);
-
-            let metodoBanco = normalizarBuscar(mov.metodo_pagamento);
-            if (metodoBanco === 'carteiradigital') metodoBanco = 'carteira_digital';
+            const metodoBanco = normalizarBuscar(mov.metodo_pagamento);
 
             const bateTipo = !valTipoMov || tipoBanco.includes(valTipoMov);
             const bateMetodo = !valMetodo || metodoBanco.includes(valMetodo.replace(/_/g, ""));
