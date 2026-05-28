@@ -268,7 +268,7 @@ em algumas páginas do site.
 
 ## [0.3.1] - 2026-01-22
 ### 🚀 Adicionado
-- **Dark Mode:** Adicionado o botão alternador de Modo Escuro nas telas do sistema (com exceção temporária da página Introduction).
+- **Dark Mode:** Adicionado o botão alternador de Modo Escuro nas telas do sistema (com exceção da página Introduction).
 - **Responsividade:** Escrita dos primeiros blocos de teste de Media Query para telas menores.
 ### 🔧 Arrumado
 - **Estilização:** Correções e limpezas aplicadas nas folhas de estilo CSS.
