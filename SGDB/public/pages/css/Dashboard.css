@@ -172,6 +172,11 @@ span {
     color: rgb(150, 206, 255);
 }
 
+.dark-mode .register-id{
+    background: #0b121a;
+    color: rgb(144, 161, 191);
+}
+
 .dark-mode .welcome-text,
 .dark-mode .destacarUser {
     color: rgb(166, 197, 251);
@@ -532,7 +537,7 @@ span {
 
 /* IDs - Java Script */
 .dark-mode #codUnique-user {
-    color: black
+    color: rgb(148, 198, 205)
 }
 
 #codUnique-user {
