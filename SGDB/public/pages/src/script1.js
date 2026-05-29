@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 guideItems.forEach(item => {
                     const rule = item.dataset.rule;
-                    const dot = item.querySelector('.guide-dot');
+                    const circle = item.querySelector('.guide-circle');
 
                     let ok = false;
                     if (rule === 'len') ok = lenOk;
@@ -268,9 +268,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     else if (rule === 'number') ok = numberOk;
                     else if (rule === 'special') ok = specialOk;
 
-                    if (dot) {
-                        dot.classList.toggle('text-success', ok);
-                        dot.classList.toggle('text-danger', !ok);
+                    if (circle) {
+                        circle.classList.toggle('text-success', ok);
+                        circle.classList.toggle('text-danger', !ok);
                     }
                 });
             };
