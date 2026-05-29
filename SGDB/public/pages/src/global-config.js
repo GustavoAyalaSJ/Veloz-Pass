@@ -102,6 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 (() => {
     let modalProcesso = null;
+    let pollingInterval = null;
+    let ultimoProtocolo = null;
+
     function createProcessModal() {
         if (modalProcesso) return;
 
@@ -135,14 +138,88 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeModalProcesso() {
+        if (pollingInterval) {
+            clearInterval(pollingInterval);
+            pollingInterval = null;
+            ultimoProtocolo = null;
+        }
         modalProcesso?.classList.remove('processing');
         modalProcesso?.classList.remove('active');
+    }
+
+    async function verificarStatusProcesso(protocolo) {
+        if (!protocolo) return null;
+
+        try {
+            const token = typeof auth !== 'undefined' ? auth.getToken() : null;
+            if (!token) return null;
+
+            const response = await fetch(`${window.location.origin}/api/payments/check-status/${protocolo}`, {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${token}` },
+                credentials: 'include'
+            });
+
+            if (!response.ok) return null;
+            const data = await response.json();
+            return data.situacao || null;
+        } catch (error) {
+            console.error("Erro ao verificar status:", error);
+            return null;
+        }
+    }
+
+    function atualizarStatusModal(novoStatus) {
+        if (!novoStatus) return;
+
+        const statusNormalizado = (novoStatus || '')
+            .toString()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/_/g, '-')
+            .trim();
+
+        const elementoTitulo = document.getElementById('process-modal-title');
+        const elementoCorpo = document.getElementById('process-modal-body');
+        const elementoMensagem = document.getElementById('process-modal-message');
+        const botaoOk = document.getElementById('process-modal-ok');
+
+        const concluido =
+            statusNormalizado.includes('success') ||
+            statusNormalizado.includes('concluido');
+
+        const recusado =
+            statusNormalizado.includes('rejected') ||
+            statusNormalizado.includes('recusado') ||
+            statusNormalizado.includes('recusada');
+
+        if (concluido) {
+            clearInterval(pollingInterval);
+            pollingInterval = null;
+
+            elementoTitulo.textContent = 'Processo Finalizado';
+            elementoCorpo.innerHTML = `<i class="bi bi-check-circle success-icon"></i>`;
+            elementoMensagem.textContent = 'Operação concluída com sucesso!';
+            
+            modalProcesso?.classList.remove('processing');
+        } else if (recusado) {
+            clearInterval(pollingInterval);
+            pollingInterval = null;
+
+            elementoTitulo.textContent = 'Processo Recusado';
+            elementoCorpo.innerHTML = `<i class="bi bi-x-circle rejected-icon"></i>`;
+            elementoMensagem.textContent = 'O processo foi recusado pelo sistema.';
+            
+            modalProcesso?.classList.remove('processing');
+        }
     }
 
     window.showProcessModal = function (
         status,
         tipoPagina,
-        acaoAoConfirmar
+        acaoAoConfirmar,
+        protocolo
     ) {
 
         createProcessModal();
@@ -193,6 +270,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
             };
+
+            // Inicia polling se houver protocolo
+            if (protocolo && !pollingInterval) {
+                ultimoProtocolo = protocolo;
+                pollingInterval = setInterval(() => {
+                    verificarStatusProcesso(protocolo).then(novoStatus => {
+                        if (novoStatus) {
+                            atualizarStatusModal(novoStatus);
+                        }
+                    });
+                }, 2000); // Verifica a cada 2 segundos
+            }
 
         } else if (concluido) {
 

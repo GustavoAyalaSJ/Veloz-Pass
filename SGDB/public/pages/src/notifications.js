@@ -9,26 +9,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     const idLogado = userData?.id;
     if (!idLogado) return;
 
+    let pollingInterval = null;
+    const POLLING_INTERVAL = 10000; // 10 segundos
+
     const carregarNotificacoes = async () => {
         try {
             const token = auth.getToken();
             if (!token) return;
 
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+
+            const csrfToken = auth.getCsrfToken();
+            if (csrfToken) {
+                headers['x-csrf-token'] = csrfToken;
+            }
+
             const response = await fetch(`/api/notifications/${idLogado}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers,
+                credentials: 'include'
             });
 
-            if (!response.ok) return;
+            if (!response.ok) {
+                console.warn("Erro ao carregar notificações:", response.status);
+                return;
+            }
 
             const payload = await response.json();
             const notifications = payload?.notifications || [];
 
             renderNotifications(notifications);
         } catch (e) {
-
+            console.error("Erro ao carregar notificações:", e);
         }
     };
 
@@ -38,6 +52,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const warning = dropdown.querySelector('.notificationWarning');
         if (warning) warning.style.display = notifications.length ? 'none' : 'block';
+
+        if (notifications.length === 0) return;
 
         const listWrapper = document.createElement('div');
         listWrapper.className = 'notification-list';
@@ -58,14 +74,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             const item = document.createElement('div');
             item.className = 'notification-item';
 
-            const situacao = n.situacao;
+            const situacao = (n.situacao || '').toLowerCase();
             const protocolo = n.protocolo || '---';
 
-            const iconHtml = situacao === 'Concluído'
+            const isConcluido = situacao.includes('concluído') || situacao.includes('concluido');
+            const iconHtml = isConcluido
                 ? '<i class="bi bi-check-circle-fill" style="color:#2ecc71; font-size:1.3rem;"></i>'
                 : '<i class="bi bi-x-circle-fill" style="color:#e74c3c; font-size:1.3rem;"></i>';
 
-            const mensagem = situacao === 'Concluído'
+            const mensagem = isConcluido
                 ? 'Foi confirmado pela nossa equipe, o saldo foi creditado na sua conta.'
                 : 'Foi recusado pela nossa equipe, você não perdeu saldo ou foi penalizado na sua conta bancária. Caso de erro, contate suporte.';
 
@@ -108,9 +125,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         dropdown.appendChild(listWrapper);
-
     };
 
-    button.addEventListener('click', carregarNotificacoes, { once: false });
-    await carregarNotificacoes();
+    button.addEventListener('click', carregarNotificacoes);
+
+    const startPolling = () => {
+        if (pollingInterval) return;
+
+        pollingInterval = setInterval(carregarNotificacoes, POLLING_INTERVAL);
+        carregarNotificacoes();
+    };
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+                pollingInterval = null;
+            }
+        } else {
+            startPolling();
+        }
+    });
+
+    startPolling();
 });

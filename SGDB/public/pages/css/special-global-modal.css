@@ -79,6 +79,29 @@
     color: #dc3545;
 }
 
+.process-body .success-icon {
+    color: #16a34a;
+    font-size: 4rem;
+}
+
+.process-body .rejected-icon {
+    color: #dc2626;
+    font-size: 4rem;
+}
+
+.process-body .process-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .process-footer {
     display: flex;
     flex-direction: column;

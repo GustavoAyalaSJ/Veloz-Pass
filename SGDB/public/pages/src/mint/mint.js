@@ -82,38 +82,59 @@
         targetEl.classList.add("mint-target");
         highlight.style.display = "block";
 
-        requestAnimationFrame(() => {
-            const rect = targetEl.getBoundingClientRect();
-            const padding = 8;
-            const viewportW = window.innerWidth;
-            const viewportH = window.innerHeight;
+        const updatePosition = () => {
+            requestAnimationFrame(() => {
+                const rect = targetEl.getBoundingClientRect();
+                const padding = 8;
+                const viewportW = window.innerWidth;
+                const viewportH = window.innerHeight;
 
-            const safeLeft = Math.max(padding, rect.left);
-            const safeTop = Math.max(padding, rect.top);
-            const safeWidth = Math.max(20, Math.min(viewportW - padding, rect.right) - safeLeft);
-            const safeHeight = Math.max(20, Math.min(viewportH - padding, rect.bottom) - safeTop);
+                const safeLeft = Math.max(padding, rect.left);
+                const safeTop = Math.max(padding, rect.top);
+                const safeWidth = Math.max(20, Math.min(viewportW - padding, rect.right) - safeLeft);
+                const safeHeight = Math.max(20, Math.min(viewportH - padding, rect.bottom) - safeTop);
 
-            highlight.style.top = `${safeTop}px`;
-            highlight.style.left = `${safeLeft}px`;
-            highlight.style.width = `${safeWidth}px`;
-            highlight.style.height = `${safeHeight}px`;
+                highlight.style.top = `${safeTop}px`;
+                highlight.style.left = `${safeLeft}px`;
+                highlight.style.width = `${safeWidth}px`;
+                highlight.style.height = `${safeHeight}px`;
 
-            try {
-                targetEl.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
-            } catch { /* Fallback para navegadores antigos */ }
+                try {
+                    targetEl.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
+                } catch { /* Fallback para navegadores antigos */ }
 
-            ui.style.transform = "none";
-            ui.style.display = "block";
+                ui.style.transform = "none";
+                ui.style.display = "block";
 
-            const bubbleW = ui.offsetWidth || 260;
-            const bubbleH = ui.offsetHeight || 120;
+                const bubbleW = ui.offsetWidth || 260;
+                const bubbleH = ui.offsetHeight || 120;
 
-            const safeLeftUI = Math.min(Math.max(padding, rect.left), viewportW - bubbleW - padding);
-            const safeTopUI = Math.min(Math.max(padding, rect.bottom + 15), viewportH - bubbleH - padding);
+                const safeLeftUI = Math.min(Math.max(padding, rect.left), viewportW - bubbleW - padding);
+                const safeTopUI = Math.min(Math.max(padding, rect.bottom + 15), viewportH - bubbleH - padding);
 
-            ui.style.left = `${safeLeftUI}px`;
-            ui.style.top = `${safeTopUI}px`;
-        });
+                ui.style.left = `${safeLeftUI}px`;
+                ui.style.top = `${safeTopUI}px`;
+            });
+        };
+
+        updatePosition();
+
+        let updateTimeout;
+        const debouncedUpdate = () => {
+            clearTimeout(updateTimeout);
+            updateTimeout = setTimeout(updatePosition, 100);
+        };
+
+        window.addEventListener('scroll', debouncedUpdate);
+        window.addEventListener('resize', debouncedUpdate);
+        window.addEventListener('orientationchange', debouncedUpdate);
+
+        const cleanup = () => {
+            window.removeEventListener('scroll', debouncedUpdate);
+            window.removeEventListener('resize', debouncedUpdate);
+            window.removeEventListener('orientationchange', debouncedUpdate);
+            clearTimeout(updateTimeout);
+        };
 
         if (step.acao === "click") {
             nextBtn.style.display = "none";
@@ -122,6 +143,7 @@
                 const isLink = targetEl.tagName?.toLowerCase() === "a";
                 if (isLink) e.preventDefault();
 
+                cleanup();
                 onStepComplete?.();
 
                 if (isLink) {
@@ -131,6 +153,8 @@
 
             targetEl.addEventListener("click", handleTargetClick, { once: true });
         }
+
+        window._mintCleanup = cleanup;
     }
 
     function finalizeMint({ userId }) {
@@ -163,6 +187,10 @@
         const nextBtn = document.querySelector('.mint-next');
 
         const renderCurrentStep = () => {
+            if (typeof window._mintCleanup === 'function') {
+                window._mintCleanup();
+            }
+
             if (stepIndex >= steps.length) {
                 finalizeMint({ userId });
                 return;
@@ -194,7 +222,6 @@
 
         renderCurrentStep();
     }
-
 
     window.MintEngine = {
         startMint: start
