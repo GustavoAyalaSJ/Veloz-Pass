@@ -71,6 +71,48 @@ document.addEventListener('DOMContentLoaded', () => {
         atualizarVisibilidadePagamento();
     }
 
+    (function () {
+        const toggle = document.querySelector('.mobile-nav-toggle');
+        const drawer = document.getElementById('mobile-nav-drawer');
+        const overlay = document.getElementById('mobile-nav-overlay');
+        const activeKey = 'carteira';
+
+        if (!toggle || !drawer || !overlay) return;
+
+        const items = drawer.querySelectorAll('.mobile-nav-item');
+        items.forEach(a => {
+            if (a.dataset.nav === activeKey) a.classList.add('active');
+        });
+
+        function openMenu() {
+            overlay.classList.add('open');
+            drawer.classList.add('open');
+            drawer.setAttribute('aria-hidden', 'false');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMenu() {
+            overlay.classList.remove('open');
+            drawer.classList.remove('open');
+            drawer.setAttribute('aria-hidden', 'true');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+
+        toggle.addEventListener('click', () => {
+            const isOpen = drawer.classList.contains('open');
+            if (isOpen) closeMenu();
+            else openMenu();
+        });
+
+        overlay.addEventListener('click', closeMenu);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+
+        items.forEach(a => a.addEventListener('click', closeMenu));
+    })();
+
     const inputCartao = document.getElementById('num-cartao');
     if (inputCartao) {
         inputCartao.addEventListener('input', (e) => {

@@ -152,6 +152,7 @@
             };
 
             targetEl.addEventListener("click", handleTargetClick, { once: true });
+            return;
         }
 
         window._mintCleanup = cleanup;

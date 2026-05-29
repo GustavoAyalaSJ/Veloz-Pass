@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
 };
 
 exports.cadastro = async (req, res) => {
-    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, cod_identificador, id_naturalidade } = req.body;
+    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, id_naturalidade } = req.body;
 
     if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
         return res.status(400).json({ message: "Preencha todos os campos!" });
@@ -53,6 +53,25 @@ exports.cadastro = async (req, res) => {
     const cpfLimpo = cpf.replace(/\D/g, '');
     const telLimpo = telefone.replace(/\D/g, '');
 
+    const isAllDigitsSame = (s) => {
+        const digits = String(s ?? '').replace(/\D/g, '');
+        if (!digits.length) return false;
+        return digits.split('').every(c => c === digits[0]);
+    };
+
+    const cpfDigits = cpfLimpo;
+    const telefoneDigits = telLimpo;
+
+    const isBlockedCpf = isAllDigitsSame(cpfDigits);
+    const isBlockedTelefone = isAllDigitsSame(telefoneDigits);
+
+    if (isBlockedCpf) {
+        return res.status(400).json({ message: 'CPF inválido.' });
+    }
+    if (isBlockedTelefone) {
+        return res.status(400).json({ message: 'Telefone inválido.' });
+    }
+
     if (cpfLimpo.length !== 11) {
         return res.status(400).json({ message: "CPF incompleto ou não corresponde aos requisitos." });
     }
@@ -61,11 +80,18 @@ exports.cadastro = async (req, res) => {
         return res.status(400).json({ message: "Email incompleto ou inválido." });
     }
 
-    if (!cod_identificador || String(cod_identificador).trim().length !== 6) {
-        return res.status(400).json({ message: "Telefone deve corrensponder as regiões de Santa Catarina." });
-    }
-
     const natId = id_naturalidade ? String(id_naturalidade).trim() : null;
+
+    const generateCodIdentificador = () => {
+        const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let out = '';
+        for (let i = 0; i < 6; i++) {
+            out += alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+        return out;
+    };
+
+    const cod_identificador = generateCodIdentificador();
 
     try {
         const senhaHash = await bcrypt.hash(senha, 10);
@@ -77,9 +103,10 @@ exports.cadastro = async (req, res) => {
                 p_telefone: telLimpo,
                 p_email: email,
                 p_senha_hash: senhaHash,
-                p_cod_identificador: String(cod_identificador).trim(),
+                p_cod_identificador: cod_identificador,
                 p_id_naturalidade: natId
             });
+
 
         if (rpcError || !rpcResult || rpcResult.success === false) {
             const msg = rpcResult?.erro || rpcError?.message || 'Erro no banco';
@@ -105,6 +132,5 @@ exports.cadastro = async (req, res) => {
         res.status(500).json({ message: "Erro interno no servidor." });
     }
 };
-
 
 module.exports = exports;

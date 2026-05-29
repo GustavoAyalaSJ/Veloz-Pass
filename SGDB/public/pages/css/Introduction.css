@@ -1,4 +1,4 @@
-/* Estrutura Geral */
+/* Estrutura e Layout */
 * {
     margin: 0;
     padding: 0;
@@ -8,55 +8,57 @@
 
 html,
 body {
-    height: 100%;
     width: 100%;
-    background-color: #f4f7f6;
+    min-height: 100%;
     overflow-x: hidden;
+    background-color: #f4f7f6;
 }
 
-/* Layout Geral */
 .background-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    min-height: 100svh;
-    min-height: 100dvh;
     background-color: #f4f7f6;
 }
 
 /* Cabeçalho */
 .cabeçalho {
+    width: 100%;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
     background-color: #3b5f80;
     border-bottom: 3.5px solid;
     border-image-source: linear-gradient(to right, #8e9cb4 0%, #3b557a 30%, #24344d 100%);
     border-image-slice: 1;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5%;
     color: white;
     font-weight: 600;
-    flex-shrink: 0;
-    z-index: 10;
     position: relative;
+    z-index: 100;
 }
 
-.link-headers {
+.logotipo {
     display: flex;
-    gap: 25px;
     align-items: center;
 }
 
 .logotipo img {
-    height: 55px;
+    height: 52px;
     width: auto;
+    display: block;
+}
+
+.link-headers {
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
 .termos,
 .suporte {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -71,22 +73,18 @@ body {
     position: relative;
     flex: 1;
     width: 100%;
-    max-width: none;
-    min-height: calc(100vh - 140px);
-    min-height: calc(100dvh - 140px);
     display: flex;
     align-items: center;
-    margin: 0 auto;
+    padding: 2rem 0;
+    overflow: hidden;
 }
 
 .left {
     position: relative;
     z-index: 2;
-    width: 450px;
+    width: 100%;
+    max-width: 450px;
     margin-left: 7%;
-    margin-top: 2%;
-    padding-bottom: 5px;
-    padding-top: 5px;
     display: flex;
     align-items: center;
 }
@@ -103,44 +101,35 @@ body {
 
 /* Card Lateral */
 .containerLeft {
+    width: 100%;
     background-color: #24344d;
     color: white;
-    width: 100%;
-    padding: 2rem 1.1rem;
+    padding: 2rem 1.2rem;
     border-radius: 15px;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-top: -5px;
-    margin-bottom: 20px;
-    left: 40px;
     display: flex;
     flex-direction: column;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
     border: 12px solid rgba(27, 36, 58, 0.79);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
 }
 
 .sobre-left h1 {
-    text-align: center;
     font-size: 2.2rem;
     margin-bottom: 0.7rem;
-    font-weight: 700;
     line-height: 1.2;
 }
 
 .sobre-left h2 {
-    text-align: center;
     font-size: 1rem;
     font-weight: 400;
     margin-bottom: 1.5rem;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .sobre-left p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.05rem;
+    line-height: 1.7;
     margin-bottom: 2rem;
-    font-weight: 300;
     opacity: 0.9;
 }
 
@@ -149,16 +138,16 @@ body {
 }
 
 .ButtonBottomText {
+    width: 100%;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 8px;
     background-color: #2060a3;
     color: white;
-    border: none;
-    padding: 15px 50px;
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
+    transition: 0.3s ease;
 }
 
 .ButtonBottomText:hover {
@@ -410,7 +399,6 @@ body {
 }
 
 /* Modal - Termos */
-
 .modal-terms-content {
     display: flex;
     flex-direction: column;
@@ -579,15 +567,14 @@ body {
 
 /* Rodapé */
 .rodapé {
+    width: 100%;
     background-color: #485f78;
-    border-top: 3px solid #24344d;
-    border-image-source: linear-gradient(to right, #8e9cb4, #3b557a, #24344d);
-    border-image-slice: 1;
     color: white;
     padding: 1.5rem;
-    width: 100%;
     font-size: 0.85rem;
-    z-index: 10;
+    border-top: 3px solid;
+    border-image-source: linear-gradient(to right, #8e9cb4, #3b557a, #24344d);
+    border-image-slice: 1;
 }
 
 .footer-content {
@@ -600,10 +587,6 @@ body {
     text-align: center;
 }
 
-.separator-footer {
-  color: rgba(88, 127, 156, 0.614);
-}
-
 .destacarLinks {
     color: #aaddff;
     text-decoration: none;
@@ -612,12 +595,14 @@ body {
 
 .destacarLinks:hover {
     color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 /* Media Queries */
-@media (max-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .cabeçalho {
+        height: 100px;
+    }
+
     .background-container {
         background-color: #92b7e9;
     }
@@ -634,9 +619,13 @@ body {
     }
 
     .containerLeft {
-        padding-bottom: 30px;
-        padding-top: 25px;
-        border: 12px solid rgba(27, 36, 58, 0.79);
+        position: relative;
+        left: 0px;
+        height: 540px;
+        border-start-start-radius: 10px;
+        border-start-end-radius: 10px;
+        border-end-start-radius: 10px;
+        border-end-end-radius: 10px;
     }
 
     .sobre-left p {
@@ -659,8 +648,27 @@ body {
 }
 
 @media (max-width: 1024px) {
+    .cabeçalho {
+        height: 100px;
+    }
+
+    .logotipo img {
+        left: 31px;
+        top: 50px;
+        height: 47px;
+    }
+
     .left {
         width: 45%;
+    }
+
+    .containerLeft {
+        position: relative;
+        left: 0px;
+        border-start-start-radius: 10px;
+        border-start-end-radius: 10px;
+        border-end-start-radius: 10px;
+        border-end-end-radius: 10px;
     }
 }
 
@@ -671,8 +679,13 @@ body {
     }
 
     .cabeçalho {
-        height: 62px;
-        padding: 0 1rem;
+        left: 0px;
+        top: 0px;
+        width: 768px;
+        height: 100px;
+        border-bottom: 7px solid;
+        border-image-source: linear-gradient(#24344d 100%);
+        border-image-slice: 1;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -702,6 +715,17 @@ body {
         min-height: 200px;
     }
 
+    .containerLeft {
+        position: relative;
+        left: 0px;
+        width: 491px;
+        height: 516px;
+        border-start-start-radius: 10px;
+        border-start-end-radius: 10px;
+        border-end-start-radius: 10px;
+        border-end-end-radius: 10px;
+    }
+
     .modal-terms-content {
         max-height: calc(90vh - 140px);
         overflow-y: auto;
@@ -710,23 +734,45 @@ body {
     .rodapé {
         position: relative;
         z-index: 10;
-        margin-top: auto;
+        left: 0px;
+        width: 768px;
+        height: 80px;
+        border-top: 7px solid;
+        border-image-source: linear-gradient(#24344d 100%);
+        border-image-slice: 1;
     }
 }
 
-
 @media (max-width: 480px) {
     .cabeçalho {
-        border-bottom: 3px solid #24344d;
+        position: relative;
+        height: 85px;
+        border-bottom: 2px solid;
+        border-image-source: linear-gradient(#24344d 100%);
+        border-image-slice: 1;
     }
 
     .logotipo img {
-        height: 36px;
+        position: absolute;
+        left: 3px;
+        top: 14px;
+        width: 159px;
+        height: 57px;
     }
 
     .link-headers {
-        margin-left: 20px;
+        position: absolute;
+        left: 190px;
+        top: 21px;
+        width: 160px;
+        height: 44px;
         gap: 10px;
+    }
+
+    .termos {
+        left: 82px;
+        top: 0px;
+        text-align: right;
     }
 
     .right {
@@ -738,8 +784,13 @@ body {
     }
 
     .containerLeft {
-        padding: 2rem 1.5rem;
-        border-radius: 12px;
+        position: relative;
+        left: 10px;
+        width: 284px;
+        border-start-start-radius: 10px;
+        border-start-end-radius: 10px;
+        border-end-start-radius: 10px;
+        border-end-end-radius: 10px;
     }
 
     .sobre-left h1 {
@@ -755,8 +806,19 @@ body {
     }
 
     .rodapé {
-        border-top: 3px solid #24344d;
-        font-size: 0.81rem;
-        padding: 1.4rem;
+        position: relative;
+        border-top: 2px solid;
+        border-image-source: linear-gradient(#24344d 100%);
+        border-image-slice: 1;
+        left: 0px;
+        width: 375px;
+        height: 94px;
+        font-size: 0.89rem;
+    }
+
+    .footer-section {
+        padding-left: 0px;
+        margin-left: 10px;
+        padding-right: 1px;
     }
 }

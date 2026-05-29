@@ -58,7 +58,7 @@ async function adicionarCredito(valor, metodoRaw, numCartaoInput) {
     try {
         const token = auth.getToken();
         const csrfToken = auth.getCsrfToken();
-        
+
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

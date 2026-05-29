@@ -7,6 +7,7 @@
     <title>Início - Veloz Pass</title>
     <link rel="icon" type="image/png" href="/assets/Favicon.webp">
     <link rel="stylesheet" href="/css/Dashboard.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
     <link rel="stylesheet" href="/css/mint-config.css">
     <link rel="stylesheet" href="/css/special-global-modal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -18,6 +19,11 @@
             <div class="logotipo">
                 <img src="/assets/LogoWeb.webp" alt="Veloz Pass">
             </div>
+
+            <button class="mobile-nav-toggle" type="button" aria-label="Abrir menu" aria-controls="mobile-nav-drawer"
+                aria-expanded="false">
+                <i class="bi bi-list"></i>
+            </button>
 
             <div class="header-actions">
                 <span class="termos" id="btnOpenPoliticasHeader">Termos de Política</span>
@@ -53,9 +59,10 @@
 
 
         <main class="main-content">
-            <h6 class="register-id-container">
-                Cod_ID: <span id="codUnique-user">PLACEHOLDER</span>
-            </h6>
+            <div class="meta-info">
+                <h6 class="register-id">Version: v1.7.2</h6>
+                <h6 class="register-id">Cod_ID: <span id="codUnique-user">PLACEHOLDER</span></h6>
+            </div>
 
             <h1 class="welcome-text">Seja bem-vindo, <span class="destacarUser" id="nome-logado">usuário</span>!</h1>
 
@@ -100,14 +107,39 @@
             </section>
             <button id="mint-replay-btn" class="mint-replay">MINT</button>
         </main>
+
+        <div class="mobile-nav-overlay" id="mobile-nav-overlay" role="presentation"></div>
+        <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile" aria-hidden="true"
+            role="navigation">
+            <div class="mobile-nav-title">Veloz Pass</div>
+            <div class="mobile-nav-list">
+                <span class="termos-sidebar mobile-nav-item" id="btnOpenPoliticasHeader">Termos de Política</span>
+
+                <button id="notification-button" class="mobile-nav-item icon-button">
+                    <i class="bi bi-bell"></i>
+                    Notificações
+                </button>
+
+                <button id="change-button" class="mobile-nav-item icon-button">
+                    <i class="bi bi-brightness-high-fill"></i>
+                    Modo Escuro
+                </button>
+
+                <a class="mobile-nav-item icon-button exit-link">
+                    <i class="bi bi-box-arrow-left"></i>
+                    Sair
+                </a>
+            </div>
+        </nav>
     </div>
 
     <script src="/src/hooks/api.js"></script>
     <script src="/src/hooks/auth.js"></script>
     <script src="/src/script2.js"></script>
-    <script src="/src/mint/mint.js"></script>
+    <script src="/src/amint/mint.js"></script>
     <script src="/src/mint/mint-dashboard.js"></script>
     <script src="/src/notifications.js"></script>
     <script src="/src/global-config.js"></script>
 </body>
+
 </html>

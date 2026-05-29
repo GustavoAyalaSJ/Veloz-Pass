@@ -7,6 +7,7 @@
     <title>Recarga - Veloz Pass</title>
     <link rel="icon" type="image/png" href="/assets/Favicon.webp">
     <link rel="stylesheet" href="/css/Recarga.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
     <link rel="stylesheet" href="/css/mint-config.css">
     <link rel="stylesheet" href="/css/special-global-modal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
@@ -20,6 +21,12 @@
                     <img src="/assets/LogoWeb.webp" alt="VelozPassLogo">
                 </div>
             </a>
+
+            <button class="mobile-nav-toggle" type="button" aria-label="Abrir menu" aria-controls="mobile-nav-drawer"
+                aria-expanded="false">
+                <i class="bi bi-list"></i>
+            </button>
+
             <div class="header-actions">
                 <a href="/carteira_digital" class="header-link">
                     <i class="bi bi-credit-card"></i>
@@ -123,8 +130,8 @@
                     <section class="info-box hidden">
                         <i class="bi bi-info-circle"></i>
                         <p>
-                            Caro usuário, ao selecionar Carteira Digital, basta apenas colocar o valor e o número do cartão e aguardar
-                            pela resposta de sua recarga no nosso sistema.
+                            Caro usuário, ao selecionar Carteira Digital, basta apenas colocar o valor e o número do
+                            cartão e aguardar pela resposta de sua recarga no nosso sistema.
                         </p>
                     </section>
                 </div>
@@ -150,7 +157,30 @@
 
         </main>
 
+        <div class="mobile-nav-overlay" id="mobile-nav-overlay" role="presentation"></div>
+        <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile" aria-hidden="true"
+            role="navigation">
+            <div class="mobile-nav-title">Veloz Pass</div>
+            <div class="mobile-nav-list">
+                <a href="/carteira_digital" class="mobile-nav-item" data-nav="carteira">
+                    <i class="bi bi-wallet2"></i>
+                    Carteira Digital
+                </a>
+
+                <button id="change-button" class="mobile-nav-item icon-button">
+                    <i class="bi bi-brightness-high-fill"></i>
+                    Modo Escuro
+                </button>
+
+                <a class="mobile-nav-item icon-button exit-link">
+                    <i class="bi bi-box-arrow-left"></i>
+                    Sair
+                </a>
+            </div>
+        </nav>
+
     </div>
+
     <script src="/src/hooks/api.js"></script>
     <script src="/src/hooks/auth.js"></script>
     <script src="/src/script5.js"></script>
