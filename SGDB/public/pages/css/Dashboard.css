@@ -525,14 +525,6 @@ span {
     white-space: nowrap;
 }
 
-
-/* Rodapé */
-.rodapé {
-    padding: 20px;
-    text-align: center;
-    font-size: .8rem;
-}
-
 /* Media Queries */
 @media (min-width: 1025px) and (max-width: 1440px) {
     .main-content {
@@ -550,10 +542,6 @@ span {
         margin-bottom: 10px;
         align-self: center;
         position: relative;
-    }
-
-    .rodapé {
-        padding-top: 10px;
     }
 }
 
@@ -577,10 +565,6 @@ span {
         margin-top: 25px;
         margin-bottom: 15px;
         align-self: center;
-    }
-
-    .rodapé {
-        padding-top: 15px;
     }
 }
 
@@ -619,16 +603,6 @@ span {
         display: block;
         margin: 25px auto 15px auto;
         position: static;
-    }
-
-    .rodapé {
-        padding-top: 10px;
-        padding-bottom: 25px;
-        text-align: center;
-    }
-
-    .rodapé p {
-        margin: 0;
     }
 }
 
@@ -687,17 +661,6 @@ span {
         margin: 20px auto 10px auto;
         width: fit-content;
     }
-
-    .rodapé {
-        padding-top: 10px;
-        padding-bottom: 20px;
-        text-align: center;
-    }
-
-    .rodapé p {
-        margin: 0;
-        font-size: 0.72rem;
-    }
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
@@ -717,9 +680,5 @@ span {
         position: static;
         margin: 20px auto;
         transform: scale(0.9);
-    }
-
-    .rodapé {
-        padding: 15px;
     }
 }
