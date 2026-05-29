@@ -50,33 +50,6 @@
     color: white;
 }
 
-.mint-replay {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    background: #16a34a;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 999px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
-    margin-top: 20px;
-    align-self: center;
-}
-
-.destacarMint {
-    color: #116a31;
-    font-weight: bold;
-}
-
-.mint-replay:hover {
-    transform: scale(1.05);
-}
-
 .mint-target {
     position: relative !important;
     z-index: 1000002 !important;
@@ -104,6 +77,10 @@
     animation: mint-sprite-appear 0.3s ease-out;
 }
 
+.mint-sprite.active {
+    display: block;
+}
+
 @keyframes mint-sprite-appear {
     from {
         opacity: 0;
@@ -114,8 +91,4 @@
         opacity: 1;
         transform: scale(1);
     }
-}
-
-.mint-sprite.active {
-    display: block;
 }

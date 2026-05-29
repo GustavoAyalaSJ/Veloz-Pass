@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             elementoTitulo.textContent = 'Processo Finalizado';
             elementoCorpo.innerHTML = `<i class="bi bi-check-circle success-icon"></i>`;
             elementoMensagem.textContent = 'Operação concluída com sucesso!';
-            
+
             modalProcesso?.classList.remove('processing');
         } else if (recusado) {
             clearInterval(pollingInterval);
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             elementoTitulo.textContent = 'Processo Recusado';
             elementoCorpo.innerHTML = `<i class="bi bi-x-circle rejected-icon"></i>`;
             elementoMensagem.textContent = 'O processo foi recusado pelo sistema.';
-            
+
             modalProcesso?.classList.remove('processing');
         }
     }

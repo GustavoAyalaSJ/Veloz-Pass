@@ -1,4 +1,4 @@
-/* Estrutura Geral */
+/* Estrutura e Layout */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +10,6 @@ body {
     background-color: #f0f4f8;
 }
 
-/* Background */
 .background-container {
     min-height: 100vh;
     min-height: 100svh;
@@ -288,17 +287,23 @@ span {
     color: rgb(40, 61, 97);
 }
 
-.register-id-container {
-    display: table;
-    margin-bottom: 20px;
-    background-color: #ffcc00;
-    color: #000;
-    padding: 6px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    text-align: center;
+.meta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-self: flex-start;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.register-id {
+    font-size: 0.8rem;
+    color: #64748b;
+    background: #e2e8f0;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+    width: fit-content;
 }
 
 /* Dashboard - Container */
@@ -503,8 +508,29 @@ span {
     opacity: 1;
 }
 
-/* IDs - Java Script */
+.mint-replay {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+    margin-top: 20px;
+    align-self: center;
+}
 
+.mint-replay:hover {
+    transform: scale(1.05);
+}
+
+/* IDs - Java Script */
 .dark-mode #codUnique-user {
     color: black
 }
@@ -577,11 +603,6 @@ span {
         justify-content: flex-start;
         padding-top: 35px;
         padding-bottom: 20px;
-    }
-
-    .register-id-container {
-        margin-top: 20px;
-        margin-bottom: 10px;
     }
 
     .welcome-text {
@@ -664,7 +685,6 @@ span {
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-
     .main-content {
         padding-top: 20px;
         padding-bottom: 20px;

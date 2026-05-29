@@ -9,14 +9,14 @@ class AuthManager {
 
     async initializeCsrfToken() {
         if (this.csrfTokenFetched) return;
-        
+
         try {
             const response = await fetch('/csrf-token', {
                 method: 'GET',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' }
             });
-            
+
             if (response.ok) {
                 const data = await response.json();
                 if (data.csrfToken) {

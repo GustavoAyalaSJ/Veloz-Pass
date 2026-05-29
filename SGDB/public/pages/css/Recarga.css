@@ -1,4 +1,4 @@
-/* Estrutura Geral */
+/* Estrutura e Layout */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +10,6 @@ body {
     background-color: #f0f4f8;
 }
 
-/* Background */
 .background-container {
     min-height: 100vh;
     display: flex;

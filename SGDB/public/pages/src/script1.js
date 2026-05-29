@@ -305,9 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const email = formLogin.querySelector('[name="email"]').value;
                 const senha = formLogin.querySelector('[name="senha"]').value;
-                
+
                 const csrfToken = auth.getCsrfToken();
-                
+
                 try {
                     const headers = {
                         'Content-Type': 'application/json'
