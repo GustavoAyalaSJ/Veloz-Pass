@@ -62,19 +62,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="password-guide" id="password-guide">
                     <div class="guide-item" data-rule="len">
-                        <i class="bi bi-dot guide-dot"></i>
+                        <i class="bi bi-circle-fill guide-circle"></i>
                         <span>A senha deve conter mais de 4 caracteres</span>
                     </div>
                     <div class="guide-item" data-rule="letters">
-                        <i class="bi bi-dot guide-dot"></i>
+                        <i class="bi bi-circle-fill guide-circle"></i>
                         <span>A senha deve conter letras</span>
                     </div>
                     <div class="guide-item" data-rule="number">
-                        <i class="bi bi-dot guide-dot"></i>
+                        <i class="bi bi-circle-fill guide-circle"></i>
                         <span>A senha deve conter pelo menos um número</span>
                     </div>
                     <div class="guide-item" data-rule="special">
-                        <i class="bi bi-dot guide-dot"></i>
+                        <i class="bi bi-circle-fill guide-circle"></i>
                         <span>A senha deve conter um caracteres especial</span>
                     </div>
                 </div>
