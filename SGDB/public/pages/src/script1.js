@@ -279,8 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 updatePasswordGuide();
             }
 
-            const sInput = document.getElementById('reg-senha');
-            const cInput = document.getElementById('reg-confirma');
+            const sInputConfirm = document.getElementById('reg-senha');
+            const cInputConfirm = document.getElementById('reg-confirma');
 
             let sIcon = sInput.parentElement.querySelector('.check-icon');
             let cIcon = cInput.parentElement.querySelector('.check-icon');
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 payload.telefone = telefoneLimpo;
                 payload.cod_identificador = codIdentificador;
 
-                const regiao = dddNaturalidade[telefoneLimpo.slice(0, 2)];
+            const regiao = (typeof dddNaturalidade !== 'undefined') ? dddNaturalidade[telefoneLimpo.slice(0, 2)] : null;
                 payload.id_naturalidade = regiao ? regiao.id : null;
 
                 const csrfToken = auth.getCsrfToken();
