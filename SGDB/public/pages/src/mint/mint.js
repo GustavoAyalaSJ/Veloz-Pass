@@ -137,9 +137,12 @@
         };
 
         if (step.acao === "click") {
+            // skippable=true => clicar no alvo avança imediatamente.
+            // skippable=false => alvo não deve avançar (mantém o passo até Próximo).
             nextBtn.style.display = "none";
 
             const handleTargetClick = (e) => {
+                if (step.skippable === false) return;
                 const isLink = targetEl.tagName?.toLowerCase() === "a";
                 if (isLink) e.preventDefault();
 
