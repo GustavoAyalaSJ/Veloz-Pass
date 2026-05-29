@@ -527,23 +527,27 @@ body {
 }
 
 /* IDs - Java Script */
-#password-guide {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 8px;
-}
-
 #password-guide .guide-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 8px;
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
 }
 
-#password-guide .guide-dot {
+#password-guide .guide-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+#password-guide .guide-item span {
+    display: inline-block;
+    line-height: 1.2;
 }
 
 #password-guide .text-success {
