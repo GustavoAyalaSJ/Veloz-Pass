@@ -251,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const updatePasswordGuide = () => {
                 if (!sInput || !guideRoot || guideItems.length === 0) return;
+
                 const pwd = sInput.value || '';
 
                 const lenOk = pwd.length > 4;
@@ -263,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const circle = item.querySelector('.guide-circle');
 
                     let ok = false;
+
                     if (rule === 'len') ok = lenOk;
                     else if (rule === 'letters') ok = lettersOk;
                     else if (rule === 'number') ok = numberOk;
@@ -271,6 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (circle) {
                         circle.classList.toggle('text-success', ok);
                         circle.classList.toggle('text-danger', !ok);
+                        circle.classList.toggle('bi-check-circle-fill', ok);
+                        circle.classList.toggle('bi-circle-fill', !ok);
                     }
                 });
             };
