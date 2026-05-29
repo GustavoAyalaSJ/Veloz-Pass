@@ -527,6 +527,33 @@ body {
 }
 
 /* IDs - Java Script */
+#password-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+#password-guide .guide-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#password-guide .guide-dot {
+    font-size: 0.75rem;
+}
+
+#password-guide .text-success {
+    color: #22c55e;
+}
+
+#password-guide .text-danger {
+    color: #ef4444;
+}
+
 #btnEsqueceuSenha {
     color: #007bff;
     text-decoration: none;

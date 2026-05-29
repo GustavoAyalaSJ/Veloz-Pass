@@ -29,24 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" autocomplete="off" required>
                     <i id="togglePassword" class="toggle-password-icon"></i>
                 </div>
-                <div class="password-guide" id="password-guide">
-                    <div class="guide-item" data-rule="len">
-                        <i class="bi bi-dot guide-dot"></i>
-                        <span>A senha deve conter mais de 4 caracteres</span>
-                    </div>
-                    <div class="guide-item" data-rule="letters">
-                        <i class="bi bi-dot guide-dot"></i>
-                        <span>A senha deve conter letras</span>
-                    </div>
-                    <div class="guide-item" data-rule="number">
-                        <i class="bi bi-dot guide-dot"></i>
-                        <span>A senha deve conter pelo menos um número</span>
-                    </div>
-                    <div class="guide-item" data-rule="special">
-                        <i class="bi bi-dot guide-dot"></i>
-                        <span>A senha deve conter um caracteres especial</span>
-                    </div>
-                </div>
             </div>
             <a id="btnEsqueceuSenha">Esqueceu a senha?</a>
             <div class="checkbox">
@@ -77,6 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="input-wrapper">
               <input type="password" name="senha" id="reg-senha" placeholder="Digite uma senha aqui." autocomplete="off" required>
               <i class="bi bi-check check-icon"></i>
+            </div>
+            <div class="password-guide" id="password-guide">
+                    <div class="guide-item" data-rule="len">
+                        <i class="bi bi-dot guide-dot"></i>
+                        <span>A senha deve conter mais de 4 caracteres</span>
+                    </div>
+                    <div class="guide-item" data-rule="letters">
+                        <i class="bi bi-dot guide-dot"></i>
+                        <span>A senha deve conter letras</span>
+                    </div>
+                    <div class="guide-item" data-rule="number">
+                        <i class="bi bi-dot guide-dot"></i>
+                        <span>A senha deve conter pelo menos um número</span>
+                    </div>
+                    <div class="guide-item" data-rule="special">
+                        <i class="bi bi-dot guide-dot"></i>
+                        <span>A senha deve conter um caracteres especial</span>
+                    </div>
+                </div>
             </div>
 
             <label class="cadastrarLabel">Confirmar Senha:</label>
@@ -403,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 payload.telefone = telefoneLimpo;
                 payload.cod_identificador = codIdentificador;
 
-            const regiao = (typeof dddNaturalidade !== 'undefined') ? dddNaturalidade[telefoneLimpo.slice(0, 2)] : null;
+                const regiao = (typeof dddNaturalidade !== 'undefined') ? dddNaturalidade[telefoneLimpo.slice(0, 2)] : null;
                 payload.id_naturalidade = regiao ? regiao.id : null;
 
                 const csrfToken = auth.getCsrfToken();
