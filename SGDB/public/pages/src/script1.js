@@ -29,6 +29,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="password" name="senha" placeholder="Digite a senha aqui." id="password" autocomplete="off" required>
                     <i id="togglePassword" class="toggle-password-icon"></i>
                 </div>
+                <div class="password-guide" id="password-guide">
+                    <div class="guide-item" data-rule="len">
+                        <i class="bi bi-dot guide-dot"></i>
+                        <span>A senha deve conter mais de 4 caracteres</span>
+                    </div>
+                    <div class="guide-item" data-rule="letters">
+                        <i class="bi bi-dot guide-dot"></i>
+                        <span>A senha deve conter letras</span>
+                    </div>
+                    <div class="guide-item" data-rule="number">
+                        <i class="bi bi-dot guide-dot"></i>
+                        <span>A senha deve conter pelo menos um número</span>
+                    </div>
+                    <div class="guide-item" data-rule="special">
+                        <i class="bi bi-dot guide-dot"></i>
+                        <span>A senha deve conter um caracteres especial</span>
+                    </div>
+                </div>
             </div>
             <a id="btnEsqueceuSenha">Esqueceu a senha?</a>
             <div class="checkbox">
@@ -142,19 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </form>
     `;
 
-    const dddNaturalidade = {
-        '47': { id: 'A', nome: 'Joinville e Região' },
-        '48': { id: 'B', nome: 'Florianópolis e Região' },
-        '49': { id: 'C', nome: 'Chapecó e Região' }
-    };
 
-    function gerarCodIdentificador(telefoneLimpo) {
-        const ddd = telefoneLimpo.slice(0, 2);
-        const naturalidade = dddNaturalidade[ddd];
-        if (!naturalidade) return null;
-        const randomNumber = String(Math.floor(Math.random() * 900000) + 100000).slice(0, 5);
-        return `${randomNumber}${naturalidade.id}`;
-    }
 
     function preencherDashboard(userData) {
         if (!userData) return;
@@ -238,6 +244,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formCad = document.getElementById('formCadastro');
         if (formCad) {
+            const sInput = document.getElementById('reg-senha');
+            const guideRoot = document.getElementById('password-guide');
+            const guideItems = guideRoot ? guideRoot.querySelectorAll('.guide-item') : [];
+
+            const updatePasswordGuide = () => {
+                if (!sInput || !guideRoot || guideItems.length === 0) return;
+                const pwd = sInput.value || '';
+
+                const lenOk = pwd.length > 4;
+                const lettersOk = /[A-Za-z]/.test(pwd);
+                const numberOk = /\d/.test(pwd);
+                const specialOk = /[^A-Za-z0-9]/.test(pwd);
+
+                guideItems.forEach(item => {
+                    const rule = item.dataset.rule;
+                    const dot = item.querySelector('.guide-dot');
+
+                    let ok = false;
+                    if (rule === 'len') ok = lenOk;
+                    else if (rule === 'letters') ok = lettersOk;
+                    else if (rule === 'number') ok = numberOk;
+                    else if (rule === 'special') ok = specialOk;
+
+                    if (dot) {
+                        dot.classList.toggle('text-success', ok);
+                        dot.classList.toggle('text-danger', !ok);
+                    }
+                });
+            };
+
+            if (sInput && guideItems.length > 0) {
+                sInput.addEventListener('input', updatePasswordGuide);
+                updatePasswordGuide();
+            }
+
             const sInput = document.getElementById('reg-senha');
             const cInput = document.getElementById('reg-confirma');
 
@@ -355,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cpfLimpo = document.getElementById('inputCPF').value.replace(/\D/g, '');
                 const telefoneLimpo = document.getElementById('inputTelefone').value.replace(/\D/g, '');
 
-                const codIdentificador = gerarCodIdentificador(telefoneLimpo);
+                const codIdentificador = null;
 
                 const payload = Object.fromEntries(new FormData(formCadastro).entries());
                 payload.cpf = cpfLimpo;
