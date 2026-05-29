@@ -126,6 +126,17 @@ exports.processCredit = async (req, res) => {
 
     try {
         const protocol = 'VP' + Date.now();
+        console.log('[processCredit] request', {
+            idUsuario,
+            valorRaw,
+            valorNum,
+            metodo,
+            metodoBase,
+            metodoParaOBanco,
+            numCartaoPresente: !!numCartao,
+            idBandeira: idBandeira || null
+        });
+
 
         const { data: rpcResult, error: rpcError } = await supabase.rpc('rpc_adicionar_credito', {
             p_id_usuario: idUsuario,
@@ -144,11 +155,30 @@ exports.processCredit = async (req, res) => {
             return res.status(400).json({ error: 'Resposta inválida do servidor' });
         }
         if (!rpcResult.success) {
+            console.error('[RPC DECLINED] rpcResult:', {
+                situacao: rpcResult.situacao,
+                protocolo: rpcResult.protocolo,
+                erro: rpcResult.erro,
+                mensagem: rpcResult.mensagem,
+                received: {
+                    valorNum,
+                    metodoRaw: metodo,
+                    metodoBase,
+                    metodoParaOBanco,
+                    hasNumCartao: !!numCartao,
+                    idBandeira: idBandeira || null
+                }
+            });
+
             return res.status(422).json({
                 success: false,
-                error: rpcResult.erro || 'Transação rejeitada',
+                error: rpcResult.erro || rpcResult.mensagem || 'Transação rejeitada',
                 situacao: rpcResult.situacao,
-                protocolo: rpcResult.protocolo
+                protocolo: rpcResult.protocolo,
+                detalhe: {
+                    erro: rpcResult.erro || null,
+                    mensagem: rpcResult.mensagem || null
+                }
             });
         }
 
