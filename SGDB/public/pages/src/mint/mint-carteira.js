@@ -33,9 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
             skippable: false
         },
         {
-            texto: "Selecione algum destes valores para continuar.",
+            texto: "Selecione este valor.",
             sprite: "pointing-up",
             target: ".opt-valor",
+            skippable: true
+        },
+        {
+            texto: "Agora clique no botão 'Próximo' para continuar.",
+            sprite: "pointing-right",
+            target: ".btn-proximo",
             skippable: true
         },
         {
