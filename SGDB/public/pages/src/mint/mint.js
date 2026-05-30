@@ -115,7 +115,11 @@
                 const bubbleH = ui.offsetHeight || 120;
 
                 const safeLeftUI = Math.min(Math.max(padding, rect.left), viewportW - bubbleW - padding);
-                const safeTopUI = Math.min(Math.max(padding, rect.bottom + 15), viewportH - bubbleH - padding);
+                let safeTopUI = rect.bottom + 15;
+
+                if (safeTopUI + bubbleH > viewportH - padding) {
+                    safeTopUI = Math.max(padding, rect.top - bubbleH - 15);
+                }
 
                 ui.style.left = `${safeLeftUI}px`;
                 ui.style.top = `${safeTopUI}px`;

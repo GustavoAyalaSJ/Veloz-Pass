@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusNormalizado.includes('recusada');
 
         if (emRevisao) {
-            elementoTitulo.textContent = 'Atualizando Informações';
+            elementoTitulo.textContent = 'Solicitação de transação enviada';
             elementoCorpo.innerHTML = `
                 <div class="timer-container">
                     <i class="bi bi-arrow-repeat process-spin"></i>
