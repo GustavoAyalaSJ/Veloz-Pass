@@ -121,14 +121,19 @@ exports.processCredit = async (req, res) => {
     }
 
     console.log('Cartão recebido:', numCartao);
-    console.log('Passou Luhn?', validarCartao(numCartao));
 
-    if (
-        ['DEBITO', 'CREDITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoBase)
-        && !validarCartao(numCartao)
-    ) {
-        return res.status(400).json({ error: "Cartão inválido." });
+    if (['DEBITO', 'CREDITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoBase)) {
+        const limpo = String(numCartao ?? '').replace(/\D/g, '');
+        const ultimoDigito = limpo ? Number(limpo[limpo.length - 1]) : NaN;
+
+        const ehTudoMesmaLetra = limpo.length > 0 && /^([0-9])\1+$/.test(limpo);
+        const rejeitarTriviais = ehTudoMesmaLetra;
+
+        if (!limpo || limpo.length < 13 || limpo.length > 19 || Number.isNaN(ultimoDigito) || ultimoDigito < 1 || ultimoDigito > 5 || rejeitarTriviais) {
+            return res.status(400).json({ error: "Cartão inválido." });
+        }
     }
+
     
     try {
         const protocol = 'VP' + Date.now();
