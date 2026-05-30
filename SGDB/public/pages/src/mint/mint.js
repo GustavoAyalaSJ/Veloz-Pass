@@ -73,6 +73,8 @@
             return;
         }
 
+        highlight.style.display = "none";
+
         const targetEl = getTargetEl(step.target);
         if (!targetEl) {
             onStepComplete?.();
