@@ -4,6 +4,30 @@ Todo o histórico de desenvolvimento, melhorias, correções e atualizações do
 
 ---
 
+## [1.7.3] - 2026-05-28 / 2026-05-29
+### 🚀 Adicionado
+- **Rodapé (Introdução):** Adicionado seção FAQ no rodapé;
+- **Side Bar (Mobile):** Adição de sidebar contendo as informações do header-actions para celulares pequenos.
+- **Versão VP (Dashboard):** Adicionando um pequeno trecho no dashboard, mostrando a versão em que Veloz Pass está.
+- **Requirements for Password:** Adicionado um trecho de requerimentos para criar senhas fortes quando cadastrar.
+
+### 🔄 Modificado
+- **Rodapé (Introdução):** Ajuste no rodapé da página introdução, reduzindo o texto do link de APP.
+- **Media Queries:** Ajuste em alguns media queries nas páginas do Veloz Pass.
+- **Código ID (Usuário):** Ajuste para um novo gerador de códigos pelo back-end.
+- **Falas do MINT:** Melhorando a falas do MINT para serem skippable (quando ele não pede para usuário interagir) e skippable para target (quando ele pede para usuário interagir).
+
+### 🔧 Arrumado
+- **Filtro (Histórico):** Arrumando o filtro de tipo de movimentação para buscar realizados na Carteira Digital.
+- **Método de Pagamento:** Ajuste nos métodos de pagamentos para validação de pagamentos.
+- **Sprite MINT position:** Ajustar o posicionamento do sprite do MINT para não cobrir interações importantes.
+
+### 🗑️ Removido
+- **Rodapé (Dashboard):** Removido por inconsistência com restante da página.
+- **Naturalidade (Banco de Dados):** Remoção da tabela a pedido do instrutor.
+- **Antiga lógica de Código ID:** Com a remoção de naturalidade, a antiga lógica se tornou obsoleta.
+- **Lógica Luhn:** Lógica quebrada para validar número de cartões durante transações.
+
 ## [1.7.2] - 2026-05-27
 ### 🚀 Adicionado
 - **Pasta Services:** Atualizações sobre a pasta no futuros.
