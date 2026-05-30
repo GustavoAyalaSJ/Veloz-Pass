@@ -39,25 +39,25 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 texto: "A carteira digital é onde você pode visualizar os créditos disponíveis, para acessar a página, clique no botão logo abaixo.",
-                sprite: "pointing-up",
+                sprite: "pointing-down",
                 target: ".card-carteira",
                 skippable: false
             },
             {
                 texto: "A recarga é onde será realizada as recargas do seu cartão de transporte.",
-                sprite: "pointing-up",
+                sprite: "pointing-down",
                 target: ".card-recarga",
                 skippable: false
             },
             {
                 texto: "O histórico é onde quaisquer transação será registrada, para acessar a página, basta clicar no botão logo abaixo.",
-                sprite: "pointing-right",
+                sprite: "pointing-down",
                 target: ".card-historico",
                 skippable: false
             },
             {
                 texto: "Além disso, você poderá obter atualizações sobre o valor da passagem do transporte coletivo.",
-                sprite: "pointing-up",
+                sprite: "pointing-down",
                 target: ".card-info",
                 skippable: false
             },

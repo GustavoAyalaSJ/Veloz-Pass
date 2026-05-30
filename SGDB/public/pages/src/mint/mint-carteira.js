@@ -40,26 +40,19 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             texto: "Agora clique no botão 'Próximo' para continuar.",
-            sprite: "pointing-right",
+            sprite: "pointing-down",
             target: ".btn-proximo",
             skippable: true
         },
         {
-            texto: "Após selecionar um valor, você irá escolher um valor selecionando aqui.",
-            sprite: "pointing-up",
+            texto: "Após selecionar um valor, selecione um método de pagamento.",
+            sprite: "pointing-down",
             target: "#modal-pagamento .modal-box",
             skippable: false
         },
         {
-            texto: "Selecione um método de pagamento.",
-            sprite: "pointing-up",
-            target: "#select-pagamento .modal-box",
-            skippable: true
-        },
-        {
             texto: "Então você colocará suas informações para confirmar a transação para sua Carteira Digital.",
-            sprite: "pointing-up",
-            target: ".modal-box",
+            sprite: "introduction",
             skippable: false
         },
         {
@@ -70,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             texto: "Lembrete: Após cada transação na Carteira Digital, você poderá visualiza-las na tabela abaixo.",
-            sprite: "pointing-right",
+            sprite: "warning",
             target: ".histórico-valores",
             skippable: false
         },
@@ -81,9 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
             skippable: false
         },
         {
-            texto: "É isso da página Carteira Digital, para retornar ao dashboard, clique na logotipo do Veloz Pass.",
+            texto: "Para retornar ao dashboard, clique na logotipo do Veloz Pass.",
             sprite: "pointing-up",
             target: ".logotipo",
+            skippable: false
+        },
+                {
+            texto: "É isso sobre a página Carteira Digital.",
+            sprite: "introduction",
             skippable: false
         }
     ];
