@@ -18,54 +18,43 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             texto: "Bem-vindo à Recarga! Vou te mostrar as etapas principais.",
             sprite: "greeting",
-            acao: "next",
             skippable: false
         },
         {
             texto: "Primeiro, selecione a forma de pagamento nesta seção.",
             sprite: "pointing-up",
-            acao: "next",
             target: "#select-pagamento",
             skippable: true
         },
         {
             texto: "Então, você irá informar um valor neste campo para realizar uma recarga.",
             sprite: "pointing-up",
-            acao: "next",
             target: ".top-group.valor input",
             skippable: false
         },
         {
             texto: "Aqui você terá que colocar o número do cartão de passagem para localizar o cartão no sistema da empresa de ônibus",
             sprite: "pointing-down",
-            acao: "next",
             target: ".confirm-card",
             skippable: false
         },
         {
             texto: "Por fim, avance e conclua a recarga no final da tela.",
             sprite: "pointing-down",
-            acao: "next",
             target: ".btn-prosseguir",
             skippable: false
         },
         {
             texto: "É isso da página Recarga, para retornar ao dashboard, clique na logotipo do Veloz Pass.",
             sprite: "pointing-up",
-            acao: "next",
             target: ".logotipo",
             skippable: false
         }
     ];
 
     qBtn.addEventListener('click', () => {
-        const stepsComTargetExistente = steps.filter((s) => {
-            if (!s.target) return true;
-            return !!document.querySelector(s.target);
-        });
-
         window.MintEngine?.startMint?.({
-            steps: stepsComTargetExistente,
+            steps,
             spriteMap,
             force: true
         });
