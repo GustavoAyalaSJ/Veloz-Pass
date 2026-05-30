@@ -75,11 +75,14 @@
 
         highlight.style.display = "none";
 
-        const targetEl = getTargetEl(step.target);
-        if (!targetEl) {
-            onStepComplete?.();
+        const targetEls = document.querySelectorAll(step.target);
+
+        if (!targetEls.length) {
+            console.warn(`[MINT] Elemento não encontrado: ${step.target}`);
             return;
         }
+
+        const targetEl = targetEls[0];
 
         targetEl.classList.add("mint-target");
         highlight.style.display = "block";
@@ -131,32 +134,53 @@
         window.addEventListener('resize', debouncedUpdate);
         window.addEventListener('orientationchange', debouncedUpdate);
 
+        const clickListeners = [];
+
         const cleanup = () => {
             window.removeEventListener('scroll', debouncedUpdate);
             window.removeEventListener('resize', debouncedUpdate);
             window.removeEventListener('orientationchange', debouncedUpdate);
+
+            clickListeners.forEach(({ el, fn }) => {
+                el.removeEventListener('click', fn);
+            });
+
             clearTimeout(updateTimeout);
         };
 
-        if (step.acao === "click") {
-            // skippable=true => clicar no alvo avança imediatamente.
-            // skippable=false => alvo não deve avançar (mantém o passo até Próximo).
+        if (step.skippable === true) {
+            window._mintCleanup = cleanup;
             nextBtn.style.display = "none";
 
             const handleTargetClick = (e) => {
-                if (step.skippable === false) return;
-                const isLink = targetEl.tagName?.toLowerCase() === "a";
-                if (isLink) e.preventDefault();
+                const clickedEl = e.currentTarget;
+
+                const isLink =
+                    clickedEl.tagName?.toLowerCase() === "a";
+
+                if (isLink) {
+                    e.preventDefault();
+                }
 
                 cleanup();
                 onStepComplete?.();
 
                 if (isLink) {
-                    window.location.href = targetEl.href;
+                    window.location.href = clickedEl.href;
                 }
             };
 
-            targetEl.addEventListener("click", handleTargetClick, { once: true });
+            targetEls.forEach(el => {
+                el.addEventListener("click", handleTargetClick, {
+                    once: true
+                });
+
+                clickListeners.push({
+                    el,
+                    fn: handleTargetClick
+                });
+            });
+
             return;
         }
 
@@ -186,7 +210,7 @@
 
         createMintUI();
         document.body.classList.add('mint-active');
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = "";
 
         let stepIndex = force ? 0 : (parseInt(localStorage.getItem("mint-step")) || 0);
 

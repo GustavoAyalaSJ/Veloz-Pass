@@ -5,7 +5,7 @@
     box-shadow:
         0 0 0 9999px rgba(0, 0, 0, 0.7);
     z-index: 1000000 !important;
-    pointer-events: none;
+    pointer-events: none !important;
     transition:
         top 0.4s ease,
         left 0.4s ease,
