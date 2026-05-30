@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const btnReplay = document.getElementById("mint-replay-btn");
+    const btnOpenPoliticasHeader = document.getElementById('btnOpenPoliticasHeader');
+    const btnOpenPoliticasMobile = document.querySelectorAll('.btnOpenPoliticas');
+
     if (!btnReplay) return;
 
     const spriteMap = {

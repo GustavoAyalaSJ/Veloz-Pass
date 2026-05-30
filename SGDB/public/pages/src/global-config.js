@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let logoutModal = null;
 
     const changeTheme = document.getElementById('change-button');
+    const changeThemeMobile = document.querySelectorAll('.btnChangeTheme, #change-button');
+
+
     if (changeTheme) {
         const atualizarIconeTema = () => {
             const isDark = document.documentElement.classList.contains('dark-mode');
@@ -17,15 +20,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 : '<i class="bi bi-brightness-high-fill"></i>';
         };
 
-        atualizarIconeTema();
+        const atualizarTodosIconesTema = () => {
+            const isDark = document.documentElement.classList.contains('dark-mode');
+            if (changeTheme) {
+                changeTheme.innerHTML = isDark
+                    ? '<i class="bi bi-moon-stars-fill"></i>'
+                    : '<i class="bi bi-brightness-high-fill"></i>';
+            }
 
-        changeTheme.onclick = () => {
+            changeThemeMobile.forEach(btn => {
+                btn.innerHTML = isDark
+                    ? '<i class="bi bi-moon-stars-fill"></i>'
+                    : '<i class="bi bi-brightness-high-fill"></i>';
+            });
+        };
+
+        atualizarTodosIconesTema();
+
+        const alternarTema = () => {
             document.documentElement.classList.toggle('dark-mode');
             const modoAtivo = document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light';
             localStorage.setItem('theme', modoAtivo);
-            atualizarIconeTema();
+            atualizarTodosIconesTema();
         };
+
+        if (changeTheme) {
+            changeTheme.onclick = () => alternarTema();
+        }
+
+        changeThemeMobile.forEach(btn => btn && btn.addEventListener('click', alternarTema));
+
     }
+
 
     function criarModalLogout() {
         if (logoutModal) return;

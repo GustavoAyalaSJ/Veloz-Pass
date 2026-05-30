@@ -60,7 +60,7 @@
 
         <main class="main-content">
             <div class="meta-info">
-                <h6 class="register-id">Version: v1.7.2</h6>
+                <h6 class="register-id">Version: v1.7.3</h6>
                 <h6 class="register-id">Cod_ID: <span id="codUnique-user">PLACEHOLDER</span></h6>
             </div>
 
@@ -113,14 +113,14 @@
             role="navigation">
             <div class="mobile-nav-title">Veloz Pass</div>
             <div class="mobile-nav-list">
-                <span class="termos-sidebar mobile-nav-item" id="btnOpenPoliticasHeader">Termos de Política</span>
+                <span class="termos-sidebar mobile-nav-item btnOpenPoliticas">Termos de Política</span>
 
-                <button id="notification-button" class="mobile-nav-item icon-button">
+                <button id="notification-button" class="mobile-nav-item icon-button" type="button">
                     <i class="bi bi-bell"></i>
                     Notificações
                 </button>
 
-                <button id="change-button" class="mobile-nav-item icon-button">
+                <button id="change-button" class="mobile-nav-item icon-button btnChangeTheme" type="button">
                     <i class="bi bi-brightness-high-fill"></i>
                     Modo Escuro
                 </button>
@@ -131,6 +131,40 @@
                 </a>
             </div>
         </nav>
+
+        <!-- Mobile: Notifications Modal -->
+        <div class="notification-mobile-overlay" id="notification-mobile-overlay" role="presentation"></div>
+        <div class="notification-mobile-modal" id="notification-mobile-modal" aria-hidden="true" role="dialog"
+            aria-modal="true">
+            <div class="notification-mobile-modal-header">
+                <h6 class="modal-title">Notificações</h6>
+                <button class="notification-mobile-close" id="notification-mobile-close" type="button"
+                    aria-label="Fechar notificações">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-list" id="notification-mobile-list">
+                    <div class="notification-mobile-empty" id="notification-mobile-empty">
+                        Você não possui nenhuma notificação no momento.
+                    </div>
+
+                    <!-- Item template (rendered by JS later) -->
+                    <!--
+                    <div class="notification-mobile-item">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <div class="notification-mobile-text">
+                            O status do protocolo N VP... foi atualizado, clique para visualizar.
+                            <span class="notification-mobile-date">dd/mm/yyyy</span>
+                        </div>
+                        <i class="bi bi-trash notification-mobile-delete" aria-label="Marcar como visualizada"></i>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="/src/hooks/api.js"></script>
