@@ -120,13 +120,16 @@ exports.processCredit = async (req, res) => {
         return res.status(400).json({ error: "Método de pagamento não suportado." });
     }
 
-    if (['DEBITO', 'CREDITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoBase) && !validarCartao(numCartao)) {
-        return res.status(400).json({ error: "Cartão inválido." });
-    }
-
     console.log('Cartão recebido:', numCartao);
     console.log('Passou Luhn?', validarCartao(numCartao));
 
+    if (
+        ['DEBITO', 'CREDITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoBase)
+        && !validarCartao(numCartao)
+    ) {
+        return res.status(400).json({ error: "Cartão inválido." });
+    }
+    
     try {
         const protocol = 'VP' + Date.now();
         console.log('[processCredit] request', {
