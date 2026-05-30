@@ -639,6 +639,7 @@ body {
     }
 
     .logotipo img {
+        margin-top: 25px;
         height: 45px;
     }
 
@@ -661,6 +662,7 @@ body {
 
     .sobre-left p {
         text-align: center;
+        word-break: break-word;
     }
 
     .modal-content {
@@ -685,8 +687,7 @@ body {
 
     .logotipo img {
         left: 31px;
-        top: 50px;
-        height: 47px;
+        height: 25px;
     }
 
     .left {
@@ -712,7 +713,7 @@ body {
     .cabeçalho {
         left: 0px;
         top: 0px;
-        width: 768px;
+        width: 100%;
         height: 100px;
         border-bottom: 7px solid;
         border-image-source: linear-gradient(#24344d 100%);
@@ -749,8 +750,10 @@ body {
     .containerLeft {
         position: relative;
         left: 0px;
-        width: 491px;
-        height: 516px;
+        width: 100%;
+        max-width: 491px;
+        min-height: 516px;
+        height: auto;
         border-start-start-radius: 10px;
         border-start-end-radius: 10px;
         border-end-start-radius: 10px;
@@ -766,8 +769,9 @@ body {
         position: relative;
         z-index: 10;
         left: 0px;
-        width: 768px;
-        height: 80px;
+        width: 100%;
+        height: auto;
+        min-height: 80px;
         border-top: 7px solid;
         border-image-source: linear-gradient(#24344d 100%);
         border-image-slice: 1;
@@ -777,6 +781,10 @@ body {
 @media (max-width: 480px) {
     .cabeçalho {
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 12px;
         height: 85px;
         border-bottom: 2px solid;
         border-image-source: linear-gradient(#24344d 100%);
@@ -784,20 +792,21 @@ body {
     }
 
     .logotipo img {
-        position: absolute;
+        position: static;
         left: 3px;
         top: 14px;
-        width: 159px;
-        height: 57px;
+        width: 140px;
+        height: auto;
     }
 
     .link-headers {
-        position: absolute;
+        position: static;
         left: 190px;
+        margin-left: 40px;
         top: 21px;
-        width: 160px;
-        height: 44px;
-        gap: 10px;
+        width: auto;
+        height: auto;
+        gap: 8px;
     }
 
     .termos {
@@ -816,8 +825,9 @@ body {
 
     .containerLeft {
         position: relative;
-        left: 10px;
-        width: 284px;
+        left: 0;
+        width: 100%;
+        max-width: 340px;
         border-start-start-radius: 10px;
         border-start-end-radius: 10px;
         border-end-start-radius: 10px;
@@ -826,6 +836,7 @@ body {
 
     .sobre-left h1 {
         font-size: 1.8rem;
+        word-break: break-word;
     }
 
     .modal-content h2 {
@@ -842,8 +853,9 @@ body {
         border-image-source: linear-gradient(#24344d 100%);
         border-image-slice: 1;
         left: 0px;
-        width: 375px;
-        height: 94px;
+        width: 100%;
+        height: auto;
+        min-height: 94px;
         font-size: 0.89rem;
     }
 
