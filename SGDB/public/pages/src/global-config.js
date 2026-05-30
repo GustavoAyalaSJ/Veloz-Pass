@@ -8,27 +8,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     let logoutModal = null;
 
-    const changeTheme = document.getElementById('change-button');
-    const changeThemeMobile = document.querySelectorAll('.btnChangeTheme, #change-button');
+    const themeButtons = document.querySelectorAll('.btnChangeTheme');
 
-
-    if (changeTheme) {
-        const atualizarIconeTema = () => {
-            const isDark = document.documentElement.classList.contains('dark-mode');
-            changeTheme.innerHTML = isDark
-                ? '<i class="bi bi-moon-fill"></i>'
-                : '<i class="bi bi-brightness-high-fill"></i>';
-        };
-
+    if (themeButtons && themeButtons.length > 0) {
         const atualizarTodosIconesTema = () => {
             const isDark = document.documentElement.classList.contains('dark-mode');
-            if (changeTheme) {
-                changeTheme.innerHTML = isDark
-                    ? '<i class="bi bi-moon-stars-fill"></i>'
-                    : '<i class="bi bi-brightness-high-fill"></i>';
-            }
 
-            changeThemeMobile.forEach(btn => {
+            themeButtons.forEach(btn => {
                 btn.innerHTML = isDark
                     ? '<i class="bi bi-moon-stars-fill"></i>'
                     : '<i class="bi bi-brightness-high-fill"></i>';
@@ -44,12 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             atualizarTodosIconesTema();
         };
 
-        if (changeTheme) {
-            changeTheme.onclick = () => alternarTema();
-        }
-
-        changeThemeMobile.forEach(btn => btn && btn.addEventListener('click', alternarTema));
-
+        themeButtons.forEach(btn => btn.addEventListener('click', alternarTema));
     }
 
 
