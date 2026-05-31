@@ -104,7 +104,7 @@ body {
     width: 100%;
     background-color: #24344d;
     color: white;
-    padding: 2rem 1.2rem;
+    padding: 2.5rem 2rem;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -228,44 +228,15 @@ body {
     gap: 15px;
 }
 
-.senhaLabel {
-    padding-top: 10px;
-    padding-bottom: 20px;
+.senhaLabel, .termosLabel, .cadastrarLabel, .emailLabel, .recuperarLabel, .suporteLabel {
     font-size: 0.9rem;
     font-weight: 600;
     color: #e5e7eb;
 }
 
-.termosLabel {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #e5e7eb;
-}
-
-.cadastrarLabel {
-    margin-bottom: -5px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #e5e7eb;
-}
-
-.emailLabel,
-.recuperarLabel,
-.suporteLabel {
-    padding-bottom: 5px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #e5e7eb;
-}
-
-.modal-content label:not(.checkbox label) {
-    display: block;
-}
-
-.modal-content input {
+.modal-content input, .modal-content select, .modal-content textarea {
     width: 100%;
     padding: 10px;
-    margin-top: -10px;
     background-color: rgba(255, 255, 255, 0.95);
     border: 1px solid transparent;
     border-radius: 4px;
@@ -273,327 +244,10 @@ body {
     box-sizing: border-box;
 }
 
-.modal-content input:focus {
-    border-color: #00d4ff;
-    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
-}
-
-.modal-content p {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.77);
-    line-height: 1.5;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.modal-content form div {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    margin-top: -2px;
-}
-
-.password-input-container {
-    position: relative;
-    width: 100%;
-}
-
-.password-input-container input {
-    padding-right: 45px;
-}
-
-.password-input-container i {
-    position: absolute;
-    top: 74%;
-    right: 12px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #555;
-    font-size: 1.2rem;
-}
-
-.password-input-container i:hover {
-    color: #007bff;
-}
-
-.password-wrapper {
-    margin-top: 10px;
-}
-
-.checkbox {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 15px;
-    text-align: left;
-}
-
-.checkbox input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    margin-right: 4px;
-    cursor: pointer;
-    align-self: flex-start;
-}
-
-.checkbox label {
-    display: block !important;
-    margin: 0;
-    cursor: pointer;
-    line-height: 1.4;
-    color: #dbdbdb;
-    text-align: center;
-}
-
-.destacarTermos {
-    color: #0056b3;
-    cursor: pointer;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.destacarTermos:hover {
-    color: #89a4c1;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.input-wrapper {
-    margin-bottom: 15px;
-}
-
-.input-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.input-wrapper input {
-    width: 100%;
-    padding-right: 20px;
-}
-
-.check-icon {
-    position: absolute;
-    right: 12px;
-    bottom: 7px;
-    margin-bottom: 4px;
-    font-size: 1.4rem;
-    color: #28a745;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.error-icon {
-    position: absolute;
-    right: 12px;
-    bottom: 7px;
-    margin-bottom: 4px;
-    font-size: 1.4rem;
-    color: #dc3545;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-/* Modal - Termos */
-.modal-terms-content {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    max-height: calc(85vh - 150px);
-    padding-right: 10px;
-}
-
-.modal-terms-content p {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: #ffffff;
-    margin: 0;
-}
-
-.modal-terms-content strong {
-    color: #6ba6da;
-    font-size: 1rem;
-}
-
-/* Modal Suporte */
-.modal-content select,
-.modal-content input,
-.modal-content textarea {
-    width: 100%;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 1px solid transparent;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    box-sizing: border-box;
-}
-
-.modal-content textarea {
-    resize: none;
-}
-
-.modal-content select:focus,
-.modal-content input:focus,
-.modal-content textarea:focus {
+.modal-content input:focus, .modal-content select:focus, .modal-content textarea:focus {
     border-color: #00d4ff;
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
-}
-
-.modal-content .select-wrapper {
-    position: relative;
-    margin-top: -7px;
-    width: 100%;
-}
-
-.modal-content .select-wrapper select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    padding-right: 40px;
-    cursor: pointer;
-}
-
-.modal-content .select-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #555;
-    font-size: 1rem;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.modal-content .select-wrapper.active .select-icon {
-    transform: translateY(-50%) rotate(180deg);
-}
-
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    background: none;
-    border: none;
-    opacity: 0.8;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #dbdbdb;
-    cursor: pointer;
-}
-
-.close-btn:hover {
-    opacity: 1;
-}
-
-.botao-estilizado {
-    display: block;
-    width: 100%;
-    background-color: #007bff;
-    color: rgb(250, 250, 250);
-    text-decoration: none;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 12px;
-    border-radius: 8px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.botao-estilizado:hover {
-    background-color: #0056b3;
-    text-decoration: none;
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
-    transform: translateY(-2px);
-    color: rgb(250, 250, 250);
-}
-
-.modal-content button:not(.close-btn) {
-    width: 100%;
-    padding: 12px;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-}
-
-/* IDs - Java Script */
-#password-guide .guide-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.8);
-    white-space: nowrap;
-}
-
-#password-guide .guide-circle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    flex-shrink: 0;
-}
-
-#password-guide .guide-item span {
-    display: inline-block;
-    line-height: 1.2;
-}
-
-#password-guide .text-success {
-    color: #22c55e;
-}
-
-#password-guide .text-danger {
-    color: #ef4444;
-}
-
-#btnEsqueceuSenha {
-    color: #007bff;
-    text-decoration: none;
-    font-size: 0.85rem;
-    align-self: flex-end;
-    margin-top: -5px;
-    margin-bottom: 10px;
-}
-
-#formSuporte label {
-    margin-top: 5px;
-    padding-bottom: 5px;
-}
-
-#btnGoToCadastro,
-#btnBackToLogin {
-    background-color: #f8f9fa;
-    color: #333;
-    border: 1px solid #ccc;
-}
-
-#btnGoToCadastro:hover,
-#btnBackToLogin:hover {
-    background-color: #e2e6ea;
-}
-
-#formCadastro label {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-#formCadastro input,
-#formCadastro .input-wrapper {
-    margin-top: 0;
-    margin-bottom: 4px;
 }
 
 /* Rodapé */
@@ -628,240 +282,118 @@ body {
     color: white;
 }
 
-/* Media Queries */
-@media (min-width: 1025px) and (max-width: 1440px) {
-    .cabeçalho {
-        height: 100px;
-    }
+/* ---------------------------------------------------
+   MEDIA QUERIES - RESPONSIVIDADE
+   --------------------------------------------------- */
 
-    .background-container {
-        background-color: #92b7e9;
-    }
-
-    .logotipo img {
-        margin-top: 25px;
-        height: 45px;
-    }
-
-    .main-content {
-        min-height: auto;
-        padding: 2rem 1rem;
-        align-items: flex-start;
-        display: flex;
-    }
-
-    .containerLeft {
-        position: relative;
-        left: 0px;
-        height: 540px;
-        border-start-start-radius: 10px;
-        border-start-end-radius: 10px;
-        border-end-start-radius: 10px;
-        border-end-end-radius: 10px;
-    }
-
-    .sobre-left p {
-        text-align: center;
-        word-break: break-word;
-    }
-
-    .modal-content {
-        overflow-y: auto;
-    }
-
-    .modal-terms-content p {
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.776);
-    }
-
-    .modal-terms-content strong {
-        font-size: 0.9rem;
-        color: rgba(162, 185, 222, 0.709);
-    }
-}
-
+/* Tablets e iPads */
 @media (max-width: 1024px) {
-    .cabeçalho {
-        height: 100px;
-    }
-
-    .logotipo img {
-        left: 31px;
-        height: 25px;
-    }
-
     .left {
-        width: 45%;
+        width: 60%;
+        margin-left: 5%;
     }
-
-    .containerLeft {
-        position: relative;
-        left: 0px;
-        border-start-start-radius: 10px;
-        border-start-end-radius: 10px;
-        border-end-start-radius: 10px;
-        border-end-end-radius: 10px;
+    
+    .sobre-left h1 {
+        font-size: 2rem;
     }
 }
 
+/* Celulares (Geral) */
 @media (max-width: 768px) {
-    .background-container {
-        display: flex;
+    .cabeçalho {
+        height: auto;
+        padding: 15px 5%;
         flex-direction: column;
+        gap: 15px;
+        text-align: center;
     }
 
-    .cabeçalho {
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        height: 100px;
-        border-bottom: 7px solid;
-        border-image-source: linear-gradient(#24344d 100%);
-        border-image-slice: 1;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .logotipo img {
+        height: 40px;
+    }
+
+    .link-headers {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .main-content {
+        padding: 40px 0;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
-        flex: 1;
-        padding: 40px 20px;
-        position: relative;
     }
 
     .left {
         width: 90%;
-        max-width: 450px;
+        max-width: 100%;
         margin-left: 0;
-        z-index: 2;
-    }
-
-    .right {
-        background-image: url("background/768x1024.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        min-height: 200px;
+        margin: 0 auto;
     }
 
     .containerLeft {
-        position: relative;
-        left: 0px;
-        width: 100%;
-        max-width: 491px;
-        min-height: 516px;
-        height: auto;
-        border-start-start-radius: 10px;
-        border-start-end-radius: 10px;
-        border-end-start-radius: 10px;
-        border-end-end-radius: 10px;
+        padding: 2rem 1.5rem;
+        border-width: 8px;
     }
 
-    .modal-terms-content {
-        max-height: calc(90vh - 140px);
-        overflow-y: auto;
+    .right {
+        display: none; /* Esconde o fundo decorativo para focar no conteúdo */
+        background-image: none;
+    }
+
+    .background-container {
+        background-color: #24344d; /* Cor de fundo sólida no mobile */
     }
 
     .rodapé {
-        position: relative;
-        z-index: 10;
-        left: 0px;
-        width: 100%;
-        height: auto;
-        min-height: 80px;
-        border-top: 7px solid;
-        border-image-source: linear-gradient(#24344d 100%);
-        border-image-slice: 1;
+        padding: 1rem;
+    }
+
+    .footer-section p {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .separator-footer {
+        display: none; /* Remove as barras separadoras no mobile para empilhar links */
     }
 }
 
+/* Celulares Pequenos */
 @media (max-width: 480px) {
     .cabeçalho {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 12px;
-        height: 85px;
-        border-bottom: 2px solid;
-        border-image-source: linear-gradient(#24344d 100%);
-        border-image-slice: 1;
+        padding: 10px 3%;
     }
 
     .logotipo img {
-        position: static;
-        left: 3px;
-        top: 14px;
-        width: 140px;
-        height: auto;
+        height: 35px;
     }
 
-    .link-headers {
-        position: static;
-        left: 190px;
-        margin-left: 40px;
-        top: 21px;
-        width: auto;
-        height: auto;
-        gap: 8px;
-    }
-
-    .termos {
-        left: 82px;
-        top: 0px;
-        text-align: right;
-    }
-
-    .right {
-        background-image: url("background/375x667.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        min-height: 200px;
-    }
-
-    .containerLeft {
-        position: relative;
-        left: 0;
-        width: 100%;
-        max-width: 340px;
-        border-start-start-radius: 10px;
-        border-start-end-radius: 10px;
-        border-end-start-radius: 10px;
-        border-end-end-radius: 10px;
+    .termos, .suporte {
+        font-size: 0.85rem;
     }
 
     .sobre-left h1 {
-        font-size: 1.8rem;
-        word-break: break-word;
+        font-size: 1.6rem;
     }
 
-    .modal-content h2 {
-        font-size: 1.1rem;
+    .sobre-left h2 {
+        font-size: 0.9rem;
     }
 
-    .checkbox label {
-        text-align: justify;
+    .sobre-left p {
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 
-    .rodapé {
-        position: relative;
-        border-top: 2px solid;
-        border-image-source: linear-gradient(#24344d 100%);
-        border-image-slice: 1;
-        left: 0px;
-        width: 100%;
-        height: auto;
-        min-height: 94px;
-        font-size: 0.89rem;
+    .containerLeft {
+        padding: 1.5rem 1rem;
+        border-width: 5px;
     }
 
-    .footer-section {
-        padding-left: 0px;
-        margin-left: 10px;
-        padding-right: 1px;
+    .ButtonBottomText {
+        padding: 12px 20px;
+        font-size: 1rem;
     }
 }
