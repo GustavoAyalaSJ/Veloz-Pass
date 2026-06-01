@@ -992,13 +992,13 @@ body {
         min-height: 200px;
     }
 
-    /* Card Lateral Mobile */
     .containerLeft {
-        width: 100%;
+        width: 90%;
+        max-width: 500px;
         padding: 1.3rem 1rem;
         border-width: 6px;
         border-radius: 10px;
-        margin-bottom: 20px;
+        margin: 0 auto;
         height: auto;
     }
 
@@ -1036,7 +1036,10 @@ body {
 
     .rodapé {
         width: 100%;
-        padding: 0.8rem 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
         font-size: 0.75rem;
         margin-top: auto;
         border-top: 2px solid;

@@ -284,8 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updatePasswordGuide();
             }
 
-            const sInputConfirm = document.getElementById('reg-senha');
-            const cInputConfirm = document.getElementById('reg-confirma');
+            const cInput = document.getElementById('reg-confirma');
 
             let sIcon = sInput.parentElement.querySelector('.check-icon');
             let cIcon = cInput.parentElement.querySelector('.check-icon');
