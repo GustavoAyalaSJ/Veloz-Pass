@@ -827,6 +827,7 @@
 
 /* Media Queries */
 @media (min-width: 769px) {
+
     .notification-mobile-overlay,
     .notification-mobile-modal {
         display: none !important;

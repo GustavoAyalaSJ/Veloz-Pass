@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btnReplay.addEventListener('click', () => {
         const steps = [
             {
-                texto: "Olá, seja bem-vindo ao Veloz Pass. Eu me chamo MINT, seu assistente do site.",
+                texto: "Olá, seja bem-vindo ao Veloz Pass.",
                 sprite: "greeting",
                 skippable: false
             },
             {
-                texto: "Meu objetivo é introduzir a interface de cada página, caso não esteja familiarizado.",
+                texto: "Eu me chamo MINT, seu assistente com objetivo de introduzir sobre interface de cada página, caso não esteja familiarizado.",
                 sprite: "introduction",
                 skippable: false
             },
@@ -35,27 +35,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 skippable: false
             },
             {
-                texto: "Então, conheça o Dashboard, aqui você tem acesso as principais páginas do site.",
+                texto: "Conheça o seu Dashboard, aqui você tem acesso as principais páginas do site.",
                 sprite: "introduction",
                 target: ".card-container",
                 skippable: false
             },
             {
-                texto: "A carteira digital é onde você pode visualizar os créditos disponíveis, para acessar a página, clique no botão logo abaixo.",
+                texto: "Nesta parte, temos a Carteira Digital, onde você usará como opção de recarga em caso de emergência.",
                 sprite: "pointing-down",
                 target: ".card-carteira",
                 skippable: false
             },
             {
-                texto: "A recarga é onde será realizada as recargas do seu cartão de transporte.",
+                texto: "Para acessar clique no botão azul logo abaixo.",
+                sprite: "pointing-down",
+                target: ".btn-carteira",
+                skippable: false
+            },
+            {
+                texto: "A página Recarga é onde será realizada as recargas do seu cartão de transporte.",
                 sprite: "pointing-down",
                 target: ".card-recarga",
                 skippable: false
             },
             {
-                texto: "O histórico é onde quaisquer transação será registrada, para acessar a página, basta clicar no botão logo abaixo.",
+                texto: "O histórico é onde quaisquer transação realizada na Carteira Digital ou na Recarga será registrada.",
                 sprite: "pointing-down",
                 target: ".card-historico",
+                skippable: false
+            },
+            {
+                texto: "Para acessar clique no botão azul logo abaixo.",
+                sprite: "pointing-down",
+                target: ".btn-historico",
                 skippable: false
             },
             {
@@ -65,12 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 skippable: false
             },
             {
-                texto: "A interface é bem simples, então você saberá manusear caso necessário.",
+                texto: "A interface é bem simples, então você deve se acostumar com ela.",
                 sprite: "introduction",
                 skippable: false
             },
             {
-                texto: "Um lembrete, caso você for para outra página, procure um botão de interrogação <b>(?)</b> para aprender como a página funciona por mim.",
+                texto: "Apenas um lembrete: caso você for para outra página, procure um botão de interrogação <b>(?)</b> para aprender como a página funciona por mim.",
                 sprite: "warning",
                 skippable: false
             },

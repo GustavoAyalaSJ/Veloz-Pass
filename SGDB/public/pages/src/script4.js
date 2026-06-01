@@ -127,14 +127,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.addEventListener('input', (e) => {
-        if (e.target.id === 'validade-cartao') {
-            let v = e.target.value.replace(/\D/g, "");
-            if (v.length > 4) v = v.slice(0, 4);
-            if (v.length >= 3) v = v.replace(/(\d{2})(\d{1,2})/, "$1/$2");
-            e.target.value = v;
-        }
-    });
+    function aplicarMascara(input, mascara) {
+        if (!input) return;
+
+        input.addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '');
+            let k = 0;
+            let novoValor = "";
+
+            if (v.length === 0) {
+                e.target.value = "";
+                return;
+            }
+
+            for (let i = 0; i < mascara.length && k < v.length; i++) {
+                if (mascara[i] === '0') {
+                    novoValor += v[k++];
+                } else {
+                    novoValor += mascara[i];
+                }
+            }
+
+            e.target.value = novoValor;
+        });
+    }
+
+    function inicializarComportamentosCartao() {
+        const cardNum = document.getElementById('num-cartao');
+        const cardValid = document.getElementById('validade-cartao');
+        const cardCvv = document.getElementById('cvv-cartao');
+
+        aplicarMascara(cardNum, "0000 0000 0000 0000");
+        aplicarMascara(cardValid, "00/00");
+        aplicarMascara(cardCvv, "000");
+
+    }
 
     function formatarMoeda(valor) {
         let v = valor.replace(/\D/g, "");
@@ -515,6 +542,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    inicializarComportamentosCartao();
 
     carregarDadosIniciais();
 });

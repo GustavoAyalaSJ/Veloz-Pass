@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { supabase } = require('../config/supabase');
 
+/* Código para registrar as credenciais */
 exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
@@ -39,6 +40,7 @@ exports.login = async (req, res) => {
     }
 };
 
+/* Código para registrar um novo usuário */
 exports.cadastro = async (req, res) => {
     const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, id_naturalidade } = req.body;
 

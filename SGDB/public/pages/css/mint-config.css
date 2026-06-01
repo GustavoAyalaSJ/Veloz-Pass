@@ -1,4 +1,4 @@
-/* Third MINT - Test */
+/* Mint Config */
 .mint-highlight {
     position: fixed;
     border-radius: 12px;
@@ -56,7 +56,7 @@
     pointer-events: auto !important;
 }
 
-/* Sprite System */
+/* Sistema de Sprite */
 .mint-sprite-container {
     display: flex;
     justify-content: center;

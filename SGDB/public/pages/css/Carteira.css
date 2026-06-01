@@ -240,9 +240,9 @@ span {
 .dark-mode #num-cartao,
 .dark-mode #validade-cartao,
 .dark-mode #cvv-cartao {
-    background-color: rgba(9, 9, 9, 0.8) !important;
-    border: 3px solid rgb(139, 172, 209) !important;
-    color: rgb(150, 206, 255);
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    border: 2px solid rgb(114, 150, 190) !important;
+    color: rgb(200, 220, 255) !important;
 }
 
 .dark-mode .opt-valor:hover {
@@ -317,6 +317,40 @@ span {
 
 .dark-mode .pix-key-value {
     color: #e0e0e0;
+}
+
+.dark-mode .payment-method-container {
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(114, 150, 190, 0.3);
+}
+
+.dark-mode .payment-method-container label {
+    color: #a9cdff;
+}
+
+.dark-mode .payment-method-container input {
+    background-color: rgba(9, 9, 9, 0.8);
+    border-color: rgb(114, 150, 190);
+    color: rgb(200, 220, 255);
+}
+
+.dark-mode .payment-method-container input:focus {
+    border-color: #5b8ddd;
+    box-shadow: 0 0 0 3px rgba(91, 141, 221, 0.25);
+}
+
+.dark-mode .payment-method-container input::placeholder {
+    color: #7089a0;
+}
+
+.dark-mode .pix-placeholder {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(22, 35, 52, 0.8) 100%);
+    border-color: rgb(114, 150, 190);
+    color: #a9cdff;
+}
+
+.dark-mode .pix-placeholder:hover {
+    background: linear-gradient(135deg, rgba(35, 48, 68, 0.8) 0%, rgba(25, 38, 55, 0.8) 100%);
 }
 
 /* Conteúdo Principal */
@@ -683,6 +717,7 @@ td.table-bold {
 .card-container>.filtros-container {
     margin: -20px -40px 5px -40px;
     padding: 20px 30px;
+    border: none;
 }
 
 .filtros-container {
@@ -691,6 +726,23 @@ td.table-bold {
     margin-bottom: 10px;
     padding: 10px 0;
     flex-wrap: wrap;
+    border: none;
+}
+
+.filtros-container legend {
+    width: 100%;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 .select-item {
@@ -832,10 +884,13 @@ td.table-bold {
 
 .payment-method-container {
     width: 100%;
+    padding: 20px 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(114, 150, 190, 0.2);
     display: block;
-    margin-top: -25px;
-    margin-bottom: 30px;
-    text-align: left;
 }
 
 .payment-method-container.hidden {
@@ -847,25 +902,78 @@ td.table-bold {
 }
 
 .payment-method-container label {
-    margin-top: 25px;
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.payment-method-container label:first-of-type {
+    margin-top: 0;
+}
+
+.payment-method-container input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e0e6f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.payment-method-container input:focus {
+    outline: none;
+    border-color: #7296be;
+    box-shadow: 0 0 0 3px rgba(114, 150, 190, 0.15);
+}
+
+.payment-method-container input::placeholder {
+    color: #999;
 }
 
 .row-cartao {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.row-cartao label {
+    grid-column: span 1;
+    margin-top: 0;
+}
+
+.row-cartao input {
+    grid-column: span 1;
 }
 
 .pix-placeholder {
     width: 100%;
-    height: 180px;
-    background: #f0f0f0;
-    border-radius: 15px;
+    height: 200px;
+    background: linear-gradient(135deg, #f5f8fc 0%, #e8f1f8 100%);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px dashed #7296be;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    color: #7296be;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pix-placeholder:hover {
+    background: linear-gradient(135deg, #eef4f9 0%, #dfe9f5 100%);
+    border-color: #5a7a99;
 }
 
 @keyframes pulse {
@@ -890,11 +998,21 @@ td.table-bold {
 #validade-cartao,
 #cvv-cartao {
     width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    border-radius: 15px;
-    border: 3px solid #375477;
-    background: #dbdbdb;
+    padding: 12px 14px;
+    border: 2px solid #e0e6f0;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #2c3e50;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#num-cartao:focus,
+#validade-cartao:focus,
+#cvv-cartao:focus {
+    outline: none;
+    border-color: #7296be;
+    box-shadow: 0 0 0 3px rgba(114, 150, 190, 0.15);
 }
 
 #validade-cartao,

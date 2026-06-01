@@ -1,5 +1,6 @@
 const { supabase } = require('../config/supabase');
 
+/* TESTING - Notificações */
 exports.listarNotificacoes = async (req, res) => {
     const idUsuario = req.params.idUsuario;
     const idUsuarioAutenticado = req.userId;

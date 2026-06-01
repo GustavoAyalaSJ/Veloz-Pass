@@ -72,7 +72,8 @@
                     <button id="btn-inserir-credito" class="btn-inserir-credito">Inserir crédito</button>
                 </div>
 
-                <div class="filtros-container">
+                <fieldset class="filtros-container">
+                    <legend class="sr-only">Filtros de transações</legend>
                     <div class="select-item">
                         <label for="filtro-realizado-por">Realizado no:</label>
                         <select id="filtro-realizado-por" class="filtro-select">
@@ -106,7 +107,7 @@
                         </select>
                         <i class="bi bi-chevron-down select-icon"></i>
                     </div>
-                </div>
+                </fieldset>
 
                 <div class="histórico-valores">
                     <table class="tabela-movimentacoes">
@@ -162,20 +163,26 @@
                         <i class="bi bi-chevron-down select-icon"></i>
                     </div>
 
-                    <div id="container-cartao" class="payment-method-container hidden">
-                        <label for="num-cartao">Número do Cartão</label>
-                        <input type="text" id="num-cartao" placeholder="0000 0000 000 0000" maxlength="16">
+                    <fieldset class="payment-method-container hidden" id="container-cartao">
+                        <legend class="sr-only">Informações do Cartão</legend>
+                        <div>
+                            <label for="num-cartao">Número do Cartão</label>
+                            <input type="text" id="num-cartao" placeholder="0000 0000 0000 0000" maxlength="16" autocomplete="cc-number">
 
-                        <div class="row-cartao">
-                            <label for="validade-cartao">Data de Validade</label>
-                            <input type="text" id="validade-cartao" placeholder="MM/YY" maxlength="5">
-
-                            <label for="cvv-cartao">CVV</label>
-                            <input type="text" id="cvv-cartao" placeholder="CVV" maxlength="3">
+                            <fieldset class="row-cartao">
+                                <div>
+                                    <label for="validade-cartao">Data de Validade</label>
+                                    <input type="text" id="validade-cartao" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+                                </div>
+                                <div>
+                                    <label for="cvv-cartao">CVV</label>
+                                    <input type="text" id="cvv-cartao" placeholder="CVV" maxlength="3" autocomplete="cc-csc">
+                                </div>
+                            </fieldset>
                         </div>
-                    </div>
+                    </fieldset>
 
-                    <div id="container-pix" class="payment-method-container hidden">
+                    <section class="payment-method-container hidden" id="container-pix">
                         <div class="pix-placeholder">Placeholder QR Code</div>
                         <div class="pix-key-section">
                             <p class="pix-key-label">Chave PIX:</p>
@@ -187,7 +194,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
                     <div class="modal-footer">
                         <button id="btn-finalizar" class="btn-finalizar">Finalizar</button>
@@ -201,23 +208,37 @@
         <div class="mobile-nav-overlay" id="mobile-nav-overlay" role="presentation"></div>
         <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile" aria-hidden="true"
             role="navigation">
-            <div class="mobile-nav-title">Veloz Pass</div>
-            <div class="mobile-nav-list">
-                <a href="/recarga" class="mobile-nav-item" data-nav="recarga">
+            <h3 class="mobile-nav-title">Veloz Pass</h3>
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-divider"></li>
+                <li class="mobile-nav-subtitle">Acesso Rápido</li>
+                <li><a href="/dashboard" class="mobile-nav-item" data-nav="dashboard">
+                    <i class="bi bi-border-center"></i>
+                    Painel Inicial
+                </a></li>
+
+                <li><a href="/recarga" class="mobile-nav-item" data-nav="recarga">
                     <i class="bi bi-arrow-repeat"></i>
                     Recarga
-                </a>
+                </a></li>
 
-                <button id="change-button" class="mobile-nav-item icon-button btnChangeTheme">
+                <li class="mobile-nav-divider"></li>
+
+                <li><button id="notification-button" class="mobile-nav-item icon-button" type="button">
+                    <i class="bi bi-bell"></i>
+                    Notificações
+                </button></li>
+
+                <li><button id="change-button" class="mobile-nav-item icon-button btnChangeTheme">
                     <i class="bi bi-brightness-high-fill"></i>
                     Modo Escuro
-                </button>
+                </button></li>
 
-                <a class="mobile-nav-item icon-button exit-link">
+                <li><a class="mobile-nav-item icon-button exit-link">
                     <i class="bi bi-box-arrow-left"></i>
                     Sair
-                </a>
-            </div>
+                </a></li>
+            </ul>
         </nav>
     </div>
 

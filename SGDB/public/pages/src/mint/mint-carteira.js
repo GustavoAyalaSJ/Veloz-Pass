@@ -27,31 +27,31 @@ document.addEventListener('DOMContentLoaded', () => {
             skippable: true
         },
         {
-            texto: "Aqui você irá abrir uma janela para escolher um valor existente (ou personalizado) para avançar.",
+            texto: "Isto é uma modal, uma espécie de janela flutuante onde você irá escolher um valor existente (ou personalizado) para avançar.",
             sprite: "introduction",
             target: "#modal-valor .modal-box",
             skippable: false
         },
         {
-            texto: "Selecione este valor.",
+            texto: "Selecione este valor para continuarmos.",
             sprite: "pointing-up",
             target: ".opt-valor",
             skippable: true
         },
         {
-            texto: "Agora clique no botão 'Próximo' para continuar.",
+            texto: "Agora clique no botão 'Próximo'.",
             sprite: "pointing-down",
             target: ".btn-proximo",
             skippable: true
         },
         {
-            texto: "Após selecionar um valor, selecione um método de pagamento.",
+            texto: "Com a seleção do valor em mãos, selecione um método de pagamento.",
             sprite: "pointing-down",
             target: "#modal-pagamento .modal-box",
             skippable: false
         },
         {
-            texto: "Então você colocará suas informações para confirmar a transação para sua Carteira Digital.",
+            texto: "Então, na seção abaixo, você colocará suas informações para confirmar a transação para sua Carteira Digital.",
             sprite: "introduction",
             skippable: false
         },
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target: ".logotipo",
             skippable: false
         },
-                {
+        {
             texto: "É isso sobre a página Carteira Digital.",
             sprite: "introduction",
             skippable: false
