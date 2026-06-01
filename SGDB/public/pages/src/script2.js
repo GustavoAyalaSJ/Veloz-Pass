@@ -125,6 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const btnOpenPoliticasSidebar = document.querySelector('.btnOpenPoliticas');
+    if (btnOpenPoliticasSidebar) {
+        btnOpenPoliticasSidebar.addEventListener('click', () => {
+            politicasOverlay.classList.remove('hidden');
+        });
+    }
+
     politicasOverlay.addEventListener('click', (event) => {
         if (event.target.id === "btnClosePoliticas" || event.target === politicasOverlay) {
             politicasOverlay.classList.add('hidden');
