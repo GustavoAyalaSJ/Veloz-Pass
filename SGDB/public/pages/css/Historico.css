@@ -11,20 +11,20 @@ body {
 }
 
 .background-container {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Cabeçalho */
 .cabeçalho {
-    background-color: #7296be;
-    padding: 15px 50px;
-    border-bottom: 4px solid #607ba0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
+    background-color: #7296be;
+    padding: 15px 50px;
+    border-bottom: 4px solid #607ba0;
 }
 
 .logotipo img {
@@ -42,15 +42,15 @@ body {
 }
 
 .icon-button {
-    background: none;
-    border: none;
     color: white;
     font-size: 2rem;
+    background: none;
+    border: none;
     cursor: pointer;
 }
 
 .icon-button:hover {
-    color: rgb(235, 235, 235);
+    color: whitesmoke;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -66,6 +66,8 @@ body {
     position: absolute;
     top: 100%;
     right: 0;
+    z-index: 10000;
+    display: none;
     margin-top: 8px;
     min-width: 320px;
     max-width: 90vw;
@@ -74,8 +76,6 @@ body {
     border-radius: 14px;
     padding: 10px;
     box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.12);
-    display: none;
-    z-index: 10000;
 }
 
 .dropdown-content.show {
@@ -85,11 +85,11 @@ body {
 .notificationLabel {
     display: block;
     font-weight: bold;
+    font-size: 0.9rem;
     color: #4a6b94;
     padding-bottom: 6px;
     border-bottom: 1px solid #e1e8f0;
     margin-bottom: 8px;
-    font-size: 0.9rem;
 }
 
 .notificationWarning {
@@ -110,8 +110,8 @@ body {
 
 .notification-list {
     display: flex;
-    gap: 10px;
     padding-bottom: 2px;
+    gap: 10px;
 }
 
 .notification-item {
@@ -205,17 +205,17 @@ span {
 
 /* Conteúdo Principal */
 .main-content {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     padding: 40px 20px;
 }
 
 .titulo-pagina-centro {
+    margin-bottom: 30px;
     font-size: 2.5rem;
     font-weight: bold;
-    margin-bottom: 30px;
     color: rgb(91, 148, 187);
 }
 
@@ -225,21 +225,21 @@ span {
 
 /* Tabela */
 .card-container {
-    background-color: #f0f0f0;
-    border: 3px solid #7296be;
-    border-radius: 40px;
     width: 100%;
     max-width: 900px;
+    background-color: white;
+    border: 3px solid #7296be;
+    border-radius: 40px;
     padding: 30px 40px;
     margin: 0 auto;
     overflow: hidden;
 }
 
 .tabela-wrapper-scroll {
-    width: 100%;
-    overflow-x: auto;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    overflow-x: auto;
 }
 
 .tabela-header,
@@ -260,17 +260,17 @@ span {
 
 .tabela-header span {
     flex: 1;
-    text-align: center;
     font-size: 0.84rem;
     font-weight: 800;
     color: #2c3e50;
+    text-align: center;
     text-transform: uppercase;
 }
 
 .tabela-corpoInfo {
-    width: 100%;
     display: flex;
     flex-direction: column;
+    width: 100%;
     max-height: 320px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -279,15 +279,15 @@ span {
 .tabela-linha-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     padding: 15px 0;
     border-bottom: 1px solid #e0e0e0;
     transition: background 0.2s;
-    align-items: center;
 }
 
 .tabela-linha-item:hover {
-    background-color: #f8f9fa;
+    background-color: whitesmoke;
 }
 
 .tabela-linha-item span {
@@ -302,15 +302,14 @@ span {
 }
 
 .btn-imprimir {
-    background: #375477;
-    color: white;
-    border: none;
     padding: 6px 12px;
-    border-radius: 5px;
     font-size: 0.7rem;
     font-weight: bold;
+    color: white;
+    background: #375477;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .btn-imprimir:hover {
@@ -319,7 +318,7 @@ span {
 
 .col-protocolo {
     font-weight: 500;
-    color: #375477;
+    color: #375477 !important;
 }
 
 .col-valor {
@@ -359,7 +358,7 @@ span {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0,0,0,0);
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
 }
@@ -374,23 +373,22 @@ span {
 
 .filtro-item label {
     font-weight: 600;
-    color: #2c3e50;
     font-size: 0.9rem;
-    text-transform: uppercase;
+    color: #2c3e50;
 }
 
 .filtro-select {
+    width: 100%;
+    padding: 10px 35px 10px 12px;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    background-color: white;
+    border: 2px solid #7296be;
+    border-radius: 6px;
+    cursor: pointer;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
-    padding: 10px 35px 10px 12px;
-    border: 2px solid #7296be;
-    border-radius: 6px;
-    background-color: #ffffff;
-    color: #2c3e50;
-    font-size: 0.9rem;
-    cursor: pointer;
-    width: 100%;
 }
 
 .filtro-select:hover {
@@ -406,25 +404,25 @@ span {
 
 .select-icon {
     position: absolute;
-    margin-top: 2px;
     right: 12px;
     top: 35px;
+    margin-top: 2px;
+    font-size: 1rem;
+    color: #7296be;
     transform: rotate(0deg);
     pointer-events: none;
-    color: #7296be;
-    font-size: 1rem;
 }
 
 .filtro-item.active .select-icon {
-    transform: rotate(180deg);
     top: 35px;
+    transform: rotate(180deg);
 }
 
 div.empty-table-message,
 .empty-table-message {
-    text-align: center;
     padding: 20px;
     font-size: 0.8rem;
+    text-align: center;
 }
 
 /* IDs - Java Script */
