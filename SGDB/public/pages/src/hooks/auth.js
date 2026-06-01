@@ -145,6 +145,8 @@ document.addEventListener('click', function (e) {
             window.location.origin
         );
         const pathname = url.pathname;
+        
+        if (pathname === '/app') return;
 
         const usuarioLogado = !!(auth.getToken() && auth.getUserData());
 
