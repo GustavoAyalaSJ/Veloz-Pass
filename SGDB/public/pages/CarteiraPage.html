@@ -151,10 +151,11 @@
             <div class="modal-wrapper" id="modal-pagamento">
                 <div class="modal-box">
                     <h3>Valor inserido: <span id="valor-confirmado">R$ 0,00</span></h3>
+                    <h4>Selecione um método de pagamento</h4>
 
                     <div class="select-wrapper-modal">
                         <select id="select-pagamento">
-                            <option value="" disabled selected>Selecione Método de Pagamento</option>
+                            <option value="" disabled selected>Selecione</option>
                             <option value="débito">Cartão de Débito</option>
                             <option value="crédito">Cartão de Crédito</option>
                             <option value="internacional">Cartão Internacional</option>
@@ -166,16 +167,16 @@
                     <fieldset class="payment-method-container hidden" id="container-cartao">
                         <legend class="sr-only">Informações do Cartão</legend>
                         <div>
-                            <label for="num-cartao">Número do Cartão</label>
-                            <input type="text" id="num-cartao" placeholder="0000 0000 0000 0000" maxlength="16" autocomplete="cc-number">
+                            <label for="num-cartao">Número do Cartão:</label>
+                            <input type="text" id="num-cartao" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="off">
                             <div class="row-cartao">
                                 <div>
-                                    <label for="validade-cartao">Data de Validade</label>
-                                    <input type="text" id="validade-cartao" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+                                    <label for="validade-cartao">Data de Validade:</label>
+                                    <input type="text" id="validade-cartao" placeholder="MM/YY" maxlength="5" autocomplete="off">
                                 </div>
                                 <div>
-                                    <label for="cvv-cartao">CVV</label>
-                                    <input type="text" id="cvv-cartao" placeholder="CVV" maxlength="3" autocomplete="cc-csc">
+                                    <label for="cvv-cartao">CVV:</label>
+                                    <input type="text" id="cvv-cartao" placeholder="CVV" maxlength="3" autocomplete="off">
                                 </div>
                             </div>
                         </div>

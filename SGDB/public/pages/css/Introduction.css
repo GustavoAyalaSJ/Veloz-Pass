@@ -23,20 +23,20 @@ body {
 
 /* Cabeçalho */
 .cabeçalho {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
     width: 100%;
     min-height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
+    color: white;
+    font-weight: 600;
     background-color: #3b5f80;
     border-bottom: 3.5px solid;
     border-image-source: linear-gradient(to right, #8e9cb4 0%, #3b557a 30%, #24344d 100%);
     border-image-slice: 1;
-    color: white;
-    font-weight: 600;
-    position: relative;
-    z-index: 100;
 }
 
 .logotipo {
@@ -45,9 +45,9 @@ body {
 }
 
 .logotipo img {
-    height: 52px;
-    width: auto;
     display: block;
+    width: auto;
+    height: 52px;
 }
 
 .link-headers {
@@ -71,9 +71,9 @@ body {
 /* Conteúdo Principal */
 .main-content {
     position: relative;
+    display: flex;
     flex: 1;
     width: 100%;
-    display: flex;
     align-items: center;
     padding: 2rem 0;
     overflow: hidden;
@@ -82,11 +82,12 @@ body {
 .left {
     position: relative;
     z-index: 2;
+    display: flex;
+    align-items: center;
     width: 100%;
     max-width: 450px;
     margin-left: 7%;
     display: flex;
-    align-items: center;
 }
 
 .right {
@@ -102,35 +103,35 @@ body {
 
 /* Card Lateral */
 .containerLeft {
-    width: 100%;
-    background-color: #24344d;
-    color: white;
-    padding: 2rem 1.2rem;
-    border-radius: 15px;
     display: flex;
+    width: 100%;
+    padding: 2rem 1.2rem;
     flex-direction: column;
+    color: white;
     text-align: center;
+    background-color: #24344d;
     border: 12px solid rgba(27, 36, 58, 0.79);
+    border-radius: 15px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
 }
 
 .sobre-left h1 {
-    font-size: 2.2rem;
     margin-bottom: 0.7rem;
+    font-size: 2.2rem;
     line-height: 1.2;
 }
 
 .sobre-left h2 {
+    margin-bottom: 1.5rem;
     font-size: 1rem;
     font-weight: 400;
-    margin-bottom: 1.5rem;
     opacity: 0.85;
 }
 
 .sobre-left p {
+    margin-bottom: 2rem;
     font-size: 1.05rem;
     line-height: 1.7;
-    margin-bottom: 2rem;
     opacity: 0.9;
 }
 
@@ -138,32 +139,32 @@ body {
     color: #a1cdff;
 }
 
-.ButtonStyle{
+.ButtonStyle {
     display: block;
+    padding: 12px;
+    margin-top: 10px;
     width: 100%;
-    background-color: #2164ac;
-    color: rgb(250, 250, 250);
-    text-decoration: none;
+    color: white;
     text-align: center;
+    text-decoration: none;
     font-size: 1rem;
     font-weight: bold;
-    padding: 12px;
+    background-color: #2164ac;
+    border: none;
     border-radius: 8px;
-    margin-top: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: none;
 }
 
 .ButtonStyle:hover {
-    background-color: #6b8fb5;
+    color: #e9e9e9;
     text-decoration: none;
+    background-color: #6b8fb5;
     box-shadow: 0 6px 15px rgba(53, 107, 164, 0.4);
     transform: translateY(-2px);
-    color: rgb(233, 233, 233);
 }
 
-/* Modal de Cadastro e Login */
+/* Modal - Cadastro e Login */
 .hidden {
     opacity: 0 !important;
     visibility: hidden !important;
@@ -178,13 +179,13 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
     opacity: 1;
     visibility: visible;
     transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -199,19 +200,18 @@ body {
 }
 
 .modal-overlay .modal-content {
-    background-color: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(12px);
+    position: relative;
+    padding: 2.2rem 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
     width: 90%;
     max-width: 500px;
     max-height: 85vh;
-    padding: 2.2rem 2rem;
-    border-radius: 12px;
-    position: relative;
-    box-sizing: border-box;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    background-color: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
     border: 2px solid #7496c6;
+    border-radius: 12px;
     box-shadow: 0 0 20px #7090bdcc, 0 10px 40px rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
     opacity: 0;
     transform: scale(0.85) translateY(20px);
     transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -224,13 +224,13 @@ body {
 }
 
 .modal-content h2 {
-    text-align: center;
-    margin-bottom: 15px;
-    color: #ffffff;
-    font-size: 1.4rem;
-    border-bottom: 2px solid #7689a5;
     padding-bottom: 15px;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
     font-weight: 650;
+    color: white;
+    text-align: center;
+    border-bottom: 2px solid #7689a5;
 }
 
 .modal-content form {
@@ -277,10 +277,11 @@ body {
     width: 100%;
     padding: 10px;
     margin-top: -10px;
-    background-color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    box-sizing: border-box;
+    background-color: white;
     border: 1px solid transparent;
     border-radius: 4px;
-    font-size: 1rem;
     box-sizing: border-box;
 }
 
@@ -290,11 +291,11 @@ body {
 }
 
 .modal-content p {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.77);
-    line-height: 1.5;
-    text-align: center;
     margin-top: 10px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgb(235, 235, 235);
+    text-align: center;
 }
 
 .modal-content form div {
@@ -317,10 +318,10 @@ body {
     position: absolute;
     top: 74%;
     right: 12px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #555;
     font-size: 1.2rem;
+    cursor: pointer;
+    color: #232323;
+    transform: translateY(-50%);
 }
 
 .password-input-container i:hover {
@@ -335,50 +336,47 @@ body {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 10px;
     margin-top: 15px;
+    gap: 10px;
     text-align: left;
 }
 
 .checkbox input[type="checkbox"] {
+    margin-right: 4px;
+    align-self: flex-start;
     width: 18px;
     height: 18px;
     flex-shrink: 0;
-    margin-right: 4px;
     cursor: pointer;
-    align-self: flex-start;
 }
 
 .checkbox label {
     display: block !important;
     margin: 0;
-    cursor: pointer;
     line-height: 1.4;
     color: #dbdbdb;
     text-align: center;
+    cursor: pointer;
 }
 
 .destacarTermos {
-    color: #0056b3;
-    cursor: pointer;
+    color: #3278c2;
     text-decoration: none;
+    cursor: pointer;
     transition: color 0.2s ease;
 }
 
 .destacarTermos:hover {
-    color: #89a4c1;
-    cursor: pointer;
+    color: #8badd1;
     text-decoration: none;
-}
-
-.input-wrapper {
-    margin-bottom: 15px;
+    cursor: pointer;
 }
 
 .input-wrapper {
     position: relative;
-    width: 100%;
     display: flex;
+    width: 100%;
+    margin-bottom: 15px;
     align-items: center;
 }
 
@@ -393,7 +391,7 @@ body {
     bottom: 7px;
     margin-bottom: 4px;
     font-size: 1.4rem;
-    color: #28a745;
+    color: #26a644;
     visibility: hidden;
     pointer-events: none;
 }
@@ -404,7 +402,7 @@ body {
     bottom: 7px;
     margin-bottom: 4px;
     font-size: 1.4rem;
-    color: #dc3545;
+    color: #c92f3e;
     visibility: hidden;
     pointer-events: none;
 }
@@ -413,34 +411,33 @@ body {
 .modal-terms-content {
     display: flex;
     flex-direction: column;
-    gap: 18px;
     max-height: calc(85vh - 150px);
     padding-right: 10px;
+    gap: 18px;
 }
 
 .modal-terms-content p {
+    margin: 0;
     font-size: 0.95rem;
     line-height: 1.8;
-    color: #ffffff;
-    margin: 0;
+    color: white;
 }
 
 .modal-terms-content strong {
     color: #6ba6da;
-    font-size: 1rem;
 }
 
-/* Modal Suporte */
+/* Modal - Suporte */
 .modal-content select,
 .modal-content input,
 .modal-content textarea {
     width: 100%;
     padding: 10px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
     background-color: rgba(255, 255, 255, 0.95);
     border: 1px solid transparent;
     border-radius: 4px;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
 
@@ -476,8 +473,8 @@ body {
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    color: #555;
     font-size: 1rem;
+    color: #373737;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -489,13 +486,13 @@ body {
     position: absolute;
     top: 20px;
     right: 25px;
-    background: none;
-    border: none;
-    opacity: 0.8;
     font-size: 1.2rem;
     font-weight: bold;
     color: #dbdbdb;
+    background: none;
+    border: none;
     cursor: pointer;
+    opacity: 0.8;
 }
 
 .close-btn:hover {
@@ -508,8 +505,8 @@ body {
     border-radius: 4px;
     font-size: 1rem;
     font-weight: bold;
-    cursor: pointer;
     border: none;
+    cursor: pointer;
 }
 
 /* IDs - Java Script */
@@ -545,12 +542,12 @@ body {
 }
 
 #btnEsqueceuSenha {
-    color: #007bff;
-    text-decoration: none;
-    font-size: 0.85rem;
-    align-self: flex-end;
     margin-top: -5px;
     margin-bottom: 10px;
+    align-self: flex-end;
+    font-size: 0.85rem;
+    color: #007bff;
+    text-decoration: none;
 }
 
 #formSuporte label {
@@ -560,8 +557,8 @@ body {
 
 #btnGoToCadastro,
 #btnBackToLogin {
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: white;
+    color: #212121;
     border: 1px solid #ccc;
 }
 
@@ -584,11 +581,11 @@ body {
 
 /* Rodapé */
 .rodapé {
-    width: 100%;
-    background-color: #485f78;
-    color: white;
     padding: 1.5rem;
+    width: 100%;
     font-size: 0.85rem;
+    color: white;
+    background-color: #485f78;
     border-top: 3px solid;
     border-image-source: linear-gradient(to right, #8e9cb4, #3b557a, #24344d);
     border-image-slice: 1;
@@ -614,16 +611,16 @@ body {
 .toggle-password-icon {
     position: absolute;
     right: 10px;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
     font-size: 1.2rem;
     color: #555;
     transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
+    cursor: pointer;
 }
 
 .toggle-password-icon:hover {
-    color: #007bff;
+    color: #7c7c7c;
 }
 
 /* Scrollable Container */
@@ -897,6 +894,7 @@ body {
 }
 
 @media (max-width: 480px) {
+
     html,
     body {
         width: 100%;
@@ -954,6 +952,10 @@ body {
     .main-content {
         flex: 1;
         width: 100%;
+        background-image: url("375x667.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         padding: 20px 0;
         display: flex;
         flex-direction: column;
@@ -972,10 +974,6 @@ body {
 
     .right {
         display: none !important;
-        background-image: url("background/375x667.webp");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
         min-height: 200px;
     }
 

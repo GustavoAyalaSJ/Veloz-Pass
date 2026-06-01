@@ -11,22 +11,22 @@ body {
 }
 
 .background-container {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     min-height: 100svh;
     min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
 }
 
 /* Cabeçalho */
 .cabeçalho {
-    background-color: #7296be;
-    border-bottom: 4px solid #607ba0;
     padding: 13px 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
+    background-color: #7296be;
+    border-bottom: 4px solid #607ba0;
 }
 
 .logotipo img {
@@ -44,21 +44,20 @@ body {
 }
 
 .termos:hover {
-    color: rgb(235, 235, 235);
+    color: whitesmoke;
     cursor: pointer;
-    font-size: 0.9rem;
 }
 
 .icon-button {
-    background: none;
-    border: none;
     color: white;
     font-size: 2rem;
+    background: none;
+    border: none;
     cursor: pointer;
 }
 
 .icon-button:hover {
-    color: rgb(235, 235, 235);
+    color: whitesmoke;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -74,6 +73,8 @@ body {
     position: absolute;
     top: 100%;
     right: 0;
+    z-index: 10000;
+    display: none;
     margin-top: 8px;
     min-width: 320px;
     max-width: 90vw;
@@ -82,8 +83,6 @@ body {
     border-radius: 14px;
     padding: 10px;
     box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.12);
-    display: none;
-    z-index: 10000;
 }
 
 .dropdown-content.show {
@@ -93,11 +92,11 @@ body {
 .notificationLabel {
     display: block;
     font-weight: bold;
+    font-size: 0.9rem;
     color: #4a6b94;
     padding-bottom: 6px;
     border-bottom: 1px solid #e1e8f0;
     margin-bottom: 8px;
-    font-size: 0.9rem;
 }
 
 .notificationWarning {
@@ -118,8 +117,8 @@ body {
 
 .notification-list {
     display: flex;
-    gap: 10px;
     padding-bottom: 2px;
+    gap: 10px;
 }
 
 .notification-item {
@@ -149,7 +148,7 @@ span {
 
 .dark-mode .cabeçalho {
     background-color: #182433;
-    color: #ffffff;
+    color: white;
     border-bottom: 4px solid #223244;
 }
 
@@ -172,7 +171,7 @@ span {
     color: rgb(150, 206, 255);
 }
 
-.dark-mode .register-id{
+.dark-mode .register-id {
     background: #0d1721;
     color: rgb(144, 161, 191);
 }
@@ -203,7 +202,7 @@ span {
 
 .dark-mode .btn-carteira:hover,
 .dark-mode .btn-historico:hover {
-    color: #fafcff;
+    color: white;
     box-shadow: 0px 4px 12px #00d4ff33;
     border: 1px solid #8ba8d1;
     background: linear-gradient(135deg, #5475a3, #7a8dab);
@@ -248,13 +247,13 @@ span {
 .dark-mode .politicas-box {
     background-color: rgba(10, 15, 28, 0.939);
     border: 2px solid #6782ad;
-    color: #e0e0e0;
+    color: whitesmoke;
 }
 
 .dark-mode .politicas-box h2 {
+    padding-bottom: 15px;
     color: rgb(136, 184, 235);
     border-bottom: 2px solid #a7cdf593;
-    padding-bottom: 15px;
 }
 
 .dark-mode .politicas-box strong {
@@ -275,78 +274,74 @@ span {
 
 /* Conteúdo Principal */
 .main-content {
-    flex: 1;
-    padding: 20px 20px;
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 20px 20px;
 }
 
 .welcome-text {
-    font-size: 2.2rem;
     margin-bottom: 30px;
+    font-size: 2.2rem;
 }
 
 .destacarUser {
-    color: rgb(40, 61, 97);
+    color: rgb(61, 86, 129);
 }
 
 .meta-info {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    width: 100%;
     align-self: flex-start;
     margin-bottom: 25px;
-    width: 100%;
+    gap: 6px;
 }
 
 .register-id {
+    padding: 4px 10px;
+    width: fit-content;
+    font-weight: 500;
     font-size: 0.8rem;
     color: #64748b;
     background: #e2e8f0;
-    padding: 4px 10px;
     border-radius: 6px;
-    font-weight: 500;
-    width: fit-content;
 }
 
 /* Dashboard - Container */
 .card-container {
+    display: grid;
     width: 100%;
     max-width: 900px;
+    padding: 35px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
     background: #dbdbdb;
     border: 3px solid #7296be;
     border-radius: 35px;
-    padding: 35px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
 }
 
 .card-carteira,
 .card-recarga,
 .card-info,
 .card-historico {
-    background: white;
-    border: 3px solid #7296be;
-    border-radius: 25px;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
     gap: 12px;
     text-align: center;
+    background: white;
+    border: 3px solid #7296be;
+    border-radius: 25px;
 }
 
-.card-title {
-    font-size: 1rem;
-    font-weight: 700;
-}
-
+.card-title,
 .carteira-valor {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.1rem;
+    font-weight: 700;
 }
 
 .destacarQuantidade,
@@ -355,20 +350,20 @@ span {
 }
 
 .card-recarga {
-    cursor: pointer;
+    justify-content: center;
+    text-decoration: none;
     font-size: 1.4rem;
     font-weight: bold;
     color: #5b7da1;
-    justify-content: center;
-    text-decoration: none;
+    cursor: pointer;
 }
 
 .card-recarga:hover {
+    color: #4686cb;
     background-color: #ffffff;
     border-color: #4686cb;
     transform: scale(1.05);
     box-shadow: 0px 10px 20px rgba(114, 150, 190, 0.3);
-    color: #4686cb;
     animation: recarga-number-up 650ms ease-out;
 }
 
@@ -390,50 +385,56 @@ span {
 }
 
 .fonte-info {
-    font-size: 0.75rem;
     display: flex;
+    font-size: 0.75rem;
     gap: 6px;
 }
 
 .fonte-info a {
-    text-decoration: none;
     color: #566e89;
+    text-decoration: none;
 }
 
 .btn-carteira,
 .btn-historico {
     display: inline-block;
-    background: #5475a3;
-    color: white;
     padding: 10px 25px;
-    border-radius: 25px;
-    text-decoration: none;
     font-size: .85rem;
+    color: white;
+    text-decoration: none;
+    background: #5475a3;
     border: 2px solid transparent;
+    border-radius: 25px;
     transition: all 0.3s ease;
 }
 
 .btn-carteira:hover,
 .btn-historico:hover {
+    color: white;
     background: linear-gradient(135deg, #5475a3, #7a8dab);
     border: 2px solid #5475a3;
     transform: translateY(-2px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    color: #ffffff;
 }
 
 /* Modal de Políticas */
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
 .politicas-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.55);
+    z-index: 999999 !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999999 !important;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
     isolation: isolate;
     opacity: 1;
     visibility: visible;
@@ -449,12 +450,12 @@ span {
 
 .politicas-box {
     position: relative;
-    background: white;
-    border: 2px solid black;
+    padding: 30px;
     width: 520px;
     max-height: 80vh;
+    background: white;
+    border: 2px solid black;
     border-radius: 12px;
-    padding: 30px;
     overflow-y: auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     opacity: 0;
@@ -469,10 +470,10 @@ span {
 }
 
 .politicas-box h2 {
-    text-align: center;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #7689a5;
     margin-bottom: 20px;
+    padding-bottom: 8px;
+    text-align: center;
+    border-bottom: 2px solid #7689a5;
 }
 
 .politicas-content strong {
@@ -486,26 +487,20 @@ span {
 .politicas-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     font-size: 0.9rem;
     line-height: 1.4;
-}
-
-.hidden {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
+    gap: 20px;
 }
 
 .close-btn {
     position: absolute;
     right: 15px;
     top: 10px;
+    font-size: 1.4rem;
+    font-weight: bold;
     background: none;
     border: none;
     opacity: 0.8;
-    font-size: 1.4rem;
-    font-weight: bold;
     cursor: pointer;
 }
 
@@ -517,17 +512,17 @@ span {
     position: relative;
     bottom: auto;
     right: auto;
-    background: #16a34a;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 999px;
-    font-weight: bold;
-    cursor: pointer;
     z-index: auto;
+    margin-top: 20px;
+    padding: 12px 18px;
+    font-weight: bold;
+    color: white;
+    background: #16a34a;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease;
-    margin-top: 20px;
     align-self: center;
 }
 
