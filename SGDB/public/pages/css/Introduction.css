@@ -137,23 +137,29 @@ body {
     color: #a1cdff;
 }
 
-.ButtonBottomText {
+.ButtonStyle{
+    display: block;
     width: 100%;
-    padding: 15px 50px;
-    border: none;
+    background-color: #2164ac;
+    color: rgb(250, 250, 250);
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
     border-radius: 8px;
-    background-color: #2060a3;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 600;
+    margin-top: 10px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
+    border: none;
 }
 
-.ButtonBottomText:hover {
-    transform: translateY(-3px);
-    background-color: #5d87b3;
-    box-shadow: 0 6px 20px rgba(126, 162, 201, 0.737);
+.ButtonStyle:hover {
+    background-color: #6b8fb5;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(53, 107, 164, 0.4);
+    transform: translateY(-2px);
+    color: rgb(233, 233, 233);
 }
 
 /* Modal de Cadastro e Login */
@@ -491,31 +497,6 @@ body {
     opacity: 1;
 }
 
-.botao-estilizado {
-    display: block;
-    width: 100%;
-    background-color: #007bff;
-    color: rgb(250, 250, 250);
-    text-decoration: none;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 12px;
-    border-radius: 8px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.botao-estilizado:hover {
-    background-color: #0056b3;
-    text-decoration: none;
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
-    transform: translateY(-2px);
-    color: rgb(250, 250, 250);
-}
-
 .modal-content button:not(.close-btn) {
     width: 100%;
     padding: 12px;
@@ -626,6 +607,11 @@ body {
 
 .destacarLinks:hover {
     color: white;
+}
+
+.separator-footer {
+    color: #aaddff;
+    margin: 0 0.5rem;
 }
 
 .toggle-password-icon {
