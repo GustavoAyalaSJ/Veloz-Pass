@@ -104,7 +104,7 @@ body {
     width: 100%;
     background-color: #24344d;
     color: white;
-    padding: 2.5rem 2rem;
+    padding: 2rem 1.2rem;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -228,15 +228,44 @@ body {
     gap: 15px;
 }
 
-.senhaLabel, .termosLabel, .cadastrarLabel, .emailLabel, .recuperarLabel, .suporteLabel {
+.senhaLabel {
+    padding-top: 10px;
+    padding-bottom: 20px;
     font-size: 0.9rem;
     font-weight: 600;
     color: #e5e7eb;
 }
 
-.modal-content input, .modal-content select, .modal-content textarea {
+.termosLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.cadastrarLabel {
+    margin-bottom: -5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.emailLabel,
+.recuperarLabel,
+.suporteLabel {
+    padding-bottom: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.modal-content label:not(.checkbox label) {
+    display: block;
+}
+
+.modal-content input {
     width: 100%;
     padding: 10px;
+    margin-top: -10px;
     background-color: rgba(255, 255, 255, 0.95);
     border: 1px solid transparent;
     border-radius: 4px;
@@ -244,10 +273,327 @@ body {
     box-sizing: border-box;
 }
 
-.modal-content input:focus, .modal-content select:focus, .modal-content textarea:focus {
+.modal-content input:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+.modal-content p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.77);
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modal-content form div {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-top: -2px;
+}
+
+.password-input-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-container input {
+    padding-right: 45px;
+}
+
+.password-input-container i {
+    position: absolute;
+    top: 74%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.password-input-container i:hover {
+    color: #007bff;
+}
+
+.password-wrapper {
+    margin-top: 10px;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-right: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.checkbox label {
+    display: block !important;
+    margin: 0;
+    cursor: pointer;
+    line-height: 1.4;
+    color: #dbdbdb;
+    text-align: center;
+}
+
+.destacarTermos {
+    color: #0056b3;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.destacarTermos:hover {
+    color: #89a4c1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.input-wrapper {
+    margin-bottom: 15px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding-right: 20px;
+}
+
+.check-icon {
+    position: absolute;
+    right: 12px;
+    bottom: 7px;
+    margin-bottom: 4px;
+    font-size: 1.4rem;
+    color: #28a745;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.error-icon {
+    position: absolute;
+    right: 12px;
+    bottom: 7px;
+    margin-bottom: 4px;
+    font-size: 1.4rem;
+    color: #dc3545;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Modal - Termos */
+.modal-terms-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: calc(85vh - 150px);
+    padding-right: 10px;
+}
+
+.modal-terms-content p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #ffffff;
+    margin: 0;
+}
+
+.modal-terms-content strong {
+    color: #6ba6da;
+    font-size: 1rem;
+}
+
+/* Modal Suporte */
+.modal-content select,
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.modal-content textarea {
+    resize: none;
+}
+
+.modal-content select:focus,
+.modal-content input:focus,
+.modal-content textarea:focus {
     border-color: #00d4ff;
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+.modal-content .select-wrapper {
+    position: relative;
+    margin-top: -7px;
+    width: 100%;
+}
+
+.modal-content .select-wrapper select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.modal-content .select-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+    font-size: 1rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-content .select-wrapper.active .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    opacity: 0.8;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #dbdbdb;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    opacity: 1;
+}
+
+.botao-estilizado {
+    display: block;
+    width: 100%;
+    background-color: #007bff;
+    color: rgb(250, 250, 250);
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.botao-estilizado:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    transform: translateY(-2px);
+    color: rgb(250, 250, 250);
+}
+
+.modal-content button:not(.close-btn) {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+/* IDs - Java Script */
+#password-guide .guide-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+}
+
+#password-guide .guide-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+#password-guide .guide-item span {
+    display: inline-block;
+    line-height: 1.2;
+}
+
+#password-guide .text-success {
+    color: #22c55e;
+}
+
+#password-guide .text-danger {
+    color: #ef4444;
+}
+
+#btnEsqueceuSenha {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    align-self: flex-end;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+#formSuporte label {
+    margin-top: 5px;
+    padding-bottom: 5px;
+}
+
+#btnGoToCadastro,
+#btnBackToLogin {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+#btnGoToCadastro:hover,
+#btnBackToLogin:hover {
+    background-color: #e2e6ea;
+}
+
+#formCadastro label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#formCadastro input,
+#formCadastro .input-wrapper {
+    margin-top: 0;
+    margin-bottom: 4px;
 }
 
 /* Rodapé */
@@ -282,231 +628,22 @@ body {
     color: white;
 }
 
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #ffffff;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close-btn:hover {
-    color: #ff6b6b;
-}
-
-.botao-estilizado {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 6px;
-    background-color: #2060a3;
-    color: white;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.botao-estilizado:hover {
-    background-color: #5d87b3;
-    box-shadow: 0 4px 12px rgba(93, 135, 179, 0.4);
-}
-
-.botao-estilizado:active {
-    transform: scale(0.98);
-}
-
-/* Password and Input Wrappers */
-.password-input-container {
-    width: 100%;
-}
-
-.password-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.password-wrapper input {
-    width: 100%;
-    padding-right: 35px;
-}
-
 .toggle-password-icon {
     position: absolute;
     right: 10px;
     cursor: pointer;
     font-size: 1.2rem;
-    color: #666;
+    color: #555;
     transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
 .toggle-password-icon:hover {
-    color: #2060a3;
+    color: #007bff;
 }
 
-.input-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.input-wrapper input {
-    width: 100%;
-    padding-right: 35px;
-}
-
-.check-icon,
-.error-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.1rem;
-}
-
-.check-icon {
-    color: #28a745;
-    display: none;
-}
-
-.error-icon {
-    color: #dc3545;
-    display: none;
-}
-
-.text-success {
-    color: #28a745 !important;
-}
-
-.text-danger {
-    color: #dc3545 !important;
-}
-
-.checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin: 15px 0;
-}
-
-.checkbox input[type="checkbox"] {
-    width: auto;
-    margin: 5px 0 0 0;
-    cursor: pointer;
-    accent-color: #2060a3;
-}
-
-.checkbox label {
-    cursor: pointer;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin: 0;
-}
-
-.password-guide {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(112, 144, 189, 0.3);
-    border-radius: 6px;
-    padding: 12px;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.guide-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    color: #d0d0d0;
-}
-
-.guide-circle {
-    font-size: 0.7rem;
-    min-width: 12px;
-}
-
-.guide-circle.bi-circle-fill {
-    color: #999;
-}
-
-.guide-circle.bi-check-circle-fill {
-    color: #28a745;
-}
-
-.modal-terms-content {
-    max-height: 70vh;
-    overflow-y: auto;
-    padding: 10px;
-}
-
-.modal-terms-content div {
-    margin-bottom: 15px;
-    line-height: 1.6;
-    color: #e5e7eb;
-}
-
-.modal-terms-content strong {
-    color: #ffffff;
-}
-
-.modal-terms-content p {
-    margin-top: 5px;
-    font-size: 0.9rem;
-}
-
-.select-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.select-wrapper select {
-    width: 100%;
-    padding: 10px;
-    padding-right: 35px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 1px solid transparent;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    appearance: none;
-}
-
-.select-wrapper select:focus {
-    border-color: #00d4ff;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
-}
-
-.select-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #666;
-    font-size: 1rem;
-}
-
-.destacarTermos {
-    color: #a1cdff;
-    cursor: pointer;
-    text-decoration: underline;
-    transition: color 0.3s ease;
-}
-
-.destacarTermos:hover,
-.abrir-termos:hover {
-    color: #d4e7ff;
-}
-
+/* Scrollable Container */
 .scrollable {
     max-height: 85vh;
     overflow-y: auto;
@@ -515,26 +652,50 @@ body {
 /* Media Queries */
 @media (min-width: 1441px) {
     .cabeçalho {
+        height: auto;
+        min-height: 90px;
         padding: 0 8%;
+    }
+
+    .logotipo img {
+        height: 55px;
+    }
+
+    .main-content {
+        padding: 3rem 0;
     }
 
     .left {
         margin-left: 10%;
-        max-width: 500px;
+        max-width: 550px;
+    }
+
+    .containerLeft {
+        padding: 3rem 2.5rem;
     }
 
     .sobre-left h1 {
         font-size: 2.5rem;
     }
 
-    .containerLeft {
-        padding: 3rem 2.5rem;
+    .modal-overlay .modal-content {
+        max-width: 550px;
     }
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) {
     .cabeçalho {
+        height: auto;
+        min-height: 90px;
         padding: 0 7%;
+    }
+
+    .logotipo img {
+        height: 50px;
+    }
+
+    .main-content {
+        padding: 2.5rem 0;
     }
 
     .left {
@@ -542,19 +703,37 @@ body {
         max-width: 450px;
     }
 
+    .containerLeft {
+        padding: 2.5rem 2rem;
+        height: auto;
+    }
+
     .sobre-left h1 {
         font-size: 2.2rem;
     }
 
-    .containerLeft {
-        padding: 2.5rem 2rem;
+    .background-container {
+        background-color: #f4f7f6;
+    }
+
+    .modal-content {
+        overflow-y: auto;
+    }
+
+    .modal-terms-content p {
+        font-size: 0.9rem;
+    }
+
+    .modal-terms-content strong {
+        font-size: 0.9rem;
     }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .cabeçalho {
+        height: auto;
+        min-height: 85px;
         padding: 0 5%;
-        min-height: 80px;
     }
 
     .logotipo img {
@@ -569,14 +748,21 @@ body {
         font-size: 0.9rem;
     }
 
+    .main-content {
+        padding: 2rem 1rem;
+        align-items: center;
+    }
+
     .left {
-        width: 55%;
+        width: 70%;
         margin-left: 5%;
         max-width: 400px;
     }
 
     .containerLeft {
         padding: 2rem 1.8rem;
+        height: auto;
+        border-radius: 10px;
     }
 
     .sobre-left h1 {
@@ -591,25 +777,36 @@ body {
         font-size: 1rem;
     }
 
-    .ButtonBottomText {
-        padding: 12px 40px;
-        font-size: 1rem;
+    .right {
+        display: none;
     }
 
     .modal-overlay .modal-content {
         max-width: 450px;
         padding: 2rem 1.8rem;
     }
+
+    .rodapé {
+        padding: 1.2rem;
+        font-size: 0.8rem;
+    }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
+    .background-container {
+        display: flex;
+        flex-direction: column;
+        background-color: #24344d;
+    }
+
     .cabeçalho {
         height: auto;
+        min-height: 85px;
         padding: 15px 5%;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
+        align-items: center;
         text-align: center;
-        min-height: 85px;
     }
 
     .logotipo img {
@@ -622,25 +819,40 @@ body {
         justify-content: center;
     }
 
+    .termos, .suporte {
+        font-size: 0.9rem;
+    }
+
     .main-content {
-        padding: 30px 0;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        flex: 1;
+        padding: 30px 20px;
+        position: relative;
     }
 
     .left {
         width: 90%;
         max-width: 100%;
-        margin-left: 0;
         margin: 0 auto;
         padding: 0 10px;
     }
 
+    .right {
+        background-image: url("background/768x1024.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: none;
+    }
+
     .containerLeft {
+        width: 100%;
         padding: 2rem 1.5rem;
         border-width: 8px;
-        max-width: 100%;
+        border-radius: 10px;
+        height: auto;
     }
 
     .sobre-left h1 {
@@ -659,30 +871,6 @@ body {
         margin-bottom: 1.5rem;
     }
 
-    .right {
-        display: none;
-        background-image: none;
-    }
-
-    .background-container {
-        background-color: #24344d;
-    }
-
-    .rodapé {
-        padding: 1rem;
-        font-size: 0.8rem;
-    }
-
-    .footer-section p {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .separator-footer {
-        display: none;
-    }
-
     .modal-overlay .modal-content {
         max-width: 90%;
         max-height: 80vh;
@@ -694,11 +882,32 @@ body {
         margin-bottom: 12px;
     }
 
-    .modal-content input, 
-    .modal-content select, 
+    .modal-content input,
+    .modal-content select,
     .modal-content textarea {
         padding: 8px;
         font-size: 0.95rem;
+    }
+
+    .modal-terms-content {
+        max-height: calc(80vh - 140px);
+        overflow-y: auto;
+    }
+
+    .rodapé {
+        padding: 1rem;
+        font-size: 0.8rem;
+        width: 100%;
+    }
+
+    .footer-section p {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .separator-footer {
+        display: none;
     }
 }
 
@@ -718,7 +927,7 @@ body {
     }
 
     .cabeçalho {
-        width: 100%;
+        position: relative;
         height: auto;
         min-height: 75px;
         padding: 12px 3%;
@@ -727,6 +936,8 @@ body {
         align-items: center;
         justify-content: center;
         text-align: center;
+        border-bottom: 2px solid;
+        border-image-source: linear-gradient(#24344d 100%);
     }
 
     .logotipo {
@@ -774,14 +985,21 @@ body {
 
     .right {
         display: none !important;
+        background-image: url("background/375x667.webp");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 200px;
     }
 
+    /* Card Lateral Mobile */
     .containerLeft {
         width: 100%;
         padding: 1.3rem 1rem;
         border-width: 6px;
-        border-radius: 12px;
+        border-radius: 10px;
         margin-bottom: 20px;
+        height: auto;
     }
 
     .sobre-left {
@@ -821,6 +1039,8 @@ body {
         padding: 0.8rem 5px;
         font-size: 0.75rem;
         margin-top: auto;
+        border-top: 2px solid;
+        border-image-source: linear-gradient(#24344d 100%);
     }
 
     .footer-content {
@@ -870,25 +1090,25 @@ body {
         gap: 12px;
     }
 
-    .senhaLabel, 
-    .termosLabel, 
-    .cadastrarLabel, 
-    .emailLabel, 
-    .recuperarLabel, 
+    .senhaLabel,
+    .termosLabel,
+    .cadastrarLabel,
+    .emailLabel,
+    .recuperarLabel,
     .suporteLabel {
         font-size: 0.85rem;
     }
 
-    .modal-content input, 
-    .modal-content select, 
+    .modal-content input,
+    .modal-content select,
     .modal-content textarea {
         padding: 9px 8px;
         font-size: 0.9rem;
         border-radius: 4px;
     }
 
-    .modal-content input:focus, 
-    .modal-content select:focus, 
+    .modal-content input:focus,
+    .modal-content select:focus,
     .modal-content textarea:focus {
         border-color: #00d4ff;
         box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
@@ -898,12 +1118,78 @@ body {
         resize: vertical;
         min-height: 80px;
     }
+
+    .modal-terms-content {
+        max-height: calc(85vh - 150px);
+        overflow-y: auto;
+        padding: 10px;
+    }
+
+    .checkbox {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 12px;
+        text-align: left;
+    }
+
+    .checkbox input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        cursor: pointer;
+    }
+
+    .checkbox label {
+        font-size: 0.8rem;
+        line-height: 1.3;
+        color: #dbdbdb;
+    }
+
+    .password-input-container {
+        width: 100%;
+    }
+
+    .password-input-container input {
+        padding-right: 35px;
+    }
+
+    .password-wrapper {
+        margin-top: 8px;
+    }
+
+    .input-wrapper {
+        margin-bottom: 12px;
+    }
+
+    .input-wrapper input {
+        padding-right: 30px;
+    }
+
+    .check-icon,
+    .error-icon {
+        font-size: 1.2rem;
+    }
+
+    .select-wrapper {
+        margin-top: -5px;
+    }
+
+    .select-wrapper select {
+        padding-right: 35px;
+    }
+
+    .select-icon {
+        font-size: 0.9rem;
+        right: 10px;
+    }
 }
 
 @media (max-width: 360px) {
     .cabeçalho {
-        padding: 10px 2%;
         min-height: 70px;
+        padding: 10px 2%;
     }
 
     .logotipo img {
@@ -912,6 +1198,11 @@ body {
 
     .termos, .suporte {
         font-size: 0.75rem;
+    }
+
+    .containerLeft {
+        padding: 1.2rem 0.8rem;
+        border-width: 5px;
     }
 
     .sobre-left h1 {
@@ -926,11 +1217,6 @@ body {
         font-size: 0.85rem;
     }
 
-    .containerLeft {
-        padding: 1.2rem 0.8rem;
-        border-width: 5px;
-    }
-
     .ButtonBottomText {
         padding: 10px 12px;
         font-size: 0.9rem;
@@ -939,5 +1225,9 @@ body {
     .rodapé {
         font-size: 0.7rem;
         padding: 0.6rem 3px;
+    }
+
+    .modal-overlay .modal-content {
+        padding: 1.2rem 1rem;
     }
 }
