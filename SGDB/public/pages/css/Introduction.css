@@ -92,8 +92,9 @@ body {
 .right {
     position: absolute;
     inset: 0;
-    z-index: 1;
-    background-image: url('background/FundoRight.webp');
+    z-index: 0;
+    pointer-events: none;
+    background-image: url('FundoRight.webp');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
@@ -167,6 +168,10 @@ body {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+}
+
+#rootModal.hidden {
+    display: none !important;
 }
 
 .modal-overlay {
@@ -592,27 +597,18 @@ body {
 .footer-content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-}
-
-.footer-section {
     text-align: center;
+    gap: 1.5rem;
 }
 
 .destacarLinks {
     color: #aaddff;
     text-decoration: none;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .destacarLinks:hover {
     color: white;
-}
-
-.separator-footer {
-    color: #aaddff;
-    margin: 0 0.5rem;
 }
 
 .toggle-password-icon {
@@ -731,7 +727,8 @@ body {
         gap: 20px;
     }
 
-    .termos, .suporte {
+    .termos,
+    .suporte {
         font-size: 0.9rem;
     }
 
@@ -806,7 +803,8 @@ body {
         justify-content: center;
     }
 
-    .termos, .suporte {
+    .termos,
+    .suporte {
         font-size: 0.9rem;
     }
 
@@ -827,7 +825,7 @@ body {
     }
 
     .right {
-        background-image: url("background/768x1024.webp");
+        background-image: url("768x1024.webp");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -899,7 +897,9 @@ body {
 }
 
 @media (max-width: 480px) {
-    html, body {
+
+    html,
+    body {
         width: 100%;
         height: 100%;
         overflow-x: hidden;
@@ -946,7 +946,8 @@ body {
         align-items: center;
     }
 
-    .termos, .suporte {
+    .termos,
+    .suporte {
         font-size: 0.8rem;
         white-space: nowrap;
     }
@@ -972,7 +973,7 @@ body {
 
     .right {
         display: none !important;
-        background-image: url("background/375x667.webp");
+        background-image: url("375x667.webp");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -1186,7 +1187,8 @@ body {
         height: 32px;
     }
 
-    .termos, .suporte {
+    .termos,
+    .suporte {
         font-size: 0.75rem;
     }
 
