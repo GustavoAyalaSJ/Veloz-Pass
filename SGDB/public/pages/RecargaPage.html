@@ -160,23 +160,37 @@
         <div class="mobile-nav-overlay" id="mobile-nav-overlay" role="presentation"></div>
         <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile" aria-hidden="true"
             role="navigation">
-            <div class="mobile-nav-title">Veloz Pass</div>
-            <div class="mobile-nav-list">
-                <a href="/carteira_digital" class="mobile-nav-item" data-nav="carteira">
+            <h3 class="mobile-nav-title">Veloz Pass</h3>
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-divider"></li>
+                <li class="mobile-nav-subtitle">Acesso Rápido</li>
+                <li><a href="/dashboard" class="mobile-nav-item" data-nav="dashboard">
+                    <i class="bi bi-border-center"></i>
+                    Painel Inicial
+                </a></li>
+
+                <li><a href="/carteira_digital" class="mobile-nav-item" data-nav="carteira">
                     <i class="bi bi-wallet2"></i>
                     Carteira Digital
-                </a>
+                </a></li>
 
-                <button id="change-button" class="mobile-nav-item icon-button btnChangeTheme">
+                <li class="mobile-nav-divider"></li>
+
+                <li><button id="notification-button" class="mobile-nav-item icon-button" type="button">
+                    <i class="bi bi-bell"></i>
+                    Notificações
+                </button></li>
+
+                <li><button id="change-button" class="mobile-nav-item icon-button btnChangeTheme">
                     <i class="bi bi-brightness-high-fill"></i>
                     Modo Escuro
-                </button>
+                </button></li>
 
-                <a class="mobile-nav-item icon-button exit-link">
+                <li><a class="mobile-nav-item icon-button exit-link">
                     <i class="bi bi-box-arrow-left"></i>
                     Sair
-                </a>
-            </div>
+                </a></li>
+            </ul>
         </nav>
 
     </div>

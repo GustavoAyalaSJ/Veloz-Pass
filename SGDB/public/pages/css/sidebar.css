@@ -60,6 +60,18 @@
   transform: translateX(0);
 }
 
+.mobile-nav-divider {
+  border-bottom: 2px solid #7689a5;
+  margin: 8px 12px;
+  padding: 0;
+  display: block;
+  height: 0;
+}
+
+.mobile-nav-list li.mobile-nav-divider {
+  min-height: auto;
+}
+
 .mobile-nav-title {
   font-weight: 800;
   color: #4a6b94;
@@ -72,6 +84,24 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-nav-list li {
+  display: flex;
+}
+
+.mobile-nav-list .mobile-nav-subtitle {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: #4a6b94;
+  font-size: 0.95rem;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  padding: 0 12px;
 }
 
 .mobile-nav-item {
@@ -85,6 +115,7 @@
   font-weight: 700;
   border: 2px solid transparent;
   transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  width: 100%;
 }
 
 .mobile-nav-item:hover {

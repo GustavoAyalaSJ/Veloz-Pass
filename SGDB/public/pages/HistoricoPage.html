@@ -59,7 +59,8 @@
         <main class="main-content">
             <h1 class="titulo-pagina-centro"><i class="bi bi-question-circle"></i>Histórico</h1>
 
-            <div class="filtros-container">
+            <fieldset class="filtros-container">
+                <legend class="sr-only">Filtros de transações</legend>
                 <div class="filtro-item">
                     <label for="filtro-tipo">Tipo:</label>
                     <select id="filtro-tipo" class="filtro-select">
@@ -81,38 +82,49 @@
                     </select>
                     <i class="bi bi-chevron-down select-icon"></i>
                 </div>
-            </div>
-            <div class="card-container">
-                <div class="tabela-wrapper-scroll">
-                    <div class="tabela-header">
+            </fieldset>
+            <section class="card-container">
+                <div class="tabela-wrapper-scroll" role="region" aria-label="Histórico de transações">
+                    <div class="tabela-header" role="columnheader" aria-sort="none">
                         <span>PROTOCOLO</span>
                         <span>TIPO</span> <!-- Recarga ou Carteira Digital -->
                         <span>REALIZADO NO</span> <!-- Cartão Débito, Pix, etc. -->
                         <span>VALOR</span>
                         <span>IMPRIMIR PROTOCOLO</span>
                     </div>
-                    <div class="tabela-corpoInfo">
+                    <div class="tabela-corpoInfo" role="main">
                     </div>
                 </div>
-            </div>
+            </section>
 
         </main>
 
         <div class="mobile-nav-overlay" id="mobile-nav-overlay" role="presentation"></div>
-        <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile" aria-hidden="true"
-            role="navigation">
-            <div class="mobile-nav-title">Veloz Pass</div>
-            <div class="mobile-nav-list">
-                <button id="change-button" class="mobile-nav-item icon-button btnChangeTheme">
+        <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu mobile" aria-hidden="true" role="navigation">
+            <h3 class="mobile-nav-title">Veloz Pass</h3>
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-divider"></li>
+                <li class="mobile-nav-subtitle">Acesso Rápido</li>
+                <li><a href="/dashboard" class="mobile-nav-item" data-nav="dashboard">
+                    <i class="bi bi-border-center"></i>
+                    Painel Inicial
+                </a></li>
+
+                <li><button id="notification-button" class="mobile-nav-item icon-button" type="button">
+                    <i class="bi bi-bell"></i>
+                    Notificações
+                </button></li>
+
+                <li><button id="change-button" class="mobile-nav-item icon-button btnChangeTheme">
                     <i class="bi bi-brightness-high-fill"></i>
                     Modo Escuro
-                </button>
+                </button></li>
 
-                <a class="mobile-nav-item icon-button exit-link">
+                <li><a class="mobile-nav-item icon-button exit-link">
                     <i class="bi bi-box-arrow-left"></i>
                     Sair
-                </a>
-            </div>
+                </a></li>
+            </ul>
         </nav>
     </div>
 

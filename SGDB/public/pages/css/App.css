@@ -1,4 +1,4 @@
-/* Layout Geral */
+/* Estrutura e Layout */
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +12,6 @@ body {
     line-height: 1.6;
 }
 
-/* Background */
 .background-container {
     background-color: rgb(66, 119, 175);
     background-image: url('background/backgroundapp-desktop.webp');
@@ -146,7 +145,6 @@ body {
     font-size: 1.4rem;
     margin: 0;
 }
-
 
 .download-btn1:hover,
 .download-btn2:hover {
