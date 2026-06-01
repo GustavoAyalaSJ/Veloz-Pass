@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                    Ao conectar-se com o site, você estará concordando com nossos termos de <span class="destacarTermos abrir-termos">Políticas de Privacidade</span>.
                </label>
             </div>
-            <button type="submit" class="botao-estilizado">Entrar</button>
+            <button type="submit" class="ButtonStyle">Entrar</button>
             <button type="button" id="btnGoToCadastro">Cadastrar</button>
         </form>
     `;
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </label>
             </div>
             
-            <button class="botao-estilizado" type="submit">Finalizar Cadastro</button>
+            <button class="ButtonStyle" type="submit">Finalizar Cadastro</button>
             <button type="button" id="btnBackToLogin">Voltar ao Login</button>
         </form>
     `;
