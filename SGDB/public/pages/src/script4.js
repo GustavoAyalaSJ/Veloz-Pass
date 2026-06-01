@@ -131,24 +131,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!input) return;
 
         input.addEventListener('input', (e) => {
-            let v = e.target.value.replace(/\D/g, '');
+            const oldValue = e.target.dataset.__oldValue || '';
+            e.target.dataset.__oldValue = e.target.value;
+
+            let digits = (e.target.value || '').replace(/\D/g, '');
+
+            const maxDigits = (mascara.match(/0/g) || []).length;
+            digits = digits.slice(0, maxDigits);
+
+            let out = '';
             let k = 0;
-            let novoValor = "";
-
-            if (v.length === 0) {
-                e.target.value = "";
-                return;
-            }
-
-            for (let i = 0; i < mascara.length && k < v.length; i++) {
-                if (mascara[i] === '0') {
-                    novoValor += v[k++];
+            for (let i = 0; i < mascara.length; i++) {
+                const m = mascara[i];
+                if (m === '0') {
+                    if (k >= digits.length) break;
+                    out += digits[k++];
                 } else {
-                    novoValor += mascara[i];
+                    if (k > 0 && k <= digits.length) out += m;
                 }
             }
 
-            e.target.value = novoValor;
+            e.target.value = out;
         });
     }
 
