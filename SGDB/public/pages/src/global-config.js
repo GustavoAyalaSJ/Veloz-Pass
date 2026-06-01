@@ -15,9 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const isDark = document.documentElement.classList.contains('dark-mode');
 
             themeButtons.forEach(btn => {
-                btn.innerHTML = isDark
+                const icon = isDark
                     ? '<i class="bi bi-moon-stars-fill"></i>'
                     : '<i class="bi bi-brightness-high-fill"></i>';
+                const text = isDark ? 'Modo Claro' : 'Modo Escuro';
+
+                if (btn.textContent.trim()) {
+                    btn.innerHTML = icon + '\n' + text;
+                } else {
+                    btn.innerHTML = icon;
+                }
             });
         };
 

@@ -55,7 +55,7 @@
         }
 
         let notificacoesHTML = '<label class="notificationLabel">Notificações</label>';
-        
+
         notificacoes.forEach(notif => {
             const dataEnvio = new Date(notif.data_envio).toLocaleDateString('pt-BR');
             notificacoesHTML += `
@@ -112,14 +112,14 @@
         }
 
         let notificacoesHTML = '';
-        
+
         notificacoes.forEach(notif => {
             const dataEnvio = new Date(notif.data_envio).toLocaleDateString('pt-BR', {
                 day: '2-digit',
                 month: '2-digit',
                 year: 'numeric'
             });
-            
+
             notificacoesHTML += `
                 <div class="notification-mobile-item" data-id="${notif.id_notificacao}">
                     <div class="notification-mobile-content">
@@ -166,7 +166,7 @@
             botaoNotificacao.addEventListener('click', async (e) => {
                 e.stopPropagation();
                 const dropdownNotificacao = document.getElementById('notification-dropdown');
-                
+
                 if (dropdownNotificacao?.classList.contains('show')) {
                     dropdownNotificacao.classList.remove('show');
                     botaoNotificacao.classList.remove('open');
@@ -180,9 +180,9 @@
     }
 
     function setupNotificationMobileModal() {
-        const notificationButtonMobile = document.querySelector('.mobile-nav-item[id*="notification"]');
+        const notificationButtonMobile = document.getElementById('notification-button');
         const modalMobile = document.getElementById('notification-mobile-modal');
-        const closeBtn = modalMobile?.querySelector('.modal-close');
+        const closeBtn = document.getElementById('notification-mobile-close');
 
         if (notificationButtonMobile && modalMobile) {
             notificationButtonMobile.addEventListener('click', async (e) => {
