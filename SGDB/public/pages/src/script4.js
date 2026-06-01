@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (inputCartao) {
         inputCartao.addEventListener('input', (e) => {
             let num = e.target.value.replace(/\D/g, '');
-            e.target.value = num;
             if (num.length > 0) {
                 const ultimoDigito = parseInt(num.slice(-1));
                 idBandeiraSelecionada = (ultimoDigito >= 1 && ultimoDigito <= 5) ? ultimoDigito : null;
