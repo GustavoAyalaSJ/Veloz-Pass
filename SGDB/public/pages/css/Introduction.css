@@ -603,6 +603,7 @@ body {
     color: #aaddff;
     text-decoration: none;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .destacarLinks:hover {
