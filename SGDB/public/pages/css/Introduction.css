@@ -94,7 +94,7 @@ body {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: url('FundoRight.webp');
+    background-image: url('background/FundoRight.webp');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
@@ -825,7 +825,7 @@ body {
     }
 
     .right {
-        background-image: url("768x1024.webp");
+        background-image: url("background/768x1024.webp");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -897,7 +897,6 @@ body {
 }
 
 @media (max-width: 480px) {
-
     html,
     body {
         width: 100%;
@@ -973,7 +972,7 @@ body {
 
     .right {
         display: none !important;
-        background-image: url("375x667.webp");
+        background-image: url("background/375x667.webp");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
