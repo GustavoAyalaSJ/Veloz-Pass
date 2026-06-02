@@ -101,12 +101,11 @@ exports.cadastro = async (req, res) => {
         const { data: rpcResult, error: rpcError } = await supabase
             .rpc('rpc_criar_usuario_e_carteira', {
                 p_nome_usuario: nome_usuario,
+                p_cod_identificador: cod_identificador,
                 p_cpf: cpfLimpo,
                 p_telefone: telLimpo,
                 p_email: email,
-                p_senha_hash: senhaHash,
-                p_cod_identificador: cod_identificador,
-                p_id_naturalidade: natId
+                p_senha_hash: senhaHash
             });
 
 

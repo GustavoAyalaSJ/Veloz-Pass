@@ -55,13 +55,38 @@ const recargaTransporteSchema = Joi.object({
 
     numCartaoTransporte: Joi.string()
         .pattern(/^\d{2}\.\d{2}\.\d{8}-\d{1}$/)
-        .required(),
+        .required()
+        .custom((value, helpers) => {
+            const digits = String(value).replace(/\D/g, '');
+            const allSame = digits.length > 0 && digits.split('').every(d => d === digits[0]);
+            if (allSame) {
+                return helpers.error('any.invalid');
+            }
+            return value;
+        })
+        .messages({
+            'any.invalid': 'Número do cartão de transporte inválido.'
+        }),
 
     idBandeira: Joi.number().integer().optional().allow(null)
 });
 
 const registerCardSchema = Joi.object({
-    n_card: Joi.string().min(13).max(19).required()
+    n_card: Joi.string()
+        .min(13)
+        .max(19)
+        .required()
+        .custom((value, helpers) => {
+            const digits = String(value).replace(/\D/g, '');
+            const allSame = digits.length > 0 && digits.split('').every(d => d === digits[0]);
+            if (allSame) {
+                return helpers.error('any.invalid');
+            }
+            return value;
+        })
+        .messages({
+            'any.invalid': 'Número do cartão inválido.'
+        })
 });
 
 const validateTransfer = (req, res, next) => {
