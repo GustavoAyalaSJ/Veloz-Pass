@@ -42,7 +42,7 @@ exports.login = async (req, res) => {
 
 /* Código para registrar um novo usuário */
 exports.cadastro = async (req, res) => {
-    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha, id_naturalidade } = req.body;
+    const { nome_usuario, cpf, telefone, email, senha, confirmar_senha } = req.body;
 
     if (!nome_usuario || !cpf || !telefone || !email || !senha || !confirmar_senha) {
         return res.status(400).json({ message: "Preencha todos os campos!" });
@@ -81,8 +81,6 @@ exports.cadastro = async (req, res) => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return res.status(400).json({ message: "Email incompleto ou inválido." });
     }
-
-    const natId = id_naturalidade ? String(id_naturalidade).trim() : null;
 
     const generateCodIdentificador = () => {
         const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';

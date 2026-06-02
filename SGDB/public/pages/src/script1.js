@@ -400,15 +400,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cpfLimpo = document.getElementById('inputCPF').value.replace(/\D/g, '');
                 const telefoneLimpo = document.getElementById('inputTelefone').value.replace(/\D/g, '');
 
-                const codIdentificador = null;
-
                 const payload = Object.fromEntries(new FormData(formCadastro).entries());
                 payload.cpf = cpfLimpo;
                 payload.telefone = telefoneLimpo;
-                payload.cod_identificador = codIdentificador;
-
-                const regiao = (typeof dddNaturalidade !== 'undefined') ? dddNaturalidade[telefoneLimpo.slice(0, 2)] : null;
-                payload.id_naturalidade = regiao ? regiao.id : null;
 
                 const csrfToken = auth.getCsrfToken();
 
@@ -429,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     const data = await response.json();
                     if (response.ok) {
-                        auth.setToken(data.token, { id: data.id, nome: data.nome, cod_identificador: codIdentificador });
+                        auth.setToken(data.token, { id: data.id, nome: data.nome, cod_identificador: data.cod_identificador || null });
                         window.location.href = "/dashboard";
                     } else {
                         alert(data.message || "Erro ao salvar os dados.");
