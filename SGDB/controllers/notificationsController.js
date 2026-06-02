@@ -34,16 +34,11 @@ exports.listarNotificacoes = async (req, res) => {
 exports.registrarNotificacaoAgora = async (idUsuario, protocolo, situacao) => {
     if (!idUsuario || !protocolo || !situacao) return;
 
-    const expiracaoData = new Date();
-    expiracaoData.setDate(expiracaoData.getDate() + 30);
-    const expiresAtISO = expiracaoData.toISOString();
-
     try {
         const { error } = await supabase.rpc('rpc_registrar_notificacao', {
             p_id_user: idUsuario,
             p_protocolo: protocolo,
-            p_situacao: situacao,
-            p_expires_at: expiresAtISO
+            p_situacao: situacao
         });
 
         if (error) {
