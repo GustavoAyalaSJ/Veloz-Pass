@@ -88,30 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('notification-button')?.classList.remove('open');
         }
     });
-
-    const botaoNotificacao = document.getElementById('notification-button');
-    const dropdownNotificacao = document.getElementById('notification-dropdown');
-
-    if (botaoNotificacao && dropdownNotificacao) {
-        botaoNotificacao.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const abrir = !dropdownNotificacao.classList.contains('show');
-
-            dropdownNotificacao.classList.toggle('show', abrir);
-            botaoNotificacao.classList.toggle('open', abrir);
-
-            if (abrir) {
-                const fecharDropdownFora = (event) => {
-                    if (!event.target.closest('#notification-dropdown') && !event.target.closest('#notification-button')) {
-                        dropdownNotificacao.classList.remove('show');
-                        botaoNotificacao.classList.remove('open');
-                        document.removeEventListener('click', fecharDropdownFora);
-                    }
-                };
-                setTimeout(() => document.addEventListener('click', fecharDropdownFora), 0);
-            }
-        });
-    }
 });
 
 (() => {
@@ -285,7 +261,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             };
 
-            // Inicia polling se houver protocolo
             if (protocolo && !pollingInterval) {
                 ultimoProtocolo = protocolo;
                 pollingInterval = setInterval(() => {
@@ -294,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             atualizarStatusModal(novoStatus);
                         }
                     });
-                }, 2000); // Verifica a cada 2 segundos
+                }, 2000);
             }
 
         } else if (concluido) {
