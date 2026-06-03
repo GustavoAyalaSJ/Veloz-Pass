@@ -165,15 +165,25 @@
         if (botaoNotificacao) {
             botaoNotificacao.addEventListener('click', async (e) => {
                 e.stopPropagation();
-                const dropdownNotificacao = document.getElementById('notification-dropdown');
 
-                if (dropdownNotificacao?.classList.contains('show')) {
+                const dropdownNotificacao = document.getElementById('notification-dropdown');
+                if (!dropdownNotificacao) return;
+
+                const jaEstaAberto = dropdownNotificacao.classList.contains('show');
+
+                if (jaEstaAberto) {
                     dropdownNotificacao.classList.remove('show');
                     botaoNotificacao.classList.remove('open');
-                } else {
+                    return;
+                }
+
+                dropdownNotificacao.classList.add('show');
+                botaoNotificacao.classList.add('open');
+
+                try {
                     await carregarNotificacoes();
-                    dropdownNotificacao?.classList.add('show');
-                    botaoNotificacao?.classList.add('open');
+                } catch (err) {
+                    console.error('Erro ao carregar notificações:', err);
                 }
             });
         }
