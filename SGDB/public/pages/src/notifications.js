@@ -2,26 +2,38 @@
     let idUsuarioLogado = null;
 
     function obterIdUsuario() {
+        try {
+            if (typeof auth !== 'undefined' && auth.getUserData) {
+                const userData = auth.getUserData();
+                if (userData?.id) return String(userData.id);
+            }
+        } catch (e) {
+        }
+
         const spanCodigo = document.getElementById('codUnique-user');
         if (spanCodigo) {
             idUsuarioLogado = spanCodigo.textContent.trim();
         }
+
         return idUsuarioLogado;
     }
 
     async function fetchNotificacoes() {
+        const token = (typeof auth !== 'undefined' && auth?.getToken) ? auth.getToken() : null;
         const idUsuario = obterIdUsuario();
-        if (!idUsuario || idUsuario === 'PLACEHOLDER') {
-            console.warn('ID do usuário não disponível');
+
+        if (!token || !idUsuario || idUsuario === 'PLACEHOLDER') {
             return [];
         }
 
         try {
-            const response = await fetch(`/notifications/${idUsuario}`, {
+            const response = await fetch(`/api/notifications/${idUsuario}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                credentials: 'include'
             });
 
             if (!response.ok) {
