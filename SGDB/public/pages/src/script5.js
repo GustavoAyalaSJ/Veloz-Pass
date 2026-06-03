@@ -22,11 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const pastaBandeiras = "/assets/Bandeira/";
 
     const mapaBandeiras = {
-        1: "Visa.webp",
-        2: "Mastercard.webp",
-        3: "Hipercard.webp",
-        4: "Elo.webp",
-        5: "Amex.webp"
+        0: "Visa.webp",
+        1: "Mastercard.webp",
+        2: "Hipercard.webp",
+        3: "Elo.webp",
+        4: "Amex.webp",
+        5: "Visa.webp",
+        6: "Mastercard.webp",
+        7: "Hipercard.webp",
+        8: "Elo.webp",
+        9: "Amex.webp"
     };
 
     (function () {
@@ -185,15 +190,18 @@ document.addEventListener('DOMContentLoaded', () => {
         inputCartao.addEventListener('input', (e) => {
             const valor = e.target.value.replace(/\D/g, '');
             if (valor.length > 0) {
-                const primeiroDigito = parseInt(valor[0]);
-                const idBandeira = mapaBandeiras[primeiroDigito] ? primeiroDigito : null;
-                if (idBandeira) {
-                    displayImagem.src = `${pastaBandeiras}${mapaBandeiras[idBandeira]}`;
-                    idBandeiraSelecionada = idBandeira;
+                const ultimoDigito = parseInt(valor[valor.length - 1], 10);
+
+                if (mapaBandeiras.hasOwnProperty(ultimoDigito)) {
+                    displayImagem.src = `${pastaBandeiras}${mapaBandeiras[ultimoDigito]}`;
+                    idBandeiraSelecionada = ultimoDigito;
                 } else {
                     displayImagem.src = imgDefault;
                     idBandeiraSelecionada = null;
                 }
+            } else {
+                displayImagem.src = imgDefault;
+                idBandeiraSelecionada = null;
             }
         });
     }
