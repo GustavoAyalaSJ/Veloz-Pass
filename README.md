@@ -1,8 +1,16 @@
-# 📑 Veloz Pass V5.0.0 - Update Logs
+# 📑 Veloz Pass V5.0.1 - Update Logs
 
 Todo o histórico de desenvolvimento, melhorias, correções e atualizações do ecossistema Veloz Pass.
 
 ---
+
+## [5.0.1] - 2026-06-02 /2026-06-03
+### 🚀 Adicionado
+* **Limpeza de Dados (Carteira Digital):** O modal de pagamento da Carteira Digital remove os dados após o fechamento ou troca do modal de pagamento.
+
+### 🔧 Arrumado
+* **Cod_ID:**  Arrumando a lógica de geração de código de usuário criado no Veloz Pass.
+* **Notificações:** Configurando a parte interna do back-end das notificações e a conexão com a tabela de notificações.
 
 ## [5.0.0] - 2026-05-30 / 2026-06-01
 
