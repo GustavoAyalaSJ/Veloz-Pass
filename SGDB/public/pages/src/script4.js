@@ -39,6 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const containerCartao = document.getElementById('container-cartao');
     const containerPix = document.getElementById('container-pix');
 
+    const inputCartaoNum = document.getElementById('num-cartao');
+    const inputCartaoValidade = document.getElementById('validade-cartao');
+    const inputCartaoCvv = document.getElementById('cvv-cartao');
+
+    function limparCamposPagamentoCartao() {
+        if (inputCartaoNum) inputCartaoNum.value = '';
+        if (inputCartaoValidade) inputCartaoValidade.value = '';
+        if (inputCartaoCvv) inputCartaoCvv.value = '';
+        idBandeiraSelecionada = null;
+    }
+
+    function resetarUISelecionadorPagamento() {
+        if (selectPagamento) {
+            selectPagamento.value = '';
+        }
+        if (containerCartao) containerCartao.classList.add('hidden');
+        if (containerPix) containerPix.classList.add('hidden');
+        if (btnFinalizar) btnFinalizar.classList.add('hidden');
+    }
+
     if (selectPagamento && containerCartao && containerPix) {
         const wrapper = selectPagamento.closest('.select-wrapper-modal');
 
@@ -64,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectPagamento.addEventListener('blur', () => wrapper?.classList.remove('active'));
 
         selectPagamento.addEventListener('change', () => {
+            limparCamposPagamentoCartao();
             wrapper?.classList.add('active');
             atualizarVisibilidadePagamento();
         });
@@ -118,8 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
         inputCartao.addEventListener('input', (e) => {
             let num = e.target.value.replace(/\D/g, '');
             if (num.length > 0) {
-                const ultimoDigito = parseInt(num.slice(-1));
-                idBandeiraSelecionada = (ultimoDigito >= 1 && ultimoDigito <= 5) ? ultimoDigito : null;
+                const ultimoDigito = parseInt(num.slice(-1), 10);
+                idBandeiraSelecionada = (ultimoDigito >= 0 && ultimoDigito <= 9) ? ultimoDigito : null;
             } else {
                 idBandeiraSelecionada = null;
             }
@@ -210,6 +231,9 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             modalValor.classList.add('active');
             modalPagamento.classList.remove('active');
+
+            limparCamposPagamentoCartao();
+            resetarUISelecionadorPagamento();
         });
     }
 
@@ -220,6 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
             optValores.forEach(o => o.classList.remove('active'));
             if (inputPersonalizado) inputPersonalizado.value = '';
             valorParaInserir = 0;
+
+            limparCamposPagamentoCartao();
+            resetarUISelecionadorPagamento();
         });
     });
 
@@ -313,12 +340,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 valorParaInserir = 0;
                 if (inputPersonalizado) inputPersonalizado.value = '';
                 optValores.forEach(o => o.classList.remove('active'));
+
+                limparCamposPagamentoCartao();
+                resetarUISelecionadorPagamento();
+
                 carregarDadosIniciais();
             });
         } catch (error) {
             console.error("Erro na transação:", error);
             showProcessModal('rejected', 'carteira');
         }
+    }
+
+    function derivarBandeiraPeloUltimoDigito(numCartaoValue) {
+        const digits = String(numCartaoValue || '').replace(/\D/g, '');
+        if (!digits) return null;
+
+        const ultimoDigito = Number(digits.slice(-1));
+        if (Number.isNaN(ultimoDigito)) return null;
+
+        return (ultimoDigito >= 0 && ultimoDigito <= 9) ? ultimoDigito : null;
     }
 
     if (btnFinalizar) {
@@ -330,8 +371,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (valorParaInserir > 5000) return alert('Valor incábivel para recarga! Tente colocar um valor menor.');
 
+            const numCartaoInput = document.getElementById('num-cartao')?.value || "";
+
             if (metodosComCartaoTexto.includes(metodoRaw.toLowerCase())) {
-                const numCartaoInput = document.getElementById('num-cartao')?.value || "";
+                idBandeiraSelecionada = derivarBandeiraPeloUltimoDigito(numCartaoInput);
+            }
+
+            if (metodosComCartaoTexto.includes(metodoRaw.toLowerCase())) {
                 if (!numCartaoInput || numCartaoInput.trim().length === 0) {
                     return alert('Por favor, informe o número do cartão.');
                 }
@@ -345,7 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cvvInput.length < 3) return alert("CVV incompleto.");
             }
 
-            const numCartaoInput = document.getElementById('num-cartao')?.value || "";
             btnFinalizar.disabled = true;
             btnFinalizar.innerText = "Processando...";
 
