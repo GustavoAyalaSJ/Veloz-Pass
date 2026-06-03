@@ -179,16 +179,16 @@
         if (!dropdownNotificacao || !botaoNotificacao) return;
 
         botaoNotificacao.addEventListener('click', async () => {
-            setTimeout(async () => {
-                const aberto = dropdownNotificacao.classList.contains('show');
-                if (!aberto) return;
+            dropdownNotificacao.classList.toggle('show');
 
+            const isOpened = dropdownNotificacao.classList.contains('show');
+            if (isOpened) {
                 try {
                     await carregarNotificacoes();
                 } catch (err) {
                     console.error('Erro ao carregar notificações:', err);
                 }
-            }, 0);
+            }
         });
     }
 
