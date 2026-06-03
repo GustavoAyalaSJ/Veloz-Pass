@@ -173,32 +173,23 @@
     }
 
     function setupNotificationButtonListener() {
+        const dropdownNotificacao = document.getElementById('notification-dropdown');
         const botaoNotificacao = document.getElementById('notification-button');
-        if (botaoNotificacao) {
-            botaoNotificacao.addEventListener('click', async (e) => {
-                e.stopPropagation();
 
-                const dropdownNotificacao = document.getElementById('notification-dropdown');
-                if (!dropdownNotificacao) return;
+        if (!dropdownNotificacao || !botaoNotificacao) return;
 
-                const jaEstaAberto = dropdownNotificacao.classList.contains('show');
-
-                if (jaEstaAberto) {
-                    dropdownNotificacao.classList.remove('show');
-                    botaoNotificacao.classList.remove('open');
-                    return;
-                }
-
-                dropdownNotificacao.classList.add('show');
-                botaoNotificacao.classList.add('open');
+        botaoNotificacao.addEventListener('click', async () => {
+            setTimeout(async () => {
+                const aberto = dropdownNotificacao.classList.contains('show');
+                if (!aberto) return;
 
                 try {
                     await carregarNotificacoes();
                 } catch (err) {
                     console.error('Erro ao carregar notificações:', err);
                 }
-            });
-        }
+            }, 0);
+        });
     }
 
     function setupNotificationMobileModal() {
@@ -231,10 +222,24 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         obterIdUsuario();
+
         setupNotificationButtonListener();
+
         setupNotificationMobileModal();
 
-        setInterval(carregarNotificacoes, 30000);
+        setInterval(async () => {
+            const dropdownNotificacao = document.getElementById('notification-dropdown');
+            const modalMobile = document.getElementById('notification-mobile-modal');
+
+            const dropdownAberto = dropdownNotificacao?.classList.contains('show');
+            const modalAberto = modalMobile?.classList.contains('show');
+
+            if (!dropdownAberto && !modalAberto) return;
+
+            const notificacoes = await fetchNotificacoes();
+            renderizarNotificacoesDropdown(notificacoes);
+            renderizarNotificacoesModal(notificacoes);
+        }, 30000);
     });
 
     window.notificacoes = {
