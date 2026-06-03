@@ -187,18 +187,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function configurarListenerBandeira(inputCartao) {
         if (!inputCartao) return;
+
+        let ultimoDigitoAtual = null;
+
         inputCartao.addEventListener('input', (e) => {
             const valor = e.target.value.replace(/\D/g, '');
-            if (valor.length > 0) {
-                const ultimoDigito = parseInt(valor[valor.length - 1], 10);
 
-                if (mapaBandeiras.hasOwnProperty(ultimoDigito)) {
-                    displayImagem.src = `${pastaBandeiras}${mapaBandeiras[ultimoDigito]}`;
-                    idBandeiraSelecionada = ultimoDigito;
-                } else {
-                    displayImagem.src = imgDefault;
-                    idBandeiraSelecionada = null;
-                }
+            if (valor.length === 0) {
+                ultimoDigitoAtual = null;
+                displayImagem.src = imgDefault;
+                idBandeiraSelecionada = null;
+                return;
+            }
+
+            const ultimoDigito = parseInt(valor[valor.length - 1], 10);
+
+            if (ultimoDigito === ultimoDigitoAtual) return;
+            ultimoDigitoAtual = ultimoDigito;
+
+            if (mapaBandeiras.hasOwnProperty(ultimoDigito)) {
+                displayImagem.src = `${pastaBandeiras}${mapaBandeiras[ultimoDigito]}`;
+                idBandeiraSelecionada = ultimoDigito;
             } else {
                 displayImagem.src = imgDefault;
                 idBandeiraSelecionada = null;

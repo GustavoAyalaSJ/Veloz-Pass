@@ -135,6 +135,20 @@ app.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+const CRON_INTERVAL_MS = 60 * 1000; 
+if (process.env.NODE_ENV !== 'test') {
+    setInterval(async () => {
+        try {
+            const { error } = await supabase.rpc('cron_processo_temporizador');
+            if (error) {
+                console.error('[cron_processo_temporizador] RPC error:', error);
+            }
+        } catch (err) {
+            console.error('[cron_processo_temporizador] Unexpected error:', err);
+        }
+    }, CRON_INTERVAL_MS);
+}
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`✅ Servidor rodando na porta ${PORT} em modo ${process.env.NODE_ENV}`);
