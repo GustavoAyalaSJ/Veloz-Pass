@@ -665,6 +665,11 @@ body {
     #modalContentContainer .modal-content {
         padding-bottom: 50px;
     }
+
+    #termsOverlay .modal-terms-content {
+        padding-bottom: 36px;
+        max-height: calc(85vh - 120px);
+    }
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) {
