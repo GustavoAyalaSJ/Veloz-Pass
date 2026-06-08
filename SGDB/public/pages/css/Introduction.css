@@ -646,8 +646,8 @@ body {
     }
 
     .left {
-        margin-left: 10%;
-        max-width: 550px;
+        margin-left: 8%;
+        max-width: 530px;
     }
 
     .containerLeft {
@@ -660,6 +660,10 @@ body {
 
     .modal-overlay .modal-content {
         max-width: 550px;
+    }
+
+    #modalContentContainer .modal-content {
+        padding-bottom: 50px;
     }
 }
 
