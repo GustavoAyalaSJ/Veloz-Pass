@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 texto: "Para acessar clique no botão azul logo abaixo.",
-                sprite: "pointing-down",
+                sprite: "pointing-up",
                 target: ".btn-carteira",
                 skippable: false
             },
