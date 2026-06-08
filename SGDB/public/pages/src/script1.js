@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="checkbox">
               <label for="checkboxCadastro">
               <input type="checkbox" id="checkboxCadastro" name="aceite_termos" required />
-                Eu li e concordo com as <span class="destacarTermos abrir-termos">Políticas de Privacidade</span> do Veloz Pass.
+                Ao cadastrar sua conta, você concordar com nossas <span class="destacarTermos abrir-termos">Políticas de Privacidade</span> de nosso site.
               </label>
             </div>
             
