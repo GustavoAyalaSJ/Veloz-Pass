@@ -49,6 +49,35 @@
         }
     }
 
+    async function deletarNotificacao(idNotificacao) {
+        const token = (typeof auth !== 'undefined' && auth?.getToken) ? auth.getToken() : null;
+
+        if (!token || !idNotificacao) {
+            return false;
+        }
+
+        try {
+            const response = await fetch(`/api/notifications/${idNotificacao}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                console.error('Erro ao deletar notificação:', response.status);
+                return false;
+            }
+
+            return true;
+        } catch (error) {
+            console.error('Erro ao deletar notificação:', error);
+            return false;
+        }
+    }
+
     function renderizarNotificacoesDropdown(notificacoes) {
         const dropdownNotificacao = document.getElementById('notification-dropdown');
         if (!dropdownNotificacao) return;
@@ -93,19 +122,24 @@
         dropdownNotificacao.innerHTML = notificacoesHTML;
 
         document.querySelectorAll('.delete-notification').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', async (e) => {
                 e.stopPropagation();
                 const notifItem = btn.closest('.notification-item');
-                notifItem?.remove();
+                const idNotificacao = notifItem?.getAttribute('data-id');
+
+                if (!idNotificacao) return;
+
+                const ok = await deletarNotificacao(idNotificacao);
+                if (ok) {
+                    notifItem?.remove();
+                }
             });
         });
 
         document.querySelectorAll('.notification-item').forEach(item => {
             item.addEventListener('click', (e) => {
-                if (!e.target.closest('.delete-notification')) {
-                    const protocolo = item.querySelector('.notification-message strong').textContent;
-                    console.log('Notificação clicada - Protocolo:', protocolo);
-                }
+                if (e.target.closest('.delete-notification')) return;
+                window.location.href = '/carteira_digital';
             });
         });
     }

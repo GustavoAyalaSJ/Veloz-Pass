@@ -65,3 +65,35 @@ exports.criarNotificacao = async (req, res) => {
         res.status(500).json({ error: 'Erro ao registrar notificação.' });
     }
 };
+
+exports.deletarNotificacao = async (req, res) => {
+    const { idNotificacao } = req.params;
+    const idUsuarioAutenticado = req.userId;
+
+    if (!idNotificacao) {
+        return res.status(400).json({ error: 'idNotificacao é obrigatório.' });
+    }
+
+    try {
+        const { data, error } = await supabase
+            .from('notificacoes')
+            .delete()
+            .eq('id_notificacao', idNotificacao)
+            .eq('id_user', idUsuarioAutenticado)
+            .select('id_notificacao')
+            .maybeSingle();
+
+        if (error) {
+            return res.status(500).json({ error: 'Erro ao deletar notificação.' });
+        }
+
+        if (!data) {
+            return res.status(404).json({ error: 'Notificação não encontrada.' });
+        }
+
+        return res.json({ success: true });
+    } catch (err) {
+        console.error('[Deletar Notificação Error]', err);
+        return res.status(500).json({ error: 'Erro interno ao deletar notificação.' });
+    }
+};

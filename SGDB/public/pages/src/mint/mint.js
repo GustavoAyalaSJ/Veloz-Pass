@@ -43,7 +43,7 @@
         `);
     }
 
-    function setMintStepUI(step, { getTargetEl, spriteMap, onStepComplete }) {
+    function setMintStepUI(step, { getTargetEl, spriteMap, spriteMapForMobile, onStepComplete }) {
         const textoEl = document.getElementById('mint-texto');
         const spriteEl = document.getElementById('mint-sprite');
         const ui = document.getElementById('mint-ui');
@@ -53,8 +53,16 @@
         if (!textoEl || !spriteEl || !ui || !highlight || !nextBtn) return;
         textoEl.innerHTML = step.texto || '';
 
-        if (step.sprite && spriteMap[step.sprite] && spriteMap[step.sprite] !== "#") {
-            spriteEl.src = spriteMap[step.sprite];
+        const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+
+        const spriteKey = isMobile
+            ? (step.spriteForMobile || step.sprite)
+            : (step.sprite || step.spriteForMobile);
+
+        const chosenSpriteMap = isMobile ? (spriteMapForMobile || spriteMap) : spriteMap;
+
+        if (spriteKey && chosenSpriteMap && chosenSpriteMap[spriteKey] && chosenSpriteMap[spriteKey] !== "#") {
+            spriteEl.src = chosenSpriteMap[spriteKey];
             spriteEl.classList.add('active');
             spriteEl.style.display = "block";
         } else {
@@ -201,6 +209,7 @@
     function start({
         steps,
         spriteMap,
+        spriteMapForMobile,
         force = false,
         replay = false,
         getTargetEl = (selector) => document.querySelector(selector),
@@ -236,6 +245,7 @@
             setMintStepUI(currentStep, {
                 getTargetEl,
                 spriteMap,
+                spriteMapForMobile,
                 onStepComplete: () => {
                     stepIndex++;
                     renderCurrentStep();
