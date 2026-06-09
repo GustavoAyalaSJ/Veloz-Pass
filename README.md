@@ -1,4 +1,4 @@
-# 📑 Veloz Pass V5.0.1 - Update Logs
+# 📑 Veloz Pass V5.0.2 - Update Logs
 
 Todo o histórico de desenvolvimento, melhorias, correções e atualizações do ecossistema Veloz Pass.
 
