@@ -107,13 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ];
 
-        qBtn.addEventListener('click', () => {
-            window.MintEngine?.startMint?.({
-                steps,
-                spriteMap,
-                spriteMapForMobile: spriteMap,
-                force: true
-            });
+        window.MintEngine?.startMint?.({
+            steps,
+            spriteMap,
+            spriteMapForMobile: spriteMap,
+            force: true,
+            replay: true
         });
     });
 });

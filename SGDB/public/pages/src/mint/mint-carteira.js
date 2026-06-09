@@ -25,76 +25,76 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             texto: "Clique em “Inserir crédito” para começar.",
             sprite: "pointing-up",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-up",
             target: "#btn-inserir-credito",
             skippable: true
         },
         {
-            texto: "Isto é uma modal, uma espécie de janela flutuante onde você irá escolher um valor existente (ou personalizado) para avançar.",
+            texto: "Isto irá abrir janela flutuante onde você irá escolher um valor existente (ou personalizado) para avançar.",
             sprite: "introduction",
-            spriteForMobile: "test",
+            spriteForMobile: "introduction",
             target: "#modal-valor .modal-box",
             skippable: false
         },
         {
             texto: "Selecione este valor para continuarmos.",
             sprite: "pointing-up",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-up",
             target: ".opt-valor",
             skippable: true
         },
         {
             texto: "Agora clique no botão 'Próximo'.",
             sprite: "pointing-down",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-down",
             target: ".btn-proximo",
             skippable: true
         },
         {
-            texto: "Com a seleção do valor em mãos, selecione um método de pagamento.",
-            sprite: "pointing-down",
-            spriteForMobile: "test",
+            texto: "Após, selecione um método de pagamento.",
+            sprite: "introduction",
+            spriteForMobile: "introduction",
             target: "#modal-pagamento .modal-box",
             skippable: false
         },
         {
             texto: "Então, na seção abaixo, você colocará suas informações para confirmar a transação para sua Carteira Digital.",
             sprite: "introduction",
-            spriteForMobile: "test",
+            spriteForMobile: "introduction",
             skippable: false
         },
         {
             texto: "Mas não iremos fazer isso, então, clique em cancelar.",
             sprite: "pointing-down",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-down",
             target: ".btn-cancelar",
             skippable: true
         },
         {
             texto: "Lembrete: Após cada transação na Carteira Digital, você poderá visualiza-las na tabela abaixo.",
             sprite: "warning",
-            spriteForMobile: "test",
+            spriteForMobile: "warning",
             target: ".histórico-valores",
             skippable: false
         },
         {
             texto: "Você pode utilizar dos filtros acima para visualizar suas transações de forma dinâmica.",
             sprite: "pointing-up",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-up",
             target: ".filtros-container",
             skippable: false
         },
         {
             texto: "Para retornar ao dashboard, clique na logotipo do Veloz Pass.",
             sprite: "pointing-up",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-up",
             target: ".logotipo",
             skippable: false
         },
         {
-            texto: "É isso sobre a página Carteira Digital.",
+            texto: "Então, isso é a página Carteira Digital, espero que tenha ajudado.",
             sprite: "introduction",
-            spriteForMobile: "test",
+            spriteForMobile: "greeting",
             skippable: false
         }
     ];
