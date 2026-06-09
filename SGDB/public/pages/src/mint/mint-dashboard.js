@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btnReplay) return;
 
     const spriteMap = {
+        test: '/assets/Mint/placeholder-icon.webp',
         greeting: '/assets/Mint/sprite1.webp',
         'pointing-left': '/assets/Mint/sprite7.webp',
         'pointing-right': '/assets/Mint/sprite2.webp',
@@ -28,80 +29,80 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 texto: "Eu me chamo MINT, seu assistente com objetivo de introduzir sobre interface de cada página, caso não esteja familiarizado.",
                 sprite: "introduction",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 skippable: false
             },
             {
                 texto: "Vamos começar?",
                 sprite: "thinking",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 skippable: false
             },
             {
                 texto: "Conheça o seu Dashboard, aqui você tem acesso as principais páginas do site.",
                 sprite: "introduction",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 target: ".card-container",
                 skippable: false
             },
             {
                 texto: "Nesta parte, temos a Carteira Digital, onde você usará como opção de recarga em caso de emergência.",
                 sprite: "pointing-down",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 target: ".card-carteira",
                 skippable: false
             },
             {
                 texto: "Para acessar clique no botão azul logo abaixo.",
                 sprite: "pointing-up",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 target: ".btn-carteira",
                 skippable: false
             },
             {
                 texto: "A página Recarga é onde será realizada as recargas do seu cartão de transporte.",
                 sprite: "pointing-down",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 target: ".card-recarga",
                 skippable: false
             },
             {
                 texto: "O histórico é onde quaisquer transação realizada na Carteira Digital ou na Recarga será registrada.",
                 sprite: "pointing-down",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 target: ".card-historico",
                 skippable: false
             },
             {
                 texto: "Para acessar clique no botão azul logo abaixo.",
                 sprite: "pointing-down",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 target: ".btn-historico",
                 skippable: false
             },
             {
                 texto: "Além disso, você poderá obter atualizações sobre o valor da passagem do transporte coletivo.",
                 sprite: "pointing-down",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 target: ".card-info",
                 skippable: false
             },
             {
                 texto: "A interface é bem simples, então você deve se acostumar com ela.",
                 sprite: "introduction",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 skippable: false
             },
             {
                 texto: "Apenas um lembrete: caso você for para outra página, procure um botão de interrogação <b>(?)</b> para aprender como a página funciona por mim.",
                 sprite: "warning",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 skippable: false
             },
             {
                 texto: "Aproveite o Veloz Pass, usuário.",
                 sprite: "happy",
-                spriteForMobile: "#",
+                spriteForMobile: "test",
                 skippable: false
             }
         ];

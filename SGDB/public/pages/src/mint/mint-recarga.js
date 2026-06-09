@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!qBtn) return;
 
     const spriteMap = {
+        test: '/assets/Mint/placeholder-icon.webp',
         greeting: '/assets/Mint/sprite1.webp',
         'pointing-left': '/assets/Mint/sprite7.webp',
         'pointing-right': '/assets/Mint/sprite2.webp',
@@ -24,35 +25,35 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             texto: "Primeiro, selecione a forma de pagamento nesta seção.",
             sprite: "pointing-up",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             target: "#select-pagamento",
             skippable: true
         },
         {
             texto: "Então, você irá informar um valor neste campo para realizar uma recarga.",
             sprite: "pointing-up",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             target: ".top-group.valor input",
             skippable: false
         },
         {
             texto: "Aqui você terá que colocar o número do cartão de passagem para localizar o cartão no sistema da empresa de ônibus",
             sprite: "pointing-down",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             target: ".confirm-card",
             skippable: false
         },
         {
             texto: "Por fim, avance e conclua a recarga no final da tela.",
             sprite: "pointing-down",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             target: ".btn-prosseguir",
             skippable: false
         },
         {
             texto: "É isso da página Recarga, para retornar ao dashboard, clique na logotipo do Veloz Pass.",
             sprite: "pointing-up",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             target: ".logotipo",
             skippable: false
         }

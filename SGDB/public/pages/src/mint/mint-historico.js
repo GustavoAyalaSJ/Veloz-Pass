@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!qBtn) return;
 
     const spriteMap = {
+        test: '/assets/Mint/placeholder-icon.webp',
         greeting: '/assets/Mint/sprite1.webp',
         'pointing-left': '/assets/Mint/sprite7.webp',
         'pointing-right': '/assets/Mint/sprite2.webp',
@@ -24,28 +25,28 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             texto: "Use o seletor 'Tipo' para filtrar os dados entre Carteira Digital ou Recarga.",
             sprite: "pointing-up",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             target: "#filtro-tipo",
             skippable: false
         },
         {
             texto: "Use o seletor 'Realizado no' para filtrar transações feitas nos métodos de pagamento disponíveis.",
             sprite: "pointing-up",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             target: "#filtro-realizado-no",
             skippable: false
         },
         {
             texto: "Para visualizar as transações realizadas, basta olhar na tabela logo abaixo.",
             sprite: "introduction",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             target: ".tabela-corpoInfo",
             skippable: false
         },
         {
             texto: "É isto sobre a página histórico, espero que eu tenha ajudado a entender como ela funciona.",
             sprite: "happy",
-            spriteForMobile: "#",
+            spriteForMobile: "test",
             skippable: false
         }
     ];
