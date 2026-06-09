@@ -16,4 +16,10 @@ router.post(
     notificationsController.criarNotificacao
 );
 
+router.delete(
+    '/:idNotificacao',
+    verificarToken,
+    notificationsController.deletarNotificacao
+);
+
 module.exports = router;

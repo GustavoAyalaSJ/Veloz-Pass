@@ -4,6 +4,14 @@ Todo o histórico de desenvolvimento, melhorias, correções e atualizações do
 
 ---
 
+## [5.0.2] - 2026-06-08 /2026-06-09
+### 🔄 Modificado
+* **Media Queries:** Pequenos ajustes no container Left da primeira página.
+* **Mint Sprites:** Pequenos ajustes nos sprites do MINT em relação a ações dele sobre a página Dashboard.
+
+### 🔧 Arrumado
+* **Notificações:** Ajustes no ícone de apagar notificações e clicar para visualizar o processo.
+
 ## [5.0.1] - 2026-06-02 /2026-06-03
 ### 🚀 Adicionado
 * **Limpeza de Dados (Carteira Digital):** O modal de pagamento da Carteira Digital remove os dados após o fechamento ou troca do modal de pagamento.
