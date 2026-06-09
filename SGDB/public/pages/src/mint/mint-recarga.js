@@ -25,33 +25,39 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             texto: "Primeiro, selecione a forma de pagamento nesta seção.",
             sprite: "pointing-up",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-up",
             target: "#select-pagamento",
             skippable: true
         },
         {
             texto: "Então, você irá informar um valor neste campo para realizar uma recarga.",
             sprite: "pointing-up",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-up",
             target: ".top-group.valor input",
             skippable: false
         },
         {
             texto: "Aqui você terá que colocar o número do cartão de passagem para localizar o cartão no sistema da empresa de ônibus",
             sprite: "pointing-down",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-down",
             target: ".confirm-card",
             skippable: false
         },
         {
             texto: "Por fim, avance e conclua a recarga no final da tela.",
             sprite: "pointing-down",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-down",
             target: ".btn-prosseguir",
             skippable: false
         },
         {
-            texto: "É isso da página Recarga, para retornar ao dashboard, clique na logotipo do Veloz Pass.",
+            texto: "Então, isso é a página Recarga, espero que tenha ajudado.",
+            sprite: "greeting",
+            spriteForMobile: "greeting",
+            skippable: false
+        },
+        {
+            texto: "Para retornar ao dashboard, clique na logotipo do Veloz Pass.",
             sprite: "pointing-up",
             spriteForMobile: "test",
             target: ".logotipo",
