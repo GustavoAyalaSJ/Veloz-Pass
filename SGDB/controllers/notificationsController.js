@@ -26,7 +26,6 @@ exports.listarNotificacoes = async (req, res) => {
 
         res.json({ notifications: data || [] });
     } catch (err) {
-        console.error('[notificationsController] erro inesperado ao listar notificações');
         res.status(500).json({ error: 'Erro interno ao listar notificações.' });
     }
 };

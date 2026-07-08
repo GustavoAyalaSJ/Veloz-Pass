@@ -43,9 +43,7 @@ exports.login = async (req, res) => {
 
         return res.json({
             message: 'Login realizado!',
-            token,
             nome: usuario.nome_usuario,
-            id: usuario.id_user,
             cod_identificador: usuario.cod_identificador || null
         });
 
@@ -136,14 +134,13 @@ exports.cadastro = async (req, res) => {
 
         res.status(201).json({
             message: "Cadastro realizado!",
-            token,
             id: rpcResult.id_usuario,
             nome: nome_usuario,
             cod_identificador
         });
 
     } catch (err) {
-        console.error('[authController] erro inesperado no cadastro');
+        console.error('Erro ao cadastrar!');
         res.status(500).json({ message: "Erro interno no servidor.", errorType: 'internal' });
     }
 };

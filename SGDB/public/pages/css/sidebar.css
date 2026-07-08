@@ -1,4 +1,4 @@
-/* Mobile Sidebar - Testing */
+/* Mobile Sidebar */
 
 .dark-mode .mobile-nav-drawer {
   background: #0b121a;
@@ -6,7 +6,7 @@
 }
 
 .dark-mode .mobile-nav-item {
-  color: rgb(227, 227, 227);
+  color: rgb(215, 215, 215);
 }
 
 .dark-mode .mobile-nav-item:hover {

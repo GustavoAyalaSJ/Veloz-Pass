@@ -194,7 +194,6 @@
             item.addEventListener('click', (e) => {
                 if (!e.target.closest('.delete-notification-mobile')) {
                     const protocolo = item.querySelector('strong').textContent;
-                    console.log('Notificação mobile clicada - Protocolo:', protocolo);
                 }
             });
         });
