@@ -4,6 +4,11 @@ Todo o histórico de desenvolvimento, melhorias, correções e atualizações do
 
 ---
 
+## [5.0.3] - 2026-07-08
+### 🔧 Arrumado
+* **Rotas de Login:** Ajustes nas rotas de login.
+* **Rotas de Pagemtno:** Ampliação para evitar que transações fiquem presos em 'Em_Revisão'.
+
 ## [5.0.2] - 2026-06-08 /2026-06-09
 ### 🔄 Modificado
 * **Media Queries:** Pequenos ajustes no container Left da primeira página.

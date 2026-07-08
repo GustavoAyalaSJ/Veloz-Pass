@@ -17,12 +17,11 @@ exports.login = async (req, res) => {
             .from('usuario')
             .select('*')
             .eq('email', emailNormalizado)
-            .single();
+            .maybeSingle();
 
         if (error) {
             return res.status(500).json({
-                message: 'Erro interno no servidor (Supabase Error).',
-                detalhes_do_erro: error
+                message: 'Erro interno no servidor.'
             });
         }
 
@@ -52,8 +51,7 @@ exports.login = async (req, res) => {
 
     } catch (err) {
         res.status(500).json({
-            message: "Erro interno no servidor (Catch Error).",
-            detalhes_do_erro: err.message || err
+            message: "Erro interno no servidor."
         });
     }
 };
