@@ -15,16 +15,16 @@ exports.login = async (req, res) => {
     try {
         const { data, error } = await supabase
             .from('usuario')
-            .select('id_user, nome_usuario, senha_hash, cod_identificador, email')
-            .limit(100);
+            .select('*')
+            .eq('email', emailNormalizado)
+            .single();
 
         if (error) {
             console.error('[authController] erro ao buscar usuário no login');
             return res.status(500).json({ message: 'Erro interno no servidor.' });
         }
 
-        const usuarios = Array.isArray(data) ? data : [];
-        const usuario = usuarios.find((item) => String(item.email || '').trim().toLowerCase() === emailNormalizado) || null;
+        const usuario = data || null;
 
         if (!usuario) {
             return res.status(401).json({ message: 'Credenciais não correspondem as registradas.' });
