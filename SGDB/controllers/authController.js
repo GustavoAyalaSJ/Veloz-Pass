@@ -16,8 +16,7 @@ exports.login = async (req, res) => {
         const { data, error } = await supabase
             .from('usuario')
             .select('id_user, nome_usuario, senha_hash, cod_identificador, email')
-            .ilike('email', emailNormalizado)
-            .limit(5);
+            .limit(100);
 
         if (error) {
             console.error('[authController] erro ao buscar usuário no login');
@@ -25,13 +24,14 @@ exports.login = async (req, res) => {
         }
 
         const usuarios = Array.isArray(data) ? data : [];
-        const usuario = usuarios.find((item) => String(item.email || '').trim().toLowerCase() === emailNormalizado) || usuarios[0] || null;
+        const usuario = usuarios.find((item) => String(item.email || '').trim().toLowerCase() === emailNormalizado) || null;
 
         if (!usuario) {
             return res.status(401).json({ message: 'Credenciais não correspondem as registradas.' });
         }
 
         const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
+
         if (!senhaValida) return res.status(401).json({ message: 'Senha incorreta.' });
 
         const token = jwt.sign(
@@ -68,6 +68,7 @@ exports.cadastro = async (req, res) => {
 
     const cpfLimpo = cpf.replace(/\D/g, '');
     const telLimpo = telefone.replace(/\D/g, '');
+    const emailNormalizado = String(email).trim().toLowerCase();
 
     const isAllDigitsSame = (s) => {
         const digits = String(s ?? '').replace(/\D/g, '');
@@ -92,7 +93,7 @@ exports.cadastro = async (req, res) => {
         return res.status(400).json({ message: "CPF incompleto ou não corresponde aos requisitos." });
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailNormalizado)) {
         return res.status(400).json({ message: "Email incompleto ou inválido." });
     }
 
@@ -116,7 +117,7 @@ exports.cadastro = async (req, res) => {
                 p_cod_identificador: cod_identificador,
                 p_cpf: cpfLimpo,
                 p_telefone: telLimpo,
-                p_email: email,
+                p_email: emailNormalizado,
                 p_senha_hash: senhaHash
             });
 

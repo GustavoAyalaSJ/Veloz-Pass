@@ -113,7 +113,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/', apiLimiter);
-app.use('/auth', loginLimiter, csrfProtection, authRoutes);
+app.use('/auth', loginLimiter, authRoutes);
 
 app.use('/api/payments', csrfProtection, (req, res, next) => {
     if (req.method === 'POST' && (req.path === '/add-credit' || req.path.includes('add-credit'))) {
