@@ -26,7 +26,7 @@ exports.listarNotificacoes = async (req, res) => {
 
         res.json({ notifications: data || [] });
     } catch (err) {
-        console.error(err);
+        console.error('[notificationsController] erro inesperado ao listar notificações');
         res.status(500).json({ error: 'Erro interno ao listar notificações.' });
     }
 };
@@ -42,10 +42,10 @@ exports.registrarNotificacaoAgora = async (idUsuario, protocolo, situacao) => {
         });
 
         if (error) {
-            console.error('[Notificação RPC Error]', error);
+            console.error('[notificationsController] falha no RPC de notificação');
         }
     } catch (err) {
-        console.error('[Notificação Error]', err);
+        console.error('[notificationsController] erro inesperado ao registrar notificação');
     }
 };
 
@@ -61,7 +61,7 @@ exports.criarNotificacao = async (req, res) => {
         await exports.registrarNotificacaoAgora(idUsuario, protocolo, situacao);
         res.json({ success: true, message: 'Notificação registrada.' });
     } catch (err) {
-        console.error('[Criar Notificação Error]', err);
+        console.error('[notificationsController] erro inesperado ao criar notificação');
         res.status(500).json({ error: 'Erro ao registrar notificação.' });
     }
 };
@@ -93,7 +93,7 @@ exports.deletarNotificacao = async (req, res) => {
 
         return res.json({ success: true });
     } catch (err) {
-        console.error('[Deletar Notificação Error]', err);
+        console.error('[notificationsController] erro inesperado ao deletar notificação');
         return res.status(500).json({ error: 'Erro interno ao deletar notificação.' });
     }
 };

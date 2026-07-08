@@ -321,6 +321,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
 
+            if (result?.errorType === 'internal') {
+                alert(`Erro interno no servidor: ${result.message || result.error || 'Não foi possível concluir a operação.'}`);
+            } else if (result?.errorType === 'account') {
+                alert(`Não foi possível registrar sua conta: ${result.message || result.error || 'Não foi possível concluir a operação.'}`);
+            } else if (result?.errorType === 'recarga') {
+                alert(`Não foi possível concluir a recarga: ${result.message || result.error || 'Não foi possível concluir a operação.'}`);
+            }
+
             let modalStatus = null;
             const situacaoNormalizada = result.situacao?.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
@@ -345,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 resetarUISelecionadorPagamento();
 
                 carregarDadosIniciais();
-            });
+            }, result.protocolo);
         } catch (error) {
             console.error("Erro na transação:", error);
             showProcessModal('rejected', 'carteira');

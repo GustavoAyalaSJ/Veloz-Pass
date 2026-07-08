@@ -6,14 +6,28 @@ const { supabase } = require('../config/supabase');
 exports.login = async (req, res) => {
     const { email, senha } = req.body;
 
-    try {
-        const { data: usuario, error } = await supabase
-            .from('usuario')
-            .select('id_user, nome_usuario, senha_hash, cod_identificador')
-            .eq('email', email)
-            .single();
+    if (!email || !senha) {
+        return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
+    }
 
-        if (error || !usuario) {
+    const emailNormalizado = String(email).trim().toLowerCase();
+
+    try {
+        const { data, error } = await supabase
+            .from('usuario')
+            .select('id_user, nome_usuario, senha_hash, cod_identificador, email')
+            .ilike('email', emailNormalizado)
+            .limit(5);
+
+        if (error) {
+            console.error('[authController] erro ao buscar usuário no login');
+            return res.status(500).json({ message: 'Erro interno no servidor.' });
+        }
+
+        const usuarios = Array.isArray(data) ? data : [];
+        const usuario = usuarios.find((item) => String(item.email || '').trim().toLowerCase() === emailNormalizado) || usuarios[0] || null;
+
+        if (!usuario) {
             return res.status(401).json({ message: 'Credenciais não correspondem as registradas.' });
         }
 
@@ -21,7 +35,7 @@ exports.login = async (req, res) => {
         if (!senhaValida) return res.status(401).json({ message: 'Senha incorreta.' });
 
         const token = jwt.sign(
-            { id: usuario.id_user, email, nome: usuario.nome_usuario },
+            { id: usuario.id_user, email: usuario.email, nome: usuario.nome_usuario },
             process.env.JWT_SECRET,
             { expiresIn: '7d' }
         );
@@ -35,7 +49,7 @@ exports.login = async (req, res) => {
         });
 
     } catch (err) {
-        console.error(err);
+        console.error('[authController] erro inesperado no login');
         res.status(500).json({ message: 'Erro interno no servidor.' });
     }
 };
@@ -108,8 +122,7 @@ exports.cadastro = async (req, res) => {
 
 
         if (rpcError || !rpcResult || rpcResult.success === false) {
-            const msg = rpcResult?.erro || rpcError?.message || 'Erro no banco';
-            return res.status(400).json({ message: msg });
+            return res.status(502).json({ message: 'Não foi possível concluir o cadastro no momento.', errorType: 'account' });
         }
 
         const token = jwt.sign(
@@ -127,8 +140,8 @@ exports.cadastro = async (req, res) => {
         });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Erro interno no servidor." });
+        console.error('[authController] erro inesperado no cadastro');
+        res.status(500).json({ message: "Erro interno no servidor.", errorType: 'internal' });
     }
 };
 

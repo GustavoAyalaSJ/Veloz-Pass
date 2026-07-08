@@ -14,6 +14,11 @@ router.get('/historico-geral/:idUsuario',
     paymentController.getHistoricoGeral
 );
 
+router.get('/check-status/:protocolo',
+    verificarToken,
+    paymentController.checkStatus
+);
+
 router.post('/add-credit',
     verificarToken,
     validateTransfer,

@@ -53,7 +53,7 @@ exports.getWalletData = async (req, res) => {
         });
 
     } catch (err) {
-        console.error(err);
+        console.error('[paymentController] erro inesperado em getWalletData');
         res.status(500).json({ error: "Erro interno no servidor." });
     }
 };
@@ -86,8 +86,54 @@ exports.getHistoricoGeral = async (req, res) => {
         res.json({ historico: historico || [] });
 
     } catch (err) {
-        console.error(err);
+        console.error('[paymentController] erro inesperado em getHistoricoGeral');
         res.status(500).json({ error: "Erro no histórico." });
+    }
+};
+
+exports.checkStatus = async (req, res) => {
+    const { protocolo } = req.params;
+    const idUsuario = req.userId;
+
+    if (!protocolo) {
+        return res.status(400).json({ error: 'Protocolo obrigatório.', errorType: 'internal' });
+    }
+
+    try {
+        const { data: carteira, error: erroCarteira } = await supabase
+            .from('carteira')
+            .select('id_carteira')
+            .eq('id_user', idUsuario)
+            .single();
+
+        if (erroCarteira || !carteira) {
+            return res.status(404).json({ error: 'Carteira não encontrada.', errorType: 'account' });
+        }
+
+        const { data: movimentacao, error: erroMovimentacao } = await supabase
+            .from('movimentacao')
+            .select('situacao, n_protocolo')
+            .eq('id_carteira', carteira.id_carteira)
+            .eq('n_protocolo', protocolo)
+            .maybeSingle();
+
+        if (erroMovimentacao) {
+            console.error('[paymentController] erro ao buscar movimento para status');
+            return res.status(500).json({ error: 'Erro interno no servidor ao consultar status.', errorType: 'internal' });
+        }
+
+        if (!movimentacao) {
+            return res.status(404).json({ error: 'Protocolo não encontrado.', errorType: 'internal' });
+        }
+
+        return res.json({
+            success: true,
+            protocolo,
+            situacao: movimentacao.situacao || 'Pendente'
+        });
+    } catch (err) {
+        console.error('[paymentController] erro inesperado em checkStatus');
+        return res.status(500).json({ error: 'Erro interno no servidor ao consultar status.', errorType: 'internal' });
     }
 };
 
@@ -120,7 +166,7 @@ exports.processCredit = async (req, res) => {
         return res.status(400).json({ error: "Método de pagamento não suportado." });
     }
 
-    console.log('Cartão recebido:', numCartao);
+    console.info('[paymentController] solicitação de crédito recebida');
 
     if (['DEBITO', 'CREDITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoBase)) {
         const limpo = String(numCartao ?? '').replace(/\D/g, '');
@@ -136,16 +182,7 @@ exports.processCredit = async (req, res) => {
 
     try {
         const protocol = 'VP' + Date.now();
-        console.log('[processCredit] request', {
-            idUsuario,
-            valorRaw,
-            valorNum,
-            metodo,
-            metodoBase,
-            metodoParaOBanco,
-            numCartaoPresente: !!numCartao,
-            idBandeira: idBandeira || null
-        });
+        console.info('[paymentController] processamento de crédito iniciado');
 
 
         const { data: rpcResult, error: rpcError } = await supabase.rpc('rpc_adicionar_credito', {
@@ -158,36 +195,23 @@ exports.processCredit = async (req, res) => {
         });
 
         if (rpcError) {
-            console.error('[RPC ERROR]', rpcError);
-            return res.status(400).json({ error: rpcError.message || 'Erro no RPC' });
+            console.error('[paymentController] erro no RPC de crédito');
+            return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'internal' });
         }
         if (!rpcResult) {
-            return res.status(400).json({ error: 'Resposta inválida do servidor' });
+            return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'internal' });
         }
         if (!rpcResult.success) {
-            console.error('[RPC DECLINED] rpcResult:', {
-                situacao: rpcResult.situacao,
-                protocolo: rpcResult.protocolo,
-                erro: rpcResult.erro,
-                mensagem: rpcResult.mensagem,
-                received: {
-                    valorNum,
-                    metodoRaw: metodo,
-                    metodoBase,
-                    metodoParaOBanco,
-                    hasNumCartao: !!numCartao,
-                    idBandeira: idBandeira || null
-                }
-            });
+            console.warn('[paymentController] crédito recusado pelo sistema');
 
             return res.status(422).json({
                 success: false,
-                error: rpcResult.erro || rpcResult.mensagem || 'Transação rejeitada',
+                error: 'Não foi possível concluir a operação no momento.',
                 situacao: rpcResult.situacao,
                 protocolo: rpcResult.protocolo,
                 detalhe: {
-                    erro: rpcResult.erro || null,
-                    mensagem: rpcResult.mensagem || null
+                    erro: null,
+                    mensagem: null
                 }
             });
         }
@@ -205,8 +229,8 @@ exports.processCredit = async (req, res) => {
         });
 
     } catch (err) {
-        console.error('Process Credit Error:', err);
-        res.status(500).json({ error: "Erro ao processar crédito." });
+        console.error('[paymentController] erro inesperado em processCredit');
+        res.status(500).json({ success: false, error: "Erro ao processar crédito.", errorType: 'internal' });
     }
 };
 
@@ -258,13 +282,15 @@ exports.processRecargaTransporte = async (req, res) => {
             });
 
             if (rpcError) {
-                console.error('[RPC ERROR - Descontar Saldo]', rpcError);
-                return res.status(400).json({ error: rpcError.message || 'Erro ao processar recarga' });
+                console.error('[paymentController] erro no RPC de recarga');
+                return res.status(502).json({ success: false, error: 'Erro interno ao processar recarga.', errorType: 'internal' });
             }
 
             if (!rpcResult || !rpcResult.success) {
                 return res.status(400).json({
-                    error: rpcResult?.erro || 'Saldo insuficiente para realizar esta recarga',
+                    success: false,
+                    error: 'Não foi possível concluir a recarga no momento.',
+                    errorType: 'recarga',
                     situacao: 'Recusada'
                 });
             }
@@ -307,8 +333,8 @@ exports.processRecargaTransporte = async (req, res) => {
             });
 
         if (insertError) {
-            console.error('Insert Movimentacao Error:', insertError);
-            return res.status(400).json({ error: 'Erro ao registrar recarga.' });
+            console.error('[paymentController] falha ao registrar movimentação de recarga');
+            return res.status(502).json({ success: false, error: 'Erro ao registrar recarga.', errorType: 'recarga' });
         }
 
         await notificationsController.registrarNotificacaoAgora(idUsuario, protocolo, 'Concluído');
@@ -323,8 +349,8 @@ exports.processRecargaTransporte = async (req, res) => {
         });
 
     } catch (err) {
-        console.error('Process Recarga Non-Wallet Error:', err);
-        res.status(500).json({ error: "Erro ao processar recarga" });
+        console.error('[paymentController] erro inesperado em processRecargaTransporte');
+        res.status(500).json({ success: false, error: "Erro ao processar recarga", errorType: 'internal' });
     }
 };
 
@@ -393,7 +419,7 @@ exports.saveCard = async (req, res) => {
         });
 
     } catch (err) {
-        console.error('Erro ao salvar cartão:', err);
+        console.error('[paymentController] erro inesperado em saveCard');
         res.status(500).json({ error: "Erro ao registrar cartão." });
     }
 };
@@ -427,7 +453,7 @@ exports.getUserCards = async (req, res) => {
         });
 
     } catch (err) {
-        console.error('Erro ao recuperar cartões:', err);
+        console.error('[paymentController] erro inesperado em getUserCards');
         res.status(500).json({ error: "Erro ao recuperar cartões." });
     }
 };
@@ -478,7 +504,7 @@ exports.verifyCard = async (req, res) => {
         });
 
     } catch (err) {
-        console.error('Erro ao verificar cartão:', err);
+        console.error('[paymentController] erro inesperado em verifyCard');
         res.status(500).json({ error: "Erro ao verificar cartão." });
     }
 };
