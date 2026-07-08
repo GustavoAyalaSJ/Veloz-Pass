@@ -20,8 +20,10 @@ exports.login = async (req, res) => {
             .single();
 
         if (error) {
-            console.error('[authController] erro ao buscar usuário no login');
-            return res.status(500).json({ message: 'Erro interno no servidor.' });
+            return res.status(500).json({
+                message: 'Erro interno no servidor (Supabase Error).',
+                detalhes_do_erro: error
+            });
         }
 
         const usuario = data || null;
@@ -49,8 +51,10 @@ exports.login = async (req, res) => {
         });
 
     } catch (err) {
-        console.error('[authController] erro inesperado no login');
-        res.status(500).json({ message: 'Erro interno no servidor.' });
+        res.status(500).json({
+            message: "Erro interno no servidor (Catch Error).",
+            detalhes_do_erro: err.message || err
+        });
     }
 };
 
