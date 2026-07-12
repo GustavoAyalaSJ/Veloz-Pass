@@ -129,13 +129,11 @@ app.use('/api/payments', csrfProtection, (req, res, next) => {
 
 app.use('/api/notifications', csrfProtection, notificationRoutes);
 
-app.use('/Assets', express.static(path.join(__dirname, 'public', 'pages', 'assets')));
-
 app.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-const CRON_INTERVAL_MS = 60 * 1000; 
+const CRON_INTERVAL_MS = 60 * 1000;
 if (process.env.NODE_ENV !== 'test') {
     setInterval(async () => {
         try {

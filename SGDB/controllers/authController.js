@@ -123,13 +123,25 @@ exports.cadastro = async (req, res) => {
                 p_senha_hash: senhaHash
             });
 
+        if (rpcError) {
+            console.error('[authController] RPC error:', rpcError);
+            return res.status(502).json({
+                message: 'Não foi possível concluir o cadastro no momento.',
+                errorType: 'account',
+                details: rpcError.message
+            });
+        }
 
-        if (rpcError || !rpcResult || rpcResult.success === false) {
-            return res.status(502).json({ message: 'Não foi possível concluir o cadastro no momento.', errorType: 'account' });
+        if (!rpcResult || rpcResult.success === false) {
+            console.error('[authController] RPC returned error:', rpcResult);
+            return res.status(502).json({
+                message: rpcResult?.erro || 'Não foi possível concluir o cadastro no momento.',
+                errorType: 'account'
+            });
         }
 
         const token = jwt.sign(
-            { id: rpcResult.id_usuario, email, nome: nome_usuario },
+            { id: rpcResult.id_usuario, email: emailNormalizado, nome: nome_usuario },
             process.env.JWT_SECRET,
             { expiresIn: '7d' }
         );
@@ -143,8 +155,11 @@ exports.cadastro = async (req, res) => {
         });
 
     } catch (err) {
-        console.error('Erro ao cadastrar!');
-        res.status(500).json({ message: "Erro interno no servidor.", errorType: 'internal' });
+        console.error('[authController] Erro ao cadastrar:', err.message);
+        res.status(500).json({
+            message: "Erro interno no servidor.",
+            errorType: 'internal'
+        });
     }
 };
 

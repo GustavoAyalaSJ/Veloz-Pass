@@ -4,6 +4,12 @@ const verificarToken = require('../middleware/auth');
 const paymentController = require('../controllers/paymentController');
 const { validateTransfer, validateRecargaTransporte } = require('../public/pages/src/utils/paymentValidator');
 
+
+router.get('/carteira-saldo/:idUsuario',
+    verificarToken,
+    paymentController.getCarteiraSaldo
+);
+
 router.get('/wallet-data/:idUsuario',
     verificarToken,
     paymentController.getWalletData
@@ -12,6 +18,21 @@ router.get('/wallet-data/:idUsuario',
 router.get('/historico-geral/:idUsuario',
     verificarToken,
     paymentController.getHistoricoGeral
+);
+
+router.get('/historico-tipo/:idUsuario',
+    verificarToken,
+    paymentController.getHistoricoByTipo
+);
+
+router.get('/movimentacoes/:idUsuario',
+    verificarToken,
+    paymentController.listarMovimentacoes
+);
+
+router.get('/movimento/:protocolo',
+    verificarToken,
+    paymentController.getMovimento
 );
 
 router.get('/check-status/:protocolo',
@@ -29,21 +50,6 @@ router.post('/recarga-transporte',
     verificarToken,
     validateRecargaTransporte,
     paymentController.processRecargaTransporte
-);
-
-router.post('/save-card',
-    verificarToken,
-    paymentController.saveCard
-);
-
-router.get('/user-cards/:idUsuario',
-    verificarToken,
-    paymentController.getUserCards
-);
-
-router.post('/verify-card',
-    verificarToken,
-    paymentController.verifyCard
 );
 
 module.exports = router;

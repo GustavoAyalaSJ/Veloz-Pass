@@ -44,23 +44,11 @@ exports.getWalletData = async (req, res) => {
     }
 
     try {
-        let { data: carteira, error: erroCarteira } = await supabase
-            .from('carteira')
-            .select('id_carteira, saldo_atual')
-            .eq('id_user', idUsuario)
-            .single();
+        const idUsuarioNum = Number(idUsuario);
+        const carteira = await getOrCreateCarteira(idUsuarioNum);
 
-        if (erroCarteira || !carteira) {
-            const { data: newCarteira, error: createError } = await supabase
-                .from('carteira')
-                .insert([{ id_user: idUsuario, saldo_atual: 0 }])
-                .select()
-                .single();
-
-            if (createError) {
-                return res.json({ saldo: 0, historico: [] });
-            }
-            carteira = newCarteira;
+        if (!carteira) {
+            return res.json({ saldo: 0, historico: [] });
         }
 
         const { data: history } = await supabase
@@ -153,7 +141,7 @@ exports.checkStatus = async (req, res) => {
         return res.json({
             success: true,
             protocolo,
-            situacao: movimentacao.situacao || 'Pendente'
+            situacao: movimentacao.situacao ?? null
         });
     } catch (err) {
         console.error('[paymentController] erro inesperado em checkStatus');
@@ -454,55 +442,7 @@ function validarCartao(numCartao) {
     return true;
 }
 
-exports.saveCard = async (req, res) => {
-    const { n_card } = req.body;
-    const idUsuario = req.userId;
-    const idUsuarioNum = Number(idUsuario);
-
-    if (!n_card) {
-        return res.status(400).json({ error: "Número do cartão é obrigatório." });
-    }
-
-    const cartaoLimpo = n_card.replace(/\D/g, '');
-
-    if (!validarCartao(n_card)) {
-        return res.status(400).json({ error: "Número do cartão inválido." });
-    }
-
-    try {
-        const cartaoHash = await bcrypt.hash(cartaoLimpo, 10);
-
-        const { data, error } = await supabase
-            .from('uniquecard')
-            .insert([{ id_user: idUsuarioNum, n_card: cartaoHash }])
-            .select();
-
-        if (error) {
-            if (error.code === '23505') {
-                return res.status(409).json({
-                    error: "Este cartão já foi registrado em sua conta.",
-                    code: 'CARD_ALREADY_EXISTS'
-                });
-            }
-            throw error;
-        }
-
-        res.status(201).json({
-            success: true,
-            message: "Cartão registrado com sucesso!",
-            card: {
-                id: data[0].id_card,
-                ultimosDígitos: cartaoLimpo.slice(-4)
-            }
-        });
-
-    } catch (err) {
-        console.error('[paymentController] erro inesperado em saveCard');
-        res.status(500).json({ error: "Erro ao registrar cartão." });
-    }
-};
-
-exports.getUserCards = async (req, res) => {
+exports.getCarteiraSaldo = async (req, res) => {
     const idUsuario = req.params.idUsuario;
     const idUsuarioAutenticado = req.userId;
 
@@ -511,80 +451,157 @@ exports.getUserCards = async (req, res) => {
     }
 
     try {
-        const { data: cartoes, error } = await supabase
-            .from('uniquecard')
-            .select('id_card')
-            .eq('id_user', idUsuario);
+        const idUsuarioNum = Number(idUsuario);
+        const carteira = await getOrCreateCarteira(idUsuarioNum);
 
-        if (error) {
-            throw error;
-        }
-
-        const cartoesSeguro = cartoes.map(cartao => ({
-            id: cartao.id_card
-        }));
-
-        res.json({
-            success: true,
-            cartoes: cartoesSeguro,
-            total: cartoesSeguro.length
-        });
-
-    } catch (err) {
-        console.error('[paymentController] erro inesperado em getUserCards');
-        res.status(500).json({ error: "Erro ao recuperar cartões." });
-    }
-};
-
-exports.verifyCard = async (req, res) => {
-    const { n_card } = req.body;
-    const idUsuario = req.userId;
-
-    if (!n_card) {
-        return res.status(400).json({ error: "Número do cartão é obrigatório." });
-    }
-
-    const cartaoLimpo = n_card.replace(/\D/g, '');
-
-    if (!validarCartao(n_card)) {
-        return res.status(400).json({ error: "Número do cartão inválido." });
-    }
-
-    try {
-        const { data: cartoes, error } = await supabase
-            .from('uniquecard')
-            .select('n_card')
-            .eq('id_user', idUsuario);
-
-        if (error) {
-            throw error;
-        }
-
-        if (!cartoes || cartoes.length === 0) {
+        if (!carteira) {
             return res.json({
-                verified: false,
-                message: "Nenhum cartão registrado."
+                success: false,
+                saldo: 0,
+                message: "Carteira não encontrada."
             });
         }
 
-        let cartaoVerificado = false;
-        for (const cartao of cartoes) {
-            const match = await bcrypt.compare(cartaoLimpo, cartao.n_card);
-            if (match) {
-                cartaoVerificado = true;
-                break;
-            }
-        }
-
-        res.json({
-            verified: cartaoVerificado,
-            message: cartaoVerificado ? "Cartão verificado com sucesso!" : "Cartão não encontrado nos registros."
+        return res.json({
+            success: true,
+            saldo: parseFloat(carteira.saldo_atual || 0),
+            id_carteira: carteira.id_carteira
         });
-
     } catch (err) {
-        console.error('[paymentController] erro inesperado em verifyCard');
-        res.status(500).json({ error: "Erro ao verificar cartão." });
+        console.error('[paymentController] erro ao obter saldo');
+        res.status(500).json({ error: "Erro ao obter saldo." });
     }
 };
 
-module.exports = exports;
+exports.getHistoricoByTipo = async (req, res) => {
+    const idUsuario = req.params.idUsuario;
+    const { tipo } = req.query;
+    const idUsuarioAutenticado = req.userId;
+
+    if (String(idUsuario) !== String(idUsuarioAutenticado)) {
+        return res.status(403).json({ error: "Acesso negado." });
+    }
+
+    if (!tipo || !['Recarga', 'Carteira_Digital'].includes(tipo)) {
+        return res.status(400).json({ error: "Tipo inválido. Use 'Recarga' ou 'Carteira_Digital'." });
+    }
+
+    try {
+        const { data: carteira } = await supabase
+            .from('carteira')
+            .select('id_carteira')
+            .eq('id_user', idUsuario)
+            .maybeSingle();
+
+        if (!carteira) {
+            return res.json({ historico: [] });
+        }
+
+        const { data: historico } = await supabase
+            .from('movimentacao')
+            .select('*, bandeira_banco(nome_bandeira)')
+            .eq('id_carteira', carteira.id_carteira)
+            .eq('tipo_movimentacao', tipo)
+            .order('data_realizada', { ascending: false });
+
+        res.json({ historico: historico || [] });
+
+    } catch (err) {
+        console.error('[paymentController] erro ao obter histórico por tipo');
+        res.status(500).json({ error: "Erro ao obter histórico." });
+    }
+};
+
+exports.getMovimento = async (req, res) => {
+    const { protocolo } = req.params;
+    const idUsuario = req.userId;
+
+    if (!protocolo) {
+        return res.status(400).json({ error: 'Protocolo obrigatório.' });
+    }
+
+    try {
+        const { data: carteira } = await supabase
+            .from('carteira')
+            .select('id_carteira')
+            .eq('id_user', idUsuario)
+            .maybeSingle();
+
+        if (!carteira) {
+            return res.status(404).json({ error: 'Carteira não encontrada.' });
+        }
+
+        const { data: movimento } = await supabase
+            .from('movimentacao')
+            .select('*, bandeira_banco(nome_bandeira)')
+            .eq('id_carteira', carteira.id_carteira)
+            .eq('n_protocolo', protocolo)
+            .maybeSingle();
+
+        if (!movimento) {
+            return res.status(404).json({ error: 'Movimento não encontrado.' });
+        }
+
+        return res.json({
+            success: true,
+            data: movimento
+        });
+    } catch (err) {
+        console.error('[paymentController] erro ao obter movimento');
+        return res.status(500).json({ error: 'Erro ao obter movimento.' });
+    }
+};
+
+exports.listarMovimentacoes = async (req, res) => {
+    const idUsuario = req.params.idUsuario;
+    const idUsuarioAutenticado = req.userId;
+    const { situacao, tipo, page = 1, limit = 20 } = req.query;
+
+    if (String(idUsuario) !== String(idUsuarioAutenticado)) {
+        return res.status(403).json({ error: "Acesso negado." });
+    }
+
+    try {
+        const { data: carteira } = await supabase
+            .from('carteira')
+            .select('id_carteira')
+            .eq('id_user', idUsuario)
+            .maybeSingle();
+
+        if (!carteira) {
+            return res.json({ movimentacoes: [], total: 0 });
+        }
+
+        let query = supabase
+            .from('movimentacao')
+            .select('*, bandeira_banco(nome_bandeira)', { count: 'exact' })
+            .eq('id_carteira', carteira.id_carteira);
+
+        if (situacao) {
+            query = query.eq('situacao', situacao);
+        }
+
+        if (tipo) {
+            query = query.eq('tipo_movimentacao', tipo);
+        }
+
+        const offset = (parseInt(page) - 1) * parseInt(limit);
+        const { data: movimentacoes, count } = await query
+            .order('data_realizada', { ascending: false })
+            .range(offset, offset + parseInt(limit) - 1);
+
+        return res.json({
+            success: true,
+            movimentacoes: movimentacoes || [],
+            paginacao: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count || 0,
+                paginas: Math.ceil((count || 0) / parseInt(limit))
+            }
+        });
+    } catch (err) {
+        console.error('[paymentController] erro ao listar movimentações');
+        res.status(500).json({ error: "Erro ao listar movimentações." });
+    }
+};
