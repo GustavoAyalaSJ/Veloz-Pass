@@ -44,8 +44,7 @@ exports.getWalletData = async (req, res) => {
     }
 
     try {
-        const idUsuarioNum = Number(idUsuario);
-        const carteira = await getOrCreateCarteira(idUsuarioNum);
+        const carteira = await getOrCreateCarteira(idUsuarioAutenticado);
 
         if (!carteira) {
             return res.json({ saldo: 0, historico: [] });
@@ -149,18 +148,18 @@ exports.checkStatus = async (req, res) => {
     }
 };
 
-async function getOrCreateCarteira(idUsuarioNum) {
+async function getOrCreateCarteira(idUsuario) {
     const { data: carteira, error: erroCarteira } = await supabase
         .from('carteira')
         .select('id_carteira, saldo_atual')
-        .eq('id_user', idUsuarioNum)
+        .eq('id_user', idUsuario)
         .maybeSingle();
 
     if (!erroCarteira && carteira) return carteira;
 
     const { data: novaCarteira, error: createError } = await supabase
         .from('carteira')
-        .insert([{ id_user: idUsuarioNum, saldo_atual: 0 }])
+        .insert([{ id_user: idUsuario, saldo_atual: 0 }])
         .select('id_carteira, saldo_atual')
         .maybeSingle();
 
@@ -169,11 +168,11 @@ async function getOrCreateCarteira(idUsuarioNum) {
     const { data: carteiraRecuperada, error: buscaError } = await supabase
         .from('carteira')
         .select('id_carteira, saldo_atual')
-        .eq('id_user', idUsuarioNum)
+        .eq('id_user', idUsuario) // String UUID
         .maybeSingle();
 
     if (buscaError || !carteiraRecuperada) {
-        console.error('[paymentController] falha ao getOrCreateCarteira', { idUsuarioNum, erroCarteira, createError, buscaError });
+        console.error('[paymentController] falha ao getOrCreateCarteira', { idUsuario, erroCarteira, createError, buscaError });
         return null;
     }
 
@@ -181,107 +180,23 @@ async function getOrCreateCarteira(idUsuarioNum) {
 }
 
 exports.processCredit = async (req, res) => {
-    const { valor: valorRaw, metodo, numCartao, idBandeira } = req.body;
-    const valorNum = parseFloat(valorRaw);
+    const { valor, metodo, idBandeira } = req.body;
     const idUsuario = req.userId;
-    const idUsuarioNum = Number(idUsuario);
-
-    if (isNaN(valorNum) || valorNum <= 0) {
-        return res.status(400).json({ error: "Valor inválido." });
-    }
-
-    if (!metodo || typeof metodo !== 'string') {
-        return res.status(400).json({ error: "Método de pagamento é obrigatório." });
-    }
-
-    const metodoBase = metodo.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    const mapaMetodos = {
-        'CREDITO': 'Crédito',
-        'DEBITO': 'Débito',
-        'PIX': 'Pix',
-        'INTERNACIONAL': 'Internacional',
-        'CARTAO_INTERNACIONAL': 'Internacional'
-    };
-
-    const metodoParaOBanco = mapaMetodos[metodoBase];
-
-    if (!metodoParaOBanco) {
-        return res.status(400).json({ error: "Método de pagamento não suportado." });
-    }
-
-    console.info('[paymentController] solicitação de crédito recebida');
-
-    if (['DEBITO', 'CREDITO', 'INTERNACIONAL', 'CARTAO_INTERNACIONAL'].includes(metodoBase)) {
-        const limpo = String(numCartao ?? '').replace(/\D/g, '');
-        const ultimoDigito = limpo ? Number(limpo[limpo.length - 1]) : NaN;
-
-        const rejeitarTriviais = limpo.length > 0 && /^([0-9])\1+$/.test(limpo);
-
-        if (!limpo || limpo.length < 13 || limpo.length > 19 || Number.isNaN(ultimoDigito) || ultimoDigito < 0 || ultimoDigito > 9 || rejeitarTriviais) {
-            return res.status(400).json({ error: "Cartão inválido." });
-        }
-    }
 
     try {
-        const protocol = 'VP' + Date.now();
-        console.info('[paymentController] processamento de crédito iniciado');
-
-        const situacao = determinarSituacaoCredito(valorNum);
-
-        const carteira = await getOrCreateCarteira(idUsuarioNum);
-        if (!carteira) {
-            return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'internal' });
-        }
-
-        const saldoAtual = Number(carteira.saldo_atual || 0);
-        const novoSaldo = situacao === 'Concluído' ? saldoAtual + valorNum : saldoAtual;
-
-        const { error: insertError } = await supabase
-            .from('movimentacao')
-            .insert({
-                id_carteira: carteira.id_carteira,
-                id_bandeira: idBandeira ? parseInt(idBandeira, 10) : null,
-                n_protocolo: protocol,
-                tipo_movimentacao: 'Carteira_Digital',
-                valor: Number(valorNum.toFixed(2)),
-                situacao,
-                metodo_pagamento: metodoParaOBanco
-            });
-
-        if (insertError) {
-            console.error('[paymentController] falha ao registrar movimentação de crédito', insertError);
-            return res.status(502).json({ success: false, error: 'Erro ao registrar crédito.', errorType: 'internal' });
-        }
-
-        if (situacao === 'Concluído') {
-            const { error: updateError } = await supabase
-                .from('carteira')
-                .update({ saldo_atual: Number(novoSaldo.toFixed(2)) })
-                .eq('id_carteira', carteira.id_carteira);
-
-            if (updateError) {
-                console.error('[paymentController] falha ao atualizar saldo da carteira', updateError);
-                return res.status(502).json({ success: false, error: 'Erro ao atualizar saldo.', errorType: 'internal' });
-            }
-        }
-
-        if (situacao === 'Concluído' || situacao === 'Recusada') {
-            await notificationsController.registrarNotificacaoAgora(idUsuario, protocol, situacao);
-        }
-
-        res.status(200).json({
-            success: true,
-            situacao,
-            protocolo: protocol,
-            valor: valorNum,
-            saldo: Number(novoSaldo.toFixed(2)),
-            message: situacao === 'Concluído' ? 'Crédito adicionado com sucesso.' : 'Processamento iniciado.'
+        const { data: rpcResult, error: rpcError } = await supabase.rpc('rpc_adicionar_credito', {
+            p_id_usuario: idUsuario,
+            p_valor: parseFloat(valor),
+            p_metodo_pagamento: metodo,
+            p_tipo_movimentacao: 'Carteira_Digital',
+            p_id_bandeira: idBandeira ? parseInt(idBandeira, 10) : null
         });
 
+        if (rpcError) return res.status(400).json({ error: rpcError.message });
+        
+        return res.json(rpcResult);
     } catch (err) {
-        console.error('[paymentController] erro inesperado em processCredit', err);
-        res.status(500).json({ success: false, error: "Erro ao processar crédito.", errorType: 'internal' });
+        return res.status(500).json({ error: "Erro interno no servidor." });
     }
 };
 
@@ -451,9 +366,7 @@ exports.getCarteiraSaldo = async (req, res) => {
     }
 
     try {
-        const idUsuarioNum = Number(idUsuario);
-        const carteira = await getOrCreateCarteira(idUsuarioNum);
-
+        const carteira = await getOrCreateCarteira(idUsuarioAutenticado);
         if (!carteira) {
             return res.json({
                 success: false,
