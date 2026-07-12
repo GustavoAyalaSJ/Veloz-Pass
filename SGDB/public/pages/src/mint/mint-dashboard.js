@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnReplay = document.getElementById("mint-replay-btn");
     const btnOpenPoliticasHeader = document.getElementById('btnOpenPoliticasHeader');
     const btnOpenPoliticasMobile = document.querySelectorAll('.btnOpenPoliticas');
+    const nomeUsuario = document.getElementById('nome-logado')?.innerText || 'usuário';
+
+    mint.text = mint.text.replace('{nome}', nomeUsuario);
 
     if (!btnReplay) return;
 
@@ -21,13 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     btnReplay.addEventListener('click', () => {
         const steps = [
             {
-                texto: "Olá, seja bem-vindo ao Veloz Pass.",
+                texto: "Olá <span id=\"nome-logado\">{nome}</span>, seja bem-vindo ao Veloz Pass.",
                 sprite: "greeting",
                 spriteForMobile: "greeting",
                 skippable: false
             },
             {
-                texto: "Eu me chamo MINT, seu assistente com objetivo de introduzir sobre interface de cada página, caso não esteja familiarizado.",
+                texto: "Eu sou MINT, seu assistente com objetivo de introduzir sobre interface de cada página, caso não esteja familiarizado.",
                 sprite: "introduction",
                 spriteForMobile: "introduction",
                 skippable: false
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 skippable: false
             },
             {
-                texto: "Nesta parte, temos a Carteira Digital, onde você usará como opção de recarga em caso de emergência.",
+                texto: "Nesta parte é a página <b>Carteira Digital</b>, onde você usará como opção de recarga em caso de emergência.",
                 sprite: "pointing-down",
                 spriteForMobile: "pointing-up",
                 target: ".card-carteira",
@@ -60,14 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 skippable: false
             },
             {
-                texto: "A página Recarga é onde será realizada as recargas do seu cartão de transporte.",
+                texto: "A página <b>Recarga</b> é onde será realizada as recargas do seu cartão de transporte.",
                 sprite: "pointing-down",
                 spriteForMobile: "pointing-up",
                 target: ".card-recarga",
                 skippable: false
             },
             {
-                texto: "O histórico é onde quaisquer transação realizada na Carteira Digital ou na Recarga será registrada.",
+                texto: "O <b>histórico</b> é onde quaisquer transação realizada na Carteira Digital ou na Recarga será registrada.",
                 sprite: "pointing-down",
                 spriteForMobile: "pointing-down",
                 target: ".card-historico",
@@ -88,19 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 skippable: false
             },
             {
-                texto: "A interface é bem simples, então você deve se acostumar com ela.",
-                sprite: "introduction",
-                spriteForMobile: "introduction",
-                skippable: false
-            },
-            {
-                texto: "Apenas um lembrete: caso você for para outra página, procure um botão de interrogação <b>(?)</b> para aprender como a página funciona por mim.",
+                texto: "Lembrete: caso você for para outra página, procure um botão de interrogação <b>(?)</b> para aprender como a página funciona por mim.",
                 sprite: "warning",
                 spriteForMobile: "warning",
                 skippable: false
             },
             {
-                texto: "Aproveite o Veloz Pass, usuário.",
+                texto: "Aproveite o Veloz Passd.",
                 sprite: "happy",
                 spriteForMobile: "happy",
                 skippable: false

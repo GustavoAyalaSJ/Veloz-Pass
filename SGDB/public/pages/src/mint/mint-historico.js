@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             skippable: false
         },
         {
-            texto: "Então, isso é a página histórico, espero ter ajudado a entender como ela funciona.",
+            texto: "Finalizamos a introdução da página Histórico, espero ter ajudado a entender sua funcionalidade.",
             sprite: "greeting",
             spriteForMobile: "happy",
             skippable: false

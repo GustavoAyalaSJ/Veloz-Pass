@@ -453,6 +453,10 @@ span {
     border-bottom: 2px solid #f0f4f8;
 }
 
+.tabela-movimentacoes tbody tr.movimentacao-card {
+    background: transparent;
+}
+
 .tabela-corpo tr {
     transition: transform 0.2s;
 }
@@ -529,34 +533,6 @@ span {
 }
 
 /* Modal */
-.tabela-movimentacoes {
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    width: 100%;
-}
-
-.tabela-movimentacoes tbody tr.movimentacao-card {
-    background: transparent;
-}
-
-.tabela-movimentacoes tbody tr.movimentacao-card td {
-    border: none;
-    box-shadow: 0 6px 18px rgba(55, 84, 119, 0.12);
-    border-radius: 16px;
-    padding: 14px 16px;
-    vertical-align: middle;
-}
-
-.tabela-movimentacoes tbody tr.movimentacao-card td:first-child {
-    border-top-left-radius: 16px;
-    border-bottom-left-radius: 16px;
-}
-
-.tabela-movimentacoes tbody tr.movimentacao-card td:last-child {
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-}
-
 .hidden {
     display: none !important;
 }
@@ -688,7 +664,7 @@ span {
     border: 2px solid #436d4d;
 }
 
-.btn-cancelar{
+.btn-cancelar {
     background: #703030;
     color: white;
     border: none;
@@ -1336,7 +1312,7 @@ td.table-bold {
 
     .btn-proximo,
     .btn-finalizar,
-    .btn-cancelar{
+    .btn-cancelar {
         width: 100%;
     }
 
@@ -1511,7 +1487,7 @@ td.table-bold {
 
     .btn-proximo,
     .btn-finalizar,
-    .btn-cancelar{
+    .btn-cancelar {
         width: 100%;
     }
 

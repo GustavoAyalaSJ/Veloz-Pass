@@ -92,9 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
             skippable: false
         },
         {
-            texto: "Então, isso é a página Carteira Digital, espero que tenha ajudado.",
+            texto: "Finalizamos a introdução da página Carteira Digital, espero que tenha ajudado.",
             sprite: "introduction",
             spriteForMobile: "greeting",
+            skippable: false
+        },
+        {
+            texto: "Para retornar ao dashboard, clique na logotipo.",
+            sprite: "pointing-up",
+            spriteForMobile: "pointing-up",
+            target: ".logotipo",
             skippable: false
         }
     ];

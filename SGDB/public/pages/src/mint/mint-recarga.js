@@ -23,35 +23,48 @@ document.addEventListener('DOMContentLoaded', () => {
             skippable: false
         },
         {
-            texto: "Primeiro, selecione a forma de pagamento nesta seção.",
+            texto: "Primeiro, clique nesta caixa para visualizar as opções de pagamento.",
             sprite: "pointing-up",
             spriteForMobile: "pointing-up",
             target: "#select-pagamento",
             skippable: true
         },
         {
-            texto: "Então, você irá informar um valor neste campo para realizar uma recarga.",
+            texto: "Selecione qualquer método de pagamento disponível para realizar a recarga.",
+            sprite: "pointing-up",
+            spriteForMobile: "pointing-up",
+            target: "#select-pagamento",
+            skippable: true
+        },
+        {
+            texto: "Então ao lado, você irá informar um valor para inserir no seu cartão de transporte neste campo.",
             sprite: "pointing-up",
             spriteForMobile: "pointing-up",
             target: ".top-group.valor input",
             skippable: false
         },
         {
-            texto: "Aqui você terá que colocar o número do cartão de passagem para localizar o cartão no sistema da empresa de ônibus",
+            texto: "Neste campo para confirmar qual cartão está realizando a recarga, escreva o número da via do seu cartão neste dois campos.",
             sprite: "pointing-down",
             spriteForMobile: "pointing-down",
             target: ".confirm-card",
             skippable: false
         },
         {
-            texto: "Por fim, avance e conclua a recarga no final da tela.",
+            texto: "Dependendo do método selecionado, coloque as informações bancárias para prosseguir com a recarga (visto no passo 2).",
+            sprite: "pointing-down",
+            spriteForMobile: "pointing-down",
+            skippable: false
+        },
+        {
+            texto: "Quando estiver tudo concluído, clique neste botão para concluir sua recarga.",
             sprite: "pointing-down",
             spriteForMobile: "pointing-down",
             target: ".btn-prosseguir",
             skippable: false
         },
         {
-            texto: "Então, isso é a página Recarga, espero que tenha ajudado.",
+            texto: "Finalizamos a introdução da página Recarga, espero que tenha ajudado.",
             sprite: "greeting",
             spriteForMobile: "greeting",
             skippable: false

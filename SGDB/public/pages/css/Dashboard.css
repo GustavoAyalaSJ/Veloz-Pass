@@ -296,6 +296,7 @@ span {
     flex-direction: column;
     width: 100%;
     align-self: flex-start;
+    margin-top: -15px;
     margin-bottom: 25px;
     gap: 6px;
 }
