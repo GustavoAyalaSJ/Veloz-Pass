@@ -492,7 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const info = processarLinhaMovimentacao(mov);
 
             const linha = document.createElement('tr');
-            linha.className = info.classeCss;
+            linha.className = `movimentacao-card ${info.classeCss}`;
 
             linha.innerHTML = `
             <td>${info.protocolo}</td>

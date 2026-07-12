@@ -11,6 +11,30 @@ const METODOS_PERMITIDOS = [
     'CARTEIRA_DIGITAL'
 ];
 
+function determinarSituacaoCredito(valorRaw) {
+    const valorNum = Number(valorRaw);
+
+    if (!Number.isFinite(valorNum) || valorNum <= 0) {
+        return 'Recusada';
+    }
+
+    if (valorNum < 5) {
+        return 'Recusada';
+    }
+
+    if (valorNum < 352) {
+        return 'Concluído';
+    }
+
+    if (valorNum < 652) {
+        return 'Em_Revisão';
+    }
+
+    return 'Recusada';
+}
+
+exports.determinarSituacaoCredito = determinarSituacaoCredito;
+
 exports.getWalletData = async (req, res) => {
     const idUsuario = req.params.idUsuario;
     const idUsuarioAutenticado = req.userId;
@@ -184,48 +208,71 @@ exports.processCredit = async (req, res) => {
         const protocol = 'VP' + Date.now();
         console.info('[paymentController] processamento de crédito iniciado');
 
+        const situacao = determinarSituacaoCredito(valorNum);
 
-        const { data: rpcResult, error: rpcError } = await supabase.rpc('rpc_adicionar_credito', {
-            p_id_usuario: idUsuario,
-            p_valor: valorNum,
-            p_metodo_pagamento: metodoParaOBanco,
-            p_tipo_movimentacao: 'Carteira_Digital',
-            p_id_bandeira: idBandeira || null,
-            p_n_protocolo: protocol
-        });
+        let { data: carteira, error: erroCarteira } = await supabase
+            .from('carteira')
+            .select('id_carteira, saldo_atual')
+            .eq('id_user', idUsuario)
+            .single();
 
-        if (rpcError) {
-            console.error('[paymentController] erro no RPC de crédito');
-            return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'internal' });
+        if (erroCarteira || !carteira) {
+            const { data: novaCarteira, error: createError } = await supabase
+                .from('carteira')
+                .insert([{ id_user: idUsuario, saldo_atual: 0 }])
+                .select()
+                .single();
+
+            if (createError || !novaCarteira) {
+                return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'account' });
+            }
+
+            carteira = novaCarteira;
         }
-        if (!rpcResult) {
-            return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'internal' });
-        }
-        if (!rpcResult.success) {
-            console.warn('[paymentController] crédito recusado pelo sistema');
 
-            return res.status(422).json({
-                success: false,
-                error: 'Não foi possível concluir a operação no momento.',
-                situacao: rpcResult.situacao,
-                protocolo: rpcResult.protocolo,
-                detalhe: {
-                    erro: null,
-                    mensagem: null
-                }
+        const saldoAtual = Number(carteira.saldo_atual || 0);
+        const novoSaldo = situacao === 'Concluído' ? saldoAtual + valorNum : saldoAtual;
+
+        const { error: insertError } = await supabase
+            .from('movimentacao')
+            .insert({
+                id_carteira: carteira.id_carteira,
+                id_bandeira: idBandeira ? parseInt(idBandeira, 10) : null,
+                n_protocolo: protocol,
+                tipo_movimentacao: 'Carteira_Digital',
+                valor: Number(valorNum.toFixed(2)),
+                situacao,
+                metodo_pagamento: metodoParaOBanco
             });
+
+        if (insertError) {
+            console.error('[paymentController] falha ao registrar movimentação de crédito');
+            return res.status(502).json({ success: false, error: 'Erro ao registrar crédito.', errorType: 'internal' });
         }
 
-        if (rpcResult.situacao === 'Concluído' || rpcResult.situacao === 'Recusada') {
-            await notificationsController.registrarNotificacaoAgora(idUsuario, rpcResult.protocolo, rpcResult.situacao);
+        if (situacao === 'Concluído') {
+            const { error: updateError } = await supabase
+                .from('carteira')
+                .update({ saldo_atual: Number(novoSaldo.toFixed(2)) })
+                .eq('id_carteira', carteira.id_carteira);
+
+            if (updateError) {
+                console.error('[paymentController] falha ao atualizar saldo da carteira');
+                return res.status(502).json({ success: false, error: 'Erro ao atualizar saldo.', errorType: 'internal' });
+            }
+        }
+
+        if (situacao === 'Concluído' || situacao === 'Recusada') {
+            await notificationsController.registrarNotificacaoAgora(idUsuario, protocol, situacao);
         }
 
         res.status(200).json({
             success: true,
-            situacao: rpcResult.situacao,
-            protocolo: rpcResult.protocolo,
+            situacao,
+            protocolo: protocol,
             valor: valorNum,
-            message: rpcResult.mensagem || "Processamento iniciado."
+            saldo: Number(novoSaldo.toFixed(2)),
+            message: situacao === 'Concluído' ? 'Crédito adicionado com sucesso.' : 'Processamento iniciado.'
         });
 
     } catch (err) {
