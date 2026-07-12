@@ -11,6 +11,28 @@ const METODOS_PERMITIDOS = [
     'CARTEIRA_DIGITAL'
 ];
 
+function determinarSituacaoCredito(valorRaw) {
+    const valorNum = Number(valorRaw);
+
+    if (!Number.isFinite(valorNum) || valorNum <= 0) {
+        return 'Recusada';
+    }
+
+    if (valorNum < 5) {
+        return 'Recusada';
+    }
+
+    if (valorNum < 352) {
+        return 'Concluído';
+    }
+
+    if (valorNum < 652) {
+        return 'Em_Revisão';
+    }
+
+    return 'Recusada';
+}
+
 exports.determinarSituacaoCredito = determinarSituacaoCredito;
 
 exports.getWalletData = async (req, res) => {
