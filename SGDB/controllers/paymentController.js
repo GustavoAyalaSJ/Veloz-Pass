@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const { supabase } = require('../config/supabase');
 
 const notificationsController = require('./notificationsController');
+const { determinarSituacaoCredito } = require('../utils/paymentStatus');
 
 const METODOS_PERMITIDOS = [
     'DEBITO', 'DÉBITO',
@@ -10,28 +11,6 @@ const METODOS_PERMITIDOS = [
     'PIX',
     'CARTEIRA_DIGITAL'
 ];
-
-function determinarSituacaoCredito(valorRaw) {
-    const valorNum = Number(valorRaw);
-
-    if (!Number.isFinite(valorNum) || valorNum <= 0) {
-        return 'Recusada';
-    }
-
-    if (valorNum < 5) {
-        return 'Recusada';
-    }
-
-    if (valorNum < 352) {
-        return 'Concluído';
-    }
-
-    if (valorNum < 652) {
-        return 'Em_Revisão';
-    }
-
-    return 'Recusada';
-}
 
 exports.determinarSituacaoCredito = determinarSituacaoCredito;
 
@@ -102,6 +81,65 @@ exports.getHistoricoGeral = async (req, res) => {
     }
 };
 
+async function aplicarAtualizacaoAutomaticaStatus(movimentacao, idCarteira, idUsuario, protocolo) {
+    if (!movimentacao || !idCarteira || !protocolo) return null;
+
+    const statusAtual = String(movimentacao.situacao || '').trim();
+    if (statusAtual !== 'Em_Revisão') return null;
+
+    const valorNum = Number(movimentacao.valor);
+    const dataRealizada = new Date(movimentacao.data_realizada || Date.now());
+
+    if (!Number.isFinite(valorNum) || !Number.isFinite(dataRealizada.getTime())) return null;
+
+    const idadeMs = Date.now() - dataRealizada.getTime();
+    const atrasoMinutos = idadeMs / (1000 * 60);
+
+    if (atrasoMinutos < 2) return null;
+
+    let novaSituacao = 'Em_Revisão';
+
+    if (valorNum < 5) {
+        novaSituacao = 'Recusada';
+    } else if (valorNum < 352) {
+        novaSituacao = 'Concluído';
+    } else if (valorNum >= 652) {
+        novaSituacao = 'Recusada';
+    }
+
+    if (novaSituacao === 'Em_Revisão') return null;
+
+    const { error: updateError } = await supabase
+        .from('movimentacao')
+        .update({ situacao: novaSituacao })
+        .eq('id_carteira', idCarteira)
+        .eq('n_protocolo', protocolo);
+
+    if (updateError) {
+        console.error('[paymentController] erro ao atualizar situação do movimento', updateError);
+        return null;
+    }
+
+    if (novaSituacao === 'Concluído') {
+        const { data: carteiraAtual, error: erroSaldo } = await supabase
+            .from('carteira')
+            .select('saldo_atual')
+            .eq('id_carteira', idCarteira)
+            .maybeSingle();
+
+        if (!erroSaldo && carteiraAtual) {
+            await supabase
+                .from('carteira')
+                .update({ saldo_atual: Number(carteiraAtual.saldo_atual || 0) + valorNum })
+                .eq('id_carteira', idCarteira);
+        }
+    }
+
+    await notificationsController.registrarNotificacaoAgora(idUsuario, protocolo, novaSituacao);
+
+    return novaSituacao;
+}
+
 exports.checkStatus = async (req, res) => {
     const { protocolo } = req.params;
     const idUsuario = req.userId;
@@ -123,7 +161,7 @@ exports.checkStatus = async (req, res) => {
 
         const { data: movimentacao, error: erroMovimentacao } = await supabase
             .from('movimentacao')
-            .select('situacao, n_protocolo')
+            .select('id_move, id_carteira, situacao, n_protocolo, valor, data_realizada')
             .eq('id_carteira', carteira.id_carteira)
             .eq('n_protocolo', protocolo)
             .maybeSingle();
@@ -137,10 +175,13 @@ exports.checkStatus = async (req, res) => {
             return res.status(404).json({ error: 'Protocolo não encontrado.', errorType: 'internal' });
         }
 
+        const statusAtualizado = await aplicarAtualizacaoAutomaticaStatus(movimentacao, carteira.id_carteira, idUsuario, protocolo);
+        const situacaoFinal = statusAtualizado || movimentacao.situacao;
+
         return res.json({
             success: true,
             protocolo,
-            situacao: movimentacao.situacao ?? null
+            situacao: situacaoFinal ?? null
         });
     } catch (err) {
         console.error('[paymentController] erro inesperado em checkStatus');

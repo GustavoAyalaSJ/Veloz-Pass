@@ -688,8 +688,7 @@ span {
     border: 2px solid #436d4d;
 }
 
-.btn-cancelar,
-.btn-retornar {
+.btn-cancelar{
     background: #703030;
     color: white;
     border: none;
@@ -698,8 +697,7 @@ span {
     cursor: pointer;
 }
 
-.btn-cancelar:hover,
-.btn-retornar:hover {
+.btn-cancelar:hover {
     background: linear-gradient(135deg, #c82333, #e86a33);
     color: white;
     border: 2px solid #703030;
@@ -1338,8 +1336,7 @@ td.table-bold {
 
     .btn-proximo,
     .btn-finalizar,
-    .btn-cancelar,
-    .btn-retornar {
+    .btn-cancelar{
         width: 100%;
     }
 
@@ -1514,8 +1511,7 @@ td.table-bold {
 
     .btn-proximo,
     .btn-finalizar,
-    .btn-cancelar,
-    .btn-retornar {
+    .btn-cancelar{
         width: 100%;
     }
 

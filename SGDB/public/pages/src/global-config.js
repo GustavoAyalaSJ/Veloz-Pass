@@ -159,6 +159,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function atualizarHistoricoQuandoStatusMudar(protocolo) {
+        if (!protocolo) return;
+
+        try {
+            const token = typeof auth !== 'undefined' ? auth.getToken() : null;
+            if (!token) return;
+
+            const response = await fetch(`${window.location.origin}/api/payments/wallet-data/${idLogado}`, {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${token}` },
+                credentials: 'include'
+            });
+
+            if (!response.ok) return;
+
+            const data = await response.json();
+            const historico = data.historico || [];
+            const movimento = historico.find(item => String(item.n_protocolo) === String(protocolo));
+
+            if (movimento?.situacao) {
+                const statusNormalizado = String(movimento.situacao).toLowerCase();
+                if (statusNormalizado.includes('concluido') || statusNormalizado.includes('recusada')) {
+                    if (typeof window?.atualizarDadosCarteira === 'function') {
+                        window.atualizarDadosCarteira();
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar histórico após status:', error);
+        }
+    }
+
     function atualizarStatusModal(novoStatus) {
         if (!novoStatus) return;
 
@@ -267,6 +299,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     verificarStatusProcesso(protocolo).then(novoStatus => {
                         if (novoStatus) {
                             atualizarStatusModal(novoStatus);
+                            if (novoStatus !== 'Em_Revisão') {
+                                atualizarHistoricoQuandoStatusMudar(protocolo);
+                            }
                         }
                     });
                 }, 2000);

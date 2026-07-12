@@ -437,20 +437,85 @@ document.addEventListener('DOMContentLoaded', () => {
 
             dadosHistoricoCompleto = data.historico || [];
 
+            const protocolosEmRevisao = (dadosHistoricoCompleto || [])
+                .filter(mov => (mov?.situacao || '').toLowerCase().includes('revis'))
+                .map(mov => mov?.n_protocolo)
+                .filter(Boolean);
+
+            if (protocolosEmRevisao.length > 0) {
+                const protocolosUnicos = [...new Set(protocolosEmRevisao)];
+
+                const limite = 10;
+                const chunks = [];
+                for (let i = 0; i < protocolosUnicos.length; i += limite) {
+                    chunks.push(protocolosUnicos.slice(i, i + limite));
+                }
+
+                for (const chunk of chunks) {
+                    const respostas = await Promise.allSettled(
+                        chunk.map(async (protocolo) => {
+                            try {
+                                const r = await fetch(`${window.location.origin}/api/payments/check-status/${encodeURIComponent(protocolo)}`, {
+                                    method: 'GET',
+                                    headers: { 'Authorization': `Bearer ${token}` },
+                                    credentials: 'include'
+                                });
+
+                                if (!r.ok) return null;
+                                return await r.json();
+                            } catch {
+                                return null;
+                            }
+                        })
+                    );
+
+                    respostas.forEach((res) => {
+                        if (res.status !== 'fulfilled' || !res.value) return;
+                        const { protocolo, situacao } = res.value;
+
+                        if (!protocolo) return;
+
+                        const idx = dadosHistoricoCompleto.findIndex(m => String(m.n_protocolo) === String(protocolo));
+                        if (idx >= 0 && situacao) {
+                            dadosHistoricoCompleto[idx].situacao = situacao;
+                        }
+                    });
+                }
+
+                try {
+                    const walletResp = await fetch(`${window.location.origin}/api/payments/wallet-data/${idLogado}`, {
+                        method: 'GET',
+                        headers: { 'Authorization': `Bearer ${token}` },
+                        credentials: 'include'
+                    });
+                    if (walletResp.ok) {
+                        const walletData = await walletResp.json();
+                        if (saldoDisplay) {
+                            saldoDisplay.innerText = `R$ ${parseFloat(walletData.saldo).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+                        }
+                    }
+                } catch { /* no-op */ }
+            }
+
             const historicoFiltrado = dadosHistoricoCompleto.filter(mov =>
                 normalizarTexto(mov.tipo_movimentacao).includes('carteira_digital')
             );
 
+            dadosHistoricoCompleto = historicoFiltrado;
             renderizarTabela(historicoFiltrado);
 
             if (filtroRealizadoPor) filtroRealizadoPor.onchange = aplicarFiltros;
             if (filtroBandeira) filtroBandeira.onchange = aplicarFiltros;
             if (filtroSituacao) filtroSituacao.onchange = aplicarFiltros;
 
+            aplicarFiltros();
+
         } catch (e) {
             console.error("Erro ao carregar dados:", e);
         }
     }
+
+    window.atualizarDadosCarteira = carregarDadosIniciais;
 
     function mapearClasseStatus(situacaoRaw) {
         const situacao = (situacaoRaw || '').toLowerCase();
