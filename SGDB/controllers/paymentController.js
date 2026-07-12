@@ -215,34 +215,17 @@ exports.processCredit = async (req, res) => {
             .from('carteira')
             .select('id_carteira, saldo_atual')
             .eq('id_user', idUsuarioNum)
-            .maybeSingle();
+            .single();
 
         if (erroCarteira || !carteira) {
             const { data: novaCarteira, error: createError } = await supabase
                 .from('carteira')
                 .insert([{ id_user: idUsuarioNum, saldo_atual: 0 }])
                 .select()
-                .maybeSingle();
+                .single();
 
-            if (createError && createError.code !== '23505') {
-                console.warn('[paymentController] falha ao criar carteira, tentando prosseguir', createError);
-            }
-
-            if (!novaCarteira) {
-                const { data: carteiraRecuperada, error: buscaError } = await supabase
-                    .from('carteira')
-                    .select('id_carteira, saldo_atual')
-                    .eq('id_user', idUsuarioNum)
-                    .maybeSingle();
-
-                if (buscaError || !carteiraRecuperada) {
-                    return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'internal' });
-                }
-
-                carteira = carteiraRecuperada;
-            } else {
-                carteira = novaCarteira;
-            }
+            if (createError) throw createError;
+            carteira = novaCarteira;
         }
 
         const saldoAtual = Number(carteira.saldo_atual || 0);
@@ -370,16 +353,21 @@ exports.processRecargaTransporte = async (req, res) => {
             });
         }
 
-        const { data: carteira } = await supabase
+        let { data: carteira } = await supabase
             .from('carteira')
             .select('id_carteira')
             .eq('id_user', idUsuario)
-            .single();
+            .maybeSingle();
 
-        if (!carteira || !carteira.id_carteira) {
-            return res.status(400).json({ error: 'Carteira do usuário não encontrada.' });
+        if (!carteira) {
+            const { data: novaCarteira } = await supabase
+                .from('carteira')
+                .insert([{ id_user: idUsuario, saldo_atual: 0 }])
+                .select()
+                .single();
+            carteira = novaCarteira;
         }
-
+        
         const idCarteira = carteira.id_carteira;
 
         const { error: insertError } = await supabase
