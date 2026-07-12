@@ -43,6 +43,8 @@ exports.login = async (req, res) => {
 
         return res.json({
             message: 'Login realizado!',
+            token,
+            id: usuario.id_user,
             nome: usuario.nome_usuario,
             cod_identificador: usuario.cod_identificador || null
         });
@@ -134,6 +136,7 @@ exports.cadastro = async (req, res) => {
 
         res.status(201).json({
             message: "Cadastro realizado!",
+            token,
             id: rpcResult.id_usuario,
             nome: nome_usuario,
             cod_identificador
