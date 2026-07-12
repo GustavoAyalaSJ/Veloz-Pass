@@ -165,6 +165,7 @@ exports.processCredit = async (req, res) => {
     const { valor: valorRaw, metodo, numCartao, idBandeira } = req.body;
     const valorNum = parseFloat(valorRaw);
     const idUsuario = req.userId;
+    const idUsuarioNum = Number(idUsuario);
 
     if (isNaN(valorNum) || valorNum <= 0) {
         return res.status(400).json({ error: "Valor inválido." });
@@ -213,21 +214,35 @@ exports.processCredit = async (req, res) => {
         let { data: carteira, error: erroCarteira } = await supabase
             .from('carteira')
             .select('id_carteira, saldo_atual')
-            .eq('id_user', idUsuario)
-            .single();
+            .eq('id_user', idUsuarioNum)
+            .maybeSingle();
 
         if (erroCarteira || !carteira) {
             const { data: novaCarteira, error: createError } = await supabase
                 .from('carteira')
-                .insert([{ id_user: idUsuario, saldo_atual: 0 }])
+                .insert([{ id_user: idUsuarioNum, saldo_atual: 0 }])
                 .select()
-                .single();
+                .maybeSingle();
 
-            if (createError || !novaCarteira) {
-                return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'account' });
+            if (createError && createError.code !== '23505') {
+                console.warn('[paymentController] falha ao criar carteira, tentando prosseguir', createError);
             }
 
-            carteira = novaCarteira;
+            if (!novaCarteira) {
+                const { data: carteiraRecuperada, error: buscaError } = await supabase
+                    .from('carteira')
+                    .select('id_carteira, saldo_atual')
+                    .eq('id_user', idUsuarioNum)
+                    .maybeSingle();
+
+                if (buscaError || !carteiraRecuperada) {
+                    return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'internal' });
+                }
+
+                carteira = carteiraRecuperada;
+            } else {
+                carteira = novaCarteira;
+            }
         }
 
         const saldoAtual = Number(carteira.saldo_atual || 0);
@@ -403,30 +418,40 @@ exports.processRecargaTransporte = async (req, res) => {
 
 function validarCartao(numCartao) {
     if (!numCartao) return false;
+
     const limpo = String(numCartao).replace(/\D/g, '');
-    if (limpo.length < 13 || limpo.length > 16) return false;
+    if (!limpo) return false;
 
-    let soma = 0;
-    let alternar = false;
+    if (limpo.length < 8 || limpo.length > 19) return false;
 
-    for (let i = limpo.length - 1; i >= 0; i--) {
-        let n = parseInt(limpo[i], 10);
+    if (/^([0-9])\1+$/.test(limpo)) return false;
 
-        if (alternar) {
-            n *= 2;
-            if (n > 9) n -= 9;
+    if (limpo.length === 15 || limpo.length === 16 || limpo.length === 19) {
+        let soma = 0;
+        let alternar = false;
+
+        for (let i = limpo.length - 1; i >= 0; i--) {
+            let n = parseInt(limpo[i], 10);
+
+            if (alternar) {
+                n *= 2;
+                if (n > 9) n -= 9;
+            }
+
+            soma += n;
+            alternar = !alternar;
         }
 
-        soma += n;
-        alternar = !alternar;
+        return (soma % 10) === 0;
     }
 
-    return (soma % 10) === 0;
+    return true;
 }
 
 exports.saveCard = async (req, res) => {
     const { n_card } = req.body;
     const idUsuario = req.userId;
+    const idUsuarioNum = Number(idUsuario);
 
     if (!n_card) {
         return res.status(400).json({ error: "Número do cartão é obrigatório." });
@@ -443,7 +468,7 @@ exports.saveCard = async (req, res) => {
 
         const { data, error } = await supabase
             .from('uniquecard')
-            .insert([{ id_user: idUsuario, n_card: cartaoHash }])
+            .insert([{ id_user: idUsuarioNum, n_card: cartaoHash }])
             .select();
 
         if (error) {

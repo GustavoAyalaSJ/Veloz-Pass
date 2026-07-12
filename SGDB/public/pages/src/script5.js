@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         n1.addEventListener('blur', async (e) => {
             const valorAtual = e.target.value.trim();
             if (valorAtual.length >= 15 && valorAtual !== ultimoValorSalvo) {
-                const resultado = await salvarCartaoTransporte(valorAtual);
+                const resultado = await salvarCartaoTransporte(valorAtual.replace(/\D/g, ''));
                 if (resultado) {
                     ultimoValorSalvo = valorAtual;
                     n1.style.borderColor = '#4CAF50';
@@ -534,8 +534,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (valorRaw > 5000) return alert("Valor incábivel para recarga! Tente colocar um valor menor.");
 
-            if (!n1 || n1.length < 15) return alert("Informe o número completo do cartão de transporte.");
-            if (n1 !== n2) return alert("A confirmação do número do cartão de transporte não estão iguais.");
+            const numeroTransporteLimpo = (n1 || '').replace(/\D/g, '');
+            const numeroConfirmacaoLimpo = (n2 || '').replace(/\D/g, '');
+
+            if (!numeroTransporteLimpo || numeroTransporteLimpo.length < 8) return alert("Informe o número completo do cartão de transporte.");
+            if (numeroTransporteLimpo !== numeroConfirmacaoLimpo) return alert("A confirmação do número do cartão de transporte não estão iguais.");
 
             if (['CREDITO', 'DEBITO', 'INTERNACIONAL'].includes(metodo)) {
                 const cardNum = document.getElementById('card-num')?.value.replace(/\s/g, '') || "";
