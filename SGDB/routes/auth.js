@@ -7,8 +7,4 @@ router.post('/login', authController.login);
 
 router.post('/register', authController.cadastro);
 
-router.get('/:userId', verificarToken, authController.obterUsuario);
-
-router.put('/:userId', verificarToken, authController.atualizarPerfil);
-
 module.exports = router;
