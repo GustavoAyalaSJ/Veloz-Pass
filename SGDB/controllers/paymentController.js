@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const { supabase } = require('../config/supabase');
 
 const notificationsController = require('./notificationsController');
-const { determinarSituacaoCredito } = require('../utils/paymentStatus');
 
 const METODOS_PERMITIDOS = [
     'DEBITO', 'DÉBITO',
