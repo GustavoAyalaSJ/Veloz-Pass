@@ -161,6 +161,37 @@ exports.checkStatus = async (req, res) => {
     }
 };
 
+async function getOrCreateCarteira(idUsuarioNum) {
+    const { data: carteira, error: erroCarteira } = await supabase
+        .from('carteira')
+        .select('id_carteira, saldo_atual')
+        .eq('id_user', idUsuarioNum)
+        .maybeSingle();
+
+    if (!erroCarteira && carteira) return carteira;
+
+    const { data: novaCarteira, error: createError } = await supabase
+        .from('carteira')
+        .insert([{ id_user: idUsuarioNum, saldo_atual: 0 }])
+        .select('id_carteira, saldo_atual')
+        .maybeSingle();
+
+    if (novaCarteira) return novaCarteira;
+
+    const { data: carteiraRecuperada, error: buscaError } = await supabase
+        .from('carteira')
+        .select('id_carteira, saldo_atual')
+        .eq('id_user', idUsuarioNum)
+        .maybeSingle();
+
+    if (buscaError || !carteiraRecuperada) {
+        console.error('[paymentController] falha ao getOrCreateCarteira', { idUsuarioNum, erroCarteira, createError, buscaError });
+        return null;
+    }
+
+    return carteiraRecuperada;
+}
+
 exports.processCredit = async (req, res) => {
     const { valor: valorRaw, metodo, numCartao, idBandeira } = req.body;
     const valorNum = parseFloat(valorRaw);
@@ -204,28 +235,15 @@ exports.processCredit = async (req, res) => {
         }
     }
 
-
     try {
         const protocol = 'VP' + Date.now();
         console.info('[paymentController] processamento de crédito iniciado');
 
         const situacao = determinarSituacaoCredito(valorNum);
 
-        let { data: carteira, error: erroCarteira } = await supabase
-            .from('carteira')
-            .select('id_carteira, saldo_atual')
-            .eq('id_user', idUsuarioNum)
-            .single();
-
-        if (erroCarteira || !carteira) {
-            const { data: novaCarteira, error: createError } = await supabase
-                .from('carteira')
-                .insert([{ id_user: idUsuarioNum, saldo_atual: 0 }])
-                .select()
-                .single();
-
-            if (createError) throw createError;
-            carteira = novaCarteira;
+        const carteira = await getOrCreateCarteira(idUsuarioNum);
+        if (!carteira) {
+            return res.status(502).json({ success: false, error: 'Erro interno ao processar crédito.', errorType: 'internal' });
         }
 
         const saldoAtual = Number(carteira.saldo_atual || 0);
@@ -244,7 +262,7 @@ exports.processCredit = async (req, res) => {
             });
 
         if (insertError) {
-            console.error('[paymentController] falha ao registrar movimentação de crédito');
+            console.error('[paymentController] falha ao registrar movimentação de crédito', insertError);
             return res.status(502).json({ success: false, error: 'Erro ao registrar crédito.', errorType: 'internal' });
         }
 
@@ -255,7 +273,7 @@ exports.processCredit = async (req, res) => {
                 .eq('id_carteira', carteira.id_carteira);
 
             if (updateError) {
-                console.error('[paymentController] falha ao atualizar saldo da carteira');
+                console.error('[paymentController] falha ao atualizar saldo da carteira', updateError);
                 return res.status(502).json({ success: false, error: 'Erro ao atualizar saldo.', errorType: 'internal' });
             }
         }
@@ -274,7 +292,7 @@ exports.processCredit = async (req, res) => {
         });
 
     } catch (err) {
-        console.error('[paymentController] erro inesperado em processCredit');
+        console.error('[paymentController] erro inesperado em processCredit', err);
         res.status(500).json({ success: false, error: "Erro ao processar crédito.", errorType: 'internal' });
     }
 };
@@ -363,11 +381,11 @@ exports.processRecargaTransporte = async (req, res) => {
             const { data: novaCarteira } = await supabase
                 .from('carteira')
                 .insert([{ id_user: idUsuario, saldo_atual: 0 }])
-                .select()
+                .select('id_carteira')
                 .single();
             carteira = novaCarteira;
         }
-        
+
         const idCarteira = carteira.id_carteira;
 
         const { error: insertError } = await supabase
