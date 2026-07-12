@@ -11,8 +11,4 @@ router.get('/:userId', verificarToken, authController.obterUsuario);
 
 router.put('/:userId', verificarToken, authController.atualizarPerfil);
 
-router.get('/buscar/email', authController.buscarPorEmail);
-
-router.get('/verificar/email', authController.verificarEmail);
-
 module.exports = router;
