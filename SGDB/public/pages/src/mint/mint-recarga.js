@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             texto: "Para retornar ao dashboard, clique na logotipo do Veloz Pass.",
             sprite: "pointing-up",
-            spriteForMobile: "test",
+            spriteForMobile: "pointing-up",
             target: ".logotipo",
             skippable: false
         }
