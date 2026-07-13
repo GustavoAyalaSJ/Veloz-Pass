@@ -3,11 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenPoliticasHeader = document.getElementById('btnOpenPoliticasHeader');
     const btnOpenPoliticasMobile = document.querySelectorAll('.btnOpenPoliticas');
     const nomeUsuario = document.getElementById('nome-logado')?.innerText || 'usuário';
-    const dashboardMint = window.mint || { text: '' };
-
-    if (typeof dashboardMint.text === 'string') {
-        dashboardMint.text = dashboardMint.text.replace('{nome}', nomeUsuario);
-    }
 
     if (!btnReplay) return;
 
@@ -27,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnReplay.addEventListener('click', () => {
         const steps = [
             {
-                texto: "Olá <span id=\"nome-logado\">{nome}</span>, seja bem-vindo ao Veloz Pass.",
+                texto: "Olá, seja bem-vindo ao Veloz Pass.",
                 sprite: "greeting",
                 spriteForMobile: "greeting",
                 skippable: false
