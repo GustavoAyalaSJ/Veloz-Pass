@@ -3,8 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenPoliticasHeader = document.getElementById('btnOpenPoliticasHeader');
     const btnOpenPoliticasMobile = document.querySelectorAll('.btnOpenPoliticas');
     const nomeUsuario = document.getElementById('nome-logado')?.innerText || 'usuário';
+    const dashboardMint = window.mint || { text: '' };
 
-    mint.text = mint.text.replace('{nome}', nomeUsuario);
+    if (typeof dashboardMint.text === 'string') {
+        dashboardMint.text = dashboardMint.text.replace('{nome}', nomeUsuario);
+    }
 
     if (!btnReplay) return;
 
